@@ -1,0 +1,558 @@
+<template>
+  <view class="sign-second">
+    <form class="sign-second-form" bindsubmit="formSubmit" bindreset="formReset">
+      <formItem1 title="真实姓名">
+        <input class="form-item-input" 
+          bindinput="handleSignNameInput" 
+          bindblur="handleNameInputBlur" 
+          value="{{signName}}" 
+          placeholder="请输入您的真实姓名" 
+          placeholder-style="color: #B2B2B2"
+          slot="form-item-content" />
+      </formItem1>
+      <formItem2 title="护照号">
+        <input class="form-item-input" 
+          bindinput="handleSignPassPortNumberInput" 
+          bindblur="handlePassportInputBlur" 
+          value="{{signPassPortNumber}}" 
+          placeholder="请输入您的护照号" 
+          placeholder-style="color: #B2B2B2"
+          slot="form-item-content" />
+      </formItem2>
+      <formItem3 title="手机号码">
+        <input class="form-item-input" 
+          bindinput="handleSignPhoneInput" 
+          bindblur="handlePhoneInputBlur" 
+          value="{{signPhone}}" 
+          placeholder="请输入您的手机号" 
+          placeholder-style="color: #B2B2B2"
+          slot="form-item-content" />
+      </formItem3>
+      <view class="panel passport-inner-page">
+        <view class="title">护照内页</view>
+        <view class="passport-inner-page-upload-container">
+          <view class="img-container">
+            <image @tap="handleTapDelBtn('passport')" 
+              wx:if="{{passportInnerPageUrl}}" 
+              class="del-btn" 
+              src="../images/del-btn.png"></image>
+            <image class="passport-inner-page-img" 
+              wx:if="{{passportInnerPageUrl}}" 
+              src="{{passportInnerPageUrl}}"></image>
+          </view>
+          <image class="upload-container" 
+            wx:if="{{!passportInnerPageUrl}}"
+            src="../images/qzrxx_img_visa_upload.png" 
+            @tap="handleUpload('passport')"></image>
+        </view>
+      </view>
+      <view class="panel passport-inner-page">
+        <view class="title">上传简历</view>
+        <view class="passport-inner-page-upload-container">
+          <view class="img-container">
+            <image @tap="handleTapDelBtn('jianli')" 
+              wx:if="{{jianliImageUrl}}" 
+              class="del-btn" 
+              src="../images/del-btn.png"></image>
+            <image class="passport-inner-page-img" 
+              wx:if="{{jianliImageUrl}}" 
+              src="{{jianliImageUrl}}"></image>
+          </view>
+          <image class="upload-container" 
+            wx:if="{{!jianliImageUrl}}"
+            src="../images/qzrxx_img_visa_upload.png" 
+            @tap="handleUpload('jianli')"></image>
+          <view class="jianli-tip">请先把简历打印出来后再拍照上传！</view>
+          <view class="check-jianli" @tap="handleCheckJianliTemplate">
+            <image class="icon" src="../images/qzrxx_icon_tip.png"></image>
+            查看模板
+          </view>
+        </view>
+      </view>
+      <view class="panel passport-inner-page">
+        <view class="title">是否在护照上盖章</view>
+        <view class="switch-btn">
+          <switch checked bindchange="stampSwitchChange" color="#387DFF" />
+        </view>
+      </view>
+      <view class="panel passport-inner-page">
+        <view class="title">留言</view>
+        <view class="message-box">
+          <textarea placeholder="若有其他需求请给我们留言" 
+            wx:if="{{showTextarea}}"
+            placeholder-style="color: #B2B2B2"
+            bindinput="handleMessageInput" 
+            value="{{message}}"></textarea>
+        </view>
+      </view>
+    </form>
+    <!-- 底部操作按钮 -->
+    <view class="bottom-bar">
+      <view class="total-count">
+        <text class="total-count-name">金额</text>
+        <view class="total-count-value"><text>￥</text>{{totalFee/100}}元</view>
+      </view>
+      <view class="btn-container">
+        <view class="last-btn" @tap="handleLast">上一步</view>
+        <view class="next-btn" @tap="handleNext">下一步</view>
+      </view>
+    </view>
+    <!-- <modal wx:if="{{showPaySuccessModal}}" :payPrice.sync="{{totalFee}}" @checkOrder.user="handleCheckOrder" /> -->
+    <payment @paySuccess.user="handlePaySuccess" />
+    <picModal wx:if="{{showJianliModal}}" :syncImgUrl.sync="jianliTemplatePath" @close.user="handleClosePic" />
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import FormItem from '../components/formItem'
+  import Payments from '../components/payments'
+  import PicModal from '../components/pictureModal'
+
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class SignSecond extends wepy.page {
+    config = {
+      navigationBarTitleText: '签证人信息'
+    }
+    components = {
+      formItem1: FormItem,
+      formItem2: FormItem,
+      formItem3: FormItem,
+      payment: Payments,
+      picModal: PicModal
+    }
+
+    data = {
+      signFirstData: null,
+      goodId: '',
+      totalFee: '',
+      passportHttpUrl: '',
+      passportInnerPageUrl: '',
+      jianliHttpUrl: '',
+      jianliImageUrl: '',
+      signName: '',
+      signPhone: '',
+      signPassPortNumber: '',
+      isStamp: true,
+      message: '',
+      showPaySuccessModal: false,
+      telReg: /^[1][3,4,5,7,8][0-9]{9}$/,
+      showTextarea: true,
+      showJianliModal: false,
+      jianliTemplatePath: ''
+    }
+
+    computed = {
+      
+    }
+
+    methods = {
+      handleClosePic () {
+        this.showJianliModal = false;
+        this.showTextarea = true;
+      },
+      handleCheckJianliTemplate () {
+        this.showJianliModal = true;
+        this.showTextarea = false;
+      },
+      handleTapDelBtn (flag) {
+        let self = this;
+        wx.showModal({
+          title: '提示',
+          content: '您确认删除该图片吗？',
+          success: function(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              if (flag == 'passport') {
+                self.passportInnerPageUrl = ''
+                self.passportHttpUrl = ''
+              } else if (flag == 'jianli') {
+                self.jianliImageUrl = ''
+                self.jianliHttpUrl = ''
+              }
+              self.$apply();
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        });
+      },
+      formSubmit () {
+        console.log('表单提交');
+      },
+      formReset () {
+        console.log('表单重置');
+      },
+      handleSignNameInput (e) {
+        this.signName = e.detail.value;
+      },
+      handleNameInputBlur () {
+        if (this.signName == '') {
+          wx.showToast({
+            title: '姓名不能为空~',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      handleSignPhoneInput (e) {
+        this.signPhone = e.detail.value;
+      },
+      handlePhoneInputBlur () {
+        let self = this;
+        if (!self.telReg.test(this.signPhone)) {
+          wx.showToast({
+            title: '手机号不合法~',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      handleSignPassPortNumberInput (e) {
+        this.signPassPortNumber = e.detail.value;
+      },
+      handlePassprotInputBlur () {
+        if (this.signPassPortNumber == '') {
+          wx.showToast({
+            title: '护照号不能为空~',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      handleMessageInput (e) {
+        this.message = e.detail.value;
+      },
+      stampSwitchChange (e) {
+        this.isStamp = e.detail.value;
+      },
+      handleCheckOrder () {
+        console.log('查看订单');
+        wx.navigateTo({
+          url: 'orderList'
+        });
+      },
+      handlePaySuccess () {
+        // this.showPaySuccessModal = true;
+        wx.showToast({
+          title: '支付成功',
+          icon: 'success',
+          duration: 2000,
+          success () {
+            wx.navigateTo({
+              url: 'orderList'
+            });
+          }
+        })
+      },
+      handleUpload (flag) {
+        let self = this;
+        wx.chooseImage({
+          count: 1,
+          success (res) {
+            let _tempUrl = res.tempFilePaths;
+            wx.uploadFile({
+              url: api.apiUploadFile,
+              filePath: _tempUrl[0],
+              name: 'file',
+              header: {
+                'content-type': 'multipart/form-data',
+                'userToken': wx.getStorageSync('userToken'),
+                'cookie': wx.getStorageSync('setSession') ? wx.getStorageSync('setSession') : ''
+              },
+              success (res1) {
+                console.log(flag + '图片上传返回：', res1);
+                if (res1.statusCode == 200 && res1.data) {
+                 if (flag == 'passport') {
+                    self.passportInnerPageUrl = _tempUrl[0];
+                    self.passportHttpUrl = JSON.parse(res1.data).data;
+                  } else if (flag == 'jianli') {
+                    self.jianliImageUrl = _tempUrl[0];
+                    self.jianliHttpUrl = JSON.parse(res1.data).data;
+                  } 
+                }
+                self.$apply();
+              },
+              fail (res2) {
+                console.log('上传失败：', res2);
+              }
+            });
+          }
+        });
+      },
+      handleLast () {
+        wx.navigateBack();
+      },
+      handleNext () {
+        console.log('下一步');
+        let self = this;
+        let _data = {
+          linkName: self.signFirstData.contractorName,
+          linkMobile: self.signFirstData.contractorPhone,
+          linkEmail: self.signFirstData.contractorEmail,
+          goodId: Number(self.goodId),
+          name: self.signName,
+          mobile: self.signPhone,
+          passportNo: self.signPassPortNumber,
+          passportPath: self.passportHttpUrl,
+          resumePath: self.jianliHttpUrl,
+          isStamp: self.isStamp ? 1 : 0,
+          remark: self.message,
+          // userId: 8888
+        }
+        let isOk = self.checkIfValid(_data);
+        if (!isOk) {
+          return;
+        }
+        if (!self.telReg.test(_data.mobile)) {
+          wx.showToast({
+            title: '手机号不合法~',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        wx.showModal({
+          title: '提示',
+          content: '您确认提交订单吗？',
+          success: function(res) {
+            if (res.confirm) {
+              util.requestPostApi(api.apiCreateOrder, _data, wx.getStorageSync('userToken')).then((res1) => {
+                if (res1.code == 200) {
+                  console.log('下订单成功：', res1.data);
+                  self.$invoke('payment', 'requestPayParam', {
+                    type: '0',
+                    orderId: res1.data.id, 
+                    price: self.totalFee,
+                  });
+                }
+              });
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    }
+
+    watch = {
+    }
+
+    checkIfValid (obj) {
+      console.log(obj);
+      for (let key in obj) {
+        if (key == 'isStamp' || key == 'remark') {
+          continue;
+        }
+        if (!obj[key]) {
+          wx.showToast({
+            title: '请完整填写签证人信息！',
+            icon: 'none',
+            duration: 2000
+          })
+          return false;
+        }
+      }
+      return true;
+    }
+
+    onLoad(options) {
+      let self = this
+      this.goodId = options.goodId;
+      this.totalFee = Number(options.totalFee);
+      this.signFirstData = wx.getStorageSync('signFirstData');
+      this.requestJianliUrl();
+      this.$apply();
+    }
+    // 请求简历模板
+    requestJianliUrl () {
+      let self = this;
+      util.requestApi(api.apiJianliUrl, {}, wx.getStorageSync('userToken')).then((res1) => {
+        if (res1.code == 200) {
+          // console.log('获取简历成功：', res1.data);
+          self.jianliTemplatePath = res1.data;
+          self.$apply();
+        }
+      });
+    }
+  }
+</script>
+<style lang="less">
+  .sign-second {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    background:  #ededed;
+    position: relative;
+    padding-bottom: 190rpx;
+    .sign-second-form {
+      .panel {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 30rpx;
+        background: #fff;
+        margin-top: 20rpx;
+        position: relative;
+        .title {
+          font-size: 28rpx;
+          color: #000;
+          padding: 30rpx 0;
+        }
+      }
+      .form-item-input {
+        height: 100%;
+        line-height: 98rpx;
+        font-size: 32rpx;
+      }
+      .passport-inner-page-upload-container {
+        width: 100%;
+        min-height: 350rpx;
+        overflow: visible;
+        padding-bottom: 34rpx;
+        position: relative;
+        .img-container {
+          position: relative;
+          float: left;
+          margin-right: 40rpx;
+        }
+        .del-btn {
+          width: 50rpx;
+          height: 50rpx;
+          border-radius: 25rpx;
+          position: absolute;
+          right: -16rpx;
+          top: -16rpx;
+        }
+        .passport-inner-page-img {
+          width: 280rpx;
+          height: 350rpx;
+        }
+        .upload-container {
+          float: left;
+          width: 280rpx;
+          height: 350rpx;
+        }
+        .jianli-tip {
+          position: absolute;
+          left: 300rpx;
+          top: 50%;
+          transform: translate3d(0, -50%, 0);
+          width: 220rpx;
+          line-height: 40rpx;
+          color: #888;
+          font-size: 28rpx;
+          text-align: left;
+          padding: 30rpx;
+          box-sizing: border-box;
+        }
+        .check-jianli {
+          position: absolute;
+          right: 0;
+          top: 50%;
+          font-size: 24rpx;
+          color: #4BACFD;
+          transform: translate3d(0, -50%, 0);
+          .icon {
+            width: 22rpx;
+            height: 22rpx;
+            border-radius: 22rpx;
+            margin-right: 8rpx;
+          }
+        }
+      }
+      .switch-btn {
+        // width: 102rpx;
+        // height: 62rpx;
+        position: absolute;
+        top: 50%;
+        right: 60rpx;
+        transform: translate3d(0, -50%, 0);
+        // .wx-switch-input{width:40px !important;height:20px !important;}
+        // .wx-switch-input::before{width:41px !important;height: 20px !important;}
+        // .wx-switch-input::after{width: 18px !important;height: 18px !important;}//中间小圆球 
+      }
+      .message-box {
+        width: 570rpx;
+        height: 170rpx;
+        margin: -50rpx 30rpx 30rpx 120rpx;
+        padding-bottom: 30rpx;
+        position: relative;
+        textarea {
+          border: 1px solid #ddd;
+          width: 100%;
+          height: 100%;
+          font-size: 26rpx;
+          box-sizing: border-box;
+          padding: 16rpx 20rpx;
+        }
+      }
+    }
+    .bottom-bar {
+      width: 100%;
+      height: 98rpx;
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background: #fff;
+      border-top: 1rpx solid #ddd;
+      .total-count {
+        float: left;
+        width: 44%;
+        height: 100%;
+        line-height: 98rpx;
+        box-sizing: border-box;
+        padding-left: 30rpx;
+        overflow: hidden;
+        .total-count-name {
+          float: left;
+          font-size: 24rpx;
+          color: #B2B2B2;
+          margin-right: 20rpx;
+        }
+        .total-count-value {
+          float: left;
+          font-size: 38rpx;
+          color: red;
+          text {
+            font-size: 24rpx;
+            color: #353535;
+          }
+        }
+      }
+      .btn-container {
+        float: left;
+        width: 56%;
+        height: 100%;
+        line-height: 98rpx;
+        color: #fff;
+        font-size: 34rpx;
+        text-align: center;
+        background: #387DFF;
+        border-radius: 0;
+        overflow: hidden;
+        .last-btn {
+          float: left;
+          width: 50%;
+          height: 100%;
+          line-height: 98rpx;
+          color: #fff;
+          font-size: 34rpx;
+          text-align: center;
+          background: #888;
+        }
+        .next-btn {
+          float: left;
+          width: 50%;
+          height: 100%;
+          line-height: 98rpx;
+          color: #fff;
+          font-size: 34rpx;
+          text-align: center;
+        }
+      }
+    }
+  }
+</style>

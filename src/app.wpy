@@ -1,0 +1,90 @@
+<script>
+import wepy from 'wepy'
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/hello',
+      'pages/index',
+      'pages/my',
+      'pages/orderList',
+      'pages/signSecond',
+      'pages/orderDetail',
+      'pages/signDetail',
+      'pages/signProcess',
+      'pages/commonQuestion',
+      'pages/signFirst',
+      'pages/outPage',
+    ],
+    window: {
+      backgroundTextStyle:"light",
+      navigationBarBackgroundColor: "#fff",
+      navigationBarTitleText: "demo",
+      navigationBarTextStyle:"black"
+    },
+    tabBar: {
+      selectedColor: "#387DFF",
+      list: [
+        {
+          "pagePath": "pages/index",
+          "text": "首页",
+          "iconPath": "images/main_icon_tab_home.png",
+          "selectedIconPath": "images/main_icon_tab_home_click.png"
+        },
+        {
+          "pagePath": "pages/my",
+          "text": "我的",
+          "iconPath": "images/main_icon_tab_mine.png",
+          "selectedIconPath": "images/main_icon_tab_mine_click.png"
+        }
+      ]
+    }
+  }
+
+  globalData = {
+    userInfo: null,
+    userToken: ''
+  }
+
+  constructor () {
+    super()
+    let _this = this;
+    this.use('requestfix')
+    this.use('promisify')
+  }
+
+  onLaunch() {
+  }
+}
+</script>
+
+<style lang="less">
+::-webkit-scrollbar{width:0px;height:0px;}
+.container {
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+}
+.app-view {
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  position: relative;
+}
+.refresh-btn {
+  position: absolute;
+  top: 30rpx;
+  right: 0;
+  z-index: 100;
+  width: 100rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  border-radius: 50rpx 0 0 50rpx;
+  background: #4BACFD;
+  color: #fff;
+  font-size: 28rpx;
+}
+</style>

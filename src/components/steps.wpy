@@ -1,0 +1,129 @@
+<template>
+  <view class="steps">
+    <view class="handle-process">
+      <view class="handle-process-title">办理流程</view>
+      <view class="handle-process-steps">
+        <repeat for="{{steps}}" key="index" index="index" item="item">
+          <view class="handle-process-steps-single" :class="{'active': item.active}">
+            <image wx:if="{{item.active}}" class="icon-ok" src="../images/bljc_icon_select.png"></image>
+            <view class="handle-process-steps-title">
+              <view class="handle-process-steps-number">{{index+1}}</view>
+              <text>{{item.title}}</text>
+            </view>
+            <view class="handle-process-steps-content">{{item.content}}</view>
+            <view class="handle-process-steps-line" wx:if="{{index != steps.length -1}}">
+              <view class="handle-process-steps-line-inner"></view>
+            </view>
+          </view>
+        </repeat>   
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Steps extends wepy.component {
+    props = {
+      steps: {
+        type: Array,
+        default: []
+      }
+    }
+
+    data = {
+    }
+    events = {
+      
+    }
+
+    watch = {
+      
+    }
+
+    methods = {
+      
+    }
+  }
+</script>
+<style lang="less">
+  .steps {
+    .handle-process {
+      background: #fff;
+      width: 100%;
+      margin-top: 20rpx;
+      .handle-process-title {
+        font-size: 32rpx;
+        color: #353535;
+        width: 100%;
+        text-align: center;
+        padding: 30rpx 0;
+      }
+      .handle-process-steps {
+        width: 100%;
+        padding: 0 0 0 70rpx;
+        box-sizing: border-box;
+        .handle-process-steps-single {
+          height: 127rpx;
+          width: 100%;
+          position: relative;
+          .icon-ok {
+            width: 30rpx;
+            height: 21rpx;
+            position: absolute;
+            left: -40rpx;
+            top: 10rpx;
+          }
+          .handle-process-steps-title {
+            overflow: hidden;
+            .handle-process-steps-number {
+              float: left;
+              width: 30rpx;
+              height: 30rpx;
+              margin-top: 5rpx;
+              line-height: 30rpx;
+              border-radius: 30rpx;
+              background: #4BACFD;
+              color: #fff;
+              font-size: 20rpx;
+              text-align: center;
+              margin-right: 20rpx;
+            }
+            text {
+              float: left;
+              font-size: 28rpx;
+              color: #888;
+            }
+          }
+          &.active {
+            .handle-process-steps-title {
+              overflow: hidden;
+              .handle-process-steps-number {
+                background: #E67300;
+              }
+              text {
+                float: left;
+                font-size: 28rpx;
+                color: #E67300;
+              }
+            }
+          }
+          .handle-process-steps-content {
+            font-size: 26rpx;
+            color: #B2B2B2;
+            margin: 10rpx 0 10px 40rpx;
+          }
+          .handle-process-steps-line {
+            position: absolute;
+            left: 14rpx;
+            top: 36rpx;
+            height: 90rpx;
+            width: 0;
+            border-left: 2rpx dashed #387DFF;
+          }
+        }
+      }
+    }
+  }
+</style>
+

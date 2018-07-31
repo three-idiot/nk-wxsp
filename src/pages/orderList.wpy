@@ -1,0 +1,360 @@
+<template>
+  <view class="order-list">
+    <view class="refresh-btn refresh-list" @tap="handleTapRefresh">刷新</view>
+    <view class="tab-bar">
+      <view class="single-tab">全部</view>
+    </view>
+    <view class="lists-container">
+      <view class="tab-bar-zhanwei"></view>
+      <view class="lists-container-inner">
+        <repeat for="{{lists}}" key="index1" index="index1" item="item1">
+          <view class="single-list" bindtap="handleClickSingleOrder" data-item="{{item1}}">
+            <orderInfo :syncDataOrderInfo.sync="item1"></orderInfo>
+            <contractorInfo :syncDataContractorInfo.sync="item1"></contractorInfo>
+            <view class="total-info">
+              <view class="total-info-left">合计  ￥{{(item1.lowVisaPrice + item1.lowHelpPrice)/100}}</view>
+              <view class="total-info-right">
+                <repeat for="{{statusEnum[item1.status].btns}}" key="index2" index="index2" item="item2">
+                  <button wx:if="{{(item1.status != 60) || (item1.status == 60 && item1.renewStatus == 0)}}" @tap.stop="handleTapBtn({{item2.action}}, {{item1}})">
+                    {{item2.name}}
+                    <label wx:if="{{item2.action == 'register'}}"
+                          class="date-label" for="{{'date-picker-'+index1}}" 
+                          @tap="handleTapPickerLabel({{item1}})"></label>
+                    <picker wx:if="{{item2.action == 'register'}}"
+                            mode="date" 
+                            value="{{registerDate}}"
+                            start="{{startDate}}" 
+                            end="{{item1._endData}}" 
+                            bindchange="bindDateChange({{item1}})">
+                      <button class="picker" id="{{'date-picker-'+index1}}">
+                        当前选择: {{date}}
+                      </button>
+                    </picker>
+                  </button>
+                </repeat>
+              </view>
+            </view>
+          </view>
+        </repeat>
+        <view class="no-order" wx:if="{{lists.length == 0}}">您还没有签证订单哦~</view>
+        <view class="lists-container-bottom-kong"></view>
+      </view>
+    </view>
+    <payment @paySuccess.user="handlePaySuccess" />
+    <modal wx:if="{{showPaySuccessModal}}" :payPrice.sync="{{totalFee}}" @checkOrder.user="handleCheckOrder" />
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import OrderInfo from '../components/orderInfo'
+  import ContractorInfo from '../components/contractorInfo'
+  import Payment from '../components/payments'
+  import statusEnum from '../pages/statusEnum';
+  import Modal from '../components/modal'
+
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+  import Action from '../plugins/action'
+
+  const __currentDate = new Date();
+  const __longEndDate = new Date(__currentDate.getTime() + 365*24*3600*1000);
+
+  export default class OrderList extends wepy.page {
+    config = {
+      "navigationBarTitleText": '朝鲜通'
+      // window: {
+      //   enablePullDownRefresh: true
+      // }
+    }
+    components = {
+      orderInfo: OrderInfo,
+      contractorInfo: ContractorInfo,
+      payment: Payment,
+      modal: Modal
+    }
+
+    data = {
+      // status: '',
+      // tabs: [
+      //   { name: '全部', value: '', active: true },
+      //   { name: '待付款', value: 0, active: false },
+      //   { name: '待送签', value: 1, active: false },
+      //   { name: '已送签', value: 2, active: false },
+      //   { name: '已签发', value: 3, active: false },
+      //   { name: '已拒签', value: 4, active: false },
+      //   { name: '待登记', value: 8, active: false },
+      //   { name: '已登记', value: 5, active: false },
+      //   { name: '已过期', value: 6, active: false },
+      //   { name: '已取消', value: 7, active: false }
+      // ],
+      showPaySuccessModal: false,
+      startDate: __currentDate.getFullYear() + '-' + util.buLing(__currentDate.getMonth() + 1) + '-' + util.buLing(__currentDate.getDate()),
+      lists: [],
+      statusEnum: statusEnum,
+      registerDate: '',
+      clickedOrder: null,
+      __longEndDate: __longEndDate.getFullYear() + '-' + util.buLing(__longEndDate.getMonth() + 1) + '-' + util.buLing(__longEndDate.getDate())
+    }
+
+    computed = {
+      totalFee () {
+        return this.clickedOrder ? Number(this.clickedOrder.lowVisaPrice) + Number(this.clickedOrder.lowHelpPrice) : '';
+      }
+    }
+
+    methods = {
+      // handleClickTab (item, index) {
+      //   this.status = item.value;
+      //   this.tabs.map((item1, index1) => {
+      //     item1.active = false;
+      //     if (index1 == index) {
+      //       item1.active = true;
+      //     }
+      //     return item1;
+      //   })
+      //   this.requestGetOrderList(this.status);
+      // }
+      getEndDate(item1) {
+        console.log(item1);
+        return '2018-08-08';
+      },
+      handleTapRefresh () {
+        this.requestGetOrderList();
+      },
+      handleClickSingleOrder (event) {
+        let order = event.currentTarget.dataset.item;
+        console.log('点击的订单是：', order);
+        wx.navigateTo({
+          // url: 'orderDetail?orderId=' + order.id
+          url: 'orderDetail?orderInfo=' + JSON.stringify(order)
+        });
+      },
+      bindDateChange (order, e) {
+        let self = this;
+        console.log('点击的是订单是: ', order, e);
+        this.registerDate = e.detail.value;
+        this.$apply();
+        wx.showModal({
+          title: '提示',
+          content: '您确认在' + e.detail.value + '入境吗？一旦提交不能修改哟',
+          cancelColor: '#B2B2B2',
+          confirmColor: '#387DFF',
+          success: function(res) {
+            if (res.confirm) {
+              // console.log('用户点击确定')
+              util.requestPostApi(api.apiRegister, {
+                orderId: order.id,
+                enterTime: e.detail.value
+              }, wx.getStorageSync('userToken')).then((res1) => {
+                if (res1.code == 200) {
+                  console.log('登记成功：', res1.data);
+                  // 刷新列表
+                  self.requestGetOrderList();
+                  wx.showToast({
+                    title: '登记成功',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+              });
+            } else if (res.cancel) {
+              console.log('用户点击取消');
+            }
+          }
+        });
+      },
+      handleTapBtn (action, item) {
+        let self = this;
+        self.clickedOrder = item;
+        Action(self, action, item, 'list');
+      },
+      handleTapPickerLabel (item) {
+        this.clickedOrder = item;
+      }
+    }
+
+    // onPullDownRefresh () {
+    //   this.requestGetOrderList();
+    //   wx.stopPullDownRefresh();
+    // }
+
+    handleCheckOrder () {
+      wx.navigateTo({
+        url: 'orderList'
+      });
+    }
+
+    handlePaySuccess () {
+      this.showPaySuccessModal = true;
+      // wx.showToast({
+      //   title: '支付成功',
+      //   icon: 'success',
+      //   duration: 2000
+      // });
+      this.requestGetOrderList();
+    }
+
+    requestGetOrderList (status = '') {
+      let self = this;
+      util.requestApi(api.apiGetOrderList, {
+        status: status,
+        size: 10000
+        // userId: 1
+      }, wx.getStorageSync('userToken')).then((res1) => {
+        if (res1.code == 200) {
+          console.log('获取列表成功：', res1.data);
+          self.lists = res1.data;
+          if (self.lists.length) {
+            self.lists.map((single) => {
+              if (single.status == 40) {
+                let _temp = '';
+                if (single.unitDay == 0) {
+                  _temp = self.__longEndDate;
+                } else {
+                  let _aa = new Date(__currentDate.getTime() + Number(single.unitDay)*24*3600*1000);
+                  _temp = _aa.getFullYear() + '-' + util.buLing(_aa.getMonth() + 1) + '-' + util.buLing(_aa.getDate())
+                }
+                single._endData = _temp;
+              }
+              return single;
+            });
+          }
+          self.$apply();
+        }
+      });
+    }
+
+    onLoad() {
+      let self = this
+      this.requestGetOrderList();
+    }
+
+    onShow() {
+      this.requestGetOrderList();
+    }
+  }
+</script>
+<style lang="less">
+  .order-list {
+    width: 100vw;
+    height: 100vh;
+    background: #ededed;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    .refresh-list {
+      position: fixed;
+      top: 30rpx;
+      right: 0;
+    }
+    .tab-bar-zhanwei {
+      width: 100%;
+      height: 98rpx;
+      background: #fff;
+    }
+    .tab-bar {
+      width: 100%;
+      height: 98rpx;
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 0 38rpx;
+      background: #fff;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 99;
+      .single-tab {
+        width: 80rpx;
+        height: 100%;
+        line-height: 98rpx;
+        text-align: center;
+        color: #387DFF;
+        font-size: 28rpx;
+        flex: 1;
+        &.active {
+          box-sizing: border-box;
+          padding-bottom: 6rpx;
+          color: #387DFF;
+          border-bottom: 6rpx solid #387DFF;
+        }
+      }
+    }
+    .lists-container {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+      // padding-bottom: 98rpx;
+      // position: absolute;
+      // top: 98rpx;
+      // left: 0;
+      .lists-container-inner {
+        width: 100%;
+        min-height: 100vh;
+      }
+      // padding: 0 20rpx;
+      .no-order {
+        width: 100%;
+        text-align: center;
+        margin: 100rpx auto 0;
+        font-size: 34rpx;
+        color: #000;
+      }
+      .single-list {
+        width: 100%;
+        background: #fff;
+        box-sizing: border-box;
+        padding: 0 30rpx;
+        &:not(:last-child) {
+          margin-bottom: 30rpx;
+        }
+        .total-info {
+          height: 118rpx;
+          overflow: hidden;
+          .total-info-left {
+            float: left;
+            font-size: 28rpx;
+            color: #888;
+            line-height: 118rpx;
+          }
+          .total-info-right {
+            float: right;
+            button {
+              padding: 0 30rpx;
+              height: 62rpx;
+              line-height: 62rpx;
+              margin-top: 28rpx;
+              font-size: 28rpx;
+              color: #387DFF;
+              position: relative;
+              float: left;
+              &:not(:last-child) {
+                margin-right: 10rpx;
+              }
+              .date-label {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 10;
+              }
+            }
+          }
+        }
+      }
+      .lists-container-bottom-kong {
+        width: 100%;
+        height: 10rpx;
+        // background: #fff;
+      }
+    }
+    .picker {
+      visibility: hidden;
+    }
+  }
+</style>

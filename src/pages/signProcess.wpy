@@ -1,0 +1,80 @@
+<template>
+  <view class="sign-process">
+    <!-- 说明 -->
+    <view class="desc">
+      <panel :title="descTitle">
+        <text class="desc-content" slot="panel-content-slot">
+          1. 办理签证需要提供签证人护照内页和简历扫描件；\n2.本签证为电子签证，办理成功后，需要下载并打印出来以备用；\n3.为保证顺利入境，请入境前在“用户中心”的“我的签证”页登记入境时间。
+        </text>
+      </panel>
+    </view>
+    <!-- 办理流程 -->
+    <steps :steps.sync="steps"></steps>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Panel from '../components/panel'
+  import Steps from '../components/steps'
+
+  export default class SignProcess extends wepy.page {
+    config = {
+      navigationBarTitleText: '办理进展'
+    }
+    components = {
+      panel: Panel,
+      steps: Steps
+    }
+
+    data = {
+      descTitle: '办理说明',
+      steps: [
+        { title: '选择签证类型', content: '不同的签证费用不一样', active: true },
+        { title: '填写身份信息', content: '填写个人身份信息，上传护照和简历', active: true },
+        { title: '下单并付款', content: '提交订单，并支付签证费', active: false },
+        { title: '送签', content: '审核资料后送达大使馆', active: false },
+        { title: '出签或拒签', content: '等待签证结果', active: false },
+        { title: '通知签证人', content: '小程序或短信端通知签证人', active: false }
+      ]
+    }
+
+    computed = {
+      
+    }
+
+    methods = {
+      
+    }
+
+    onLoad(option) {
+      let self = this
+      let status = option.status;
+      if (status == 20) {
+        self.steps[2].active = true;
+        self.$apply();
+      } else if (status == 30) {
+        self.steps[2].active = true;
+        self.steps[3].active = true;
+        self.$apply();
+      }
+    }
+  }
+</script>
+<style lang="less">
+  .sign-process {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    .desc {
+      .desc-content {
+        display: block;
+        font-size: 28rpx;
+        color: #888;
+        box-sizing: border-box;
+        padding: 0 30rpx;
+        line-height: 50rpx;
+      }
+    }
+  }
+</style>

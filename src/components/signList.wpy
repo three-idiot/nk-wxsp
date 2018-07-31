@@ -1,0 +1,139 @@
+<template>
+  <view class="sign-list">
+    <repeat for="{{syncLists}}" item="item" key="index" index="index">
+      <view class="single-sign" @tap="handleClickSingleSign({{item}}, {{index}})">
+        <view class="sign-detail">
+          <view class="sign-title">{{item.title}}</view>
+          <view class="star-container">
+            <repeat for="{{stars}}">
+              <image class="icon-star" src="../../images/main_img_Star.png"></image>
+            </repeat>
+          </view>
+          <view class="clock-and-time">
+            <view class="sign-limit">
+              <image class="icon-clock" src="../images/main_icon_yxq.png"></image>
+              <text>有效期：{{item.unitDay == 0 ? '长期有效' : item.unitDay + '天'}}</text>
+            </view>
+            <view class="sign-time">
+              <image class="icon-time" src="../images/main_icon_blsj.png"></image>
+              <text>办理时间：{{item.disposeDay}}个工作日</text>
+            </view>
+          </view>
+        </view>
+        <view class="sign-price">
+          <view class="sale-price">
+            ￥<text class="sale-price-text">{{item.lowVisaPrice/100}}元</text>
+          </view>
+          <view class="origin-price">￥{{item.visaPrice/100}}元</view>
+        </view>
+      </view>
+    </repeat>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class SignList extends wepy.component {
+    props = {
+      syncLists: {
+        type: Array,
+        default: []
+      },
+      imgUrl : {
+        type: String,
+        default: ''
+      }
+    }
+
+    data = {
+      stars: [1,2,3,4,5]
+    }
+
+    // watch = {
+    //   imgUrl (newVal, oldVal) {
+    //     console.log('newVal', newVal);
+    //   }
+    // }
+
+    methods = {
+      handleClickSingleSign (item, index) {
+        let self = this;
+        wx.navigateTo({
+          url: 'signDetail?id=' + item.id + '&imgUrl=' + encodeURIComponent(self.imgUrl)
+        });
+      }
+    }
+
+    // onLoad() {
+    //   console.log(this.imgUrl);
+    // }
+  }
+</script>
+<style lang="less">
+  .sign-list {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 30rpx;
+  }
+  .single-sign {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 19rpx 0;
+    border-bottom: 1rpx solid #ddd;
+  }
+  .sign-detail {
+    width: 80%;
+  }
+  .sign-title {
+    font-size: 32rpx;
+    color: #353535;
+    font-family: 'PingFangSC-Medium';
+  }
+  .clock-and-time {
+    overflow: hidden;
+  }
+  .clock-and-time text {
+    font-size: 26rpx;
+    color: #888;
+  }
+  .sign-limit {
+    display: inline-block;
+    margin-right: 20rpx;
+  }
+  .sign-time {
+    display: inline-block;
+  }
+  .icon-star {
+    width: 20rpx;
+    height: 20rpx;
+    margin-right: 9rpx;
+  }
+  .icon-clock {
+    width: 20rpx;
+    height: 20rpx;
+    margin-right: 6rpx;
+  }
+  .icon-time {
+    width: 18rpx;
+    height: 20rpx;
+    margin-right: 6rpx;
+  }
+  .sign-price {
+    text-align: right;
+  }
+  .sale-price {
+    color: #353535;
+    font-size: 24rpx;
+  }
+  .sale-price-text {
+    color: #f00;
+    font-size: 32rpx;
+  }
+  .origin-price {
+    color: #B2B2B2;
+    font-size: 22rpx;
+    text-decoration: line-through;
+    line-height: 50rpx;
+  }
+</style>

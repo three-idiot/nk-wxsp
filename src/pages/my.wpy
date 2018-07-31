@@ -1,0 +1,218 @@
+<template>
+  <view class="my-container">
+    <view class="role-info">
+      <view class="role-bg">
+        <image class="bg-img" src="../images/wode_bg.png"></image>
+        <view class="role-avater">
+          <image src="{{avater}}"></image>
+        </view>
+      </view>
+      <view class="role-detail">
+        <view class="role-name">{{nickName}}</view>
+        <!-- <view class="role-phone">136******76</view> -->
+      </view>
+    </view>
+    <view class="my-menus">
+      <view class="single-menu" @tap="handleClickMySign">
+        <view class="menu-left">
+          <image src="../images/wode_icon_wdqz.png"></image>
+          <text>我的签证</text>
+        </view>
+        <view class="menu-right">
+          <image src="../images/icon_arrow_more.png"></image>
+        </view>
+      </view>
+      <view class="single-menu" @tap="handleClickCommonQuestion">
+        <view class="menu-left">
+          <image src="../images/wode_icon_cjwt.png"></image>
+          <text>常见问题</text>
+        </view>
+        <view class="menu-right">
+          <image src="../images/icon_arrow_more.png"></image>
+        </view>
+      </view>
+      <view class="single-menu" @tap="handleClickContract">
+        <view class="menu-left">
+          <image src="../images/wode_icon_lxwm.png"></image>
+          <text>联系我们</text>
+        </view>
+        <view class="menu-right">
+          <image src="../images/icon_arrow_more.png"></image>
+        </view>
+      </view>
+    </view>
+    <button class="back-home-btn" @tap="handleClickGoToIndex">返回首页</button>
+    <view class="version">版本号  V1.0.0</view>
+    <contractModal wx:if="{{showContract}}" @closeIt.user="handleCloseContract"></contractModal> 
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  import ContractModal from '../components/contractModal'
+
+  export default class My extends wepy.page {
+    config = {
+      navigationBarTitleText: '朝鲜通'
+    }
+    components = {
+      contractModal: ContractModal
+    }
+
+    data = {
+      avater: '',
+      nickName: '',
+      showContract: false
+    }
+
+    computed = {
+      
+    }
+
+    methods = {
+      handleClickMySign () {
+        wx.navigateTo({
+          url: 'orderList'
+        });
+      },
+      handleClickGoToIndex () {
+        wx.switchTab({
+          url: 'index'
+        });
+      },
+      handleClickCommonQuestion () {
+        wx.navigateTo({
+          url: 'commonQuestion'
+        });
+      },
+      handleClickContract () {
+        this.showContract = true;
+      },
+      handleCloseContract () {
+        this.showContract = false;
+      }
+    }
+
+    onLoad() {
+      let self = this
+      let userInfo = wx.getStorageSync('userInfo');
+      this.nickName = userInfo.nickName;
+      this.avater = userInfo.avatarUrl;
+    }
+  }
+</script>
+<style lang="less">
+  .my-container {
+    width: 100vw;
+    height: 100vh;
+    background: #ededed;
+    position: relative;
+    overflow: hidden;
+    .role-info {
+      background: #fff;
+      .role-bg {
+        width: 100%;
+        height: 200rpx;
+        position: relative;
+        .bg-img {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+        .role-avater {
+          position: absolute;
+          left: 40rpx;
+          bottom: -47rpx;
+          width: 134rpx;
+          height: 134rpx;
+          border-radius: 134rpx;
+          overflow: hidden;
+          image {
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
+        }
+      }
+      .role-detail {
+        margin: 56rpx 0 0 64rpx;
+        .role-name {
+          font-size: 32rpx;
+          color: #353535;
+          line-height: 45rpx;
+        }
+        .role-phone {
+          font-size: 24rpx;
+          color: #353535;
+          line-height: 45rpx;
+        }
+      }
+    }
+    .my-menus {
+      background: #fff;
+      overflow: hidden;
+      padding-top: 50rpx;
+      width: 100%;
+      .single-menu {
+        width: 720rpx;
+        height: 98rpx;
+        line-height: 98rpx;
+        margin-left: 30rpx;
+        box-sizing: border-box;
+        padding: 0 40rpx 0 0;
+        overflow: hidden;
+        &:not(:last-child) {
+          border-bottom: 1rpx solid #ddd;
+        }
+        .menu-left {
+          float: left;
+          height: 100%;
+          line-height: 98rpx;
+          overflow: hidden;
+          image {
+            width: 30rpx;
+            height: 30rpx;
+            display: inline-block;
+            margin-right: 20rpx;
+          }
+          text {
+            display: inline-block;
+            color: #353535;
+            font-size: 32rpx;
+          }
+        }
+        .menu-right {
+          float: right;
+          height: 100%;
+          line-height: 98rpx;
+          text-align: center;
+          image {
+            display: inline-block;
+            width: 10rpx;
+            height: 20rpx;
+          }
+        }
+      }
+    }
+    .back-home-btn {
+      width: 610rpx;
+      height: 98rpx;
+      line-height: 98rpx;
+      text-align: center;
+      color: #fff;
+      background: #387DFF;
+      margin: 100rpx auto 0;
+      font-size: 34rpx;
+    }
+    .version {
+      width: 100%;
+      height: 98rpx;
+      line-height: 98rpx;
+      text-align: center;
+      color: #B2B2B2;
+      font-size: 28rpx;
+      margin-top: 80rpx;
+    }
+  }
+</style>

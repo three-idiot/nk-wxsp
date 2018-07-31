@@ -1,0 +1,126 @@
+<template>
+  <view class="modal" @touchmove.stop="handleTouchmove">
+    <view class="modal-wrapper">
+      <view class="modal-main">
+        <view class="modal-main-top">
+          <image class="success-icon" src="../images/zfcg_img.png"></image>
+          <image class="close-btn" src="../images/zfcg_img.png"></image>
+          <text class="success-text">支付成功</text>
+          <text class="pay-text">支付金额    {{Number(payPrice)/100}}元</text>
+          <text class="pay-text">支付方式    {{'微信支付'}}</text>
+        </view>
+        <view class="modal-main-bottom" @tap="checkOrder">
+          <view class="modal-main-bottom-btn">
+            <text>查看订单</text>
+            <image class="right-icon" src="../images/icon_arrow_more.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Modal extends wepy.component {
+    props = {
+      payPrice: {
+        type: String
+      }
+    }
+
+    data = {
+
+    }
+    
+    events = {
+      
+    }
+
+    methods = {
+      handleTouchmove (e) {
+        // e.pr
+      },
+      checkOrder () {
+        this.$emit('checkOrder');
+      }
+    }
+  }
+</script>
+<style lang="less">
+  .modal {
+    width: 100vw;
+    height: 375vh;
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    .modal-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      .modal-main {
+        width: 560rpx;
+        position: absolute;
+        left: 95rpx;
+        top: 328rpx;
+        background: #fff;
+        box-sizing: border-box;
+        .modal-main-top {
+          text-align: center;
+          overflow: hidden;
+          border-bottom: 1px solid #ddd;
+          padding-bottom: 30rpx;
+          .success-icon {
+            display: inline-block;
+            width: 200rpx;
+            height: 128rpx;
+            margin-top: 30rpx;
+          }
+          .close-btn {
+            width: 28rpx;
+            height: 28rpx;
+            position: absolute;
+            top: 30rpx;
+            right: 30rpx;
+          }
+          .success-text {
+            display: block;
+            font-size: 36rpx;
+            color: #000;
+            line-height: 50rpx;
+            margin-top: 10rpx;
+          }
+          .pay-text {
+            display: block;
+            font-size: 30rpx;
+            color: #888;
+            line-height: 52rpx;
+          }
+        }
+        .modal-main-bottom {
+          text-align: center;
+          width: 100%;
+          .modal-main-bottom-btn {
+            display: inline-block;
+            height: 100rpx;
+            line-height: 100rpx;
+            text {
+              display: inline-block;
+              font-size: 36rpx;
+              color: #387DFF;
+              height: 100rpx;
+              margin-right: 10rpx;
+            }
+            image {
+              width: 16rpx;
+              height: 30rpx;
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

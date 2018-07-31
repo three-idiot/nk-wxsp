@@ -1,0 +1,332 @@
+<template>
+  <view class="sign-detail">
+    <!-- 头部banner和信息 -->
+    <view class="sign-detail-info">
+      <view class="sign-detail-info-main">
+        <!-- <image src="../images/cxptqz_bg_qzfw.png"></image> -->
+        <image src="{{imgUrl}}"></image>
+        <view class="sign-detail-info-main-inner">
+          <view class="sign-detail-info-title">{{goodInfo.title}}</view>
+          <view class="sign-detail-info-price">￥<text>{{goodInfo.lowHelpPrice/100}}</text></view>
+          <view class="sign-detail-info-time">办理时长 {{goodInfo.disposeDay}}个工作日</view>
+        </view>
+      </view>
+      <view class="sign-detail-info-items">
+        <view class="sign-detail-info-items-left">
+          <view class="sign-detail-info-items-left-single">
+            <text class="title">入境次数</text>
+            <text class="value">{{goodInfo.intoType == 1 ? '多次' : '单次'}}</text>
+          </view>
+          <view class="sign-detail-info-items-left-single">
+            <text class="title">有效期</text>
+            <text class="value">{{goodInfo.unitDay == 0 ? '长期有效' : goodInfo.unitDay+'天'}}</text>
+          </view>
+        </view>
+        <view class="sign-detail-info-items-right">
+          <view class="sign-detail-info-items-left-single">
+            <text class="title">停留时间</text>
+            <text class="value">{{goodInfo.stayDay}}天</text>
+          </view>
+          <view class="sign-detail-info-items-left-single">
+            <text class="title">是否加急</text>
+            <text class="value">{{goodInfo.isUrgent == 1 ? '是' : '否'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 所需材料 -->
+    <view class="file-needs">
+      <view class="file-needs-title">所需材料</view>
+      <view class="file-needs-items">
+        <view class="file-needs-items-single">
+          <image src="../images/cxptqz_icon_ziliao_visa.png"></image>
+          <text>护照内页扫描件</text>
+        </view>
+        <view class="file-needs-items-single">
+          <image src="../images/cxptqz_icon_ziliao_resume.png"></image>
+          <text>个人简历扫描件</text>
+        </view>
+      </view>
+    </view>
+    <!-- 办理流程 -->
+    <steps :steps="steps"></steps>
+    <!-- 底部操作按钮 -->
+    <view class="bottom-bar">
+      <view class="ask-btn" @tap="handleClickPhone">
+        <image class="ask-btn-icon" src="../images/cxptqz_icon_consult.png"></image>
+        <view class="ask-btn-name">咨询</view>
+      </view>
+      <view class="handle-btn" @tap="handleClickSigning">开始办理</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Steps from '../components/steps'
+
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class SignDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '签证办理'
+    }
+    components = {
+      steps: Steps
+    }
+
+    data = {
+      imgUrl: '',
+      phoneNumber: '13621189888',
+      goodInfo: null,
+      goodId: '',
+      steps: [
+        { title: '选择签证类型', content: '不同的签证费用不一样', active: false },
+        { title: '填写身份信息', content: '填写个人身份信息，上传护照和简历', active: false },
+        { title: '下单并付款', content: '提交订单，并支付签证费', active: false },
+        { title: '送签', content: '审核资料后送达大使馆', active: false },
+        { title: '出签或拒签', content: '等待签证结果', active: false },
+        { title: '通知签证人', content: '小程序或短信端通知签证人', active: false }
+      ]
+    }
+
+    computed = {
+      
+    }
+
+    methods = {
+      handleClickSigning () {
+        // console.log('开始办理');
+        let _info = this.goodInfo;
+        let _img = encodeURIComponent(this.imgUrl);
+        wx.navigateTo({
+          url: 'signFirst?signName=' + _info.title 
+          + '&signFee=' + _info.lowVisaPrice + '&serviceFee=' 
+          + _info.lowHelpPrice + '&goodId=' + this.goodId
+          + '&image=' + _img
+        });
+      },
+      handleClickPhone () {
+        wx.makePhoneCall({
+          phoneNumber: this.phoneNumber
+        });
+      }
+    }
+
+    onLoad(option) {
+      let self = this,
+        _id = option.id ? Number(option.id) : '';
+      this.goodId = _id;
+      util.requestApi(api.apiGetGoodById, {
+        goodId: _id
+      }, wx.getStorageSync('userToken')).then((res1) => {
+        if (res1.code == 200) {
+          console.log('商品详情返回：', res1.data);
+          self.goodInfo = res1.data;
+          self.imgUrl = res1.data && res1.data.image && res1.data.image.length ? res1.data.image[0].goodPath : '';
+          self.$apply();
+        }
+      });
+    }
+  }
+</script>
+<style lang="less">
+  .sign-detail {
+    width: 100%;
+    height: auto;
+    background: #dfdfdf;
+    padding-bottom: 278rpx;
+    position: relative;
+    .sign-detail-info {
+      width: 100%;
+      .sign-detail-info-main {
+        width: 100%;
+        height: 420rpx;
+        position: relative;
+        image {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          z-index: 1;
+        }
+        .sign-detail-info-main-inner {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 2;
+          .sign-detail-info-title {
+            font-size: 38rpx;
+            color: #fff;
+            margin-top: 58rpx;
+            width: 100%;
+            text-align: center;
+          }
+          .sign-detail-info-price {
+            font-size: 40rpx;
+            color: #fff;
+            margin-top: 70rpx;
+            width: 100%;
+            text-align: center;
+            text {
+              font-size: 80rpx;
+              line-height: 112rpx;
+            }
+          }
+          .sign-detail-info-time {
+            font-size: 28rpx;
+            color: #fff;
+            margin-top: 49rpx;
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+      .sign-detail-info-items {
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        padding: 30rpx 60rpx;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        .sign-detail-info-items-left {
+          flex: 1;
+          float: left;
+          border-right: 1rpx solid #ddd;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .sign-detail-info-items-right {
+          flex: 1;
+          float: left;
+          .sign-detail-info-items-left-single {
+            margin-left: 60rpx;
+          }
+        }
+        .sign-detail-info-items-left-single {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          height: 90rpx;
+          line-height: 90rpx;
+          &:first-child,
+          &:last-child {
+            height: 30rpx;
+            line-height: 30rpx;
+          }
+          &:nth-child(2) {
+            height: 90rpx;
+            line-height: 90rpx;
+          }
+          .title {
+            flex: 1;
+            color: #888;
+            font-size: 28rpx;
+            text-align: left;
+          }
+          .value {
+            flex: 1;
+            text-align: left;
+            color: #353535;
+            font-size: 28rpx;
+          }
+        }
+      }
+    }
+    .file-needs {
+      width: 100%;
+      margin-top: 17rpx;
+      background: #fff;
+      .file-needs-title {
+        font-size: 32rpx;
+        color: #353535;
+        width: 100%;
+        text-align: center;
+        padding: 30rpx 0;
+      }
+      .file-needs-items {
+        width: auto;
+        margin: 0 auto;
+        padding: 22rpx 0;
+        display: flex;
+        justify-content: space-between;
+        .file-needs-items-single {
+          flex: 1;
+          display: block;
+          width: auto;
+          text-align: center;
+          &:first-child {
+            margin-left: 90rpx;
+          }
+          &:last-child {
+            margin-right: 90rpx;
+          }
+          image {
+            display: inline-block;
+            width: 76rpx;
+            height: 76rpx;
+          }
+          text {
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #888;
+            font-size: 22rpx;
+            margin-top: 20rpx;
+          }
+        }
+      }
+    }
+    
+    .bottom-bar {
+      width: 100%;
+      height: 98rpx;
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      border-radius: 0;
+      border-top: 1rpx solid #ddd;
+      .ask-btn {
+        float: left;
+        width: 30%;
+        height: 100%;
+        text-align: center;
+        border-radius: 0;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .ask-btn-icon {
+          width: 50rpx;
+          height: 50rpx;
+          border-radius: 50rpx;
+        }
+        .ask-btn-name {
+          color: #888;
+          font-size: 24rpx;
+          line-height: 33rpx;
+        }
+      }
+      .handle-btn {
+        width: 70%;
+        float: left;
+        color: #fff;
+        font-size: 34rpx;
+        line-height: 98rpx;
+        height: 100%;
+        text-align: center;
+        background: #387DFF;
+        border-radius: 0;
+      }
+    }
+  }
+</style>

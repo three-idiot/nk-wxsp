@@ -1,0 +1,137 @@
+<template>
+  <view class="bind-phone">
+    <view class="logo-container">
+      <image class="logo" src="../images/logo.png"></image>
+    </view>
+    <view class="bind-phone-title">绑定手机号登录</view>
+    <form class="form-container" bindsubmit="formSubmit" bindreset="formReset">
+      <view class="form-item">
+        <image class="icon" src="../images/bangding_icon_phone.png"></image>
+        <input class="input" placeholder="请输入手机号" /> 
+      </view>
+      <view class="form-item">
+        <image class="icon" src="../images/bangding_icon_verify.png"></image>
+        <input class="input" placeholder="请输入验证码" />
+        <button class="code-btn">发送验证码</button>
+      </view>
+    </form>
+    <view class="bind-btn">绑定</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class BindPhone extends wepy.page {
+    config = {
+      navigationBarTitleText: '朝鲜通'
+    }
+    components = {
+      
+    }
+
+    data = {
+      
+    }
+
+    computed = {
+      
+    }
+
+    methods = {
+      formSubmit () {},
+      formReset () {}
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+      let self = this
+      
+    }
+  }
+</script>
+<style lang="less">
+  .bind-phone {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    .logo-container {
+      width: 330rpx;
+      height: 100rpx;
+      margin: 120rpx auto 0;
+      image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .bind-phone-title {
+      font-size: 32rpx;
+      color: #353535;
+      width: 100%;
+      text-align: center;
+      line-height: 45rpx;
+      margin-top: 70rpx;
+    }
+    .form-container {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 70rpx;
+      margin-top: 64rpx;
+      .form-item {
+        width: 620rpx;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        padding-left: 34rpx;
+        height: 98rpx;
+        line-height: 98rpx;
+        overflow: hidden;
+        &:not(:last-child) {
+          margin-bottom: 20rpx;
+        }
+        .icon {
+          float: left;
+          width: 24rpx;
+          height: 30rpx;
+          margin: 34rpx 24rpx 0 0;
+        }
+        .input {
+          float: left;
+          font-size: 32rpx;
+          height: 100%;
+          line-height: 98rpx;
+        }
+        .code-btn {
+          float: right;
+          width: 153rpx;
+          height: 100%;
+          line-height: 98rpx;
+          text-align: center;
+          line-height: 98rpx;
+          font-size: 22rpx;
+          color: #fff;
+          background: #387DFF;
+          border-radius: 0;
+          padding: 0;
+        }
+      }
+    }
+    .bind-btn {
+      width: 610rpx;
+      height: 98rpx;
+      line-height: 98rpx;
+      text-align: center;
+      line-height: 98rpx;
+      font-size: 34rpx;
+      color: #fff;
+      background: #387DFF;
+      padding: 0;
+      margin: 90rpx auto 0;
+    }
+  }
+</style>

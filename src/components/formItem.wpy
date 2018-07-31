@@ -1,0 +1,57 @@
+<template>
+  <view class="form-item">
+    <text class="form-item-title">{{title}}</text>
+    <slot class="form-item-slot" name="form-item-content"></slot>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class FromItem extends wepy.component {
+    props = {
+      title: {
+        type: String,
+        default: ''
+      }
+    }
+
+    data = {
+    }
+    events = {
+      
+    }
+
+    watch = {
+      
+    }
+
+    methods = {
+      
+    }
+  }
+</script>
+<style lang="less">
+  .form-item {
+    width: 100%;
+    height: 98rpx;
+    line-height: 98rpx;
+    box-sizing: border-box;
+    padding-left: 30rpx;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    background: #fff;
+    .form-item-title {
+      display: block;
+      text-align: left;
+      width: 192rpx;
+      height: 100%;
+      line-height: 98rpx;
+      font-size: 28rpx;
+      color: #000;
+      float: left;
+    }
+    .form-item-slot {
+      float: left;
+    }
+  }
+</style>

@@ -1,0 +1,91 @@
+<template>
+  <view class="common-question">
+    <repeat for="{{questions}}" key="index" index="index" item="item">
+      <view class="single-question">
+        <view class="title">
+          {{item.q}}
+        </view>
+        <view class="content">
+          {{item.a}}
+        </view>
+      </view>
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class commonQuestion extends wepy.page {
+    config = {
+      navigationBarTitleText: '常见问题'
+    }
+    components = {
+      
+    }
+
+    data = {
+      title: '常见问题',
+      questions: [
+        {
+          q: '1、办理朝鲜签证需要提供哪些资料？',
+          a: '办理朝鲜签证需要提供签证人护照内页和简历扫描件。'
+        },
+        {
+          q: '2、签证是纸质的还是电子的？',
+          a: '本签证为电子签证，办理成功后，需要下载并打印出来以备用。'
+        },
+        {
+          q: '3、入境前需要登记入境时间吗？',
+          a: '为保证顺利入境，游客在入境前需要登记入境时间。请在“用户中心”的“我的签证”页进行登记。'
+        },
+        {
+          q: '4、被拒签后签证费会退还吗？',
+          a: '一旦领馆受理了您的签证申请，不论获签与否，签证费均无法退还哦。'
+        }
+      ]
+    }
+
+    computed = {
+      
+    }
+
+    methods = {
+      
+    }
+
+    events = {
+      
+    }
+
+    onLoad() {
+      let self = this
+    }
+  }
+</script>
+<style lang="less">
+  .common-question {
+    width: 100vw;
+    height: 100vh;
+    background: #F2F2F2;
+    .single-question {
+      width: 100%;
+      background: #fff;
+      box-sizing: border-box;
+      padding: 30rpx;
+      &:not(:last-child) {
+        margin-bottom: 20rpx;
+      }
+      .title {
+        color: #353535;
+        font-size: 32rpx;
+        line-height: 54rpx;
+      }
+      .content {
+        color: #888;
+        font-size: 28rpx;
+        line-height: 45rpx;
+      }
+    }
+  }
+</style>

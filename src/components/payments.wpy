@@ -1,0 +1,79 @@
+<style lang="less">
+</style>
+<template>
+  <view class="payment">
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class Payment extends wepy.component {
+    props = {
+    }
+    data = {
+      // orderNumber: ''
+      requestParams: null
+    }
+    // 请求支付参数
+    requestPayParam (obj) {
+      let self = this;
+      if (self.requestParams) {
+        self.requestPay(self.requestParams);
+        return;
+      }
+      wx.showLoading({
+        title: '请稍后...',
+        mask: true
+      })
+      // self.orderNumber = obj.orderNumber;
+      util.requestPostApi(api.apiPayParams, {
+          orderId: obj.orderId,
+          type: obj.type ? obj.type : 0,
+          price: obj.price
+        }, wx.getStorageSync('userToken')).then((res1) => {
+        if (res1.code == 200) {
+          self.requestPay(res1.data);
+          self.requestParams = res1.data;
+        }
+      });
+    }
+    // 支付
+    requestPay (obj) {
+      let self = this;
+      console.log('支付参数：', obj);
+      wx.requestPayment({
+        'timeStamp': obj.timeStamp+'',
+        'nonceStr': obj.nonceStr,
+        'package': 'prepay_id=' + obj.prepayId,
+        'signType': 'MD5',
+        'paySign': obj.paySign,
+        'success':function(res){
+          console.log('支付成功', res);
+          // self.requestAfterPaySuccess();
+          self.$emit('paySuccess');
+        },
+        'fail':function(res){
+          console.log('支付失败', res);
+        }
+      });
+    }
+
+    // requestAfterPaySuccess () {
+    //   let self = this;
+    //   util.requestPostApi(api.apiPayCallback, {
+    //       orderNumber: self.orderNumber
+    //     }, wx.getStorageSync('userToken')).then((res1) => {
+    //     if (res1.code == 200) {
+    //       console.log('请求完成');
+    //     }
+    //   });
+    // }
+
+    onLoad () {
+      // console.log();
+    }
+  }
+</script>

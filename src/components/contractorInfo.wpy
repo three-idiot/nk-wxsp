@@ -1,0 +1,64 @@
+<template>
+  <view class="contractor-info">
+    <view class="contract-info-item">
+      <view class="label">联系人</view>
+      <view class="value">{{syncDataContractorInfo.linkName}}</view>
+    </view>
+    <view class="contract-info-item">
+      <view class="label">手机号</view>
+      <view class="value">{{syncDataContractorInfo.linkMobile}}</view>
+    </view>
+    <view class="contract-info-item">
+      <view class="label">Email</view>
+      <view class="value">{{syncDataContractorInfo.linkEmail}}</view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class ContractorInfo extends wepy.component {
+    props = {
+      syncDataContractorInfo: {
+        type: Object
+      }
+    }
+
+    data = {
+    }
+    events = {
+      
+    }
+
+    watch = {
+      
+    }
+
+    methods = {
+      
+    }
+  }
+</script>
+<style lang="less">
+  .contractor-info {
+    width: 100%;
+    padding: 10rpx;
+    border-bottom: 1rpx solid #dedede;
+    .contract-info-item {
+      overflow: hidden;
+      .label {
+        float: left;
+        font-size: 28rpx;
+        color: #888;
+        line-height: 60rpx;
+        width: 162rpx;
+      }
+      .value {
+        float: left;
+        font-size: 28rpx;
+        color: #888;
+        line-height: 60rpx;
+      }
+    }
+  }
+</style>

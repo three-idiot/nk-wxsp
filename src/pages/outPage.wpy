@@ -1,0 +1,35 @@
+<template>
+  <web-view src="{{src}}"></web-view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class OutPage extends wepy.page {
+    config = {
+      navigationBarTitleText: ''
+    }
+    components = {
+      
+    }
+
+    data = {
+      src: ''
+    }
+
+    computed = {
+      
+    }
+
+    methods = {
+      
+    }
+
+    onLoad(option) {
+      let self = this
+      self.src = option.url;
+    }
+  }
+</script>
+<style lang="less">
+</style>

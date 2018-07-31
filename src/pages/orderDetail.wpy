@@ -1,0 +1,382 @@
+<template>
+  <view class="order-detail">
+    <view class="order-info-container">
+      <orderInfo :entryDate.sync="entryDate" :syncDataOrderInfo.sync="orderInfo"></orderInfo>
+    </view>
+    <view class="contractor-info-container">
+      <contractorInfo :syncDataContractorInfo.sync="orderInfo"></contractorInfo>
+    </view>
+    <view class="signer-info">
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">签证人姓名</view>
+        <view class="signer-info-item-value">{{orderInfo.name}}</view>
+      </view>
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">护照号</view>
+        <view class="signer-info-item-value">{{orderInfo.passportNo}}</view>
+      </view>
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">手机号码</view>
+        <view class="signer-info-item-value">{{orderInfo.mobile}}</view>
+      </view>
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">护照内页</view>
+        <view class="signer-info-item-value">
+          <image @tap="handleTapImg({{orderInfo.passportPath}})" class="img" src="{{orderInfo.passportPath}}"></image>
+        </view>
+      </view>
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">个人简历</view>
+        <view class="signer-info-item-value">
+          <image @tap="handleTapImg({{orderInfo.resumePath}})" class="img" src="{{orderInfo.resumePath}}"></image>
+        </view>
+        <!-- <view class="signer-info-check" @tap="handleCheckResume">查看</view> -->
+      </view>
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">是否盖章</view>
+        <view class="signer-info-item-value">{{orderInfo.isStamp == 1 ? '是' : '否'}}</view>
+      </view>
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">买家留言</view>
+        <view class="signer-info-item-value">{{orderInfo.remark ? orderInfo.remark : '无'}}</view>
+      </view>
+    </view>
+    <view class="signer-info">
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">订单金额</view>
+        <view class="signer-info-item-value">￥<text class="total-price">{{(orderInfo.lowHelpPrice + orderInfo.lowVisaPrice)/100}}</text></view>
+      </view>
+      <view class="signer-info-item">
+        <view class="signer-info-item-label">下单时间</view>
+        <view class="signer-info-item-value">
+          {{create_time}}
+        </view>
+      </view>
+      <view class="signer-info-item" wx:if="{{orderInfo && orderInfo.status!=10}}">
+        <view class="signer-info-item-label">付款时间</view>
+        <view class="signer-info-item-value">{{pay_time}}</view>
+      </view>
+      <view class="signer-info-item" wx:if="{{send_sign_time}}">
+        <view class="signer-info-item-label">送签时间</view>
+        <view class="signer-info-item-value">{{send_sign_time}}</view>
+      </view>
+      <view class="signer-info-item" wx:if="{{sign_time}}">
+        <view class="signer-info-item-label">签发/拒签时间</view>
+        <view class="signer-info-item-value">{{sign_time}}</view>
+      </view>
+      <view class="signer-info-item" wx:if="{{valid_time}}">
+        <view class="signer-info-item-label">签证有效期</view>
+        <view class="signer-info-item-value">{{valid_time}}</view>
+      </view>
+      <view class="signer-info-item" wx:if="{{cancel_time}}">
+        <view class="signer-info-item-label">取消时间</view>
+        <view class="signer-info-item-value">{{cancel_time}}</view>
+      </view>
+    </view>
+    <view class="bottom-bar" wx:if="{{(btns.length && status != 60) || (status == 60 && orderInfo.renewStatus == 0)}}">
+      <repeat for="{{btns}}" key="index" index="index" item="item">
+        <view class="btn" wx:if="{{item.action != 'checkEntryDate'}}" @tap="handleClickBtn({{item.action}})">
+          {{item.name}}
+          <label wx:if="{{item.action == 'register'}}" class="date-label" for="date-picker"></label>
+        </view>
+      </repeat>
+    </view>
+    <picker mode="date" value="{{registerDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+      <button class="picker" id="date-picker">
+        当前选择: {{date}}
+      </button>
+    </picker>
+    <payment @paySuccess.user="handlePaySuccess" />
+    <modal wx:if="{{showPaySuccessModal}}" :payPrice.sync="{{totalFee}}" @checkOrder.user="handleCheckOrder" />
+    <picModal wx:if="{{showPicModal}}" :syncImgUrl.sync="clickedImgPath" @close.user="handleClosePic"></picModal>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import OrderInfo from '../components/orderInfo'
+  import ContractorInfo from '../components/contractorInfo'
+  import Payment from '../components/payments'
+  import Modal from '../components/modal'
+  import PicModal from '../components/pictureModal'
+
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+  import Action from '../plugins/action'
+
+  import statusEnum from './statusEnum'
+
+  const __currentDate = new Date();
+  const __longEndDate = new Date(__currentDate.getTime() + 365*24*3600*1000);
+
+  export default class OrderDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '朝鲜通'
+    }
+    components = {
+      orderInfo: OrderInfo,
+      contractorInfo: ContractorInfo,
+      payment: Payment,
+      modal: Modal,
+      picModal: PicModal
+    }
+
+    data = {
+      orderId: '',
+      orderInfo: null,
+      status: '',
+      statusEnum: statusEnum,
+      registerDate: '',
+      showPaySuccessModal: false,
+      showPicModal: false,
+      clickedImgPath: '',
+      entryDate: '',
+      startDate: __currentDate.getFullYear() + '-' + util.buLing(__currentDate.getMonth() + 1) + '-' + util.buLing(__currentDate.getDate()),
+    }
+
+    computed = {
+      create_time () {
+        return this.orderInfo && this.orderInfo.ctime ? util.formatDate(new Date(this.orderInfo.ctime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''
+      },
+      pay_time () {
+        return this.orderInfo && this.orderInfo.payTime ? util.formatDate(new Date(this.orderInfo.payTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''
+      },
+      send_sign_time () {
+        return this.orderInfo && this.orderInfo.sendTime ? util.formatDate(new Date(this.orderInfo.sendTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''        
+      },
+      sign_time () {
+        return this.orderInfo && this.orderInfo. signTime ? util.formatDate(new Date(this.orderInfo.signTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''                
+      },
+      valid_time () {
+        let _date = '';
+        if (this.orderInfo && this.orderInfo. startTime && this.orderInfo. endTime) {
+          let _start = util.getYYMMDD(this.orderInfo.startTime),
+            _end = util.getYYMMDD(this.orderInfo.endTime);
+          _date = _start + '~' + _end;
+        }
+        return _date;
+      },
+      cancel_time () {
+        return this.orderInfo && this.orderInfo. offTime ? util.formatDate(new Date(this.orderInfo.offTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''                                
+      },
+      totalFee () {
+        return this.orderInfo ? Number(this.orderInfo.lowHelpPrice) + Number(this.orderInfo.lowVisaPrice) : '';
+      },
+      btns () {
+        return this.status ? statusEnum[this.status].btns : []
+      },
+      endDate () {
+        let res = '',
+          temp = __longEndDate;
+        if (this.orderInfo && this.orderInfo.unitDay) {
+          temp = new Date(__currentDate.getTime() + Number(this.orderInfo.unitDay)*24*3600*1000);
+          res = temp.getFullYear() + '-' + util.buLing(temp.getMonth() + 1) + '-' + util.buLing(temp.getDate())
+        }
+        return temp;
+      }
+    }
+
+    methods = {
+      handleTapImg (url) {
+        this.clickedImgPath = url;
+        this.showPicModal = true;
+        this.$apply();
+      },
+      handleClickBtn (action) {
+        console.log(this.orderInfo);
+        Action(this, action, this.orderInfo, 'detail');
+      },
+      bindDateChange (e) {
+        let self = this;
+        this.registerDate = e.detail.value;
+        this.$apply();
+        wx.showModal({
+          title: '提示',
+          content: '您确认在' + e.detail.value + '入境吗？一旦提交不能修改哟',
+          cancelColor: '#B2B2B2',
+          confirmColor: '#387DFF',
+          success: function(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              
+              util.requestPostApi(api.apiRegister, {
+                orderId: self.orderId,
+                enterTime: e.detail.value
+              }, wx.getStorageSync('userToken')).then((res1) => {
+                if (res1.code == 200) {
+                  console.log('登记成功：', res1.data);
+                  wx.showToast({
+                    title: '登记成功',
+                    icon: 'none',
+                    duration: 2000,
+                  })
+                  self.status = 50;
+                  self.$apply();
+                  self.requestOrderById();
+                }
+              });
+            } else if (res.cancel) {
+              console.log('用户点击取消');
+            }
+          }
+        });
+      },
+      // handleCheckResume () {
+      //   this.showPicModal = true;
+      // },
+      handleClosePic () {
+        this.showPicModal = false;
+      }
+    }
+
+    onLoad(option) {
+      let self = this
+      console.log('orderDetail onload: ', option);
+      self.orderInfo = option.orderInfo ? JSON.parse(option.orderInfo) : null;
+      self.orderId = option.orderInfo ? JSON.parse(option.orderInfo).id : '';
+      self.status = self.orderInfo && self.orderInfo.status ? self.orderInfo.status : '';
+      console.log('订单详情：', self.orderInfo);
+      self.$apply();
+      self.requestOrderById();
+    }
+
+    handlePaySuccess () {
+      this.showPaySuccessModal = true;
+      console.log('支付成功');
+    }
+
+    handleCheckOrder () {
+      wx.navigateTo({
+        url: 'orderList'
+      });
+    }
+
+    requestOrderById (status = '') {
+      let self = this;
+      util.requestApi(api.apiGetOrderById, {
+        orderId: self.orderId
+        // orderId: 24
+      }, wx.getStorageSync('userToken')).then((res1) => {
+        if (res1.code == 200) {
+          console.log('获取订单详情成功：', res1.data);
+          self.resumePath = res1.data.resumePath;
+          self.orderInfo = Object.assign({}, self.orderInfo, res1.data, {id: self.orderId});
+          self.orderInfo.status = self.status;
+          self.entryDate = self.orderInfo.enterTime ? util.getYYMMDD(self.orderInfo.enterTime) : '';
+          console.log('订单详情after assign: ', self.orderInfo);
+          self.$apply();
+        }
+      });
+    }
+  }
+</script>
+<style lang="less">
+  .order-detail {
+    width: 100vw;
+    height: auto;
+    background: #ededed;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 142rpx;
+    .order-info-container {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 30rpx;
+      background: #fff;
+      .order-info {
+        border: none;
+      }
+    }
+    .contractor-info-container {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 30rpx;
+      background: #FAFAFA;
+      .contractor-info {
+        border: none;
+      }
+    }
+    .signer-info {
+      width: 100%;
+      height: auto;
+      background: #fff;
+      box-sizing: border-box;
+      margin-top: 20rpx;
+      padding: 0 30rpx;
+      .signer-info-item {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        .signer-info-check {
+          position: absolute;
+          bottom: 30rpx;
+          right: 90rpx;
+          color: #4BACFD;
+          font-size: 28rpx;
+          width: 60rpx;
+          height: 40rpx;
+          border-radius: 4rpx;
+          text-align: center;
+          line-height: 40rpx;
+          border: 1rpx solid #888;
+        }
+        .signer-info-item-label {
+          line-height: 70rpx;
+          float: left;
+          width: 182rpx;
+          text-align: left;
+          color: #888;
+          font-size: 28rpx;
+        }
+        .signer-info-item-value {
+          line-height: 70rpx;
+          float: left;
+          color: #888;
+          font-size: 28rpx;
+          image {
+            width: 280rpx;
+            height: 350rpx;
+          }
+          .total-price {
+            color: red;
+            font-size: 32rpx;
+          }
+        }
+      }
+    }
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 98rpx;
+      width: 100%;
+      display: flex;
+      flex-direction: row-reverse;
+      background: #fff;
+      .btn {
+        flex: 1;
+        max-width: 50%;
+        color: #fff;
+        font-size: 34rpx;
+        text-align: center;
+        line-height: 98rpx;
+        background: #387DFF;
+        position: relative;
+        &:last-child:not(:first-child) {
+          background: #E67300;
+        }
+        .date-label {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 10;
+        }
+      }
+    }
+    .picker {
+      visibility: hidden;
+    }
+  }
+</style>

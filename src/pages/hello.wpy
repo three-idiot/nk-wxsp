@@ -1,0 +1,96 @@
+<template>
+  <view class="hello">
+    <image class="korea-icon" src="../images/logo-icon.png"></image>
+    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">开始使用</button>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class Hello extends wepy.page {
+    config = {
+      navigationBarTitleText: '朝鲜通'
+    }
+
+    onLoad() {
+      let self = this
+      let userToken = wx.getStorageSync('userToken');
+      let userInfo = wx.getStorageSync('userInfo');
+      if (userInfo) {
+        wx.switchTab({
+          url: 'index'
+        });
+        return;
+      }
+      wx.login({
+        success (res) {
+          if (res.code) {
+            util.requestApi(api.apiLogin, {
+              code: res.code
+            }).then((res1) => {
+              // console.log(res1.data);
+              wx.setStorageSync('userToken', res1.data);
+            });
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
+        }
+      });
+
+      wx.getSetting({
+        success: function(res1){
+          if (res1.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+            wx.getUserInfo({
+              withCredentials: true,
+              success: function(res) {
+                console.log('hello 页面 getUserInfo成功：', res)
+              }
+            })
+          }
+        }
+      })
+    }
+
+    bindGetUserInfo (e) {
+      // console.log('bindGetUserInfo: ', e.detail.userInfo)
+      if (e.detail.userInfo) {
+        wx.switchTab({
+          url: 'index'
+        });
+      }
+    }
+  }
+</script>
+<style lang="less">
+  .hello {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .korea-icon {
+      position: absolute;
+      left: 50%;
+      top: 100rpx;
+      width: 330rpx;
+      height: 110rpx;
+      transform: translate3d(-50%, 0, 0);
+    }
+    button {
+      width: 610rpx;
+      height: 98rpx;
+      background: #387DFF;
+      font-size: 34rpx;
+      line-height: 98rpx;
+      text-align: center;
+      color: #fff;
+    }
+  }
+</style>
