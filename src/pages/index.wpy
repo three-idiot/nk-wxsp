@@ -1,45 +1,77 @@
 <template>
-  <view class="container">
+<view class="container">
     <view class="refresh-btn" @tap="handleTapRefresh">刷新</view>
     <banner :syncImgUrl.sync="bannerImgUrl" />
-    <signList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
-  </view>
+    <view class="three-tab">
+        <view>
+            <image src="../images/index/visa.png" />
+            <text>签证</text>
+        </view>
+        <view>
+            <image src="../images/index/travel.png" />
+            <text>旅游</text>
+        </view>
+        <view>
+            <image src="../images/index/business.png" />
+            <text>商务</text>
+        </view>
+    </view>
+    <view class="news-container">
+        <view class="news">
+            <image src="../images/index/news.png" />
+            <view class="txt">
+                <text>1111111111111111111111111111111111111111111111111111111</text>
+                <text>2222222222222222222222222222222222222222222222222222222</text>
+            </view>
+        </view>
+    </view>
+    <view class="three-ad">
+        <image src="../images/index/ad1.png" />
+        <image src="../images/index/ad2.png" />
+        <image src="../images/index/ad3.png" />
+    </view>
+    <view class="list-title">
+        <text class="travel">旅游推荐</text>
+        <text class="more">查看更多></text>
+    </view>
+    <travelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
+</view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import Banner from '../components/banner'
-  import SignList from '../components/signList'
+import wepy from 'wepy'
+import Banner from '../components/banner'
+import travelList from '../components/index/travelList'
 
-  import util from '../plugins/util'
-  import api from '../plugins/api'
+import util from '../plugins/util'
+import api from '../plugins/api'
 
-  export default class Index extends wepy.page {
+export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: '朝鲜通',
+        navigationBarTitleText: '朝鲜通',
     }
     components = {
-      banner: Banner,
-      signList: SignList
+        banner: Banner,
+        travelList: travelList
     }
 
     data = {
-      lists: [],
-      indexData: [],
-      bannerImgUrl: '',
-      userInfo: null,
-      userInfoRes: null
+        lists: [],
+        indexData: [],
+        bannerImgUrl: '',
+        userInfo: null,
+        userInfoRes: null
     }
 
     computed = {
-      
+
     }
 
     methods = {
-      handleTapRefresh () {
-        console.log('刷新');
-        this.requestGetGoods();
-      }
+        handleTapRefresh() {
+            console.log('刷新');
+            this.requestGetGoods();
+        }
     }
 
     // watch = {
@@ -49,99 +81,192 @@
     // }
 
     onLoad() {
-      let self = this;
-      // 获取userInfo
-      wx.getSetting({
-        success: function(res1){
-          if (res1.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-            if (wx.getStorageSync('userInfo')) {
-              return;
+        let self = this;
+        // 获取userInfo
+        wx.getSetting({
+            success: function (res1) {
+                if (res1.authSetting['scope.userInfo']) {
+                    // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+                    if (wx.getStorageSync('userInfo')) {
+                        return;
+                    }
+                    wx.getUserInfo({
+                        withCredentials: true,
+                        success: function (res) {
+                            console.log('index页面获取userInfo成功：', res)
+                            self.$parent.globalData.userInfo = res.userInfo;
+                            self.userInfoRes = res;
+                            wx.setStorageSync('userInfo', res.userInfo);
+                            self.requestSaveUserInfo({
+                                nickName: res.userInfo.nickName,
+                                gender: res.userInfo.gender,
+                                city: res.userInfo.city,
+                                province: res.userInfo.province,
+                                country: res.userInfo.country
+                            });
+                        }
+                    })
+                }
             }
-            wx.getUserInfo({
-              withCredentials: true,
-              success: function(res) {
-                console.log('index页面获取userInfo成功：', res)
-                self.$parent.globalData.userInfo = res.userInfo;
-                self.userInfoRes = res;
-                wx.setStorageSync('userInfo', res.userInfo);
-                self.requestSaveUserInfo({
-                  nickName: res.userInfo.nickName,
-                  gender: res.userInfo.gender,
-                  city: res.userInfo.city,
-                  province: res.userInfo.province,
-                  country: res.userInfo.country
-                });
-              }
-            })
-          }
-        }
-      })
-      // banner接口
-      self.requestGetBanner();
+        })
+        // banner接口
+        self.requestGetBanner();
 
-      // 商品列表接口
-      self.requestGetGoods();
+        // 商品列表接口
+        self.requestGetGoods();
     }
 
-    onShow () {
-      // 商品列表接口
-      this.requestGetGoods();
+    onShow() {
+        // 商品列表接口
+        this.requestGetGoods();
     }
 
-    goAuth () {
-      // console.log('授权');
-      // wx.redirectTo({
-      //   url: 'hello'
-      // });
+    goAuth() {
+        // console.log('授权');
+        // wx.redirectTo({
+        //   url: 'hello'
+        // });
     }
 
-    requestGetBanner () {
-      let self = this;
-      util.requestApi(api.apiBannerList, {}, wx.getStorageSync('userToken')).then((res) => {
-        if (res.data && res.code == 200) {
-          console.log('banner返回：', res.data);
-          self.indexData = res.data;
-          self.bannerImgUrl = res.data[0].imagePath;
-          self.$apply();
-        }
-      }).catch((msg) => {
-        if (msg == 'reAuth') {
-          self.goAuth();
-        }
-      });
+    requestGetBanner() {
+        let self = this;
+        util.requestApi(api.apiBannerList, {}, wx.getStorageSync('userToken')).then((res) => {
+            if (res.data && res.code == 200) {
+                console.log('banner返回：', res.data);
+                self.indexData = res.data;
+                self.bannerImgUrl = res.data[0].imagePath;
+                self.$apply();
+            }
+        }).catch((msg) => {
+            if (msg == 'reAuth') {
+                self.goAuth();
+            }
+        });
     }
 
-    requestGetGoods () {
-      let self = this;
-      util.requestApi(api.apiGoodsList, { size: 10000 }, wx.getStorageSync('userToken')).then((res) => {
-        if (res.data && res.code == 200) {
-          console.log('商品列表返回：', res.data);
-          self.lists = res.data;
-          self.$apply();
-        }
-      }).catch((msg) => {
-        if (msg == 'reAuth') {
-          self.goAuth();
-        }
-      });
+    requestGetGoods() {
+        let self = this;
+        util.requestApi(api.apiGoodsList, {
+            size: 10000
+        }, wx.getStorageSync('userToken')).then((res) => {
+            if (res.data && res.code == 200) {
+                console.log('商品列表返回：', res.data);
+                self.lists = res.data;
+                self.$apply();
+            }
+        }).catch((msg) => {
+            if (msg == 'reAuth') {
+                self.goAuth();
+            }
+        });
     }
 
-    requestSaveUserInfo (obj) {
-      let self = this;
-      util.requestPostApi(api.apiSaveUserInfo, obj, wx.getStorageSync('userToken'), 'POST').then((res) => {
-        if (res.data && res.code == 200) {
-          console.log('保存userInfo返回：', res.data);
-        }
-      }).catch((msg) => {
-        if (msg == 'reAuth') {
-          self.goAuth();
-        }
-      });
+    requestSaveUserInfo(obj) {
+        let self = this;
+        util.requestPostApi(api.apiSaveUserInfo, obj, wx.getStorageSync('userToken'), 'POST').then((res) => {
+            if (res.data && res.code == 200) {
+                console.log('保存userInfo返回：', res.data);
+            }
+        }).catch((msg) => {
+            if (msg == 'reAuth') {
+                self.goAuth();
+            }
+        });
     }
 
-  }
+}
 </script>
-<style lang="less">
-  
+
+<style lang="less" scoped>
+.three-tab {
+    display: flex;
+    width: 100%;
+    height: 200rpx;
+    justify-content: space-around;
+    align-items: center;
+    view {
+        display: inline-block;
+        width: 110rpx;
+        image {
+            width: 110rpx;
+            height: 110rpx;
+        }
+        text {
+            display: inline-block;
+            width: 110rpx;
+            text-align: center;
+            font-family: PingFangSC-Light;
+            font-size: 26rpx;
+            color: #353535;
+            letter-spacing: 0;
+        }
+    }
+}
+
+.news-container {
+    width: 100%;
+    height: 150rpx;
+    background: #f4f4f4;
+    position: relative;
+    .news {
+        position: absolute;
+        top: 20rpx;
+        left: 20rpx;
+        width: 710rpx;
+        height: 110rpx;
+        background: white;
+        padding: 25rpx 15rpx;
+        image {
+            width: 70rpx;
+            height: 60rpx;
+        }
+        .txt {
+            margin-left: 20rpx;
+            display: inline-block;
+            width: 568rpx;
+            height: 74rpx;
+            font-size: 24rpx;
+            color: #666666;
+            text {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+                margin-top: 8rpx;
+            }
+        }
+    }
+}
+
+.three-ad {
+    display: flex;
+    width: 100%;
+    height: 140rpx;
+    justify-content: space-between;
+    image {
+        display: inline-block;
+        width: 32.7%;
+        height: 140rpx;
+    }
+}
+
+.list-title {
+    width: 100%;
+    height: 64rpx;
+    padding: 30rpx 20rpx 0;
+    display: flex;
+    justify-content: space-between;
+    .travel {
+        font-size: 34rpx;
+        color: #387DFF;
+        text-align: center;
+        line-height: 34rpx;
+    }
+    .more {
+        font-size: 26rpx;
+        color: #888888;
+        text-align: center;
+        line-height: 34rpx;
+    }
+}
 </style>

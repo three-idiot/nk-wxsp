@@ -1,0 +1,93 @@
+<template>
+<view class="travel-list">
+    <repeat for="{{syncLists}}" item="item" key="index" index="index">
+        <view class="travel" @tap="handleClickSingleSign({{item}}, {{index}})">
+            <image src="../../images/index/travel-ad.png" />
+            <view class="list-travel">
+                <text class="name">神秘朝鲜冰雪6日之旅</text>
+                <text class="money">￥<text class="red">1000</text><text class="abandon">￥1600</text></text>
+            </view>
+        </view>
+    </repeat>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class TravelList extends wepy.component {
+    props = {
+        syncLists: {
+            type: Array,
+            default: []
+        },
+        imgUrl: {
+            type: String,
+            default: ''
+        }
+    }
+
+    data = {
+        stars: [1, 2, 3, 4, 5]
+    }
+
+    // watch = {
+    //   imgUrl (newVal, oldVal) {
+    //     console.log('newVal', newVal);
+    //   }
+    // }
+
+    methods = {
+        handleClickSingleSign(item, index) {
+            let self = this;
+            wx.navigateTo({
+                url: 'signDetail?id=' + item.id + '&imgUrl=' + encodeURIComponent(self.imgUrl)
+            });
+        }
+    }
+
+    // onLoad() {
+    //   console.log(this.imgUrl);
+    // }
+}
+</script>
+
+<style lang="less" scoped>
+.travel-list {
+    .travel {
+        padding: 30rpx 20rpx 0;
+        image {
+            width: 710rpx;
+            height: 400rpx;
+            border-radius: 10rpx;
+        }
+        .list-travel {
+            width: 100%;
+            padding-top: 6rpx;
+            display: flex;
+            justify-content: space-between;
+            .name {
+                font-size: 31rpx;
+                color: #353535;
+                text-align: center;
+            }
+            .money {
+                font-size: 24rpx;
+                color: #353535;
+                text-align: center;
+                .red {
+                    font-size: 32rpx;
+                    color: red;
+                    text-align: center;
+                    line-height: 33rpx;
+                }
+                .abandon {
+                    font-size: 22rpx;
+                    color: #B2B2B2;
+                    text-decoration: line-through;
+                }
+            }
+        }
+    }
+}
+</style>
