@@ -1,47 +1,23 @@
 <template>
 <view class="container">
-    <!-- <view class="refresh-btn" @tap="handleTapRefresh">刷新</view> -->
-    <banner :syncImgUrl.sync="bannerImgUrl" />
-    <view class="three-tab">
-        <view>
-            <image src="../images/index/visa.png" />
-            <text>签证</text>
-        </view>
-        <view>
-            <image src="../images/index/travel.png" />
-            <text>旅游</text>
-        </view>
-        <view>
-            <image src="../images/index/business.png" />
-            <text>商务</text>
-        </view>
+    <swiper indicator-dots autoplay interval="5000" duration="500">
+        <block wx:for="{{imgUrls}}">
+            <swiper-item>
+                <image src="{{item}}" class="slide-image" />
+            </swiper-item>
+        </block>
+    </swiper>
+    <view>
+        <text class="title">旅游线路</text>
     </view>
-    <view class="news-container">
-        <view class="news">
-            <image src="../images/index/news.png" />
-            <view class="txt">
-                <text>1111111111111111111111111111111111111111111111111111111</text>
-                <text>2222222222222222222222222222222222222222222222222222222</text>
-            </view>
-        </view>
-    </view>
-    <view class="three-ad">
-        <image src="../images/index/ad1.png" />
-        <image src="../images/index/ad2.png" />
-        <image src="../images/index/ad3.png" />
-    </view>
-    <view class="list-title">
-        <text class="travel">旅游推荐</text>
-        <text class="more">查看更多></text>
-    </view>
-    <travelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
+    <smallTravelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
 </view>
 </template>
 
 <script>
 import wepy from 'wepy'
 import Banner from '../components/banner'
-import travelList from '../components/index/travelList'
+import SmallTravelList from '../components/travel/smallTravelList'
 
 import util from '../plugins/util'
 import api from '../plugins/api'
@@ -52,15 +28,16 @@ export default class Index extends wepy.page {
     }
     components = {
         banner: Banner,
-        travelList: travelList
+        smallTravelList: SmallTravelList
     }
 
     data = {
-        lists: [],
-        indexData: [],
-        bannerImgUrl: '',
-        userInfo: null,
-        userInfoRes: null
+        imgUrls: [
+            '../images/index/travel-ad.png',
+            '../images/index/travel-ad.png',
+            '../images/index/travel-ad.png'
+        ],
+        lists:[]
     }
 
     computed = {
@@ -178,95 +155,23 @@ export default class Index extends wepy.page {
 </script>
 
 <style lang="less" scoped>
-.three-tab {
-    display: flex;
-    width: 100%;
-    height: 200rpx;
-    justify-content: space-around;
-    align-items: center;
-    view {
-        display: inline-block;
-        width: 110rpx;
-        image {
-            width: 110rpx;
-            height: 110rpx;
-        }
-        text {
-            display: inline-block;
-            width: 110rpx;
-            text-align: center;
-            font-family: PingFangSC-Light;
-            font-size: 26rpx;
-            color: #353535;
-            letter-spacing: 0;
-        }
-    }
+swiper {
+    width: 750rpx;
+    height: 350rpx;
+    ;
 }
 
-.news-container {
-    width: 100%;
-    height: 150rpx;
-    background: #f4f4f4;
-    position: relative;
-    .news {
-        position: absolute;
-        top: 20rpx;
-        left: 20rpx;
-        width: 710rpx;
-        height: 110rpx;
-        background: white;
-        padding: 25rpx 15rpx;
-        image {
-            width: 70rpx;
-            height: 60rpx;
-        }
-        .txt {
-            margin-left: 20rpx;
-            display: inline-block;
-            width: 568rpx;
-            height: 74rpx;
-            font-size: 24rpx;
-            color: #666666;
-            text {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: block;
-                margin-top: 8rpx;
-            }
-        }
-    }
+.slide-image {
+    width: 750rpx;
+    height: 350rpx;
+    ;
 }
 
-.three-ad {
-    display: flex;
-    width: 100%;
-    height: 140rpx;
-    justify-content: space-between;
-    image {
-        display: inline-block;
-        width: 32.7%;
-        height: 140rpx;
-    }
-}
-
-.list-title {
-    width: 100%;
-    height: 64rpx;
-    padding: 30rpx 20rpx 0;
-    display: flex;
-    justify-content: space-between;
-    .travel {
-        font-size: 34rpx;
-        color: #387DFF;
-        text-align: center;
-        line-height: 34rpx;
-    }
-    .more {
-        font-size: 26rpx;
-        color: #888888;
-        text-align: center;
-        line-height: 34rpx;
-    }
+.title {
+    font-size: 32rpx;
+    color: #353535;
+    text-align: center;
+    padding: 30rpx 0 0 30rpx;
+    display: inline-block;
 }
 </style>

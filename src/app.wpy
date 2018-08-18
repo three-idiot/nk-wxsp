@@ -16,6 +16,8 @@ export default class extends wepy.app {
             'pages/signFirst',
             'pages/outPage',
             'pages/visa',
+            'pages/travel',
+            'pages/travelDetail',
         ],
         window: {
             backgroundTextStyle: "light",
@@ -34,6 +36,12 @@ export default class extends wepy.app {
                 {
                     "pagePath": "pages/visa",
                     "text": "签证",
+                    "iconPath": "images/tab/visa.png",
+                    "selectedIconPath": "images/tab/visa-active.png"
+                },
+                {
+                    "pagePath": "pages/travel",
+                    "text": "旅游",
                     "iconPath": "images/tab/visa.png",
                     "selectedIconPath": "images/tab/visa-active.png"
                 },
