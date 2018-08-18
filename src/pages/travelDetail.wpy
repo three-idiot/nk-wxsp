@@ -1,16 +1,26 @@
 <template>
 <view class="container">
-    <swiper indicator-dots autoplay interval="5000" duration="500">
-        <block wx:for="{{imgUrls}}">
-            <swiper-item>
-                <image src="{{item}}" class="slide-image" />
-            </swiper-item>
-        </block>
-    </swiper>
-    <view>
-        <text class="title">旅游线路</text>
+    <banner :syncImgUrl.sync="bannerImgUrl" />
+    <view class="head">
+        <view class="title-money">
+            <text class="title">朝鲜平壤、开成、板门店、元山、金刚山5日游 7月收客中的点点滴滴多多多多多多多多多多多多多多多多多多多</text>
+            <text class="money">
+                <text class="line">￥<text class="red">10000.00</text></text>
+            <text class="abandon line">￥1600</text>
+            </text>
+        </view>
+        <view class="infos">
+            <text class="go">7月18日丹东出发</text>
+            <text class="num">成团人数 10/<text class="green">5</text></text>
+            <text class="time">倒计时 <text class="red">2天18时18分</text></text>
+        </view>
     </view>
-    <smallTravelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
+
+    <view class="tab">
+        <text class="tab-select">线路特色</text>
+        <text>行程介绍</text>
+        <text>费用须知</text>
+    </view>
 </view>
 </template>
 
@@ -37,7 +47,8 @@ export default class Index extends wepy.page {
             '../images/index/travel-ad.png',
             '../images/index/travel-ad.png'
         ],
-        lists:[]
+        lists: [],
+        bannerImgUrl: '',
     }
 
     computed = {
@@ -155,23 +166,72 @@ export default class Index extends wepy.page {
 </script>
 
 <style lang="less" scoped>
-swiper {
-    width: 750rpx;
-    height: 350rpx;
-    ;
+.head {
+    padding: 30rpx 30rpx 0;
+    .title-money {
+        display: flex;
+        height: 82rpx;
+        .title {
+            width: 518rpx;
+            border-right: 1px solid #ccc;
+            font-size: 29rpx;
+            color: #353535;
+            overflow: hidden;
+            padding-right: 10rpx;
+        }
+        .money {
+            width: 172rpx;
+            font-size: 24rpx;
+            color: #353535;
+            text-align: right;
+            .line {
+                display: block;
+            }
+            .red {
+                font-size: 32rpx;
+                color: red;
+                text-align: center;
+                line-height: 33rpx;
+            }
+            .abandon {
+                font-size: 22rpx;
+                color: #B2B2B2;
+                text-decoration: line-through;
+            }
+        }
+    }
+    .infos {
+        margin-top: 30rpx;
+        margin-bottom: 30rpx;
+        font-size: 24rpx;
+        color: #888888;
+        letter-spacing: 0;
+        display: flex;
+        justify-content: space-between;
+        .green {
+            color: #1A0000;
+        }
+        .red {
+            color: red;
+        }
+    }
 }
 
-.slide-image {
-    width: 750rpx;
-    height: 350rpx;
-    ;
+.tab {
+    margin-top: 70rpx;
+    font-size: 28rpx;
+    color: #888888;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: #ccc solid 1px;
+    text {
+        padding-bottom: 10rpx;
+    }
 }
 
-.title {
-    font-size: 32rpx;
-    color: #353535;
-    text-align: center;
-    padding: 30rpx 0 0 30rpx;
-    display: inline-block;
+.tab-select {
+    color: #387DFF;
+    border-bottom: solid 2px #387DFF;
+        
 }
 </style>
