@@ -1,4 +1,7 @@
 <style lang="less">
+  page {
+    background: #f4f4f4;
+  }
   .travel-orders {
     width: 100%;
     height: auto;
@@ -13,9 +16,48 @@
         color: #387DFF;
         border-bottom: solid 2px #387DFF;
       }
-
     }
   }
+
+  .info-card {
+    margin: 20rpx;
+    padding: 30rpx;
+    background: #fff;
+    .top {
+      text:nth-child(1) {
+        font-size: 26rpx;
+        color: #888888;
+        letter-spacing: 0;
+      }
+      text:nth-child(2) {
+        float: right;
+        font-size: 28rpx;
+        color: #E67300;
+      }
+    }
+    .medium {
+      display: flex;
+      .m-left {
+        width: 502rpx;
+        font-size: 28rpx;
+        color: #353535;
+        text:nth-child(2) {
+          display: block;
+          font-size: 28rpx;
+          color: #888888;
+          margin-top: 35rpx;
+        }
+      }
+      .m-right {
+        flex:1;
+        font-size: 24rpx;
+        color: #888888;
+        text-align: right;
+      }
+    }
+
+  }
+
 </style>
 <template>
   <view class="travel-orders">
@@ -24,6 +66,26 @@
       <text>待付款</text>
       <text>待确认</text>
       <text>待出行</text>
+    </view>
+  </view>
+
+  <view class="info-card">
+    <view class="top">
+      <text>2018-07-08  08:08:08</text>
+      <text>待支付</text>
+    </view>
+    <view class="medium">
+      <view class="m-left">
+        <text>朝鲜平壤、开成、板门店、元山、金刚山、开成、平壤5日游 7月收客中</text>
+        <text>7月18日丹东出发</text>
+      </view>
+      <view class="m-right">
+        <text>￥10000</text>
+      </view>
+    </view>
+    <view class="bottom">
+
+
     </view>
   </view>
 </template>
