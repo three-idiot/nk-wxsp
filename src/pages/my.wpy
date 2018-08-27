@@ -22,6 +22,15 @@
           <image src="../images/icon_arrow_more.png"></image>
         </view>
       </view>
+      <view class="single-menu" @tap="handleClickTravelOrders">
+        <view class="menu-left">
+          <image src="../images/plane.png"></image>
+          <text>我的旅游</text>
+        </view>
+        <view class="menu-right">
+          <image src="../images/icon_arrow_more.png"></image>
+        </view>
+      </view>
       <view class="single-menu" @tap="handleClickCommonQuestion">
         <view class="menu-left">
           <image src="../images/wode_icon_cjwt.png"></image>
@@ -43,7 +52,7 @@
     </view>
     <button class="back-home-btn" @tap="handleClickGoToIndex">返回首页</button>
     <view class="version">版本号  V1.0.0</view>
-    <contractModal wx:if="{{showContract}}" @closeIt.user="handleCloseContract"></contractModal> 
+    <contractModal wx:if="{{showContract}}" @closeIt.user="handleCloseContract"></contractModal>
   </view>
 </template>
 
@@ -67,13 +76,18 @@
     }
 
     computed = {
-      
+
     }
 
     methods = {
       handleClickMySign () {
         wx.navigateTo({
           url: 'orderList'
+        });
+      },
+      handleClickTravelOrders () {
+        wx.navigateTo({
+          url: 'travelOrders'
         });
       },
       handleClickGoToIndex () {
