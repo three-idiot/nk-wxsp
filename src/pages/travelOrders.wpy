@@ -55,6 +55,26 @@
         text-align: right;
       }
     }
+    .bottom {
+      overflow: hidden;
+      text:nth-child(1) {
+        display: inline-block;
+        padding-top: 20rpx;
+        font-size: 28rpx;
+        color: #888888;
+      }
+      text:nth-child(2) {
+        width: 150rpx;
+        height: 62rpx;
+        line-height: 62rpx;
+        border: 1rpx solid #387DFF;
+        border-radius: 8rpx;
+        color: #387DFF;
+        font-size: 28rpx;
+        float: right;
+        text-align: center;
+      }
+    }
 
   }
 
@@ -84,8 +104,8 @@
       </view>
     </view>
     <view class="bottom">
-
-
+      <text>行人数  2</text>
+      <text>取消订单</text>
     </view>
   </view>
 </template>
