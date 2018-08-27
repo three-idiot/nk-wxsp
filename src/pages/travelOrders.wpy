@@ -1,13 +1,30 @@
 <style lang="less">
-  .sign-detail {
+  .travel-orders {
     width: 100%;
     height: auto;
     background: #fff;
+    .travel-bar {
+      display: flex;
+      justify-content: space-around;
+      text {
+        padding-bottom: 10rpx;
+      }
+      .choose {
+        color: #387DFF;
+        border-bottom: solid 2px #387DFF;
+      }
+
+    }
   }
 </style>
 <template>
-  <view class="sign-detail">
-    你好呀
+  <view class="travel-orders">
+    <view class="travel-bar">
+      <text class="choose">全部</text>
+      <text>待付款</text>
+      <text>待确认</text>
+      <text>待出行</text>
+    </view>
   </view>
 </template>
 
