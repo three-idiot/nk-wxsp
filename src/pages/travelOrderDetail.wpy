@@ -11,6 +11,8 @@
         color: #353535;
       }
       .status-text {
+        position: relative;
+        line-height: 28rpx;
         view:nth-child(1) {
           display: inline-block;
           font-size: 28rpx;
@@ -27,6 +29,13 @@
             font-size: 24rpx;
             color: #353535;
           }
+        }
+        .explain {
+          display: inline-block;
+          font-size: 28rpx;
+          line-height: 28rpx;
+          color: #1DADFF;
+          float: right;
         }
       }
     }
@@ -47,6 +56,9 @@
         </view>
         <view class="price">
           <text>￥</text>10000
+        </view>
+        <view class="explain">
+          退款说明
         </view>
       </view>
     </view>
