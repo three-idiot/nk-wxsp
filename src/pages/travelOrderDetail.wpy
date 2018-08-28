@@ -42,6 +42,35 @@
     }
   }
 
+  .general-info {
+    padding: 30rpx;
+    background: #fff;
+    margin-top: 20rpx;
+    .top {
+      position: relative;
+      text {
+        display: inline-block;
+        width: 630rpx;
+        font-size: 28rpx;
+        color: #353535;
+      }
+      view {
+        float: right;
+        position: relative;
+        top:10rpx;
+        display: inline-block;
+        width: 20rpx;
+        height: 20rpx;
+        transform: rotate(45deg);
+        border: 2rpx solid #B2B2B2;
+        border-left:transparent;
+        border-bottom:transparent;
+        vertical-align: top;
+      }
+    }
+
+  }
+
 
 
 </style>
@@ -63,8 +92,22 @@
         </view>
       </view>
     </view>
-    <view class=""></view>
-    <view class=""></view>
+
+    <view class="general-info">
+      <view class="top">
+        <text>朝鲜平壤、开成、板门店、元山、金刚山、平壤5日游 7月收客中</text>
+        <view></view>
+      </view>
+      <view class="medium">
+
+      </view>
+      <view class="bottom">
+
+      </view>
+    </view>
+    <view class="">
+
+    </view>
   </view>
 </template>
 
