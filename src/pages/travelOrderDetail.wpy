@@ -12,18 +12,20 @@
       }
       .status-text {
         text:nth-child(1) {
+          display: inline-block;
           font-size: 28rpx;
           color: #888888;
           margin-top: 10rpx;
         }
-        text:nth-child(2) {
+        .price {
+          margin-left: 20rpx;
+          display: inline-block;
           font-size: 32rpx;
-          color: #001000;
-          line-height: 33rpx;
-          /*text {*/
-            /*font-size: 24rpx;*/
-            /*color: #353535;*/
-          /*}*/
+          color: #ff3941;
+          text {
+            font-size: 24rpx;
+            color: #353535;
+          }
         }
       }
     }

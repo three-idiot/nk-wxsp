@@ -73,8 +73,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="25" column="13" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="25" selection-end-column="13" />
+            <state relative-caret-position="264">
+              <caret line="12" column="20" lean-forward="true" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -135,10 +135,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1911" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+    <option name="x" value="1910" />
+    <option name="y" value="-10" />
+    <option name="width" value="1940" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -211,12 +211,12 @@
       <workItem from="1534940731663" duration="6780000" />
       <workItem from="1535338017564" duration="597000" />
       <workItem from="1535370182998" duration="7920000" />
-      <workItem from="1535449910726" duration="2318000" />
+      <workItem from="1535449910726" duration="3205000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20277000" />
+    <option name="totallyTimeSpent" value="21164000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
@@ -514,8 +514,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="25" column="13" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="25" selection-end-column="13" />
+        <state relative-caret-position="264">
+          <caret line="12" column="20" lean-forward="true" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
         </state>
       </provider>
     </entry>
