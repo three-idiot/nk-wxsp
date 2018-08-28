@@ -11,9 +11,10 @@
         color: #353535;
       }
       .status-text {
-        text:nth-child(1) {
+        view:nth-child(1) {
           display: inline-block;
           font-size: 28rpx;
+          line-height: 28rpx;
           color: #888888;
           margin-top: 10rpx;
         }
@@ -41,12 +42,12 @@
         未付款
       </view>
       <view class="status-text">
-        <text>
+        <view>
           剩余0天22小时56分钟自动关闭
-        </text>
-        <text class="price">
+        </view>
+        <view class="price">
           <text>￥</text>10000
-        </text>
+        </view>
       </view>
     </view>
     <view class=""></view>
@@ -59,7 +60,7 @@
 
   export default class SignDetail extends wepy.page {
     config = {
-      navigationBarTitleText: '签证办理'
+      navigationBarTitleText: '旅游订单详情'
     }
     components = {
 
