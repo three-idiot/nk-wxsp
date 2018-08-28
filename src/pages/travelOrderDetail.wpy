@@ -33,9 +33,10 @@
         .explain {
           display: inline-block;
           font-size: 28rpx;
-          line-height: 28rpx;
           color: #1DADFF;
           float: right;
+          top:14rpx;
+          transform: translate(0,25%);
         }
       }
     }
