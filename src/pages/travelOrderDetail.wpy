@@ -68,6 +68,16 @@
         vertical-align: top;
       }
     }
+    .medium {
+      margin-top: 30rpx;
+      font-size: 28rpx;
+      color: #888888;
+    }
+    .bottom {
+      margin-top: 10rpx;
+      font-size: 28rpx;
+      color: #888888;
+    }
 
   }
 
@@ -99,10 +109,10 @@
         <view></view>
       </view>
       <view class="medium">
-
+        7月18日丹东出发
       </view>
       <view class="bottom">
-
+        出行人数  2
       </view>
     </view>
     <view class="">
