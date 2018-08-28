@@ -11,9 +11,20 @@
         color: #353535;
       }
       .status-text {
-        font-size: 28rpx;
-        color: #888888;
-        margin-top: 10rpx;
+        text:nth-child(1) {
+          font-size: 28rpx;
+          color: #888888;
+          margin-top: 10rpx;
+        }
+        text:nth-child(2) {
+          font-size: 32rpx;
+          color: #001000;
+          line-height: 33rpx;
+          /*text {*/
+            /*font-size: 24rpx;*/
+            /*color: #353535;*/
+          /*}*/
+        }
       }
     }
   }
@@ -28,7 +39,12 @@
         未付款
       </view>
       <view class="status-text">
-        剩余0天22小时56分钟自动关闭
+        <text>
+          剩余0天22小时56分钟自动关闭
+        </text>
+        <text class="price">
+          <text>￥</text>10000
+        </text>
       </view>
     </view>
     <view class=""></view>
