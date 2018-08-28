@@ -1,0 +1,71 @@
+<style lang="less">
+  page {
+    background: #f4f4f4;
+  }
+  .travel-orders {
+    .order-header {
+      background: #fff;
+      padding: 30rpx;
+      .status {
+        font-size: 28rpx;
+        color: #353535;
+      }
+      .status-text {
+        font-size: 28rpx;
+        color: #888888;
+        margin-top: 10rpx;
+      }
+    }
+  }
+
+
+
+</style>
+<template>
+  <view class="travel-orders">
+    <view class="order-header">
+      <view class="status">
+        未付款
+      </view>
+      <view class="status-text">
+        剩余0天22小时56分钟自动关闭
+      </view>
+    </view>
+    <view class=""></view>
+    <view class=""></view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class SignDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '签证办理'
+    }
+    components = {
+
+    }
+
+    data = {
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+      let self = this
+
+    }
+  }
+</script>

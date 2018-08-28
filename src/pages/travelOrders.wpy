@@ -89,7 +89,7 @@
     </view>
   </view>
 
-  <view class="info-card">
+  <view class="info-card" @tap="goDetail">
     <view class="top">
       <text>2018-07-08  08:08:08</text>
       <text>待支付</text>
@@ -130,7 +130,11 @@
     }
 
     methods = {
-
+      goDetail() {
+        wx.navigateTo({
+          url: 'travelOrderDetail'
+        });
+      }
     }
 
     events = {
