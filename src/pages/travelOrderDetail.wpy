@@ -78,8 +78,16 @@
       font-size: 28rpx;
       color: #888888;
     }
-
   }
+
+  .info-card {
+    .card-title {
+      font-size: 28rpx;
+      color: #353535;
+    }
+  }
+
+
 
 
 
