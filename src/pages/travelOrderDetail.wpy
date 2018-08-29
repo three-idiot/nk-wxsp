@@ -95,6 +95,7 @@
       }
       .item-info {
         margin-top: 20rpx;
+        line-height: 28rpx;
         text {
           display: inline-block;
         }
