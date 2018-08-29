@@ -1,14 +1,55 @@
 <style lang="less">
-  .sign-detail {
-    width: 100%;
-    height: auto;
+  .info-card {
     background: #fff;
+    margin-top: 20rpx;
+    padding: 30rpx;
+    .card-title {
+      font-size: 28rpx;
+      color: #353535;
+      margin-bottom: 30rpx;
+    }
+    .card-body {
+      .item-info:nth-child(1) {
+        margin-top: 0;
+      }
+      .item-info {
+        margin-top: 20rpx;
+        line-height: 28rpx;
+        text {
+          display: inline-block;
+        }
+        text:nth-child(1) {
+          width: 112rpx;
+          font-size: 28rpx;
+          color: #888888;
+        }
+        text:nth-child(2) {
+          margin-left: 70rpx;
+          font-size: 28rpx;
+          color: #353535;
+        }
+      }
+    }
   }
 </style>
 <template>
-  <view class="sign-detail">
-
+  <view class="info-card">
+    <view class="card-title">
+      联系人信息
+    </view>
+    <view class="card-body">
+      <view class="item-info">
+        <text>中文姓名</text><text>张三</text>
+      </view>
+      <view class="item-info">
+        <text>中文姓名</text><text>张三</text>
+      </view>
+      <view class="item-info">
+        <text>中文姓名</text><text>张三</text>
+      </view>
+    </view>
   </view>
+
 </template>
 
 <script>
@@ -16,7 +57,7 @@
 
   export default class SignDetail extends wepy.page {
     config = {
-      navigationBarTitleText: '签证办理'
+      navigationBarTitleText: 'card组件'
     }
     components = {
 

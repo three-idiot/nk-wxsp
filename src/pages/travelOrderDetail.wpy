@@ -80,43 +80,6 @@
     }
   }
 
-  .info-card {
-    background: #fff;
-    margin-top: 20rpx;
-    padding: 30rpx;
-    .card-title {
-      font-size: 28rpx;
-      color: #353535;
-      margin-bottom: 30rpx;
-    }
-    .card-body {
-      .item-info:nth-child(1) {
-        margin-top: 0;
-      }
-      .item-info {
-        margin-top: 20rpx;
-        line-height: 28rpx;
-        text {
-          display: inline-block;
-        }
-        text:nth-child(1) {
-          width: 112rpx;
-          font-size: 28rpx;
-          color: #888888;
-        }
-        text:nth-child(2) {
-          margin-left: 70rpx;
-          font-size: 28rpx;
-          color: #353535;
-        }
-      }
-    }
-  }
-
-
-
-
-
 </style>
 <template>
   <view class="travel-orders">
@@ -136,7 +99,6 @@
         </view>
       </view>
     </view>
-
     <view class="general-info">
       <view class="top">
         <text>朝鲜平壤、开成、板门店、元山、金刚山、平壤5日游 7月收客中</text>
@@ -149,34 +111,20 @@
         出行人数  2
       </view>
     </view>
-    <view class="info-card">
-      <view class="card-title">
-        联系人信息
-      </view>
-      <view class="card-body">
-        <view class="item-info">
-          <text>中文姓名</text><text>张三</text>
-        </view>
-        <view class="item-info">
-          <text>中文姓名</text><text>张三</text>
-        </view>
-        <view class="item-info">
-          <text>中文姓名</text><text>张三</text>
-        </view>
-      </view>
-    </view>
+    <infoCard />
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import infoCard from '../components/infoCard';
 
   export default class SignDetail extends wepy.page {
     config = {
       navigationBarTitleText: '旅游订单详情'
     }
     components = {
-
+      infoCard: infoCard
     }
 
     data = {
