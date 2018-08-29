@@ -115,8 +115,13 @@
         出行人数  2
       </view>
     </view>
-    <view class="">
+    <view class="info-card">
+      <view class="card-title">
+        联系人信息
+      </view>
+      <view class="card-body">
 
+      </view>
     </view>
   </view>
 </template>
