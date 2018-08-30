@@ -35,7 +35,7 @@
 <template>
   <view class="info-card">
     <view class="card-title" wx:if="infoList.title">
-      {{ infoList.title }}
+      {{ infoList.title+'11' }}
     </view>
     <view class="card-body">
       <view class="item-info" wx:for="{{ infoList.infos }}" wx:key="item.key">
@@ -49,17 +49,17 @@
 <script>
   import wepy from 'wepy'
 
-  export default class SignDetail extends wepy.page {
+  export default class InfoCard extends wepy.component {
     config = {
       navigationBarTitleText: 'card组件'
     }
     props = {
       infoList: {
         type: Object,
-        default: {
-          title:'',
-          infos: [],
-        }
+        // default: {
+        //   title:'99',
+        //   infos: [],
+        // }
       }
     }
     components = {

@@ -117,14 +117,14 @@
 
 <script>
   import wepy from 'wepy'
-  import infoCard from '../components/infoCard';
+  import InfoCard from '../components/infoCard';
 
   export default class SignDetail extends wepy.page {
     config = {
       navigationBarTitleText: '旅游订单详情'
     }
     components = {
-      infoCard: infoCard
+      infoCard: InfoCard
     }
 
     data = {
