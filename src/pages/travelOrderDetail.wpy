@@ -93,9 +93,23 @@
         color: #888888;
         margin-left: 24rpx;
       }
-      text:nth-child(3) {
+      .lookMore {
+        display: inline-block;
         font-size: 24rpx;
-        color: #888888;
+        line-height: 28rpx;
+        float: right;
+        transform:translate(0, 50%);
+        .arrow {
+          display: inline-block;
+          width: 15rpx;
+          height: 15rpx;
+          transform: rotate(45deg) translate(0,-15%);
+          /*border: 2rpx solid #B2B2B2;*/
+          border: 2rpx solid #888888;
+          border-left:transparent;
+          border-bottom:transparent;
+          vertical-align: center;
+        }
       }
     }
     .traveler-detail {
@@ -135,7 +149,7 @@
       </view>
     </view>
     <view class="traveler-info">
-      <view class="traveler"><text>出行人信息</text><text>1成人，1儿童</text><text>查看更多</text></view>
+      <view class="traveler"><text>出行人信息</text><text>1成人，1儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
       <infoCard :infoList.sync="infoList" class="traveler-detail" />
     </view>
   </view>
