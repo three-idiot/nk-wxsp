@@ -56,10 +56,10 @@
     props = {
       infoList: {
         type: Object,
-        // default: {
-        //   title:'99',
-        //   infos: [],
-        // }
+        default: {
+          title:'',
+          infos: [],
+        }
       }
     }
     components = {
