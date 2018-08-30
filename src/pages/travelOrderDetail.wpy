@@ -79,6 +79,29 @@
       color: #888888;
     }
   }
+  .traveler-info {
+    margin-top: 20rpx;
+    .traveler {
+      background: #fff;
+      padding: 30rpx 30rpx 0 30rpx;
+      text:nth-child(1) {
+        font-size: 28rpx;
+        color: #353535;
+      }
+      text:nth-child(2) {
+        font-size: 24rpx;
+        color: #888888;
+        margin-left: 24rpx;
+      }
+      text:nth-child(3) {
+        font-size: 24rpx;
+        color: #888888;
+      }
+    }
+    .traveler-detail {
+      margin-top: 0;
+    }
+  }
 
 </style>
 <template>
@@ -111,7 +134,10 @@
         出行人数  2
       </view>
     </view>
-    <infoCard :infoList.sync="infoList" />
+    <view class="traveler-info">
+      <view class="traveler"><text>出行人信息</text><text>1成人，1儿童</text><text>查看更多</text></view>
+      <infoCard :infoList.sync="infoList" class="traveler-detail" />
+    </view>
   </view>
 </template>
 
