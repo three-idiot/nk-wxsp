@@ -38,8 +38,8 @@
       {{ infoList.title }}
     </view>
     <view class="card-body">
-      <view class="item-info" wx:for="item in infoList.infos">
-        <text>中文姓名</text><text>张三</text>
+      <view class="item-info" wx:for="{{ infoList.infos }}" wx:key="item.key">
+        <text>{{ item.key }}</text><text>{{ item.value }}</text>
       </view>
     </view>
   </view>
