@@ -129,7 +129,7 @@
 
     data = {
       infoList:{
-        title: '你好呀',
+        title: '',
         infos: [
           {key:'张1', value:'1111'},
           {key:'张2', value:'2222'},

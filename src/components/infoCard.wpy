@@ -34,8 +34,8 @@
 </style>
 <template>
   <view class="info-card">
-    <view class="card-title" wx:if="infoList.title">
-      {{ infoList.title+'11' }}
+    <view class="card-title" wx:if="{{ infoList.title }}">
+      {{ infoList.title }}
     </view>
     <view class="card-body">
       <view class="item-info" wx:for="{{ infoList.infos }}" wx:key="item.key">
