@@ -19,7 +19,8 @@ export default class extends wepy.app {
             'pages/travel',
             'pages/travelDetail',
             'pages/travelOrders',
-            'pages/travelOrderDetail'
+            'pages/travelOrderDetail',
+            'pages/fillInvoice'
         ],
         window: {
             backgroundTextStyle: "light",
