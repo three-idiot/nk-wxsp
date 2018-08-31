@@ -9,9 +9,8 @@
   <view class="fill-invoice">
     <view class="form-container">
       <view>
-        <label for="">
-          <radio />你好呀1
-          <radio />你好呀2222
+        <label class="radio" wx:for="{{ type }}">
+          <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
         </label>
       </view>
     </view>
@@ -30,7 +29,10 @@
     }
 
     data = {
-
+      type: [
+        {name:'个人', value:'1'},
+        {name:'公司', value:'2'}
+      ]
     }
 
     computed = {
