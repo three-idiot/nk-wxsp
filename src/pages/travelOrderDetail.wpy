@@ -139,7 +139,23 @@
     padding: 30rpx;
     display: flex;
     .left-container {
-
+      view:nth-child(1) {
+        font-size: 28rpx;
+        color: #353535;
+      }
+      view:nth-child(2) {
+        font-size: 28rpx;
+        color: #888888;
+        margin-top: 10rpx;
+      }
+    }
+    .right-container {
+      font-size: 24rpx;
+      color: #888888;
+      flex:1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
   }
 
