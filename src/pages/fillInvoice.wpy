@@ -1,0 +1,46 @@
+<style lang="less">
+  .fill-invoice {
+    width: 100%;
+    height: auto;
+    background: #fff;
+  }
+</style>
+<template>
+  <view class="fill-invoice">
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class SignDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '填写发票信息'
+    }
+    components = {
+
+    }
+
+    data = {
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+      let self = this
+
+    }
+  }
+</script>
