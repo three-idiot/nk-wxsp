@@ -223,7 +223,7 @@
       <infoCard :infoList.sync="otherInfo" class="traveler-detail" />
     </view>
 
-    <view class="invoice">
+    <view class="invoice" @tap="goFillInvoice">
       <view class="left-container">
         <view>开具发票</view>
         <view>该发票在行程结束后30天内索取有效</view>
