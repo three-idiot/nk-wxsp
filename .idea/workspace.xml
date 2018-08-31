@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="89b378aa-fec0-450a-976b-2f1f6b0faac4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npm-debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/npm-debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -21,8 +20,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="147" column="23" lean-forward="true" selection-start-line="147" selection-start-column="23" selection-end-line="147" selection-end-column="23" />
+            <state relative-caret-position="374">
+              <caret line="170" column="21" lean-forward="true" selection-start-line="170" selection-start-column="21" selection-end-line="170" selection-end-column="21" />
               <folding>
                 <element signature="n#view#0;n#view#0;n#template#0;n#!!top" />
               </folding>
@@ -239,12 +238,13 @@
       <workItem from="1535613541014" duration="605000" />
       <workItem from="1535617975159" duration="14541000" />
       <workItem from="1535683900809" duration="62000" />
-      <workItem from="1535685841972" duration="481000" />
+      <workItem from="1535685841972" duration="1173000" />
+      <workItem from="1535695584733" duration="364000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49798000" />
+    <option name="totallyTimeSpent" value="50854000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -263,8 +263,8 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32952926" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32952926" />
       <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32952926" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" sideWeight="0.5007133" side_tool="true" weight="0.24966975" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.54778886" />
@@ -559,8 +559,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="147" column="23" lean-forward="true" selection-start-line="147" selection-start-column="23" selection-end-line="147" selection-end-column="23" />
+        <state relative-caret-position="374">
+          <caret line="170" column="21" lean-forward="true" selection-start-line="170" selection-start-column="21" selection-end-line="170" selection-end-column="21" />
           <folding>
             <element signature="n#view#0;n#view#0;n#template#0;n#!!top" />
           </folding>

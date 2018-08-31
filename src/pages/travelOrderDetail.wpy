@@ -3,6 +3,7 @@
     background: #f4f4f4;
   }
   .travel-orders {
+    padding-bottom: 314rpx;
     .order-header {
       background: #fff;
       padding: 30rpx;
@@ -138,6 +139,7 @@
     background: #fff;
     padding: 30rpx;
     display: flex;
+    margin-top: 20rpx;
     .left-container {
       view:nth-child(1) {
         font-size: 28rpx;
@@ -157,6 +159,19 @@
       justify-content: flex-end;
       align-items: center;
     }
+  }
+
+  .re-book {
+    background: #387DFF;
+    width: 100%;
+    text-align: center;
+    height: 98rpx;
+    line-height: 98rpx;
+    color: #fff;
+    font-size: 34rpx;
+    position: fixed;
+    left:0;
+    bottom: 0;
   }
 
 </style>
@@ -219,6 +234,9 @@
       </view>
     </view>
 
+    <view  class="re-book">
+      重新预订
+    </view>
   </view>
 </template>
 
