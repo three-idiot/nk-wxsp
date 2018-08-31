@@ -7,7 +7,14 @@
 </style>
 <template>
   <view class="fill-invoice">
-    你好呀lalal
+    <view class="form-container">
+      <view>
+        <label for="">
+          <checkbox />你好呀1
+          <checkbox />你好呀2
+        </label>
+      </view>
+    </view>
   </view>
 </template>
 
