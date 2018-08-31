@@ -10,8 +10,8 @@
     <view class="form-container">
       <view>
         <label for="">
-          <checkbox />你好呀1
-          <checkbox />你好呀2
+          <radio />你好呀1
+          <radio />你好呀2222
         </label>
       </view>
     </view>
