@@ -3,7 +3,7 @@
     width: 100%;
     height: auto;
     background: #fff;
-    .choose,.invoice-detail,.tax-num,.invoice-content {
+    .choose,.invoice-detail,.tax-num,.invoice-content,.mail {
       margin-left: 30rpx;
       border-bottom: 1rpx solid #ccc;
       /*padding: 30rpx 0 20rpx 0;*/
@@ -24,7 +24,7 @@
         color: #444444;
       }
     }
-    .invoice-detail,.tax-num {
+    .invoice-detail,.tax-num,.mail {
       display: flex;
       align-items: center;
       input {
@@ -59,6 +59,10 @@
         <input type="text" placeholder="服务费">
       </view>
 
+      <view class="mail">
+        <text>电子邮箱</text>
+        <input type="text"  placeholder="请填写接收邮箱">
+      </view>
 
     </view>
   </view>
