@@ -49,7 +49,18 @@
           color: #353535;
         }
       }
+    }
 
+    .btn {
+      position: fixed;
+      left:0;
+      bottom: 0;
+      width: 100%;
+      height: 98rpx;
+      line-height: 98rpx;
+      color: #FFFFFF;
+      text-align: center;
+      background: #387DFF;
     }
   }
 </style>
@@ -89,7 +100,9 @@
         <input type="text"  placeholder="请填写接收邮箱">
       </view>
 
-
+      <view class="btn">
+        提交
+      </view>
 
     </view>
   </view>
@@ -112,7 +125,14 @@
         {name:'公司', value:'2'}
       ],
       array: ['服务费', '什么费', '巴西', '日本'],
-      contentIndex :0
+      contentIndex :0,
+      formData:{
+        invoice: null,
+        taitou:null,
+        taxNum: null,
+        invoiceContent: null,
+        mail:null
+      }
     }
 
     computed = {
