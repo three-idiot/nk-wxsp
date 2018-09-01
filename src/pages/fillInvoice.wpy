@@ -3,16 +3,45 @@
     width: 100%;
     height: auto;
     background: #fff;
+    .choose,.invoice-detail {
+      margin-left: 30rpx;
+      border-bottom: 1rpx solid #ccc;
+      /*padding: 30rpx 0 20rpx 0;*/
+      line-height: 98rpx;
+      height: 98rpx;
+      text {
+        display: inline-block;
+        /*width: 168rpx;*/
+        width: 192rpx;
+        font-size: 28rpx;
+        color: #888888;
+      }
+    }
+
+    .choose {
+      .radio-group {
+        /*margin-left: 80rpx;*/
+        font-size: 32rpx;
+        color: #444444;
+      }
+    }
   }
 </style>
 <template>
   <view class="fill-invoice">
     <view class="form-container">
-      <view>
-        <label class="radio" wx:for="{{ type }}">
-          <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+      <view class="choose">
+        <text>发票抬头</text>
+        <label  wx:for="{{ type }}" class="radio-group">
+          <radio class="myRadio" value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
         </label>
       </view>
+
+      <view class="invoice-detail">
+        <text>发票抬头</text>
+
+      </view>
+
     </view>
   </view>
 </template>
