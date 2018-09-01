@@ -144,6 +144,9 @@
         console.log( res );
         this.contentIndex = res.detail.value;
       },
+      radioChange(event) {
+        console.log( event );
+      },
       invoiceSubmit() {
         console.log( this.formData );
       }
