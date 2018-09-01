@@ -3,7 +3,7 @@
     width: 100%;
     height: auto;
     background: #fff;
-    .choose,.invoice-detail,.tax-num {
+    .choose,.invoice-detail,.tax-num,.invoice-content {
       margin-left: 30rpx;
       border-bottom: 1rpx solid #ccc;
       /*padding: 30rpx 0 20rpx 0;*/
@@ -53,6 +53,12 @@
         <text>纳税人识别号</text>
         <input type="text"  placeholder="税务登记证上编号，至少15位">
       </view>
+
+      <view class="invoice-content">
+        <text>发票内容</text>
+        <input type="text" placeholder="服务费">
+      </view>
+
 
     </view>
   </view>
