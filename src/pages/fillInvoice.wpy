@@ -100,7 +100,7 @@
         <input type="text"  placeholder="请填写接收邮箱">
       </view>
 
-      <view class="btn">
+      <view class="btn" @tap="invoiceSubmit">
         提交
       </view>
 
@@ -143,6 +143,9 @@
       bindPickerChange(res) {
         console.log( res );
         this.contentIndex = res.detail.value;
+      },
+      invoiceSubmit() {
+        console.log( this.formData );
       }
 
     }
