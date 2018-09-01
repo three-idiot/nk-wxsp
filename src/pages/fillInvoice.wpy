@@ -32,6 +32,9 @@
         color: #B2B2B2;
       }
     }
+    .invoice-content {
+      display: flex;
+    }
   }
 </style>
 <template>
@@ -56,13 +59,19 @@
 
       <view class="invoice-content">
         <text>发票内容</text>
-        <input type="text" placeholder="服务费">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class="picker">
+            当前选择：{{array[index]}}
+          </view>
+        </picker>
       </view>
 
       <view class="mail">
         <text>电子邮箱</text>
         <input type="text"  placeholder="请填写接收邮箱">
       </view>
+
+
 
     </view>
   </view>
@@ -83,7 +92,9 @@
       type: [
         {name:'个人', value:'1'},
         {name:'公司', value:'2'}
-      ]
+      ],
+      array: ['服务费', '什么费', '巴西', '日本'],
+
     }
 
     computed = {
@@ -91,6 +102,9 @@
     }
 
     methods = {
+      bindPickerChange(index) {
+        console.log( index );
+      }
 
     }
 
