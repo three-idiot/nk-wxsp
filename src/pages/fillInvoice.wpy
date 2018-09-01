@@ -3,12 +3,12 @@
     width: 100%;
     height: auto;
     background: #fff;
-    .choose,.invoice-detail {
+    .choose,.invoice-detail,.tax-num {
       margin-left: 30rpx;
       border-bottom: 1rpx solid #ccc;
       /*padding: 30rpx 0 20rpx 0;*/
-      line-height: 98rpx;
       height: 98rpx;
+      line-height: 98rpx;
       text {
         display: inline-block;
         /*width: 168rpx;*/
@@ -17,12 +17,19 @@
         color: #888888;
       }
     }
-
     .choose {
       .radio-group {
         /*margin-left: 80rpx;*/
         font-size: 32rpx;
         color: #444444;
+      }
+    }
+    .invoice-detail,.tax-num {
+      display: flex;
+      align-items: center;
+      input {
+        font-size: 32rpx;
+        color: #B2B2B2;
       }
     }
   }
@@ -39,7 +46,12 @@
 
       <view class="invoice-detail">
         <text>发票抬头</text>
+        <input type="text" placeholder="请填写接收邮箱">
+      </view>
 
+      <view class="tax-num">
+        <text>纳税人识别号</text>
+        <input type="text"  placeholder="税务登记证上编号，至少15位">
       </view>
 
     </view>
