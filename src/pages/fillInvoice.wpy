@@ -3,7 +3,7 @@
     width: 100%;
     height: auto;
     background: #fff;
-    .choose,.invoice-detail,.tax-num,.invoice-content,.mail {
+    .choose-invoice,.invoice-detail,.tax-num,.invoice-content,.mail {
       margin-left: 30rpx;
       border-bottom: 1rpx solid #ccc;
       /*padding: 30rpx 0 20rpx 0;*/
@@ -17,11 +17,14 @@
         color: #888888;
       }
     }
-    .choose {
+    .choose-invoice {
+      display: flex;
       .radio-group {
-        /*margin-left: 80rpx;*/
         font-size: 32rpx;
         color: #444444;
+        .radio:nth-child(2) {
+          margin-left: 80rpx;
+        }
       }
     }
     .invoice-detail,.tax-num,.mail {
@@ -53,16 +56,18 @@
 <template>
   <view class="fill-invoice">
     <view class="form-container">
-      <view class="choose">
+      <view class="choose-invoice">
         <text>发票抬头</text>
-        <label  wx:for="{{ type }}" class="radio-group">
-          <radio class="myRadio" value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
-        </label>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" wx:for="{{type}}">
+            <radio  value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
+          </label>
+        </radio-group>
       </view>
 
       <view class="invoice-detail">
         <text>发票抬头</text>
-        <input type="text" placeholder="请填写接收邮箱">
+        <input type="text" placeholder="请填写发票抬头">
       </view>
 
       <view class="tax-num">
