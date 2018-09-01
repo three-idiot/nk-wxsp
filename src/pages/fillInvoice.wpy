@@ -34,6 +34,17 @@
     }
     .invoice-content {
       display: flex;
+      .picker-container {
+        flex:1;
+      }
+      .picker {
+        /*width: 192rpx;*/
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size: 28rpx;
+        color: #888888;
+      }
     }
   }
 </style>
@@ -59,9 +70,9 @@
 
       <view class="invoice-content">
         <text>发票内容</text>
-        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" wx:model="contentIndex" class="picker-container">
           <view class="picker">
-            当前选择：{{array[index]}}
+            {{array[index]}}
           </view>
         </picker>
       </view>
@@ -94,7 +105,7 @@
         {name:'公司', value:'2'}
       ],
       array: ['服务费', '什么费', '巴西', '日本'],
-
+      contentIndex :0
     }
 
     computed = {
