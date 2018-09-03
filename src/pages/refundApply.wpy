@@ -5,9 +5,10 @@
   .refund-apply {
     width: 100%;
     height: auto;
-    background: #fff;
+    /*background: #fff;*/
   }
   .refund-content {
+    background: #fff;
     .choose-tit {
       padding: 30rpx;
       font-size: 28rpx;
@@ -36,6 +37,7 @@
     }
   }
   .refund-num {
+    background: #fff;
     padding: 30rpx;
     margin-top: 30rpx;
     display: flex;
