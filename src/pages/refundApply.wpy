@@ -69,10 +69,13 @@
 
     <view class="refund-num">
       <view class="left">
-        <view>
-
+        <view class="left-top">
+          <text>退款金额</text>
+          <text>￥10000</text>
         </view>
-        <view></view>
+        <view class="left-bottom">
+          原路退回（3-5个工作日内退款到原支付方）
+        </view>
       </view>
       <view class="right">
         <view>退款说明</view>
