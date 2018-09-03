@@ -105,7 +105,7 @@
     </view>
     <view class="bottom">
       <text>行人数  2</text>
-      <text>取消订单</text>
+      <text @tap="goRefund">取消订单</text>
     </view>
   </view>
 </template>
@@ -133,6 +133,11 @@
       goDetail() {
         wx.navigateTo({
           url: 'travelOrderDetail'
+        });
+      },
+      goRefund() {
+        wx.navigateTo({
+          url: 'refundApply'
         });
       }
     }

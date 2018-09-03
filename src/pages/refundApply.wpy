@@ -4,15 +4,26 @@
     height: auto;
     background: #fff;
   }
+  .refund-content {
+    .choose-tit {
+      padding: 30rpx;
+      font-size: 28rpx;
+      color: #353535;
+    }
+    .choose-people {
+
+    }
+  }
 </style>
 <template>
   <view class="refund-apply">
     <view class="refund-content">
       <view class="choose-tit">
-
+        选择退款内容
       </view>
       <view class="choose-people">
-
+        <view class=""></view>
+        <view class=""></view>
       </view>
     </view>
   </view>
