@@ -69,7 +69,9 @@
 
     <view class="refund-num">
       <view class="left">
-        <view></view>
+        <view>
+
+        </view>
         <view></view>
       </view>
       <view class="right">
