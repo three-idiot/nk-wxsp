@@ -1,4 +1,7 @@
 <style lang="less">
+  page {
+    background: #f4f4f4;
+  }
   .refund-apply {
     width: 100%;
     height: auto;
@@ -30,6 +33,20 @@
       label:nth-child(1) {
         margin-top: 0;
       }
+    }
+  }
+  .refund-num {
+    padding: 30rpx;
+    margin-top: 30rpx;
+    display: flex;
+    .left {
+      width: 476rpx;
+    }
+    .right {
+      flex:1;
+      font-size: 28rpx;
+      color: #1DADFF;
+      text-align: right;
     }
   }
 </style>
