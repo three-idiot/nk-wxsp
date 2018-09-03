@@ -1,0 +1,50 @@
+<style lang="less">
+  .refund-apply {
+    width: 100%;
+    height: auto;
+    background: #fff;
+  }
+</style>
+<template>
+  <view class="refund-apply">
+    <view class="refund-content">
+      <view class="choose-tit">
+
+      </view>
+      <view class="choose-people">
+
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class RefundApply extends wepy.page {
+    config = {
+      navigationBarTitleText: '申请退款'
+    }
+    components = {
+
+    }
+    data = {
+
+    }
+    computed = {
+
+    }
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+      let self = this
+
+    }
+  }
+</script>
