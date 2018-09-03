@@ -11,7 +11,25 @@
       color: #353535;
     }
     .choose-people {
-
+      padding: 30rpx;
+      padding-top: 0;
+      label {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        font-size: 28rpx;
+        color: #353535;
+        height: 40rpx;
+        line-height: 40rpx;
+        margin-top: 40rpx;
+        checkbox {
+          zoom: 50%;
+          margin-right: 30rpx;
+        }
+      }
+      label:nth-child(1) {
+        margin-top: 0;
+      }
     }
   }
 </style>
@@ -22,8 +40,21 @@
         选择退款内容
       </view>
       <view class="choose-people">
-        <view class=""></view>
-        <view class=""></view>
+        <checkbox-group bindchange="checkboxChange">
+          <label class="checkbox" wx:for="{{items}}">
+            <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+
+    <view class="refund-num">
+      <view class="left">
+        <view></view>
+        <view></view>
+      </view>
+      <view class="right">
+        <view>退款说明</view>
       </view>
     </view>
   </view>
@@ -40,13 +71,19 @@
 
     }
     data = {
-
+      items: [
+        {name: 'USA', value: '美国'},
+        {name: 'CHN', value: '中国', checked: 'true'},
+        {name: 'BRA', value: '巴西'},
+      ]
     }
     computed = {
 
     }
     methods = {
-
+      checkboxChange() {
+        console.log(1111);
+      }
     }
 
     events = {
