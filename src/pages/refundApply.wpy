@@ -43,12 +43,39 @@
     display: flex;
     .left {
       width: 476rpx;
+      .left-top {
+        .refund-text {
+          font-size: 28rpx;
+          color: #353535;
+        }
+        .num-container {
+          margin-left: 24rpx;
+          font-size: 32rpx;
+          color: #ff3941;
+          text {
+            font-size: 24rpx;
+            color: #353535;
+          }
+        }
+      }
+      .left-bottom {
+        font-size: 24rpx;
+        color: #888888;
+        margin-top: 10rpx;
+      }
     }
     .right {
       flex:1;
       font-size: 28rpx;
       color: #1DADFF;
       text-align: right;
+      position: relative;
+      text {
+        position: absolute;
+        top:50%;
+        transform: translate(0,-50%);
+        right: 0;
+      }
     }
   }
 </style>
@@ -70,15 +97,15 @@
     <view class="refund-num">
       <view class="left">
         <view class="left-top">
-          <text>退款金额</text>
-          <text>￥10000</text>
+          <text class="refund-text">退款金额</text>
+          <text class="num-container"><text>￥</text>10000</text>
         </view>
         <view class="left-bottom">
           原路退回（3-5个工作日内退款到原支付方）
         </view>
       </view>
       <view class="right">
-        <view>退款说明</view>
+        <text>退款说明</text>
       </view>
     </view>
   </view>
