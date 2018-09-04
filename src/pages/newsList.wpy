@@ -1,0 +1,73 @@
+<template>
+  <view class="newslist">
+    <scroll-view scroll-y style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    </scroll-view>
+    <repeat for="{{newslist}}" key="index" index="index" item="item">
+      666
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class NewsList extends wepy.page {
+    config = {
+      navigationBarTitleText: '资讯'
+    }
+    components = {
+    }
+
+    data = {
+      newslist: []
+    }
+
+    computed = {
+    }
+
+    methods = {
+      handleClickMySign () {
+        wx.navigateTo({
+          url: 'orderList'
+        });
+      }
+    }
+
+    onLoad() {
+      let self = this;
+      self.requestGetNewslist();
+    }
+
+    upper (e) {
+      console.log(e)
+    }
+    
+    lower (e) {
+      console.log(e)
+    }
+
+    scroll (e) {
+      console.log(e)
+    }
+
+    /**
+     * 获取资讯列表
+     */
+    requestGetNewslist () {
+      let self = this;
+      util.requestApi(api.apiJianliUrl, {}, wx.getStorageSync('userToken')).then((res1) => {
+        if (res1.code == 200) {
+          // console.log('获取简历成功：', res1.data);
+          self.jianliTemplatePath = res1.data;
+          self.$apply();
+        }
+      });
+    }
+  }
+</script>
+<style lang="less">
+  
+</style>
