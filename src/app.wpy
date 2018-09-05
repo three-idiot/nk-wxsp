@@ -9,6 +9,7 @@ export default class extends wepy.app {
             'pages/my',
             'pages/orderList',
             'pages/signSecond',
+            'pages/newsList',
             'pages/orderDetail',
             'pages/signDetail',
             'pages/signProcess',

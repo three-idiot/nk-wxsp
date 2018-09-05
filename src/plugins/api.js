@@ -34,5 +34,9 @@ export default {
 
   apiDownLoadUrl: host + '/image/getimagepath',
 
-  apiJianliUrl: host + '/image/getresumepath'
+  apiJianliUrl: host + '/image/getresumepath',
+  /** 资讯列表 */
+  apiNewslist: host + '/news/list',
+  /** 资讯详情 */
+  apiNewsDetail: host + '/news/{id}'
 }
