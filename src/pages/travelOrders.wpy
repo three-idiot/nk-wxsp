@@ -82,10 +82,10 @@
 <template>
   <view class="travel-orders">
     <view class="travel-bar">
-      <text class="choose">全部</text>
-      <text>待付款</text>
-      <text>待确认</text>
-      <text>待出行</text>
+      <text :class="{choose:choosing[0]}" @tap="changeTab(0)">全部</text>
+      <text :class="{choose:choosing[1]}" @tap="changeTab(1)">待付款</text>
+      <text :class="{choose:choosing[2]}" @tap="changeTab(2)">待确认</text>
+      <text :class="{choose:choosing[3]}" @tap="changeTab(3)">待出行</text>
     </view>
   </view>
 
@@ -122,6 +122,12 @@
     }
 
     data = {
+      choosing: {
+        0: true,
+        1: false,
+        2: false,
+        3: false
+      }
 
     }
 
@@ -130,6 +136,12 @@
     }
 
     methods = {
+      changeTab( index ) {
+        for ( let p in this.choosing ) {
+          this.choosing[p] = false;
+        }
+        this.choosing[index] = true;
+      },
       goDetail() {
         wx.navigateTo({
           url: 'travelOrderDetail'
