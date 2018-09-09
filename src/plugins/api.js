@@ -38,5 +38,5 @@ export default {
   /** 资讯列表 */
   apiNewslist: host + '/news/list',
   /** 资讯详情 */
-  apiNewsDetail: host + '/news/{id}'
+  apiNewsDetail: host + '/news'
 }

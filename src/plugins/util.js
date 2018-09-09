@@ -111,7 +111,7 @@ const formatDate = (dateObj) => {
   fmt = dateObj.getFullYear() + '/' + buLing(o['M+'])+ '/' + buLing(o['d+']) + ' ' + buLing(o['h+']) + ':' + buLing(o['m+']) + ':' + buLing(o['s+'])
   return new Date(new Date(fmt).getTime() + 8*3600*1000).toLocaleString();
 }
-
+/** 注意：这里不能乱用，因为之前后端技术不行，时间计算有8小时的误差，所以这里面有加上8小时的逻辑兼容后端 */
 const getYYMMDD = (date) => {
   let _temp = new Date(date.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'));
   _temp = new Date( new Date(_temp).getTime() + 8*3600*1000 );

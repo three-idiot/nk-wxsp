@@ -1,0 +1,98 @@
+<template>
+  <view class="newsdetal">
+    <view class="news-title">
+      {{newsInfo.title}}
+    </view>
+    <wxs src="../filter/getComputedDate.wxs" module="filter" />
+    <view class="news-pubtime">
+      发布时间 {{filter.getComputedDate(newsInfo.createTime)}}
+    </view>
+    <view class="news-content">
+      {{newsInfo.detail}}
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class NewsDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '资讯详情'
+    }
+    components = {
+    }
+
+    data = {
+      newsInfo: {
+        "id": 1,
+        "newsNo": "BN8980800980809809",
+        "title": "第一次去朝鲜旅游的注意事项注意事项",
+        "newsKey": "ailisi",
+        "detail": "zixun",
+        "top": 1,
+        "type": null,
+        "status": 1,
+        "publisher": '桦桦',
+        "createTime": new Date('2018-09-09 16:12:00'),
+        "images": [
+          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+        ]
+      }
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    onLoad(option) {
+      // console.log(option.id)
+      // this.requestGetNewslist(option.id);
+      if (option.title) {
+        wx.setNavigationBarTitle({
+          title: option.title 
+        })
+      }
+    }
+
+    /**
+     * 获取资讯列表
+     */
+    requestGetNewslist (id) {
+      let self = this;
+      util.requestApi(api.apiNewsDetail+'/'+id, {}, wx.getStorageSync('userToken')).then((res) => {
+        if (res.code == 200) {
+          // console.log('获取资讯详情成功：', res1.data);
+          self.newsInfo = res.data.data;
+          self.$apply();
+        }
+      });
+    }
+  }
+</script>
+<style lang="less">
+  .newsdetal {
+    width: 100vw;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 0 30rpx;
+    .news-title {
+      font-size: 42rpx;
+      color: #353535;
+      line-height: 60rpx;
+    }
+    .news-pubtime {
+      font-size: 22rpx;
+      color: #888888;
+      line-height: 30rpx;
+    }
+    .news-content {}
+  }
+</style>

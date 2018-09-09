@@ -1,0 +1,83 @@
+<template>
+  <view class="refundapplytip">
+    <image class="tip-img" src="../images/ymyc_img_ymyc.png"></image>
+    <view class="tip-info">
+      <view>退款申请已提交，</view>
+      <view>我们会尽快处理，请耐心等待~</view>
+    </view>
+    <view class="tip-warm">
+      <text class="blue">温馨提示：</text>
+      <text>原路退款时，若订单显示“已退款”，表示款项已从微信返回原支付方式，距离到账需要3-5个工作日，请耐心等待。</text>
+    </view>
+    <view class="order-button">查看订单</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class RefundApply extends wepy.page {
+    config = {
+      navigationBarTitleText: '申请退款'
+    }
+    components = {
+    }
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    onLoad(option) {
+    }
+  }
+</script>
+<style lang="less">
+  .refundapplytip {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 0 50rpx;
+    position: relative;
+    text-align: center;
+    .tip-img {
+      display: inline-block;
+      margin-top: 108rpx;
+      width: 263rpx;
+      height: 204rpx;
+    }
+    .tip-info {
+      width: 100%;
+      text-align: center;
+      font-size: 32rpx;
+      color: #353535;
+      line-height: 45rpx;
+      margin-top: 50rpx;
+    }
+    .tip-warm {
+      color: gray;
+      font-size: 28rpx;
+      line-height: 40rpx;
+      margin-top: 30rpx;
+      .blue {
+        color: #1DADFF;
+      }
+    }
+    .order-button {
+      width: 100%;
+      height: 98rpx;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: #387DFF;
+      color: #fff;
+      font-size: 34rpx;
+      line-height: 98rpx;
+    }
+  }
+</style>

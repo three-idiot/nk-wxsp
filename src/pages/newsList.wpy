@@ -2,7 +2,7 @@
   <view class="newslist">
     <scroll-view scroll-y style="height: 100%;" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
       <repeat for="{{newslist}}" key="index" index="index" item="item">
-        <view class="single-news imgs-counts-{{item.images.length}}">
+        <view class="single-news imgs-counts-{{item.images.length}}" @tap="handleGoDetail({{item}})">
           <view class="title">{{item.title}}</view>
           <view class="imgs">
             <repeat for="{{item.images.length < 3 ? [item.images[0]] : [item.images[0],item.images[1],item.images[2]]}}" key="index1" index="index1" item="item1">
@@ -11,7 +11,8 @@
           </view>
           <view class="news-tags">
             <views class="type">{{'置顶'}}</views>
-            <views class="pubtime">2小时前</views>
+            <wxs src="../filter/getComputedDate.wxs" module="filter" />
+            <views class="pubtime">{{filter.getComputedDate(item.createTime)}}</views>
           </view>
         </view>
       </repeat>
@@ -49,7 +50,7 @@
           "approveTime": "2018-08-05T11:59:21.000+0000",
           "approver": 0,
           "approveRemark": "\\'12321312321\\'",
-          "createTime": "2018-07-29T13:13:22.000+0000",
+          "createTime": new Date('2018-09-09 16:12:00'),
           "updateTime": "2018-08-05T11:59:21.000+0000",
           "images": [
             { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
@@ -76,6 +77,20 @@
             { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
             { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
           ]
+        },
+        {
+          "id": 3,
+          "newsNo": "",
+          "title": "注意事项第一次去朝鲜旅游的注意事项注意事项第一次去朝鲜旅游的注意事项",
+          "newsKey": "ailisi",
+          "detail": "zixun",
+          "top": 1,
+          "type": null,
+          "status": 1,
+          "publisher": null,
+          "createTime": "2018-07-29T13:13:22.000+0000",
+          "updateTime": "2018-08-05T11:59:21.000+0000",
+          "images": []
         }
       ]
     }
@@ -84,9 +99,9 @@
     }
 
     methods = {
-      handleClickMySign () {
+      handleGoDetail (item) {
         wx.navigateTo({
-          url: 'orderList'
+          url: 'newsDetail?id=' + item.id + '&title=' + item.title,
         });
       }
     }
@@ -155,6 +170,15 @@
           &:not(:last-child) {
             margin-right: 9rpx;
           }
+        }
+      }
+      &.imgs-counts-0 {
+        .title {
+          width: 100%;
+        }
+        .imgs {
+          width: 0;
+          height: 0;
         }
       }
       &.imgs-counts-1, &.imgs-counts-2 {
