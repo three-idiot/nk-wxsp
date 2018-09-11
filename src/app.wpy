@@ -21,14 +21,11 @@ export default class extends wepy.app {
             'pages/visa',
             'pages/travel',
             'pages/travelDetail',
-<<<<<<< HEAD
             'pages/fillOrder',
-=======
             'pages/travelOrders',
             'pages/travelOrderDetail',
             'pages/fillInvoice',
             'pages/refundApply',
->>>>>>> 80f9f5d637ae71ebe579a463d680676ef66d3102
         ],
         window: {
             backgroundTextStyle: "light",
