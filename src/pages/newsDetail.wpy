@@ -8,7 +8,22 @@
       发布时间 {{filter.getComputedDate(newsInfo.createTime)}}
     </view>
     <view class="news-content">
-      {{newsInfo.detail}}
+      <!-- {{newsInfo.detail}} -->
+      <import src="../wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
+    <view class="related-news">
+      <view class="related-title">类似推荐</view>
+      <view class="related-news-info">
+        <view class="left">
+          <view class="title">{{relatedNews.title}}</view>
+          <wxs src="../filter/getComputedDate.wxs" module="filter" />
+          <view class="time">{{filter.getComputedDate(relatedNews.createTime)}}</view>
+        </view>
+        <view class="right">
+          <image class="related-news-img" src="{{'http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg'}}"></image>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -18,6 +33,16 @@
   
   import util from '../plugins/util'
   import api from '../plugins/api'
+  /** 下面是将html嵌入小程序的插件 */
+  import WxParse from '../wxParse/wxParse.js';
+  /**
+  * WxParse.wxParse(bindName , type, data, target,imagePadding)
+  * 1.bindName绑定的数据名(必填)
+  * 2.type可以为html或者md(必填)
+  * 3.data为传入的具体数据(必填)
+  * 4.target为Page对象,一般为this(必填)
+  * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+  */
 
   export default class NewsDetail extends wepy.page {
     config = {
@@ -43,7 +68,8 @@
           { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
           { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
         ]
-      }
+      },
+      relatedNews: null
     }
 
     computed = {
@@ -54,7 +80,7 @@
 
     onLoad(option) {
       // console.log(option.id)
-      this.requestGetNewsInfo(option.id);
+      this.requestGetNewsDetail(option.id);
       if (option.title) {
         wx.setNavigationBarTitle({
           title: option.title 
@@ -63,14 +89,35 @@
     }
 
     /**
-     * 获取资讯列表
+     * 获取资讯详情
      */
-    requestGetNewsInfo (id) {
+    requestGetNewsDetail (id) {
       let self = this;
       util.requestApi(api.apiNewsDetail+'/'+id, {}, wx.getStorageSync('userToken')).then((res) => {
         if (res.code == 200) {
           console.log('获取资讯详情成功：', res.data);
           self.newsInfo = res.data;
+          WxParse.wxParse('article', 'html', res.data.detail, self, 5);
+          self.$apply();
+          let _keyword = res.data.newsKey;
+          self.requestGetRelatedNews(_keyword);
+        }
+      });
+    }
+
+    /**
+     * 获取资讯详情
+     */
+    requestGetRelatedNews (keyword) {
+      let self = this;
+      util.requestPostApi(api.apiNewslist, {
+        pageIndex: 1,
+        pageSize: 1,
+        newsKey: keyword
+      }, wx.getStorageSync('userToken'), {'content-type': 'application/json'}).then((res) => {
+        console.log('获取推荐资讯成功：', res);
+        if (res.data && res.data.data && res.data.data.length) {
+          self.relatedNews = res.data.data[0];
           self.$apply();
         }
       });
@@ -78,11 +125,13 @@
   }
 </script>
 <style lang="less">
+  @import "../wxParse/wxParse.wxss";
   .newsdetal {
     width: 100vw;
     background: #fff;
     box-sizing: border-box;
     padding: 0 30rpx;
+    position: relative;
     .news-title {
       font-size: 42rpx;
       color: #353535;
@@ -93,6 +142,56 @@
       color: #888888;
       line-height: 30rpx;
     }
-    .news-content {}
+    .news-content {
+      padding-bottom: 30rpx;
+    }
+    .related-news {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      background: #eee;
+      padding: 0 0 77rpx;
+      .related-title {
+        color: #353535;
+        font-size: 28rpx;
+        margin-left: 30rpx;
+        line-height: 60rpx;
+        height: 60rpx;
+      }
+      .related-news-info {
+        width: 100%;
+        height: 210rpx;
+        box-sizing: border-box;
+        padding: 0 30rpx;
+        background: #fff;
+        overflow: hidden;
+        .left {
+          float: left;
+          height: 100%;
+          .title {
+            margin-top: 30rpx;
+            font-size: 28rpx;
+            color: #353535;
+          }
+          .time {
+            color: #888;
+            font-size: 22rpx;
+          }
+        }
+        .right {
+          float: right;
+          height: 100%;
+          text-align: right;
+          .related-news-img {
+            width: 224rpx;
+            height: 150rpx;
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
   }
 </style>
