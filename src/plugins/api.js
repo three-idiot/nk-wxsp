@@ -1,8 +1,9 @@
 // const host = 'https://s.le-99.xyz';
-const host = 'https://admin.lovewh.com.cn';
 // const host = 'http://124.204.40.228:7093';
 // const host = 'https://s.qqtlhnc.com';
-// const host = 'https://47.93.3.67:8090';
+// const host = 'http://192.168.89.13:8090';
+const host = 'https://admin.lovewh.com.cn';
+
 
 export default {
   apiLogin: host + '/wxauto/login',
@@ -36,10 +37,13 @@ export default {
   apiDownLoadUrl: host + '/image/getimagepath',
 
   apiJianliUrl: host + '/image/getresumepath',
+
   /** 资讯列表 */
   apiNewslist: host + '/news/list',
   /** 资讯详情 */
   apiNewsDetail: host + '/news',
   // 旅游订单列表
-  apiTravelOrderList: host + '/travelOrder/list'
+  apiTravelOrderList: host + '/travelOrder/list',
+
+  apiTravelGoodsList: host + '/travelGoods/list',
 }

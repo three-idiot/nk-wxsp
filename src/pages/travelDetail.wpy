@@ -21,6 +21,13 @@
         <text>行程介绍</text>
         <text>费用须知</text>
     </view>
+    <view class="bottom-btn">
+        <view>
+            <image src="../images/tab/visa.png" />
+            <text>咨询</text>
+        </view>
+        <text class="order" @tap="goOrder">立即预定</text>
+    </view>
 </view>
 </template>
 
@@ -59,6 +66,11 @@ export default class Index extends wepy.page {
         handleTapRefresh() {
             console.log('刷新');
             this.requestGetGoods();
+        },
+        goOrder() {
+            wx.navigateTo({
+                url: 'fillOrder'
+            });
         }
     }
 
@@ -232,6 +244,42 @@ export default class Index extends wepy.page {
 .tab-select {
     color: #387DFF;
     border-bottom: solid 2px #387DFF;
-        
+}
+
+.bottom-btn {
+    height: 98rpx;
+    display: flex;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    border-top: #ccc 1px solid;
+    view {
+        width: 214rpx;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        image {
+            margin-left: auto;
+            margin-right: auto;
+            width: 50rpx;
+            height: 50rpx;
+        }
+        text {
+            width: 100%;
+            font-size: 24rpx;
+            color: #888888;
+            letter-spacing: 0.36rpx;
+        }
+    }
+    .order {
+        line-height: 98rpx;
+        width: 536rpx;
+        font-size: 34rpx;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        text-align: center;
+        background: #387DFF;
+    }
 }
 </style>

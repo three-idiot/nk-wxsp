@@ -123,12 +123,12 @@ export default class Index extends wepy.page {
 
     requestGetGoods() {
         let self = this;
-        util.requestApi(api.apiGoodsList, {
+        util.requestApi(api.apiTravelGoodsList, {
             size: 10000
-        }, wx.getStorageSync('userToken')).then((res) => {
+        }, wx.getStorageSync('userToken'),'POST').then((res) => {
             if (res.data && res.code == 200) {
                 console.log('商品列表返回：', res.data);
-                self.lists = res.data;
+                self.lists = res.data.data;
                 self.$apply();
             }
         }).catch((msg) => {
