@@ -38,5 +38,12 @@ export default {
 
   apiJianliUrl: host + '/image/getresumepath',
 
+  /** 资讯列表 */
+  apiNewslist: host + '/news/list',
+  /** 资讯详情 */
+  apiNewsDetail: host + '/news',
+  // 旅游订单列表
+  apiTravelOrderList: host + '/travelOrder/list',
+
   apiTravelGoodsList: host + '/travelGoods/list',
 }

@@ -1,0 +1,164 @@
+<template>
+  <view class="newslist">
+    <scroll-view scroll-y style="height: 100%;" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <repeat for="{{newslist}}" key="index" index="index" item="item">
+        <view class="single-news imgs-counts-{{item.images.length}}" @tap="handleGoDetail({{item}})">
+          <view class="title">{{item.title}}</view>
+          <view class="imgs">
+            <repeat for="{{item.images.length < 3 ? [item.images[0]] : [item.images[0],item.images[1],item.images[2]]}}" key="index1" index="index1" item="item1">
+              <image class="news-img" src="{{item1.goodPath}}"></image>
+            </repeat>
+          </view>
+          <view class="news-tags">
+            <views class="type" wx:if="{{item.top}}">{{'置顶'}}</views>
+            <wxs src="../filter/getComputedDate.wxs" module="filter" />
+            <views class="pubtime">{{filter.getComputedDate(item.createTime)}}</views>
+          </view>
+        </view>
+      </repeat>
+    </scroll-view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class NewsList extends wepy.page {
+    config = {
+      navigationBarTitleText: '资讯'
+    }
+    components = {
+    }
+
+    data = {
+      pageIndex: 1,
+      pageSize: 10,
+      newslist: []
+    }
+
+    computed = {
+    }
+
+    methods = {
+      handleGoDetail (item) {
+        wx.navigateTo({
+          url: 'newsDetail?id=' + item.id + '&title=' + item.title,
+        });
+      }
+    }
+
+    onLoad() {
+      this.requestGetNewslist();
+    }
+    
+    lower (e) {
+      ++this.pageIndex;
+      this.requestGetNewslist();
+    }
+
+    scroll (e) {
+      // console.log(e)
+    }
+
+    /**
+     * 获取资讯列表
+     */
+    requestGetNewslist () {
+      let self = this;
+      util.requestPostApi(api.apiNewslist, {
+        pageIndex: self.data.pageIndex,
+        pageSize: self.data.pageSize
+      }, wx.getStorageSync('userToken'), {'content-type': 'application/json'}).then((res1) => {
+        if (res1.code == 200) {
+          console.log('获取资讯列表成功：', res1.data);
+          if (res1.data && res1.data.data && res1.data.data.length) {
+            self.newslist = self.newslist.concat(res1.data.data);
+            self.$apply();
+          } else if (res1.data && res1.data.data && !res1.data.data.length) {
+            wx.showToast({
+              title: '已经到底了',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        }
+      });
+    }
+  }
+</script>
+<style lang="less">
+  .newslist {
+    height: 100vh;
+    width: 100vw;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 0 30rpx;
+    .single-news {
+      width: 100%;
+      padding: 30rpx 0;
+      overflow: hidden;
+      &:not(:last-child) {
+        border-bottom: 1rpx solid #f5f5f5;
+      }
+      .title {
+        float: left;
+        width: 100%;
+        color: #353535;
+        font-size: 32rpx;
+        line-height: 50rpx;
+      }
+      .imgs {
+        float: left;
+        width: 100%;
+        overflow: hidden;
+        clear: right;
+        .news-img {
+          width: 224rpx;
+          height: 149rpx;
+          display: inline-block;
+          &:not(:last-child) {
+            margin-right: 9rpx;
+          }
+        }
+      }
+      &.imgs-counts-0 {
+        .title {
+          width: 100%;
+        }
+        .imgs {
+          width: 0;
+          height: 0;
+        }
+      }
+      &.imgs-counts-1, &.imgs-counts-2 {
+        .title {
+          width: 69%;
+        }
+        .imgs {
+          width: 30%;
+        }
+      }
+      .news-tags {
+        display: block;
+        .type {
+          color: #FF222A;
+          border: 1rpx solid #FF222A;
+          width: 44rpx;
+          height: 28rpx;
+          line-height: 28rpx;
+          text-align: center;
+          font-size: 20rpx;
+          display: inline-block;
+          margin-right: 10rpx;
+        }
+        .pubtime {
+          color: #888;
+          font-size: 22rpx;
+        }
+      }
+    }
+  }
+</style>

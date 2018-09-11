@@ -1,0 +1,165 @@
+<style lang="less">
+  .fill-invoice {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    .choose-invoice,.invoice-detail,.tax-num,.invoice-content,.mail {
+      margin-left: 30rpx;
+      border-bottom: 1rpx solid #ccc;
+      /*padding: 30rpx 0 20rpx 0;*/
+      height: 98rpx;
+      line-height: 98rpx;
+      text {
+        display: inline-block;
+        /*width: 168rpx;*/
+        width: 192rpx;
+        font-size: 28rpx;
+        color: #888888;
+      }
+    }
+    .choose-invoice {
+      display: flex;
+      .radio-group {
+        font-size: 32rpx;
+        color: #444444;
+        .radio:nth-child(2) {
+          margin-left: 80rpx;
+        }
+      }
+    }
+    .invoice-detail,.tax-num,.mail {
+      display: flex;
+      align-items: center;
+      input {
+        font-size: 32rpx;
+        color: #B2B2B2;
+      }
+    }
+    .invoice-content {
+      display: flex;
+      .picker-container {
+        flex:1;
+        .picker {
+          /*width: 192rpx;*/
+          display: block;
+          width: 100%;
+          /*height: 100%;*/
+          height: 98rpx;
+          font-size: 32rpx;
+          color: #353535;
+        }
+      }
+    }
+
+    .btn {
+      position: fixed;
+      left:0;
+      bottom: 0;
+      width: 100%;
+      height: 98rpx;
+      line-height: 98rpx;
+      color: #FFFFFF;
+      text-align: center;
+      background: #387DFF;
+    }
+  }
+</style>
+<template>
+  <view class="fill-invoice">
+    <view class="form-container">
+      <view class="choose-invoice">
+        <text>发票抬头</text>
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" wx:for="{{type}}">
+            <radio  value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
+          </label>
+        </radio-group>
+      </view>
+
+      <view class="invoice-detail">
+        <text>发票抬头</text>
+        <input type="text" placeholder="请填写发票抬头">
+      </view>
+
+      <view class="tax-num">
+        <text>纳税人识别号</text>
+        <input type="text"  placeholder="税务登记证上编号，至少15位">
+      </view>
+
+      <view class="invoice-content">
+        <text>发票内容</text>
+        <picker bindchange="bindPickerChange" value="{{contentIndex}}" range="{{array}}" wx:model="contentIndex" class="picker-container">
+          <view class="picker">
+            {{array[contentIndex]}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="mail">
+        <text>电子邮箱</text>
+        <input type="text"  placeholder="请填写接收邮箱">
+      </view>
+
+      <view class="btn" @tap="invoiceSubmit">
+        提交
+      </view>
+
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class SignDetail extends wepy.page {
+    config = {
+      navigationBarTitleText: '填写发票信息'
+    }
+    components = {
+
+    }
+
+    data = {
+      type: [
+        {name:'个人', value:'1'},
+        {name:'公司', value:'2'}
+      ],
+      array: ['服务费', '什么费', '巴西', '日本'],
+      contentIndex :0,
+      formData:{
+        invoice: null,
+        taitou:null,
+        taxNum: null,
+        invoiceContent: null,
+        mail:null
+      }
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+      bindPickerChange(res) {
+        console.log( res );
+        this.contentIndex = res.detail.value;
+      },
+      radioChange(event) {
+        console.log( event );
+      },
+      invoiceSubmit() {
+        console.log( this.formData );
+      }
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+      let self = this
+
+    }
+  }
+</script>

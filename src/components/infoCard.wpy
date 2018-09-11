@@ -1,0 +1,91 @@
+<style lang="less">
+  .info-card {
+    background: #fff;
+    margin-top: 20rpx;
+    padding: 30rpx;
+    .card-title {
+      font-size: 28rpx;
+      color: #353535;
+      margin-bottom: 30rpx;
+    }
+    .card-body {
+      .item-info:nth-child(1) {
+        margin-top: 0;
+      }
+      .item-info {
+        margin-top: 20rpx;
+        line-height: 28rpx;
+        text {
+          display: inline-block;
+        }
+        text:nth-child(1) {
+          width: 112rpx;
+          font-size: 28rpx;
+          color: #888888;
+        }
+        text:nth-child(2) {
+          margin-left: 70rpx;
+          font-size: 28rpx;
+          color: #353535;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="info-card">
+    <view class="card-title" wx:if="{{ infoList.title }}">
+      {{ infoList.title }}
+    </view>
+    <view class="card-body">
+      <view class="item-info" wx:for="{{ infoList.infos }}" wx:key="item.key">
+        <text>{{ item.key }}</text><text>{{ item.value }}</text>
+      </view>
+    </view>
+  </view>
+
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class InfoCard extends wepy.component {
+    config = {
+      navigationBarTitleText: 'card组件'
+    }
+    props = {
+      infoList: {
+        type: Object,
+        default: {
+          title:'',
+          infos: [],
+        }
+      }
+    }
+    components = {
+
+    }
+
+    data = {
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+      let self = this;
+      console.log( this.infoList );
+
+    }
+  }
+</script>

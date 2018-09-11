@@ -8,8 +8,8 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"appid": "wx108e5b27e63d1e45",
-	"projectname": "north-korea-sign",
+	"appid": "wx9b2c90e1c914962a",
+	"projectname": "test1",
 	"miniprogramRoot": "./dist",
 	"condition": {}
 }

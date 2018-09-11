@@ -16,7 +16,7 @@
             <text>商务</text>
         </view>
     </view>
-    <view class="news-container">
+    <view class="news-container" @tap="jumpToNewslist">
         <view class="news">
             <image src="../images/index/news.png" />
             <view class="txt">
@@ -126,6 +126,12 @@ export default class Index extends wepy.page {
         // wx.redirectTo({
         //   url: 'hello'
         // });
+    }
+
+    jumpToNewslist () {
+        wx.navigateTo({
+          url: 'newsList'
+        });
     }
 
     requestGetBanner() {

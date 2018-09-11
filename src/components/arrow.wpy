@@ -1,0 +1,51 @@
+<style lang="less">
+  .right-arrow {
+    display: inline-block;
+    width: 20rpx;
+    height: 20rpx;
+    transform: rotate(45deg);
+    border: 2rpx solid #B2B2B2;
+    border-left:transparent;
+    border-bottom:transparent;
+    vertical-align: center;
+  }
+</style>
+<template>
+  <view class="right-arrow">
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Arrow extends wepy.component {
+    config = {
+      navigationBarTitleText: 'arrow组件'
+    }
+    props = {
+    }
+    components = {
+
+    }
+
+    data = {
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+
+    events = {
+
+    }
+
+    onLoad() {
+      let self = this;
+    }
+  }
+</script>

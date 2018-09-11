@@ -50,21 +50,22 @@ const requestApi = (url, data = {}, token = '', method = 'GET') => {
   });
 }
 
-const requestPostApi = (url, data = {}, token = '') => {
+const requestPostApi = (url, data = {}, token = '', config = {}) => {
   wx.showLoading({
     title: '加载中',
     mask: true
   })
+  let _header = Object.assign({}, {
+    'userToken': token,
+    'content-type': 'application/x-www-form-urlencoded',
+    'cookie': wx.getStorageSync('setSession') ? wx.getStorageSync('setSession') : ''
+  }, config);
   return new Promise((resolve, reject) => {
     wepy.request({
       url: url,
       data: data,
       method: 'POST',
-      header: {
-        'userToken': token,
-        'content-type': 'application/x-www-form-urlencoded',
-        'cookie': wx.getStorageSync('setSession') ? wx.getStorageSync('setSession') : ''
-      }
+      header: _header
     }).then((res) => {
       wx.hideLoading()
       let _headerCode = res.header.key ? JSON.parse(res.header.key) : '';
@@ -111,7 +112,7 @@ const formatDate = (dateObj) => {
   fmt = dateObj.getFullYear() + '/' + buLing(o['M+'])+ '/' + buLing(o['d+']) + ' ' + buLing(o['h+']) + ':' + buLing(o['m+']) + ':' + buLing(o['s+'])
   return new Date(new Date(fmt).getTime() + 8*3600*1000).toLocaleString();
 }
-
+/** 注意：这里不能乱用，因为之前后端技术不行，时间计算有8小时的误差，所以这里面有加上8小时的逻辑兼容后端 */
 const getYYMMDD = (date) => {
   let _temp = new Date(date.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'));
   _temp = new Date( new Date(_temp).getTime() + 8*3600*1000 );
