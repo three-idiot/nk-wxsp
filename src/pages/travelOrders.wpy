@@ -160,7 +160,7 @@
 
     }
     getList() {
-      util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken')).then((res) => {
+      util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
         console.log( res );
       }).catch((msg) => {
         console.log( msg );
