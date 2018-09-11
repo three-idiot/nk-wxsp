@@ -2,16 +2,16 @@
 <view class="travel-list">
     <repeat for="{{syncLists}}" item="item" key="index" index="index">
         <view class="travel" @tap="handleClickSingleSign({{item}}, {{index}})">
-            <image src="../../images/index/travel-ad.png" />
+            <image src="{{item.images[0].goodPath}}" />
             <view class="list-travel">
                 <view class="title-name">
-                    <text class="red">【丹东出发】</text>
-                    <text>朝鲜平壤、开成、板门店、元山、金刚山5日游 7月收客中的点点滴滴多多多多多多多多多多多多多多多多</text>
+                    <text class="red">【{{item.leaveAddress}}出发】</text>
+                    <text>{{item.name}}</text>
                 </view>
                 <view class="bottom">
-                    <text class="status">报名中</text>
-                    <text class="num">成团人数 10/<text class="green">5</text></text>
-                    <text class="money">￥<text class="red">1000</text><text class="abandon">￥1600</text></text>
+                    <text class="status">{{item.status}}</text>
+                    <text class="num">成团人数 {{item.peopleMaxNum}}/<text class="green">{{item.peopleMinNum}}</text></text>
+                    <text class="money">￥<text class="red">{{item.realPrice}}</text><text class="abandon">￥{{item.salePrice}}</text></text>
                 </view>
             </view>
         </view>
