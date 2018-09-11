@@ -1,4 +1,5 @@
-const host = 'https://s.le-99.xyz';
+// const host = 'https://s.le-99.xyz';
+const host = 'https://admin.lovewh.com.cn';
 // const host = 'http://124.204.40.228:7093';
 // const host = 'https://s.qqtlhnc.com';
 // const host = 'http://192.168.89.13:8090';
