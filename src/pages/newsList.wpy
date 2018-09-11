@@ -107,7 +107,7 @@
     }
 
     onLoad() {
-      // this.requestGetNewslist();
+      this.requestGetNewslist();
     }
     
     lower (e) {
@@ -124,14 +124,14 @@
      */
     requestGetNewslist () {
       let self = this;
-      util.requestApi(api.apiNewslist, {
-        pageIndex: '',
-        pageSize: ''
-      }, wx.getStorageSync('userToken')).then((res1) => {
+      util.requestPostApi(api.apiNewslist, {
+        pageIndex: self.data.pageIndex,
+        pageSize: self.data.pageSize
+      }, wx.getStorageSync('userToken'), {'content-type': 'application/json'}).then((res1) => {
         if (res1.code == 200) {
-          // console.log('获取资讯列表成功：', res1.data);
-          self.newslist = res1.data.data;
-          self.$apply();
+          console.log('获取资讯列表成功：', res1.data);
+          // self.newslist = res1.data.data;
+          // self.$apply();
         }
       });
     }

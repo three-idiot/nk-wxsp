@@ -50,21 +50,22 @@ const requestApi = (url, data = {}, token = '', method = 'GET') => {
   });
 }
 
-const requestPostApi = (url, data = {}, token = '') => {
+const requestPostApi = (url, data = {}, token = '', config = {}) => {
   wx.showLoading({
     title: '加载中',
     mask: true
   })
+  let _header = Object.assign({}, {
+    'userToken': token,
+    'content-type': 'application/x-www-form-urlencoded',
+    'cookie': wx.getStorageSync('setSession') ? wx.getStorageSync('setSession') : ''
+  }, config);
   return new Promise((resolve, reject) => {
     wepy.request({
       url: url,
       data: data,
       method: 'POST',
-      header: {
-        'userToken': token,
-        'content-type': 'application/x-www-form-urlencoded',
-        'cookie': wx.getStorageSync('setSession') ? wx.getStorageSync('setSession') : ''
-      }
+      header: _header
     }).then((res) => {
       wx.hideLoading()
       let _headerCode = res.header.key ? JSON.parse(res.header.key) : '';
