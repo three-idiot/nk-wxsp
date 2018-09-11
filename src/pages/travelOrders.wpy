@@ -111,7 +111,9 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
+  import wepy from 'wepy';
+  import util from '../plugins/util';
+  import api from '../plugins/api';
 
   export default class SignDetail extends wepy.page {
     config = {
@@ -157,10 +159,19 @@
     events = {
 
     }
-
+    getList() {
+      util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken')).then((res) => {
+        console.log( res );
+      }).catch((msg) => {
+        console.log( msg );
+        // if (msg == 'reAuth') {
+        //   self.goAuth();
+        // }
+      });
+    }
     onLoad() {
-      let self = this
-
+      let self = this;
+      this.getList();
     }
   }
 </script>
