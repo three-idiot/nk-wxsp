@@ -54,7 +54,7 @@
 
     onLoad(option) {
       // console.log(option.id)
-      // this.requestGetNewslist(option.id);
+      this.requestGetNewsInfo(option.id);
       if (option.title) {
         wx.setNavigationBarTitle({
           title: option.title 
@@ -65,12 +65,12 @@
     /**
      * 获取资讯列表
      */
-    requestGetNewslist (id) {
+    requestGetNewsInfo (id) {
       let self = this;
       util.requestApi(api.apiNewsDetail+'/'+id, {}, wx.getStorageSync('userToken')).then((res) => {
         if (res.code == 200) {
-          // console.log('获取资讯详情成功：', res1.data);
-          self.newsInfo = res.data.data;
+          console.log('获取资讯详情成功：', res.data);
+          self.newsInfo = res.data;
           self.$apply();
         }
       });

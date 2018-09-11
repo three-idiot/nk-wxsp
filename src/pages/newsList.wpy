@@ -10,7 +10,7 @@
             </repeat>
           </view>
           <view class="news-tags">
-            <views class="type">{{'置顶'}}</views>
+            <views class="type" wx:if="{{item.top}}">{{'置顶'}}</views>
             <wxs src="../filter/getComputedDate.wxs" module="filter" />
             <views class="pubtime">{{filter.getComputedDate(item.createTime)}}</views>
           </view>
@@ -36,63 +36,7 @@
     data = {
       pageIndex: 1,
       pageSize: 10,
-      newslist: [
-        {
-          "id": 1,
-          "newsNo": "",
-          "title": "第一次去朝鲜旅游的注意事项注意事项",
-          "newsKey": "ailisi",
-          "detail": "zixun",
-          "top": 1,
-          "type": null,
-          "status": 1,
-          "publisher": null,
-          "approveTime": "2018-08-05T11:59:21.000+0000",
-          "approver": 0,
-          "approveRemark": "\\'12321312321\\'",
-          "createTime": new Date('2018-09-09 16:12:00'),
-          "updateTime": "2018-08-05T11:59:21.000+0000",
-          "images": [
-            { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-            { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-            { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-          ]
-        },
-        {
-          "id": 2,
-          "newsNo": "",
-          "title": "第一次去朝鲜旅游的注意事项第一次去朝鲜旅游的注意事项",
-          "newsKey": "ailisi",
-          "detail": "zixun",
-          "top": 1,
-          "type": null,
-          "status": 1,
-          "publisher": null,
-          "approveTime": "2018-08-05T11:59:21.000+0000",
-          "approver": 0,
-          "approveRemark": "\\'12321312321\\'",
-          "createTime": "2018-07-29T13:13:22.000+0000",
-          "updateTime": "2018-08-05T11:59:21.000+0000",
-          "images": [
-            { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-            { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-          ]
-        },
-        {
-          "id": 3,
-          "newsNo": "",
-          "title": "注意事项第一次去朝鲜旅游的注意事项注意事项第一次去朝鲜旅游的注意事项",
-          "newsKey": "ailisi",
-          "detail": "zixun",
-          "top": 1,
-          "type": null,
-          "status": 1,
-          "publisher": null,
-          "createTime": "2018-07-29T13:13:22.000+0000",
-          "updateTime": "2018-08-05T11:59:21.000+0000",
-          "images": []
-        }
-      ]
+      newslist: []
     }
 
     computed = {
@@ -116,7 +60,7 @@
     }
 
     scroll (e) {
-      console.log(e)
+      // console.log(e)
     }
 
     /**
@@ -130,8 +74,16 @@
       }, wx.getStorageSync('userToken'), {'content-type': 'application/json'}).then((res1) => {
         if (res1.code == 200) {
           console.log('获取资讯列表成功：', res1.data);
-          // self.newslist = res1.data.data;
-          // self.$apply();
+          if (res1.data && res1.data.data && res1.data.data.length) {
+            self.newslist = self.newslist.concat(res1.data.data);
+            self.$apply();
+          } else if (res1.data && res1.data.data && !res1.data.data.length) {
+            wx.showToast({
+              title: '已经到底了',
+              icon: 'none',
+              duration: 2000
+            })
+          }
         }
       });
     }
