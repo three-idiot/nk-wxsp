@@ -12,13 +12,13 @@
       <import src="../wxParse/wxParse.wxml"/>
       <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
     </view>
-    <view class="related-news">
+    <view class="related-news" wx:if="{{ newsInfo.keyNews }}">
       <view class="related-title">类似推荐</view>
       <view class="related-news-info">
         <view class="left">
-          <view class="title">{{relatedNews.title}}</view>
+          <view class="title">{{newsInfo.keyNews.title}}</view>
           <wxs src="../filter/getComputedDate.wxs" module="filter" />
-          <view class="time">{{filter.getComputedDate(relatedNews.createTime)}}</view>
+          <view class="time">{{filter.getComputedDate(newsInfo.keyNews.createTime)}}</view>
         </view>
         <view class="right">
           <image class="related-news-img" src="{{'http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg'}}"></image>
@@ -67,9 +67,17 @@
           { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
           { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
           { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-        ]
-      },
-      relatedNews: null
+        ],
+        "keyNews": {
+          newsNo: 'HB78798789797979',
+          title: '我是推荐资讯',
+          newsKey: 'tuijian',
+          publisher: '唐先森',
+          createTime: new Date('2018-09-12 16:12:00'),
+          status: 2,
+          detail: '呵呵'
+        }
+      }
     }
 
     computed = {
@@ -99,8 +107,8 @@
           self.newsInfo = res.data;
           WxParse.wxParse('article', 'html', res.data.detail, self, 5);
           self.$apply();
-          let _keyword = res.data.newsKey;
-          self.requestGetRelatedNews(_keyword);
+          // let _keyword = res.data.newsKey;
+          // self.requestGetRelatedNews(_keyword);
         }
       });
     }
