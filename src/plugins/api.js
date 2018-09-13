@@ -46,4 +46,5 @@ export default {
   apiTravelOrderList: host + '/travelOrder/list',
 
   apiTravelGoodsList: host + '/travelGoods/list',
+  apiAdd: host + '/travelGoods/create',
 }
