@@ -9,7 +9,7 @@
       <text class="blue">温馨提示：</text>
       <text>原路退款时，若订单显示“已退款”，表示款项已从微信返回原支付方式，距离到账需要3-5个工作日，请耐心等待。</text>
     </view>
-    <view class="order-button">查看订单</view>
+    <view class="order-button" @tap="handleCheckOrder">查看订单</view>
   </view>
 </template>
 
@@ -24,15 +24,24 @@
     }
 
     data = {
+      /** 上一页带过来的订单id */
+      orderId: ''
     }
 
     computed = {
     }
 
     methods = {
+      handleCheckOrder () {
+        let self = this;
+        wx.navigateTo({
+          url: 'travelOrderDetail?id=' + self.orderId
+        });
+      }
     }
 
     onLoad(option) {
+      this.orderId = option.orderId;
     }
   }
 </script>

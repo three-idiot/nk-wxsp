@@ -45,7 +45,7 @@
     methods = {
       handleGoDetail (item) {
         wx.navigateTo({
-          url: 'newsDetail?id=' + item.newsId + '&title=' + item.title,
+          url: 'newsDetail?id=' + item.newsId + '&title=' + item.title + '&type=' + item.newsType,
         });
       }
     }

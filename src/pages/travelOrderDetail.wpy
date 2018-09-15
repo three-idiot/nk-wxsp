@@ -216,7 +216,7 @@
 
     <view class="refund-explain">
       <text>退款说明</text>
-      <arrow class="arrow"  />
+      <arrow class="arrow" @tap="jumpToRefundDesc"  />
     </view>
 
     <view class="others">
@@ -383,6 +383,12 @@
         //   url: 'travelPeople',
         // });
 
+      },
+      /** 跳转退款说明 */
+      jumpToRefundDesc () {
+        wx.navigateTo({
+          url: 'refundApplyDesc'
+        });
       }
     }
 
