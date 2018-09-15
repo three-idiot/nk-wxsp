@@ -202,11 +202,11 @@
         {{ leaveTime }}{{ travelGoods.leaveAddress }}出发
       </view>
       <view class="bottom">
-        出行人数  2
+        出行人数  {{ totalNum }}
       </view>
     </view>
     <view class="traveler-info">
-      <view class="traveler"><text>出行人信息</text><text>1成人，1儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
+      <view class="traveler"><text>出行人信息</text><text>{{manNum}}成人，{{ childNum }}儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
       <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
     </view>
 
@@ -276,6 +276,12 @@
       user: null,
       leaveTime: null,
       travelOrder: null,
+      // 成人人数
+      manNum: 0,
+      // 孩子人数
+      childNum: 0,
+      // 总出行人数
+      totalNum: 0,
       contactInfo:{
         title: '联系人信息',
         infos: [
@@ -316,7 +322,7 @@
         //  联系人和联系号码
         this.contactInfo.infos[0].value = this.travelOrder.contactName;
         this.contactInfo.infos[1].value = this.travelOrder.contactPhone ?  this.travelOrder.contactPhone : '/';
-        console.log(this.contactInfo.infos  );
+        // console.log(this.contactInfo.infos  );
         this.$apply();
       });
     }
@@ -324,6 +330,16 @@
       util.requestApi(api.apiTravelUserInfos, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
         // self.loading = true;
         console.log( res );
+        let data = res.data;
+        this.totalNum = data.length;
+        for( let i = 0;i<data.length;i++ ) {
+          let item = data[i];
+          if( item.travelUserType == 1 ) {
+            this.manNum += 1;
+          } else {
+            this.childNum += 1;
+          }
+        };
         this.$apply();
       });
 
