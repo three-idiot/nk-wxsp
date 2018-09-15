@@ -1,0 +1,50 @@
+<template>
+  <view class="refundapplydesc">
+    <view class="refundapplydesc-title">退款说明</view>
+    <view class="refundapplydesc-content">说明一下哈，想退款，qnmlgb的吧。说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class RefundApplyDesc extends wepy.page {
+    config = {
+      navigationBarTitleText: '退款说明'
+    }
+    components = {
+    }
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    onLoad(option) {
+    }
+  }
+</script>
+<style lang="less">
+  .refundapplydesc {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 0 50rpx;
+    position: relative;
+    .refundapplydesc-title {
+      font-size: 32rpx;
+      color: #444;
+      line-height: 60rpx;
+    }
+    .refundapplydesc-content {
+      font-size: 28rpx;
+      color: #888;
+      line-height: 54rpx;
+    }
+  }
+</style>

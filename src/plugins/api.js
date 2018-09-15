@@ -44,6 +44,10 @@ export default {
   apiNewsDetail: host + '/news',
   /** 资讯广告列表 */
   apiNewsAdslist: host + '/news/newList',
+  /** 退款金额 */
+  apiRefundMoney: host + '/travelOrder/userApplyRefundFee',
+  /** 退款 */
+  apiRefund: host + '/travelOrder/userApplyRefund',
   // 旅游订单列表
   apiTravelOrderList: host + '/travelOrder/list',
   // 旅游订单详情

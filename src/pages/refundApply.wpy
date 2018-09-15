@@ -78,6 +78,12 @@
     label:nth-child(1) {
       margin-top: 0;
     }
+    .traveller-info {
+      margin-left: 67rpx;
+      color: #888;
+      font-size: 28rpx;
+      line-height: 40rpx;
+    }
   }
 
   .refund-reason {
@@ -121,8 +127,9 @@
       </view>
       <view class="choose-people">
         <checkbox-group bindchange="peopleChange">
-          <label class="checkbox" wx:for="{{items}}">
-            <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          <label class="checkbox" wx:key="{{index}}" wx:for="{{travelChildOrders}}">
+            <checkbox value="{{item.id}}" />出行人{{index+1}}
+            <text class="traveller-info">{{item.travelUserInfo.name}}  (成人 ￥{{item.unitPrice/100}}/人)</text>
           </label>
         </checkbox-group>
       </view>
@@ -132,14 +139,14 @@
       <view class="left">
         <view class="left-top">
           <text class="refund-text">退款金额</text>
-          <text class="num-container"><text>￥</text>10000</text>
+          <text class="num-container"><text>￥</text>{{refundMoney}}</text>
         </view>
         <view class="left-bottom">
           原路退回（3-5个工作日内退款到原支付方）
         </view>
       </view>
       <view class="right">
-        <text>退款说明</text>
+        <text @tap="jumpToRefundDesc">退款说明</text>
       </view>
     </view>
 
@@ -150,14 +157,14 @@
       </view>
       <view class="choose-reason">
         <checkbox-group bindchange="reasonChange">
-          <label class="checkbox" wx:for="{{items2}}">
-            <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          <label class="checkbox" wx:key="{{index}}" wx:for="{{resons}}">
+            <checkbox value="{{item.name}}" checked="{{item.checked}}" />{{item.name}}
           </label>
         </checkbox-group>
       </view>
     </view>
 
-    <view class="refund-btn">
+    <view class="refund-btn" @tap="handleRefund">
       申请退款
     </view>
   </view>
@@ -165,6 +172,9 @@
 
 <script>
   import wepy from 'wepy'
+
+  import util from '../plugins/util'
+  import api from '../plugins/api'
 
   export default class RefundApply extends wepy.page {
     config = {
@@ -174,36 +184,118 @@
 
     }
     data = {
-      items: [
-        {name: 'USA', value: '美国'},
-        {name: 'CHN', value: '中国', checked: 'true'},
-        {name: 'BRA', value: '巴西'},
+      /** 订单id，从上一页url带过来的 */
+      orderId: '',
+      /** 退款金额 */
+      refundMoney: 0,
+      /** 子订单id集合 */
+      orderChildIds: [],
+      /** 退款原因 */
+      refundResons: '',
+      /** 退款单号，退款成功后生成的，不知道有没有用 */
+      refundOrderNumber: '',
+      /** 子订单列表，这个是从上一个页面通过参数传递过来的 */
+      travelChildOrders: [
+        {
+          id: '1',
+          status: 3,
+          userType: 1,
+          unitPrice: 10000,
+          travelUserInfo: {
+            name: '小明',
+            cardType: 1,
+            cardId: '1',
+            phone: '13621189888'
+          }
+        },
+        {
+          id: '2',
+          status: 3,
+          userType: 1,
+          unitPrice: 12000,
+          travelUserInfo: {
+            name: '小明爸爸',
+            cardType: 1,
+            cardId: '1',
+            phone: '13621189888'
+          }
+        }
       ],
-      items2: [
-        {name: '买多1', value: '买多了'},
-        {name: '买多2', value: '中买多了国', checked: 'true'},
-        {name: '买多3', value: '巴买多了西'},
+      /** 退款原因 */
+      resons: [
+        {name: '买多了/买错了', value: '1'},
+        {name: '计划有变，没时间出行', value: '2'},
+        {name: '信息填写错误，重新下单', value: '3'},
+        {name: '其他', value: '4'}
       ],
     }
     computed = {
 
     }
     methods = {
-      peopleChange() {
-        console.log(1111);
+      peopleChange(e) {
+        // console.log('出行人选择变更：', e.detail.value);
+        this.orderChildIds = e.detail.value;
+        if (e.detail.value.length) {
+          this.requestGetRefundMoney(this.orderChildIds);
+        } else {
+          this.refundMoney = 0;
+        }
       },
-      reasonChange() {
-        console.log(222);
+      reasonChange(e) {
+        // console.log('退款原因选择变更：', e.detail.value);
+        this.refundResons = e.detail.value.join(',');
       }
     }
-
-    events = {
-
+    /** 请求退款金额 */
+    requestGetRefundMoney (idsArr) {
+      let self = this;
+      util.requestPostApi(api.apiRefundMoney, {
+        orderChildIds: idsArr
+      }, wx.getStorageSync('userToken')).then((res) => {
+        if (res.code == 200) {
+          console.log('获取退款金额成功：', res.data);
+          self.refundMoney = res.data/100;
+          self.$apply();
+        }
+      });
+    }
+    /** 请求退款 */
+    handleRefund () {
+      let self = this;
+      util.requestPostApi(api.apiRefund, {
+        orderChildIds: idsArr,
+        userRefundReason: self.refundResons
+      }, wx.getStorageSync('userToken')).then((res) => {
+        if (res.code == 200) {
+          console.log('退款成功，退款单号为：', res.data);
+          self.refundOrderNumber = res.data;
+          // 跳转到退款提示页面
+          wx.navigateTo({
+            url: 'refundApplyTip?orderId=' + self.orderId,
+          });
+        }
+      });
+    }
+    /** 跳转退款说明 */
+    jumpToRefundDesc () {
+      wx.navigateTo({
+        url: 'refundApplyDesc'
+      });
     }
 
-    onLoad() {
+    onLoad(option) {
       let self = this
-
+      if (option.travelChildOrders) {
+        self.travelChildOrders = JSON.parse(option.travelChildOrders);
+      } else {
+        console.error('参数缺失，子订单数据未传递');
+      }
+      if (option.orderId) {
+        self.orderId = option.orderId;
+      } else {
+        console.error('参数缺失，订单ID未传递');
+      }
     }
   }
 </script>
