@@ -29,11 +29,29 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
-              <caret line="320" column="16" lean-forward="true" selection-start-line="320" selection-start-column="16" selection-end-line="320" selection-end-column="16" />
+            <state relative-caret-position="666">
+              <caret line="311" column="20" lean-forward="true" selection-start-line="311" selection-start-column="20" selection-end-line="311" selection-end-column="20" />
               <folding>
                 <element signature="e#5412#5435#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="infoCard.wpy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/infoCard.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1069">
+              <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contractModal.wpy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/contractModal.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="572">
+              <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -42,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/src/plugins/api.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="814">
-              <caret line="40" column="13" lean-forward="true" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+              <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -51,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/newsList.wpy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="594">
-              <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+              <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -60,7 +78,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/fillOrder.wpy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="638">
-              <caret line="47" column="141" lean-forward="true" selection-start-line="47" selection-start-column="141" selection-end-line="47" selection-end-column="141" />
+              <caret line="47" column="141" selection-start-line="47" selection-start-column="141" selection-end-line="47" selection-end-column="141" />
             </state>
           </provider>
         </entry>
@@ -112,6 +130,8 @@
       <find>self</find>
       <find>newslist</find>
       <find>leaveTime</find>
+      <find>contactInfo</find>
+      <find>otherInfo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -136,6 +156,7 @@
     <setting file="file://$PROJECT_DIR$/src/pages/orderList.wpy" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/pages/orderDetail.wpy" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/pages/fillInvoice.wpy" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/components/contractModal.wpy" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/pages/travel.wpy" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
@@ -196,6 +217,12 @@
               <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
               <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
@@ -272,12 +299,12 @@
       <workItem from="1536203235677" duration="615000" />
       <workItem from="1536637099446" duration="831000" />
       <workItem from="1536651793303" duration="2338000" />
-      <workItem from="1536998955542" duration="8263000" />
+      <workItem from="1536998955542" duration="10252000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94494000" />
+    <option name="totallyTimeSpent" value="96483000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -324,11 +351,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/contractModal.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-990" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/banner.wpy">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -415,13 +437,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/payments.wpy">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/infoCard.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="38" column="11" lean-forward="true" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/arrow.wpy">
       <provider selected="true" editor-type-id="text-editor">
@@ -551,7 +566,7 @@
     <entry file="file://$PROJECT_DIR$/src/plugins/api.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="814">
-          <caret line="40" column="13" lean-forward="true" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -601,21 +616,35 @@
     <entry file="file://$PROJECT_DIR$/src/pages/newsList.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
-          <caret line="30" column="34" lean-forward="true" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
+          <caret line="30" column="34" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fillOrder.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="638">
-          <caret line="47" column="141" lean-forward="true" selection-start-line="47" selection-start-column="141" selection-end-line="47" selection-end-column="141" />
+          <caret line="47" column="141" selection-start-line="47" selection-start-column="141" selection-end-line="47" selection-end-column="141" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/infoCard.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1069">
+          <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/contractModal.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="320" column="16" lean-forward="true" selection-start-line="320" selection-start-column="16" selection-end-line="320" selection-end-column="16" />
+        <state relative-caret-position="666">
+          <caret line="311" column="20" lean-forward="true" selection-start-line="311" selection-start-column="20" selection-end-line="311" selection-end-column="20" />
           <folding>
             <element signature="e#5412#5435#0" expanded="true" />
           </folding>

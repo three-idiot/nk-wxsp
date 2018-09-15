@@ -308,11 +308,9 @@
         this.travelChildOrders = res.data.travelChildOrders;
         this.travelGoods = res.data.travelGoods;
         this.user = res.data.user;
-        // console.log( this.invoice);
-        // console.log( this.travelChildOrders);
-        // console.log( this.travelGoods);
-        // console.log( this.user);
         this.leaveTime =  new Date(this.travelGoods.leaveTime).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime).getDate() + '日';
+        //  联系人和联系号码
+
         this.$apply();
       });
 
