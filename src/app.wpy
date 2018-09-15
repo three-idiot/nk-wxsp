@@ -4,11 +4,11 @@ import wepy from 'wepy'
 export default class extends wepy.app {
     config = {
         pages: [
-            'pages/newsList',
             'pages/hello',
             'pages/index',
             'pages/my',
             'pages/orderList',
+            'pages/newsList',
             'pages/signSecond',
             'pages/orderDetail',
             'pages/signDetail',
@@ -26,6 +26,7 @@ export default class extends wepy.app {
             'pages/travelOrderDetail',
             'pages/fillInvoice',
             'pages/refundApply',
+            'pages/clause',
         ],
         window: {
             backgroundTextStyle: "light",
@@ -38,8 +39,8 @@ export default class extends wepy.app {
             list: [{
                     "pagePath": "pages/index",
                     "text": "首页",
-                    "iconPath": "images/main_icon_tab_home.png",
-                    "selectedIconPath": "images/main_icon_tab_home_click.png"
+                    "iconPath": "images/tab/home.png",
+                    "selectedIconPath": "images/tab/home-active.png"
                 },
                 {
                     "pagePath": "pages/visa",
@@ -50,14 +51,14 @@ export default class extends wepy.app {
                 {
                     "pagePath": "pages/travel",
                     "text": "旅游",
-                    "iconPath": "images/tab/visa.png",
-                    "selectedIconPath": "images/tab/visa-active.png"
+                    "iconPath": "images/tab/travel.png",
+                    "selectedIconPath": "images/tab/travel-active.png"
                 },
                 {
                     "pagePath": "pages/my",
                     "text": "我的",
-                    "iconPath": "images/main_icon_tab_mine.png",
-                    "selectedIconPath": "images/main_icon_tab_mine_click.png"
+                    "iconPath": "images/tab/mine.png",
+                    "selectedIconPath": "images/tab/mine-active.png"
                 }
             ]
         }

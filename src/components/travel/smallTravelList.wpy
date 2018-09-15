@@ -48,7 +48,7 @@ export default class SmallTravelList extends wepy.component {
         handleClickSingleSign(item, index) {
             let self = this;
             wx.navigateTo({
-                url: 'travelDetail'
+                url: 'travelDetail?id='+item.id
             });
         }
     }
