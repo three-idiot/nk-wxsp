@@ -199,7 +199,7 @@
         <view></view>
       </view>
       <view class="medium">
-        {{ travelGoods.leaveTime }}丹东出发
+        {{travelGoods.leaveTime}}丹东出发
       </view>
       <view class="bottom">
         出行人数  2
@@ -267,11 +267,11 @@
           {key:'张3', value:'3333'},
           {key:'张4', value:'4444'},
         ],
-        invoice: null,
-        travelChildOrders: [],
-        travelGoods: null,
-        user: null,
       },
+      invoice: null,
+      travelChildOrders: [],
+      travelGoods: null,
+      user: null,
       contactInfo:{
         title: '联系人信息',
         infos: [
@@ -301,7 +301,7 @@
 
     fetchData() {
       util.requestApi(api.apiGetTravelOrdersDetail, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
-        this.loading = true;
+        // self.loading = true;
         console.log( res );
         this.invoice = res.data.invoice;
         this.travelChildOrders = res.data.travelChildOrders;
@@ -311,7 +311,7 @@
         console.log( this.travelChildOrders);
         console.log( this.travelGoods);
         console.log( this.user);
-        console.log( '测试', this.travelGoods.leaveTime )
+        this.$apply();
       });
 
     }
