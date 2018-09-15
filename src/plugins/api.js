@@ -47,6 +47,8 @@ export default {
   // 旅游订单详情
   apiGetTravelOrdersDetail: host+ '/travelOrder/travelOrderDetail',
   apiTravelGoodsList: host + '/travelGoods/list',
+  apiTravelGoodsDetail: host + '/travelGoods/',
+  apiTravelOrderCreate: host + '/travelOrder/create',
   apiAdd: host + '/travelGoods/create',
 
 }

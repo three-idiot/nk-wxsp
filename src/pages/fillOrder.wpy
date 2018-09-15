@@ -1,154 +1,184 @@
 <template>
 <view class="container">
     <view class="title-container">
-        <text class="title">朝鲜平壤、开成、板门店、元山、金刚山、平壤5日游 7月收客中</text>
-        <text class="time">7月18日丹东出发</text>
+        <text class="title">{{params.name}}</text>
+        <text class="time">{{leaveTime+params.leaveAddress}}出发</text>
     </view>
     <view class="interval"></view>
     <view class="num">
         <text class="title">请选择出游人数</text>
         <view class="item">
             <text class="type">成人</text>
-            <text class="red">1000.00</text>
+            <text class="red">{{params.salePrice}}</text>
             <text class="unit">元／人</text>
-            <image src="../images/tab/visa.png" />
-            <input type="digit" />
-            <image src="../images/tab/visa.png" />
+            <image wx:if="{{form.adult>1}}" src="../images/travel/img_minus.png" @tap="adultminus" />
+            <image wx:if="{{form.adult<=1}}" src="../images/travel/img_minus_unclick.png" />
+            <input class=""
+              type="number"
+              placeholder-style="color: #B2B2B2"
+              bindinput="adultInput"
+              bindblur="adultBlur"
+              value="{{form.adult}}"
+              placeholder=""/>
+            <image src="../images/travel/img_plus.png" @tap="adultPlus" />
         </view>
         <view class="item">
             <text class="type">儿童<text>2-12周岁(不含)</text></text>
-            <text class="red">1000.00</text>
+            <text class="red">{{params.childPrice}}</text>
             <text class="unit">元／人</text>
-            <image src="../images/tab/visa.png" />
-            <input type="digit" />
-            <image src="../images/tab/visa.png" />
+            <image wx:if="{{form.child>0}}" src="../images/travel/img_minus.png" @tap="childminus" />
+            <image wx:if="{{form.child<=0}}" src="../images/travel/img_minus_unclick.png"/>
+            <input class=""
+              type="number"
+              placeholder-style="color: #B2B2B2"
+              bindinput="childInput"
+              value="{{form.child}}"
+              placeholder=""/>
+            <image src="../images/travel/img_plus.png" @tap="childPlus" />
         </view>
     </view>
     <view class="interval"></view>
-    <view class="people">
-        <text class="title">出行人信息</text>
-        <view class="sub-title line">
-            <image class="id" src="../images/tab/visa.png" />
-            <text>出行人1</text>
-            <image class="close" src="../images/tab/visa.png" />
-        </view>
-        <view class="lable-input line">
-            <text>中文姓名</text>
-            <input type="string" placeholder="请填写出行人姓名" />
-        </view>
-        <view class="id-input line" @tap="openWindow">
-            <text class="lable">证件类型</text>
-            <text class="id">身份证</text>
-            <image class="open" src="../images/tab/visa.png" />
-        </view>
-        <view class="lable-input line">
-            <text>证件号码</text>
-            <input type="string" placeholder="必填，所持证件号码" />
-        </view>
-        <view class="lable-input line">
-            <text>手机号码</text>
-            <input type="string" placeholder="选填" />
-        </view>
-    </view>
-    <view class="interval"></view>
-    <view class="people">
-        <text class="title">出行人信息</text>
-        <view class="sub-title line">
-            <image class="id" src="../images/tab/visa.png" />
-            <text>出行人2</text>
-            <image class="close" src="../images/tab/visa.png" />
-        </view>
-        <view class="lable-input line">
-            <text>中文姓名</text>
-            <input type="string" placeholder="请填写出行人姓名" />
-        </view>
-        <view class="id-input line">
-            <text class="lable">证件类型</text>
-            <text class="id">身份证</text>
-            <image class="open" src="../images/tab/visa.png" />
-        </view>
-        <view class="lable-input line">
-            <text>证件号码</text>
-            <input type="string" placeholder="必填，所持证件号码" />
-        </view>
-        <view class="lable-input line">
-            <text>手机号码</text>
-            <input type="string" placeholder="选填" />
-        </view>
-        <view class="info-btn">
-            <text class="info">为了您顺利出行，请务必保证填写项与出游所持证件一致</text>
-            <view class="add">
-                <image class="add-icon" src="../images/tab/visa.png" />
-                <text>添加出行人</text>
+
+    <repeat for="{{form.passenger}}" item="item" key="index" index="index">
+        <view class="people">
+            <text class="title">出行人信息</text>
+            <view class="sub-title line">
+                <image class="id" src="../images/travel/pyqzxx1_icon_message.png" />
+                <text>出行人{{index+1}}</text>
+                <image wx:if="{{index!=0}}" @tap="removePassenger({{index}})" class="close" src="../images/travel/icon_traveler_delet.png" />
             </view>
-        </view>
-    </view>
-    <view class="interval"></view>
+            <view class="lable-input line">
+                <text>中文姓名</text>
+                <input class=""
+              type="string"
+              placeholder-style="color: #B2B2B2"
+              bindinput="nameInput({{index}})"
+              bindblur="nameBlur({{index}})"
+              value="{{item.name}}"
+              placeholder="请填写出行人姓名"/>
+            </view>
+                <view class="id-input line" @tap="openWindow({{index}},{{item.type}})">
+                    <text class="lable">证件类型</text>
+                    <text wx:if="{{item.type==0}}" class="id">身份证</text>
+                    <text wx:if="{{item.type==1}}" class="id">护照</text>
+                    <image class="open" src="../images/travel/icon_arrow_more copy.png" />
+                </view>
+                <view class="lable-input line">
+                    <text>证件号码</text>
+                    <input class=""
+              type="string"
+              placeholder-style="color: #B2B2B2"
+              bindinput="numberInput({{index}})"
+              bindblur="numberBlur({{index}})"
+              value="{{item.number}}"
+              placeholder="必填，所持证件号码"/>
+                </view>
+                    <view class="lable-input line">
+                        <text>手机号码</text>
+                        <input class=""
+              type="number"
+              placeholder-style="color: #B2B2B2"
+              bindinput="phoneInput({{index}})"
+              bindblur="phoneBlur({{index}})"
+              value="{{item.phone}}"
+              placeholder="选填"/>
+                    </view>
+                        <view class="info-btn" wx:if="{{index==form.passenger.length-1}}">
+                            <text class="info">为了您顺利出行，请务必保证填写项与出游所持证件一致</text>
+                            <view class="add">
+                                <image class="add-icon" src="../images/travel/icon_traveler_add.png" />
+                                <text @tap="addPassenger"> 添加出行人</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="interval"></view>
+    </repeat>
     <view class="contact">
         <text class="title">联系人信息</text>
         <view class="lable-input line">
             <text>联系人</text>
-            <input type="string" placeholder="请填写联系人姓名" />
+            <input class=""
+              type="number"
+              placeholder-style="color: #B2B2B2"
+              bindinput="contactNameInput"
+              bindblur="contactNameBlur"
+              value="{{contactName}}"
+              placeholder="请填写联系人姓名"/>
         </view>
-        <view class="lable-input line">
-            <text>手机号码</text>
-            <input type="string" placeholder="必填，用于接收短信" />
+            <view class="lable-input line">
+                <text>手机号码</text>
+                <input class=""
+              type="number"
+              placeholder-style="color: #B2B2B2"
+              bindinput="contactPhoneInput"
+              bindblur="contactPhoneBlur"
+              value="{{contactPhone}}"
+              placeholder="必填，用于接收短信"/>
         </view>
-        <view class="lable-input line">
-            <text>电子邮箱</text>
-            <input type="string" placeholder="必填，用于接收订单信息" />
+                <view class="lable-input line">
+                    <text>电子邮箱</text>
+                    <input class=""
+              type="number"
+              placeholder-style="color: #B2B2B2"
+              bindinput="contactEmailInput"
+              bindblur="contactEmailBlur"
+              value="{{contactEmail}}"
+              placeholder="必填，用于接收订单信息"/>
         </view>
-    </view>
-    <text class="info-item">点击下一步表示您已阅读并了解 <text class="blue">预定须知</text> 和 <text class="blue">重要条款</text></text>
-    <view class="bottom-btn">
-        <text class="price">￥<text class="red">1000.00</text></text>
-        <view class="consult">
-            <image src="../images/tab/visa.png" />
-            <text>咨询</text>
-        </view>
-        <view class="order">
-            <text class="next">下一步</text>
-            <text class="pay">去支付</text>
-        </view>
+                </view>
+                <text @tap="clause" class="info-item">点击下一步表示您已阅读并了解 <text class="blue">预定须知</text> 和 <text class="blue">重要条款</text></text>
+                <view class="bottom-btn">
+                    <text class="price">￥<text class="red">1000.00</text></text>
+                    <view class="consult" @tap="consult">
+                        <image src="../images/cxptqz_icon_consult1.png" />
+                        <text>咨询</text>
+                    </view>
+                    <view class="order" @tap="pay">
+                        <text class="next">下一步</text>
+                        <text class="pay">去支付</text>
+                    </view>
 
-    </view>
-    <view wx:if="{{showWindow}}" class="backdrop">
+                </view>
+                <view wx:if="{{showWindow}}" class="backdrop">
 
-    </view>
-        <view wx:if="{{showWindow}}" class="window">
-            <view class="row title">
-                <text>证件类型</text>
-                <image @tap="closeWindow" class="close" src="../images/tab/visa.png" />
+                </view>
+                <view wx:if="{{showWindow}}" class="window">
+                    <view class="row title">
+                        <text>证件类型</text>
+                        <text @tap="closeWindow" class="close">×</text>
+                    </view>
+                    <view class="row {{idOrPassport==0?'select':''}}" @tap="selectType(0)">
+                        <text>身份证</text>
+                        <text wx:if="{{idOrPassport==0}}" class="select-img">√</text>
+                    </view>
+                    <view class="row noborder {{idOrPassport==1?'select':''}}" @tap="selectType(1)">
+                        <text>护照</text>
+                        <text wx:if="{{idOrPassport==1}}" class="select-img">√</text>
+                    </view>
+                </view>
             </view>
-            <view class="row select">
-                <text>身份证</text>
-                <image class="select-img" src="../images/tab/visa.png" />
-            </view>
-            <view class="row noborder">
-                <text>护照</text>
-            </view>
-        </view>
-</view>
 </template>
 
 <script>
-import wepy from 'wepy'
-import Banner from '../components/banner'
-import SmallTravelList from '../components/travel/smallTravelList'
+import wepy from 'wepy';
+import Banner from '../components/banner';
+import SmallTravelList from '../components/travel/smallTravelList';
 
-import util from '../plugins/util'
-import api from '../plugins/api'
+import util from '../plugins/util';
+import api from '../plugins/api';
 
 export default class Index extends wepy.page {
     config = {
-        navigationBarTitleText: '朝鲜通',
-    }
+        navigationBarTitleText: '朝鲜通'
+    };
     components = {
         banner: Banner,
         smallTravelList: SmallTravelList
-    }
+    };
 
     data = {
+        id: null,
+        params: {},
         imgUrls: [
             '../images/index/travel-ad.png',
             '../images/index/travel-ad.png',
@@ -156,19 +186,195 @@ export default class Index extends wepy.page {
         ],
         lists: [],
         bannerImgUrl: '',
-        showWindow:false
-    }
+        showWindow: false,
+        selectIndex: 0,
+        idOrPassport: 0,
+        form: {
+            adult: 1,
+            child: 0,
+            passenger: [{
+                name: '',
+                type: 0,
+                number: '',
+                phone: ''
+            }],
+            contactPhone: '',
+            contactName: '',
+            contactEmail: '',
+        }
+    };
 
     computed = {
-
-    }
+        leaveTime() {
+            return this.params.leaveTime ? this.params.leaveTime.slice(0, 10) : '';
+        },
+        payParams() {
+            let passenger = [];
+            this.form.passenger.forEach(element => {
+                passenger.push({
+                    name: element.name,
+                    passport: element.type == 1 ? element.number : '',
+                    cardId: element.type == 0 ? element.number : '',
+                    phone: element.phone,
+                    // travelUserType:1
+                })
+            });
+            let params = {
+                travelGoodsId: this.id,
+                buyNum: this.form.adult + this.form.child,
+                contactName: this.form.contactName,
+                contactPhone: this.form.contactPhone,
+                contactEmail: this.form.contactEmail,
+                travelUserInfos: passenger
+            };
+            return params;
+        }
+    };
 
     methods = {
-        handleTapRefresh() {
-            console.log('刷新');
-            this.requestGetGoods();
+        adultInput(e) {
+            this.form.adult = e.detail.value;
+        },
+        adultBlur() {
+            if (!this.form.adult || this.form.adult == 0) {
+                wx.showToast({
+                    title: '成年人数必须大于1',
+                    icon: 'none',
+                    duration: 2000
+                });
+            }
+        },
+        adultPlus() {
+            this.form.adult++;
+        },
+        adultminus() {
+            if (this.form.adult > 1) {
+                this.form.adult--;
+            }
+        },
+        childInput(e) {
+            this.form.child = e.detail.value;
+        },
+        childPlus() {
+            this.form.child++;
+        },
+        childminus() {
+            if (this.form.child > 0) {
+                this.form.child--;
+            }
+        },
+        nameInput(index, e) {
+            this.form.passenger[index].name = e.detail.value;
+        },
+        nameBlur(index, e) {
+            if (!this.form.passenger[index].name) {
+                wx.showToast({
+                    title: '请填写姓名',
+                    icon: 'none',
+                    duration: 2000
+                });
+            }
+        },
+        numberInput(index, e) {
+            this.form.passenger[index].number = e.detail.value;
+        },
+        numberBlur(index, e) {
+            if (!this.form.passenger[index].number) {
+                wx.showToast({
+                    title: '请填写证件号码',
+                    icon: 'none',
+                    duration: 2000
+                });
+            }
+        },
+        phoneInput(index, e) {
+            this.form.passenger[index].phone = e.detail.value;
+        },
+        phoneBlur(index, e) {
+            // if (!this.form.passenger[index].phone) {
+            //     wx.showToast({
+            //         title: '请填写号码',
+            //         icon: 'none',
+            //         duration: 2000
+            //     });
+            // }
+        },
+
+        contactNameInput(e) {
+            this.form.contactName = e.detail.value;
+        },
+        contactNameBlur(e) {
+            if (!this.form.contactName) {
+                wx.showToast({
+                    title: '请填写联系人姓名',
+                    icon: 'none',
+                    duration: 2000
+                });
+            }
+        },
+
+        contactPhoneInput(e) {
+            this.form.contactPhone = e.detail.value;
+        },
+        contactPhoneBlur(e) {
+            if (!this.form.contactPhone) {
+                wx.showToast({
+                    title: '请填写联系人手机号',
+                    icon: 'none',
+                    duration: 2000
+                });
+            }
+        },
+
+        contactEmailInput(e) {
+            this.form.contactEmail = e.detail.value;
+        },
+        contactEmailBlur(e) {
+            if (!this.form.contactEmail) {
+                wx.showToast({
+                    title: '请填写联系人邮箱',
+                    icon: 'none',
+                    duration: 2000
+                });
+            }
+        },
+        openWindow(index, type) {
+            console.log(index, type);
+            this.selectIndex = index;
+            this.idOrPassport = type;
+            this.showWindow = true;
+        },
+
+        closeWindow() {
+            this.showWindow = false;
+        },
+
+        selectType(type) {
+            this.form.passenger[this.selectIndex].type = type;
+            this.showWindow = false;
+        },
+
+        addPassenger() {
+            this.form.passenger.push({
+                type: 0
+            })
+        },
+        removePassenger(index) {
+            this.form.passenger.splice(index, 1);
+        },
+        clause() {
+            wx.navigateTo({
+                url: 'clause'
+            });
+        },
+        consult() {
+            wx.showModal({
+                title: '若有问题请电话联系客服',
+                content: '400-1234-567',
+                showCancel: false,
+            })
         }
-    }
+    };
 
     // watch = {
     //   indexData (newVal, old) {
@@ -176,46 +382,14 @@ export default class Index extends wepy.page {
     //   }
     // }
 
-    onLoad() {
-        let self = this;
-        // 获取userInfo
-        wx.getSetting({
-            success: function (res1) {
-                if (res1.authSetting['scope.userInfo']) {
-                    // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-                    if (wx.getStorageSync('userInfo')) {
-                        return;
-                    }
-                    wx.getUserInfo({
-                        withCredentials: true,
-                        success: function (res) {
-                            console.log('index页面获取userInfo成功：', res)
-                            self.$parent.globalData.userInfo = res.userInfo;
-                            self.userInfoRes = res;
-                            wx.setStorageSync('userInfo', res.userInfo);
-                            self.requestSaveUserInfo({
-                                nickName: res.userInfo.nickName,
-                                gender: res.userInfo.gender,
-                                city: res.userInfo.city,
-                                province: res.userInfo.province,
-                                country: res.userInfo.country
-                            });
-                        }
-                    })
-                }
-            }
-        })
-        // banner接口
-        self.requestGetBanner();
+    onLoad(option) {
+        this.id = option.id;
 
         // 商品列表接口
-        self.requestGetGoods();
+        this.requestGetGoodsDetail();
     }
 
-    onShow() {
-        // 商品列表接口
-        this.requestGetGoods();
-    }
+    onShow() {}
 
     goAuth() {
         // console.log('授权');
@@ -224,58 +398,50 @@ export default class Index extends wepy.page {
         // });
     }
 
-    requestGetBanner() {
+    requestGetGoodsDetail() {
         let self = this;
-        util.requestApi(api.apiBannerList, {}, wx.getStorageSync('userToken')).then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('banner返回：', res.data);
-                self.indexData = res.data;
-                self.bannerImgUrl = res.data[0].imagePath;
-                self.$apply();
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
+        util
+            .requestApi(
+                api.apiTravelGoodsDetail + this.id, {},
+                wx.getStorageSync('userToken')
+            )
+            .then(res => {
+                if (res.data && res.code == 200) {
+                    self.params = res.data;
+                    console.log('aaaaaaaaaaaaa', res.data);
+                    self.$apply();
+                }
+            })
+            .catch(msg => {
+                if (msg == 'reAuth') {
+                    self.goAuth();
+                }
+            });
     }
-
-    requestGetGoods() {
-        let self = this;
-        util.requestApi(api.apiGoodsList, {
-            size: 10000
-        }, wx.getStorageSync('userToken')).then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('商品列表返回：', res.data);
-                self.lists = res.data;
-                self.$apply();
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
-    }
-
-    requestSaveUserInfo(obj) {
-        let self = this;
-        util.requestPostApi(api.apiSaveUserInfo, obj, wx.getStorageSync('userToken'), 'POST').then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('保存userInfo返回：', res.data);
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
-    }
-
-    openWindow(){
-        this.showWindow = true;
-    }
-
-    closeWindow(){
-        this.showWindow = false;
+    pay() {
+        wx.showModal({
+            title: '提示',
+            content: '确定提交订单去支付吗？',
+            showCancel: true,
+            success: function (res) {
+                if (res.confirm) {
+                    util.requestApi(
+                            api.apiTravelOrderCreate, this.payParams,
+                            wx.getStorageSync('userToken'), 'POST'
+                        )
+                        .then(res => {
+                            if (res.code == 200) {
+                                console.log('pppppppppppp', res.data);
+                            }
+                        })
+                        .catch(msg => {
+                            if (msg == 'reAuth') {
+                                self.goAuth();
+                            }
+                        });
+                }
+            }.bind(this)
+        })
     }
 
 }
@@ -288,12 +454,14 @@ export default class Index extends wepy.page {
 
 .title-container {
     padding: 30rpx;
+
     .title {
         height: 80rpx;
         overflow: hidden;
         font-size: 28rpx;
         color: #353535;
     }
+
     .time {
         display: block;
         font-size: 24rpx;
@@ -303,36 +471,46 @@ export default class Index extends wepy.page {
 
 .num {
     padding: 30rpx 30rpx 30rpx;
+
     .title {
         font-size: 28rpx;
         color: #888888;
         padding-bottom: 15rpx;
     }
+
     .item {
         display: flex;
         justify-content: space-between;
         line-height: 70rpx;
+
         .type {
             width: 225rpx;
             font-size: 28rpx;
             color: #888888;
+
             text {
                 font-size: 22rpx;
             }
         }
+
         .red {
             color: red;
             font-size: 32rpx;
+            width: 118rpx;
+            text-align: right;
         }
+
         .unit {
             font-size: 32rpx;
             color: #353535;
             text-align: right;
         }
+
         image {
             width: 50rpx;
             height: 50rpx;
         }
+
         input {
             width: 111rpx;
             height: 50rpx;
@@ -344,24 +522,29 @@ export default class Index extends wepy.page {
 
 .people {
     padding-top: 30rpx;
+
     .title {
         margin-left: 30rpx;
         font-size: 28rpx;
         color: #888888;
         padding-bottom: 15rpx;
     }
+
     .sub-title {
         line-height: 90rpx;
         margin: 0 30rpx;
+
         .id {
             width: 38rpx;
             height: 24rpx;
             padding-right: 15rpx;
         }
+
         text {
             font-size: 28rpx;
             color: #353535;
         }
+
         .close {
             width: 40rpx;
             height: 40rpx;
@@ -369,59 +552,72 @@ export default class Index extends wepy.page {
             margin-top: 27rpx;
         }
     }
+
     .lable-input {
         line-height: 98rpx;
         margin: 0 30rpx;
         display: flex;
         justify-content: space-between;
+
         text {
             font-size: 28rpx;
             color: #888888;
         }
+
         input {
             width: 500rpx;
             font-size: 32rpx;
             margin-top: 27rpx;
         }
     }
+
     .id-input {
         line-height: 98rpx;
         margin: 0 30rpx;
         display: flex;
         justify-content: space-between;
+
         .lable {
             font-size: 28rpx;
             color: #888888;
         }
+
         .id {
             width: 400rpx;
             font-size: 32rpx;
         }
+
         .open {
             margin-top: 40rpx;
-            width: 20rpx;
+            width: 35rpx;
             height: 20rpx;
         }
     }
+
     .line {
         border-bottom: solid 1px #ddd;
     }
+
     .info-btn {
         padding: 30rpx;
+
         .info {
             font-size: 24rpx;
             color: #888888;
         }
+
         .add {
             text-align: center;
             padding: 40rpx;
+
             image {
                 width: 30rpx;
                 height: 30rpx;
             }
+
             text {
                 font-size: 30rpx;
-                color: #387DFF;
+                color: #387dff;
             }
         }
     }
@@ -429,27 +625,32 @@ export default class Index extends wepy.page {
 
 .contact {
     padding-top: 30rpx;
+
     .title {
         margin-left: 30rpx;
         font-size: 28rpx;
         color: #888888;
         padding-bottom: 15rpx;
     }
+
     .lable-input {
         line-height: 98rpx;
         margin: 0 30rpx;
         display: flex;
         justify-content: space-between;
+
         text {
             font-size: 28rpx;
             color: #888888;
         }
+
         input {
             width: 500rpx;
             font-size: 32rpx;
             margin-top: 27rpx;
         }
     }
+
     .line {
         border-bottom: solid 1px #ddd;
     }
@@ -469,10 +670,11 @@ export default class Index extends wepy.page {
     position: fixed;
     bottom: 98rpx;
     z-index: 9;
-    color: #FAFAFA;
-    background: rgba(0, 0, 0, 0.50);
+    color: #fafafa;
+    background: rgba(0, 0, 0, 0.5);
+
     .blue {
-        color: #1DADFF;
+        color: #1dadff;
     }
 }
 
@@ -485,16 +687,19 @@ export default class Index extends wepy.page {
     bottom: 0;
     border-top: #ccc 1px solid;
     z-index: 9;
+
     .price {
         width: 240rpx;
         background: #fff;
         line-height: 98rpx;
         font-size: 24rpx;
+
         .red {
             font-size: 38rpx;
             color: red;
         }
     }
+
     .consult {
         width: 140rpx;
         display: flex;
@@ -502,12 +707,14 @@ export default class Index extends wepy.page {
         align-content: center;
         justify-content: center;
         background: #fff;
+
         image {
             margin-left: auto;
             margin-right: auto;
             width: 50rpx;
             height: 50rpx;
         }
+
         text {
             width: 100%;
             font-size: 24rpx;
@@ -515,22 +722,26 @@ export default class Index extends wepy.page {
             letter-spacing: 0.36rpx;
         }
     }
+
     .order {
         line-height: 98rpx;
         width: 376rpx;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
         text-align: center;
-        background: #387DFF;
+        background: #387dff;
         padding-top: 24rpx;
+
         text {
             display: block;
             width: 100%;
         }
+
         .next {
             line-height: 34rpx;
             font-size: 34rpx;
         }
+
         .pay {
             line-height: 24rpx;
             font-size: 24rpx;
@@ -548,45 +759,52 @@ export default class Index extends wepy.page {
     left: 0;
     z-index: 10;
 }
-    .window {
-        position: fixed;
-        width: 560rpx;
-        height: 333rpx;
-        top: 400rpx;
-        left: 95rpx;
-        background: #fff;
-        border-radius: 10rpx;
-        opacity: 1;
-        z-index: 11;
-        .row {
-            height: 111rpx;
-            line-height: 111rpx;
-            font-size: 36rpx;
-            color: #B2B2B2;
-            text-align: center;
-            border-bottom: solid 1px #ddd;
-            padding: 0 30rpx;
-        }
-        .noborder {
-            border-bottom: #fff;
-        }
-        .title {
-            color: #000;
-        }
-        .close {
-            float: right;
-            width: 28rpx;
-            height: 28rpx;
-            padding-top:44rpx;
 
-        }
-        .select {
-            color: #1DADFF;
-            .select-img {
-                width: 30rpx;
-                height: 20rpx;
-                margin-left:20rpx;
-            }
+.window {
+    position: fixed;
+    width: 560rpx;
+    height: 333rpx;
+    top: 400rpx;
+    left: 95rpx;
+    background: #fff;
+    border-radius: 10rpx;
+    opacity: 1;
+    z-index: 11;
+
+    .row {
+        height: 111rpx;
+        line-height: 111rpx;
+        font-size: 36rpx;
+        color: #b2b2b2;
+        text-align: center;
+        border-bottom: solid 1px #ddd;
+        padding: 0 30rpx;
+    }
+
+    .noborder {
+        border-bottom: #fff;
+    }
+
+    .title {
+        color: #000;
+    }
+
+    .close {
+        float: right;
+        line-height: 111rpx;
+        font-size:60rpx;
+        color: #B2B2B2;
+
+    }
+
+    .select {
+        color: #1dadff;
+
+        .select-img {
+            width: 30rpx;
+            height: 20rpx;
+            margin-left: 20rpx;
         }
     }
+}
 </style>

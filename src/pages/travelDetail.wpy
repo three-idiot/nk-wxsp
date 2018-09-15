@@ -1,29 +1,41 @@
 <template>
 <view class="container">
-    <banner :syncImgUrl.sync="bannerImgUrl" />
+    <swiper indicator-dots autoplay interval="5000" duration="500">
+        <block wx:for="{{params.images}}">
+            <swiper-item>
+                <image src="{{item.goodPath}}" class="slide-image" />
+            </swiper-item>
+        </block>
+    </swiper>
     <view class="head">
         <view class="title-money">
-            <text class="title">朝鲜平壤、开成、板门店、元山、金刚山5日游 7月收客中的点点滴滴多多多多多多多多多多多多多多多多多多多</text>
+            <text class="title">{{params.name}}</text>
             <text class="money">
-                <text class="line">￥<text class="red">10000.00</text></text>
-            <text class="abandon line">￥1600</text>
+                <text class="line">￥<text class="red">{{params.realPrice}}</text></text>
+            <text class="abandon line">￥{{params.salePrice}}</text>
             </text>
         </view>
         <view class="infos">
-            <text class="go">7月18日丹东出发</text>
-            <text class="num">成团人数 10/<text class="green">5</text></text>
+            <text class="go">{{leaveTime+params.leaveAddress}}出发</text>
+            <text class="num">成团人数 {{params.peopleMaxNum}}/<text class="green">{{params.peopleMinNum}}</text></text>
             <text class="time">倒计时 <text class="red">2天18时18分</text></text>
         </view>
     </view>
 
     <view class="tab">
-        <text class="tab-select">线路特色</text>
-        <text>行程介绍</text>
-        <text>费用须知</text>
+        <text class="{{tabs[tab]=='lineDescribe'?'tab-select':''}}" @tap="tabChange(0)">线路特色</text>
+        <text class="{{tabs[tab]=='tripDescribe'?'tab-select':''}}" @tap="tabChange(1)">行程介绍</text>
+        <text class="{{tabs[tab]=='costDescribe'?'tab-select':''}}" @tap="tabChange(2)">费用须知</text>
+    </view>
+    <import src="../plugins/wxParse/wxParse.wxml" />
+    <view>
+        <template wx:if="{{tabs[tab]=='lineDescribe'}}" is="wxParse" data="{{wxParseData:lineDescribe.nodes}}" />
+        <template wx:if="{{tabs[tab]=='tripDescribe'}}" is="wxParse" data="{{wxParseData:tripDescribe.nodes}}" />
+        <template wx:if="{{tabs[tab]=='costDescribe'}}" is="wxParse" data="{{wxParseData:costDescribe.nodes}}" />
     </view>
     <view class="bottom-btn">
-        <view>
-            <image src="../images/tab/visa.png" />
+        <view @tap="consult">
+            <image src="../images/cxptqz_icon_consult1.png" />
             <text>咨询</text>
         </view>
         <text class="order" @tap="goOrder">立即预定</text>
@@ -35,6 +47,7 @@
 import wepy from 'wepy'
 import Banner from '../components/banner'
 import SmallTravelList from '../components/travel/smallTravelList'
+import WxParse from '../plugins/wxParse/wxParse.js';
 
 import util from '../plugins/util'
 import api from '../plugins/api'
@@ -49,28 +62,38 @@ export default class Index extends wepy.page {
     }
 
     data = {
-        imgUrls: [
-            '../images/index/travel-ad.png',
-            '../images/index/travel-ad.png',
-            '../images/index/travel-ad.png'
-        ],
-        lists: [],
+        id: null,
+        params: {},
         bannerImgUrl: '',
+        tab: 0,
+        tabs: [
+            'lineDescribe',
+            'tripDescribe',
+            'costDescribe'
+        ]
     }
 
     computed = {
-
+        leaveTime() {
+            return this.params.leaveTime ? this.params.leaveTime.slice(0, 10) : '';
+        }
     }
 
     methods = {
-        handleTapRefresh() {
-            console.log('刷新');
-            this.requestGetGoods();
+        tabChange(id) {
+            this.tab = id;
         },
         goOrder() {
             wx.navigateTo({
-                url: 'fillOrder'
+                url: 'fillOrder?id=' + this.id
             });
+        },
+        consult() {
+            wx.showModal({
+                title: '若有问题请电话联系客服',
+                content: '400-1234-567',
+                showCancel: false,
+            })
         }
     }
 
@@ -80,46 +103,14 @@ export default class Index extends wepy.page {
     //   }
     // }
 
-    onLoad() {
-        let self = this;
-        // 获取userInfo
-        wx.getSetting({
-            success: function (res1) {
-                if (res1.authSetting['scope.userInfo']) {
-                    // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-                    if (wx.getStorageSync('userInfo')) {
-                        return;
-                    }
-                    wx.getUserInfo({
-                        withCredentials: true,
-                        success: function (res) {
-                            console.log('index页面获取userInfo成功：', res)
-                            self.$parent.globalData.userInfo = res.userInfo;
-                            self.userInfoRes = res;
-                            wx.setStorageSync('userInfo', res.userInfo);
-                            self.requestSaveUserInfo({
-                                nickName: res.userInfo.nickName,
-                                gender: res.userInfo.gender,
-                                city: res.userInfo.city,
-                                province: res.userInfo.province,
-                                country: res.userInfo.country
-                            });
-                        }
-                    })
-                }
-            }
-        })
-        // banner接口
-        self.requestGetBanner();
+    onLoad(option) {
+        this.id = option.id;
 
         // 商品列表接口
-        self.requestGetGoods();
+        this.requestGetGoodsDetail();
     }
 
-    onShow() {
-        // 商品列表接口
-        this.requestGetGoods();
-    }
+    onShow() {}
 
     goAuth() {
         // console.log('授权');
@@ -128,44 +119,15 @@ export default class Index extends wepy.page {
         // });
     }
 
-    requestGetBanner() {
+    requestGetGoodsDetail() {
         let self = this;
-        util.requestApi(api.apiBannerList, {}, wx.getStorageSync('userToken')).then((res) => {
+        util.requestApi(api.apiTravelGoodsDetail + this.id, {}, wx.getStorageSync('userToken')).then((res) => {
             if (res.data && res.code == 200) {
-                console.log('banner返回：', res.data);
-                self.indexData = res.data;
-                self.bannerImgUrl = res.data[0].imagePath;
+                self.params = res.data;
+                WxParse.wxParse('lineDescribe', 'html', res.data.lineDescribe, self, 5);
+                WxParse.wxParse('tripDescribe', 'html', res.data.tripDescribe, self, 5);
+                WxParse.wxParse('costDescribe', 'html', res.data.costDescribe, self, 5);
                 self.$apply();
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
-    }
-
-    requestGetGoods() {
-        let self = this;
-        util.requestApi(api.apiGoodsList, {
-            size: 10000
-        }, wx.getStorageSync('userToken')).then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('商品列表返回：', res.data);
-                self.lists = res.data;
-                self.$apply();
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
-    }
-
-    requestSaveUserInfo(obj) {
-        let self = this;
-        util.requestPostApi(api.apiSaveUserInfo, obj, wx.getStorageSync('userToken'), 'POST').then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('保存userInfo返回：', res.data);
             }
         }).catch((msg) => {
             if (msg == 'reAuth') {
@@ -178,11 +140,15 @@ export default class Index extends wepy.page {
 </script>
 
 <style lang="less" scoped>
+@import "../plugins//wxParse/wxParse.wxss";
+
 .head {
     padding: 30rpx 30rpx 0;
+
     .title-money {
         display: flex;
         height: 82rpx;
+
         .title {
             width: 518rpx;
             border-right: 1px solid #ccc;
@@ -191,20 +157,24 @@ export default class Index extends wepy.page {
             overflow: hidden;
             padding-right: 10rpx;
         }
+
         .money {
             width: 172rpx;
             font-size: 24rpx;
             color: #353535;
             text-align: right;
+
             .line {
                 display: block;
             }
+
             .red {
                 font-size: 32rpx;
                 color: red;
                 text-align: center;
                 line-height: 33rpx;
             }
+
             .abandon {
                 font-size: 22rpx;
                 color: #B2B2B2;
@@ -212,6 +182,7 @@ export default class Index extends wepy.page {
             }
         }
     }
+
     .infos {
         margin-top: 30rpx;
         margin-bottom: 30rpx;
@@ -220,9 +191,11 @@ export default class Index extends wepy.page {
         letter-spacing: 0;
         display: flex;
         justify-content: space-between;
+
         .green {
             color: #1A0000;
         }
+
         .red {
             color: red;
         }
@@ -236,6 +209,7 @@ export default class Index extends wepy.page {
     display: flex;
     justify-content: space-around;
     border-bottom: #ccc solid 1px;
+
     text {
         padding-bottom: 10rpx;
     }
@@ -253,18 +227,22 @@ export default class Index extends wepy.page {
     position: fixed;
     bottom: 0;
     border-top: #ccc 1px solid;
+
     view {
         width: 214rpx;
         display: flex;
         flex-direction: column;
         align-content: center;
         justify-content: center;
+        background: #fff;
+
         image {
             margin-left: auto;
             margin-right: auto;
             width: 50rpx;
             height: 50rpx;
         }
+
         text {
             width: 100%;
             font-size: 24rpx;
@@ -272,6 +250,7 @@ export default class Index extends wepy.page {
             letter-spacing: 0.36rpx;
         }
     }
+
     .order {
         line-height: 98rpx;
         width: 536rpx;

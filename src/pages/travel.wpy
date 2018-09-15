@@ -1,16 +1,18 @@
 <template>
 <view class="container">
-    <swiper indicator-dots autoplay interval="5000" duration="500">
-        <block wx:for="{{imgUrls}}">
-            <swiper-item>
-                <image src="{{item}}" class="slide-image" />
-            </swiper-item>
-        </block>
-    </swiper>
-    <view>
-        <text class="title">旅游线路</text>
-    </view>
-    <smallTravelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
+    <scroll-view scroll-y style="height: 100%;" bindscrolltolower="lower">
+        <swiper indicator-dots autoplay interval="5000" duration="500">
+            <block wx:for="{{imgUrls}}">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" />
+                </swiper-item>
+            </block>
+        </swiper>
+        <view>
+            <text class="title">旅游线路</text>
+        </view>
+        <smallTravelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
+    </scroll-view>
 </view>
 </template>
 
@@ -37,7 +39,9 @@ export default class Index extends wepy.page {
             '../images/index/travel-ad.png',
             '../images/index/travel-ad.png'
         ],
-        lists:[]
+        lists: [],
+        pageIndex: 1,
+        pageSize: 10,
     }
 
     computed = {
@@ -45,47 +49,14 @@ export default class Index extends wepy.page {
     }
 
     methods = {
-        handleTapRefresh() {
-            console.log('刷新');
-            this.requestGetGoods();
-        }
     }
-
-    // watch = {
-    //   indexData (newVal, old) {
-    //     console.log('监听到新数组：', newVal);
-    //   }
-    // }
+    lower() {
+        ++this.pageIndex;
+        this.requestGetGoods();
+    }
 
     onLoad() {
         let self = this;
-        // 获取userInfo
-        wx.getSetting({
-            success: function (res1) {
-                if (res1.authSetting['scope.userInfo']) {
-                    // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-                    if (wx.getStorageSync('userInfo')) {
-                        return;
-                    }
-                    wx.getUserInfo({
-                        withCredentials: true,
-                        success: function (res) {
-                            console.log('index页面获取userInfo成功：', res)
-                            self.$parent.globalData.userInfo = res.userInfo;
-                            self.userInfoRes = res;
-                            wx.setStorageSync('userInfo', res.userInfo);
-                            self.requestSaveUserInfo({
-                                nickName: res.userInfo.nickName,
-                                gender: res.userInfo.gender,
-                                city: res.userInfo.city,
-                                province: res.userInfo.province,
-                                country: res.userInfo.country
-                            });
-                        }
-                    })
-                }
-            }
-        })
         // banner接口
         self.requestGetBanner();
 
@@ -93,10 +64,7 @@ export default class Index extends wepy.page {
         self.requestGetGoods();
     }
 
-    onShow() {
-        // 商品列表接口
-        this.requestGetGoods();
-    }
+    onShow() {}
 
     goAuth() {
         // console.log('授权');
@@ -124,25 +92,12 @@ export default class Index extends wepy.page {
     requestGetGoods() {
         let self = this;
         util.requestApi(api.apiTravelGoodsList, {
-            size: 10000
-        }, wx.getStorageSync('userToken'),'POST').then((res) => {
+            pageIndex: self.data.pageIndex,
+            pageSize: self.data.pageSize
+        }, wx.getStorageSync('userToken'), 'POST').then((res) => {
             if (res.data && res.code == 200) {
-                console.log('商品列表返回：', res.data);
-                self.lists = res.data.data;
+                self.lists = self.lists.concat(res.data.data);
                 self.$apply();
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
-    }
-
-    requestSaveUserInfo(obj) {
-        let self = this;
-        util.requestPostApi(api.apiSaveUserInfo, obj, wx.getStorageSync('userToken'), 'POST').then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('保存userInfo返回：', res.data);
             }
         }).catch((msg) => {
             if (msg == 'reAuth') {
@@ -173,5 +128,11 @@ swiper {
     text-align: center;
     padding: 30rpx 0 0 30rpx;
     display: inline-block;
+}
+</style>
+
+<style lang="less">
+page {
+    height: 100%;
 }
 </style>
