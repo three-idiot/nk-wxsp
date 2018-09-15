@@ -207,11 +207,11 @@
     </view>
     <view class="traveler-info">
       <view class="traveler"><text>出行人信息</text><text>1成人，1儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
-      <infoCard :infoList.sync="infoList" class="traveler-detail" />
+      <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
     </view>
 
     <view class="contact-info">
-      <infoCard :infoList.sync="contactInfo" class="traveler-detail" />
+      <infoCard2 :infoList.sync="contactInfo" class="traveler-detail" />
     </view>
 
     <view class="refund-explain">
@@ -220,7 +220,7 @@
     </view>
 
     <view class="others">
-      <infoCard :infoList.sync="otherInfo" class="traveler-detail" />
+      <infoCard3 :infoList.sync="otherInfo" class="traveler-detail" />
     </view>
 
     <view class="invoice" @tap="goFillInvoice">
@@ -254,7 +254,9 @@
       navigationBarTitleText: '旅游订单详情'
     }
     components = {
-      infoCard: InfoCard,
+      infoCard1: InfoCard,
+      infoCard2: InfoCard,
+      infoCard3: InfoCard,
       arrow: Arrow
     }
 
