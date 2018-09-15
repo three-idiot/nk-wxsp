@@ -176,67 +176,9 @@
 
 </style>
 <template>
-  <view class="travel-orders">
-    <view class="order-header">
-      <view class="status">
-        未付款
-      </view>
-      <view class="status-text">
-        <view>
-          剩余0天22小时56分钟自动关闭
-        </view>
-        <view class="price">
-          <text>￥</text>10000
-        </view>
-        <view class="explain">
-          退款说明
-        </view>
-      </view>
-    </view>
-    <view class="general-info">
-      <view class="top">
-        <text>{{ travelGoods.name }}</text>
-        <view></view>
-      </view>
-      <view class="medium">
-        {{ leaveTime }}{{ travelGoods.leaveAddress }}出发
-      </view>
-      <view class="bottom">
-        出行人数  {{ totalNum }}
-      </view>
-    </view>
-    <view class="traveler-info" @tap="goTravelPeople">
-      <view class="traveler"><text>出行人信息</text><text>{{manNum}}成人，{{ childNum }}儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
-      <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
-    </view>
-
-    <view class="contact-info">
-      <infoCard2 :infoList.sync="contactInfo" class="traveler-detail" />
-    </view>
-
-    <view class="refund-explain">
-      <text>退款说明</text>
-      <arrow class="arrow"  />
-    </view>
-
-    <view class="others">
-      <infoCard3 :infoList.sync="otherInfo" class="traveler-detail" />
-    </view>
-
-    <view class="invoice" @tap="goFillInvoice">
-      <view class="left-container">
-        <view>开具发票</view>
-        <view>该发票在行程结束后30天内索取有效</view>
-      </view>
-      <view class="right-container">
-        <text>电子发票</text>
-        <arrow />
-      </view>
-    </view>
-
-    <view  class="re-book">
-      重新预订
-    </view>
+  <view class="travel-people">
+    你好呀
+    <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
   </view>
 </template>
 
@@ -249,9 +191,9 @@
 
 
 
-  export default class SignDetail extends wepy.page {
+  export default class TravelPeople extends wepy.page {
     config = {
-      navigationBarTitleText: '旅游订单详情'
+      navigationBarTitleText: '出行人信息'
     }
     components = {
       infoCard1: InfoCard,
@@ -341,8 +283,8 @@
       });
     }
 
-    fetchUserInfos() {
-      util.requestApi(api.apiTravelUserInfos, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+    fetchUserInfos(id) {
+      util.requestApi(api.apiTravelUserInfos, {orderId: id}, wx.getStorageSync('userToken')).then((res) => {
         // self.loading = true;
         console.log( res );
         let data = res.data;
@@ -375,22 +317,16 @@
           url: 'fillInvoice'
         });
       },
-      goTravelPeople() {
-        console.log(11111111111111111);
-        wx.navigateTo({
-          url: 'travelPeople?' + 'id=' + 1,
-        });
-      }
     }
 
     events = {
 
     }
 
-    onLoad() {
+    onLoad(option) {
       let self = this;
-      this.fetchData();
-      this.fetchUserInfos();
+      console.log('111', option)
+      this.fetchUserInfos(option.id);
     }
   }
 </script>
