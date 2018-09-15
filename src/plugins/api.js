@@ -42,6 +42,8 @@ export default {
   apiNewslist: host + '/news/list',
   /** 资讯详情 */
   apiNewsDetail: host + '/news',
+  /** 资讯广告列表 */
+  apiNewsAdslist: host + '/news/newList',
   // 旅游订单列表
   apiTravelOrderList: host + '/travelOrder/list',
 

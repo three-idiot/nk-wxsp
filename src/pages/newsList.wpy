@@ -35,7 +35,7 @@
 
     data = {
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 12,
       newslist: []
     }
 
@@ -55,7 +55,7 @@
     }
     
     lower (e) {
-      ++this.pageIndex;
+      this.pageIndex += 4;
       this.requestGetNewslist();
     }
 
@@ -68,7 +68,7 @@
      */
     requestGetNewslist () {
       let self = this;
-      util.requestPostApi(api.apiNewslist, {
+      util.requestPostApi(api.apiNewsAdslist, {
         pageIndex: self.data.pageIndex,
         pageSize: self.data.pageSize
       }, wx.getStorageSync('userToken'), {'content-type': 'application/json'}).then((res1) => {
