@@ -244,6 +244,10 @@
   import wepy from 'wepy'
   import InfoCard from '../components/infoCard';
   import Arrow from '../components/arrow';
+  import util from '../plugins/util';
+  import api from '../plugins/api';
+
+
 
   export default class SignDetail extends wepy.page {
     config = {
@@ -280,8 +284,13 @@
           {key:'支付时间', value:'2222'},
         ]
       },
+    }
 
-
+    fetchData() {
+      console.log(111);
+      util.requestApi(api.apiGetTravelOrdersDetail, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+        console.log( res );
+      });
 
     }
 
@@ -289,12 +298,14 @@
 
     }
 
+
     methods = {
       goFillInvoice() {
         wx.navigateTo({
           url: 'fillInvoice'
         });
-      }
+      },
+
     }
 
     events = {
@@ -302,8 +313,9 @@
     }
 
     onLoad() {
-      let self = this
-
+      let self = this;
+      console.log(21222);
+      this.fetchData();
     }
   }
 </script>
