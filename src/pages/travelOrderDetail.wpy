@@ -372,11 +372,10 @@
     methods = {
       goFillInvoice() {
         wx.navigateTo({
-          url: 'fillInvoice'
+          url: 'fillInvoice?' + 'id=' + 1,
         });
       },
       goTravelPeople() {
-        console.log(11111111111111111);
         wx.navigateTo({
           url: 'travelPeople?' + 'id=' + 1,
         });
