@@ -10,7 +10,7 @@
             </repeat>
           </view>
           <view class="news-tags">
-            <views class="type" wx:if="{{item.top}}">{{'置顶'}}</views>
+            <views class="type" wx:if="{{item.top || item.newsType == '2'}}">{{item.newsType == '2' ? '广告':'置顶'}}</views>
             <wxs src="../filter/getComputedDate.wxs" module="filter" />
             <views class="pubtime">{{filter.getComputedDate(item.createTime)}}</views>
           </view>
@@ -45,7 +45,7 @@
     methods = {
       handleGoDetail (item) {
         wx.navigateTo({
-          url: 'newsDetail?id=' + item.id + '&title=' + item.title,
+          url: 'newsDetail?id=' + item.newsId + '&title=' + item.title,
         });
       }
     }
