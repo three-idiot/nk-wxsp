@@ -46,6 +46,13 @@ export default {
   apiNewsAdslist: host + '/news/newList',
   // 旅游订单列表
   apiTravelOrderList: host + '/travelOrder/list',
-
+  // 旅游订单详情
+  apiGetTravelOrdersDetail: host+ '/travelOrder/travelOrderDetail',
+  // 出行人信息
+  apiTravelUserInfos: host + '/travelOrder/travelUserInfos',
   apiTravelGoodsList: host + '/travelGoods/list',
+  apiTravelGoodsDetail: host + '/travelGoods/',
+  apiTravelOrderCreate: host + '/travelOrder/create',
+  apiAdd: host + '/travelGoods/create',
+
 }

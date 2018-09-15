@@ -195,23 +195,23 @@
     </view>
     <view class="general-info">
       <view class="top">
-        <text>朝鲜平壤、开成、板门店、元山、金刚山、平壤5日游 7月收客中</text>
+        <text>{{ travelGoods.name }}</text>
         <view></view>
       </view>
       <view class="medium">
-        7月18日丹东出发
+        {{ leaveTime }}{{ travelGoods.leaveAddress }}出发
       </view>
       <view class="bottom">
-        出行人数  2
+        出行人数  {{ totalNum }}
       </view>
     </view>
     <view class="traveler-info">
-      <view class="traveler"><text>出行人信息</text><text>1成人，1儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
-      <infoCard :infoList.sync="infoList" class="traveler-detail" />
+      <view class="traveler"><text>出行人信息</text><text>{{manNum}}成人，{{ childNum }}儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
+      <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
     </view>
 
     <view class="contact-info">
-      <infoCard :infoList.sync="contactInfo" class="traveler-detail" />
+      <infoCard2 :infoList.sync="contactInfo" class="traveler-detail" />
     </view>
 
     <view class="refund-explain">
@@ -220,7 +220,7 @@
     </view>
 
     <view class="others">
-      <infoCard :infoList.sync="otherInfo" class="traveler-detail" />
+      <infoCard3 :infoList.sync="otherInfo" class="traveler-detail" />
     </view>
 
     <view class="invoice" @tap="goFillInvoice">
@@ -244,31 +244,44 @@
   import wepy from 'wepy'
   import InfoCard from '../components/infoCard';
   import Arrow from '../components/arrow';
+  import util from '../plugins/util';
+  import api from '../plugins/api';
+
+
 
   export default class SignDetail extends wepy.page {
     config = {
       navigationBarTitleText: '旅游订单详情'
     }
     components = {
-      infoCard: InfoCard,
+      infoCard1: InfoCard,
+      infoCard2: InfoCard,
+      infoCard3: InfoCard,
       arrow: Arrow
     }
 
     data = {
       infoList:{
         title: '',
-        infos: [
-          {key:'张1', value:'1111'},
-          {key:'张2', value:'2222'},
-          {key:'张3', value:'3333'},
-          {key:'张4', value:'4444'},
-        ]
+        infos: [],
       },
+      invoice: null,
+      travelChildOrders: [],
+      travelGoods: null,
+      user: null,
+      leaveTime: null,
+      travelOrder: null,
+      // 成人人数
+      manNum: 0,
+      // 孩子人数
+      childNum: 0,
+      // 总出行人数
+      totalNum: 0,
       contactInfo:{
         title: '联系人信息',
         infos: [
-          {key:'联系人', value:'1111'},
-          {key:'手机号码', value:'2222'},
+          {key:'联系人', value:''},
+          {key:'手机号码', value:''},
         ]
       },
       otherInfo:{
@@ -280,8 +293,54 @@
           {key:'支付时间', value:'2222'},
         ]
       },
+      status: {
+        1: '待支付',
+        2: '待确认',
+        3: '待出行',
+        4: '已出行',
+        5: '已取消',
+        6: '申请退款',
+        7: '已退款'
+      }
+    }
 
-
+    fetchData() {
+      util.requestApi(api.apiGetTravelOrdersDetail, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+        // self.loading = true;
+        console.log( res );
+        this.invoice = res.data.invoice;
+        this.travelChildOrders = res.data.travelChildOrders;
+        this.travelGoods = res.data.travelGoods;
+        this.user = res.data.user;
+        this.travelOrder = res.data.travelOrder;
+        this.leaveTime =  new Date(this.travelGoods.leaveTime).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime).getDate() + '日';
+        //  联系人和联系号码
+        this.contactInfo.infos[0].value = this.travelOrder.contactName;
+        this.contactInfo.infos[1].value = this.travelOrder.contactPhone ?  this.travelOrder.contactPhone : '/';
+        // console.log(this.contactInfo.infos  );
+        this.$apply();
+      });
+    }
+    fetchUserInfos() {
+      util.requestApi(api.apiTravelUserInfos, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+        // self.loading = true;
+        console.log( res );
+        let data = res.data;
+        this.totalNum = data.length;
+        for( let i = 0;i<data.length;i++ ) {
+          let item = data[i];
+          if( item.travelUserType == 1 ) {
+            this.manNum += 1;
+          } else {
+            this.childNum += 1;
+          }
+          this.infoList.infos.push({
+            key: item.name,
+            value: item.phone
+          })
+        };
+        this.$apply();
+      });
 
     }
 
@@ -289,12 +348,14 @@
 
     }
 
+
     methods = {
       goFillInvoice() {
         wx.navigateTo({
           url: 'fillInvoice'
         });
-      }
+      },
+
     }
 
     events = {
@@ -302,8 +363,9 @@
     }
 
     onLoad() {
-      let self = this
-
+      let self = this;
+      this.fetchData();
+      this.fetchUserInfos();
     }
   }
 </script>

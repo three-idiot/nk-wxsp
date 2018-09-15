@@ -3,15 +3,15 @@
     <!-- <view class="refresh-btn" @tap="handleTapRefresh">刷新</view> -->
     <banner :syncImgUrl.sync="bannerImgUrl" />
     <view class="three-tab">
-        <view>
+        <view @tap="goVisa">
             <image src="../images/index/visa.png" />
             <text>签证</text>
         </view>
-        <view>
+        <view @tap="goTravel">
             <image src="../images/index/travel.png" />
             <text>旅游</text>
         </view>
-        <view>
+        <view @tap="goTravel">
             <image src="../images/index/business.png" />
             <text>商务</text>
         </view>
@@ -32,7 +32,7 @@
     </view>
     <view class="list-title">
         <text class="travel">旅游推荐</text>
-        <text class="more">查看更多></text>
+        <text class="more"  @tap="goTravel">查看更多></text>
     </view>
     <travelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
 </view>
@@ -71,6 +71,16 @@ export default class Index extends wepy.page {
         handleTapRefresh() {
             console.log('刷新');
             this.requestGetGoods();
+        },
+        goVisa() {
+            wx.switchTab({
+                url: 'visa'
+            });
+        },
+        goTravel() {
+            wx.switchTab({
+                url: 'travel'
+            });
         }
     }
 
@@ -128,9 +138,9 @@ export default class Index extends wepy.page {
         // });
     }
 
-    jumpToNewslist () {
+    jumpToNewslist() {
         wx.navigateTo({
-          url: 'newsList'
+            url: 'newsList'
         });
     }
 
@@ -190,13 +200,16 @@ export default class Index extends wepy.page {
     height: 200rpx;
     justify-content: space-around;
     align-items: center;
+
     view {
         display: inline-block;
         width: 110rpx;
+
         image {
             width: 110rpx;
             height: 110rpx;
         }
+
         text {
             display: inline-block;
             width: 110rpx;
@@ -214,6 +227,7 @@ export default class Index extends wepy.page {
     height: 150rpx;
     background: #f4f4f4;
     position: relative;
+
     .news {
         position: absolute;
         top: 20rpx;
@@ -222,10 +236,12 @@ export default class Index extends wepy.page {
         height: 110rpx;
         background: white;
         padding: 25rpx 15rpx;
+
         image {
             width: 70rpx;
             height: 60rpx;
         }
+
         .txt {
             margin-left: 20rpx;
             display: inline-block;
@@ -233,6 +249,7 @@ export default class Index extends wepy.page {
             height: 74rpx;
             font-size: 24rpx;
             color: #666666;
+
             text {
                 white-space: nowrap;
                 overflow: hidden;
@@ -249,6 +266,7 @@ export default class Index extends wepy.page {
     width: 100%;
     height: 140rpx;
     justify-content: space-between;
+
     image {
         display: inline-block;
         width: 32.7%;
@@ -262,12 +280,14 @@ export default class Index extends wepy.page {
     padding: 30rpx 20rpx 0;
     display: flex;
     justify-content: space-between;
+
     .travel {
         font-size: 34rpx;
         color: #387DFF;
         text-align: center;
         line-height: 34rpx;
     }
+
     .more {
         font-size: 26rpx;
         color: #888888;

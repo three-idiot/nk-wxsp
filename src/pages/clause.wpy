@@ -1,0 +1,84 @@
+<template>
+<view class="container">
+    <view class="tab">
+        <text class="{{tabs[tab]=='notice'?'tab-select':''}}" @tap="tabChange(0)">预定须知</text>
+        <text class="{{tabs[tab]=='clause'?'tab-select':''}}" @tap="tabChange(1)">合同条款</text>
+    </view>
+    <view>
+        <view class="txt" wx:if="{{tabs[tab]=='notice'}}">
+            <text>
+                一、在朝鲜旅游观光期间大家对朝鲜政治、经济状况不要妄加评论，不要把自己的观点强加于人，特别是对朝鲜人民爱戴的金日成主席和金正日书记不要加以评论。在金日成主席铜像前献花和照相时要保持严肃，不能模仿领袖的姿态照相。
+            </text>
+        </view>
+        <view class="txt" wx:if="{{tabs[tab]=='clause'}}">
+            <text>
+                一 合同条款。
+            </text>
+        </view>
+    </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Banner from '../components/banner'
+import SmallTravelList from '../components/travel/smallTravelList'
+import WxParse from '../plugins/wxParse/wxParse.js';
+
+import util from '../plugins/util'
+import api from '../plugins/api'
+
+export default class Index extends wepy.page {
+    config = {
+        navigationBarTitleText: '朝鲜通',
+    }
+    components = {
+        banner: Banner,
+        smallTravelList: SmallTravelList
+    }
+
+    data = {
+        tab: 0,
+        tabs: [
+            'notice',
+            'clause',
+        ]
+    }
+
+    computed = {}
+
+    methods = {
+        tabChange(id) {
+            this.tab = id;
+        },
+    }
+}
+</script>
+
+<style lang="less" scoped>
+.tab {
+    margin-top: 10rpx;
+    font-size: 28rpx;
+    color: #888888;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: #ccc solid 1px;
+
+    text {
+        padding-bottom: 10rpx;
+    }
+}
+
+.txt {
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    font-size: 28rpx;
+    color: #888888;
+    line-height: 54rpx;
+}
+
+.tab-select {
+    color: #387DFF;
+    border-bottom: solid 2px #387DFF;
+}
+</style>
