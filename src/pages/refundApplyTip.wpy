@@ -35,7 +35,7 @@
       handleCheckOrder () {
         let self = this;
         wx.navigateTo({
-          url: 'orderDetail?id=' + self.orderId
+          url: 'travelOrderDetail?id=' + self.orderId
         });
       }
     }

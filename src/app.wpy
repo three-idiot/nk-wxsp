@@ -4,7 +4,6 @@ import wepy from 'wepy'
 export default class extends wepy.app {
     config = {
         pages: [
-            'pages/refundApply',
             'pages/hello',
             'pages/index',
             'pages/my',
@@ -14,6 +13,7 @@ export default class extends wepy.app {
             'pages/orderDetail',
             'pages/signDetail',
             'pages/newsDetail',
+            'pages/refundApply',
             'pages/refundApplyTip',
             'pages/refundApplyDesc',
             'pages/signProcess',

@@ -245,6 +245,12 @@
       reasonChange(e) {
         // console.log('退款原因选择变更：', e.detail.value);
         this.refundResons = e.detail.value.join(',');
+      },
+      /** 跳转退款说明 */
+      jumpToRefundDesc () {
+        wx.navigateTo({
+          url: 'refundApplyDesc'
+        });
       }
     }
     /** 请求退款金额 */
@@ -275,12 +281,6 @@
             url: 'refundApplyTip?orderId=' + self.orderId,
           });
         }
-      });
-    }
-    /** 跳转退款说明 */
-    jumpToRefundDesc () {
-      wx.navigateTo({
-        url: 'refundApplyDesc'
       });
     }
 
