@@ -263,12 +263,7 @@
     data = {
       infoList:{
         title: '',
-        infos: [
-          {key:'张1', value:'1111'},
-          {key:'张2', value:'2222'},
-          {key:'张3', value:'3333'},
-          {key:'张4', value:'4444'},
-        ],
+        infos: [],
       },
       invoice: null,
       travelChildOrders: [],
@@ -339,6 +334,10 @@
           } else {
             this.childNum += 1;
           }
+          this.infoList.infos.push({
+            key: item.name,
+            value: item.phone
+          })
         };
         this.$apply();
       });
