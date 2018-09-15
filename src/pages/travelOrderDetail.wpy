@@ -275,11 +275,12 @@
       travelGoods: null,
       user: null,
       leaveTime: null,
+      travelOrder: null,
       contactInfo:{
         title: '联系人信息',
         infos: [
-          {key:'联系人', value:'1111'},
-          {key:'手机号码', value:'2222'},
+          {key:'联系人', value:''},
+          {key:'手机号码', value:''},
         ]
       },
       otherInfo:{
@@ -310,9 +311,19 @@
         this.travelChildOrders = res.data.travelChildOrders;
         this.travelGoods = res.data.travelGoods;
         this.user = res.data.user;
+        this.travelOrder = res.data.travelOrder;
         this.leaveTime =  new Date(this.travelGoods.leaveTime).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime).getDate() + '日';
         //  联系人和联系号码
-
+        this.contactInfo.infos[0].value = this.travelOrder.contactName;
+        this.contactInfo.infos[1].value = this.travelOrder.contactPhone ?  this.travelOrder.contactPhone : '/';
+        console.log(this.contactInfo.infos  );
+        this.$apply();
+      });
+    }
+    fetchUserInfos() {
+      util.requestApi(api.apiTravelUserInfos, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+        // self.loading = true;
+        console.log( res );
         this.$apply();
       });
 
@@ -339,6 +350,7 @@
     onLoad() {
       let self = this;
       this.fetchData();
+      this.fetchUserInfos();
     }
   }
 </script>
