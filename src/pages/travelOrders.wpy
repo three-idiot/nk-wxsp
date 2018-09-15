@@ -160,14 +160,14 @@
 
     }
     getList() {
-      // util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
-      //   console.log( res );
-      // }).catch((msg) => {
-      //   console.log( msg );
-      //   // if (msg == 'reAuth') {
-      //   //   self.goAuth();
-      //   // }
-      // });
+      util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
+        console.log( res );
+      }).catch((msg) => {
+        console.log( msg );
+        // if (msg == 'reAuth') {
+        //   self.goAuth();
+        // }
+      });
       // util.requestPostApi(api.apiAdd, {
       //   travelGoodsId: 44,
       //   buyNum: 1,
@@ -188,32 +188,32 @@
       //   //   self.goAuth();
       //   // }
       // });
-      util.requestApi(
-        api.apiTravelOrderCreate, {
-          travelGoodsId: 44,
-          buyNum: 1,
-          contactName: '你好呀',
-          contactPhone: '135',
-          travelUserInfos: [{
-            name: '1号晚间',
-            passport: '555',
-            cardId: '666',
-            travelUserType: 1,
-            phone: '3333'
-          }]
-        },
-        wx.getStorageSync('userToken'), 'POST'
-      )
-        .then(res => {
-          if (res.code == 200) {
-            console.log('pppppppppppp', res.data);
-          }
-        })
-        .catch(msg => {
-          if (msg == 'reAuth') {
-            self.goAuth();
-          }
-        });
+      // util.requestApi(
+      //   api.apiTravelOrderCreate, {
+      //     travelGoodsId: 26,
+      //     buyNum: 1,
+      //     contactName: '你好呀',
+      //     contactPhone: '135',
+      //     travelUserInfos: [{
+      //       name: '1号晚间',
+      //       passport: '555',
+      //       cardId: '666',
+      //       travelUserType: 1,
+      //       phone: '3333'
+      //     }]
+      //   },
+      //   wx.getStorageSync('userToken'), 'POST'
+      // )
+      //   .then(res => {
+      //     if (res.code == 200) {
+      //       console.log('pppppppppppp', res.data);
+      //     }
+      //   })
+      //   .catch(msg => {
+      //     if (msg == 'reAuth') {
+      //       self.goAuth();
+      //     }
+      //   });
 
 
     }

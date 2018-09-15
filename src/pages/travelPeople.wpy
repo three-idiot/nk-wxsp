@@ -1,184 +1,17 @@
 <style lang="less">
   page {
     background: #f4f4f4;
-  }
-  .travel-orders {
-    padding-bottom: 314rpx;
-    .order-header {
-      background: #fff;
-      padding: 30rpx;
-      .status {
-        font-size: 28rpx;
-        color: #353535;
-      }
-      .status-text {
-        position: relative;
-        line-height: 28rpx;
-        view:nth-child(1) {
-          display: inline-block;
-          font-size: 28rpx;
-          line-height: 28rpx;
-          color: #888888;
-          margin-top: 10rpx;
-        }
-        .price {
-          margin-left: 20rpx;
-          display: inline-block;
-          font-size: 32rpx;
-          color: #ff3941;
-          text {
-            font-size: 24rpx;
-            color: #353535;
-          }
-        }
-        .explain {
-          display: inline-block;
-          font-size: 28rpx;
-          color: #1DADFF;
-          float: right;
-          top:14rpx;
-          transform: translate(0,25%);
-        }
-      }
-    }
-  }
-
-  .general-info {
-    padding: 30rpx;
-    background: #fff;
-    margin-top: 20rpx;
-    .top {
-      position: relative;
-      text {
-        display: inline-block;
-        width: 630rpx;
-        font-size: 28rpx;
-        color: #353535;
-      }
-      view {
-        float: right;
-        position: relative;
-        top:10rpx;
-        display: inline-block;
-        width: 20rpx;
-        height: 20rpx;
-        transform: rotate(45deg);
-        border: 2rpx solid #B2B2B2;
-        border-left:transparent;
-        border-bottom:transparent;
-        vertical-align: top;
-      }
-    }
-    .medium {
-      margin-top: 30rpx;
-      font-size: 28rpx;
-      color: #888888;
-    }
-    .bottom {
-      margin-top: 10rpx;
-      font-size: 28rpx;
-      color: #888888;
-    }
-  }
-  .traveler-info {
-    margin-top: 20rpx;
-    .traveler {
-      background: #fff;
-      padding: 30rpx 30rpx 0 30rpx;
-      text:nth-child(1) {
-        font-size: 28rpx;
-        color: #353535;
-      }
-      text:nth-child(2) {
-        font-size: 24rpx;
-        color: #888888;
-        margin-left: 24rpx;
-      }
-      .lookMore {
-        display: inline-block;
-        font-size: 24rpx;
-        line-height: 28rpx;
-        float: right;
-        transform:translate(0, 50%);
-        .arrow {
-          display: inline-block;
-          width: 15rpx;
-          height: 15rpx;
-          transform: rotate(45deg) translate(0,-15%);
-          /*border: 2rpx solid #B2B2B2;*/
-          border: 2rpx solid #888888;
-          border-left:transparent;
-          border-bottom:transparent;
-          vertical-align: center;
-        }
-      }
-    }
-    .traveler-detail {
+    .item-card:nth-child(1) {
       margin-top: 0;
     }
-  }
-
-  .refund-explain {
-    margin-top: 20rpx;
-    padding: 30rpx;
-    background: #fff;
-    position: relative;
-    text:nth-child(1) {
-      font-size: 28rpx;
-      color: #353535;
-    }
-    .arrow {
-      float: right;
-      position: absolute;
-      top:50%;
-      right: 30rpx;
-      transform: rotate(45deg) translate(0,-50%);
-    }
-  }
-  .invoice {
-    background: #fff;
-    padding: 30rpx;
-    display: flex;
-    margin-top: 20rpx;
-    .left-container {
-      view:nth-child(1) {
-        font-size: 28rpx;
-        color: #353535;
-      }
-      view:nth-child(2) {
-        font-size: 28rpx;
-        color: #888888;
-        margin-top: 10rpx;
-      }
-    }
-    .right-container {
-      font-size: 24rpx;
-      color: #888888;
-      flex:1;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
-  }
-
-  .re-book {
-    background: #387DFF;
-    width: 100%;
-    text-align: center;
-    height: 98rpx;
-    line-height: 98rpx;
-    color: #fff;
-    font-size: 34rpx;
-    position: fixed;
-    left:0;
-    bottom: 0;
   }
 
 </style>
 <template>
   <view class="travel-people">
-    你好呀
-    <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
+    <repeat for="{{peopleList}}" key="index" index="index" item="item">
+      <infoCard1 :infoList.sync="item" class="item-card" />
+    </repeat>
   </view>
 </template>
 
@@ -203,22 +36,11 @@
     }
 
     data = {
+      peopleList: [],
       infoList:{
         title: '',
         infos: [],
       },
-      invoice: null,
-      travelChildOrders: [],
-      travelGoods: null,
-      user: null,
-      leaveTime: null,
-      travelOrder: null,
-      // 成人人数
-      manNum: 0,
-      // 孩子人数
-      childNum: 0,
-      // 总出行人数
-      totalNum: 0,
       contactInfo:{
         title: '联系人信息',
         infos: [
@@ -234,15 +56,6 @@
           {key:'支付单号', value:''},
           {key:'支付时间', value:''},
         ]
-      },
-      status: {
-        1: '待支付',
-        2: '待确认',
-        3: '待出行',
-        4: '已出行',
-        5: '已取消',
-        6: '申请退款',
-        7: '已退款'
       }
     }
     calDate(date) {
@@ -291,15 +104,15 @@
         this.totalNum = data.length;
         for( let i = 0;i<data.length;i++ ) {
           let item = data[i];
-          if( item.travelUserType == 1 ) {
-            this.manNum += 1;
-          } else {
-            this.childNum += 1;
+          let singleInfo = {
+            title: '出行人' + (i+1),
+            infos: [
+              {key:'中文姓名', value: item.name},
+              {key:'身份证', value: item.cardId},
+              {key:'手机号码', value: item.phone},
+            ]
           }
-          this.infoList.infos.push({
-            key: item.name,
-            value: item.phone
-          })
+          this.peopleList.push( singleInfo )
         };
         this.$apply();
       });
@@ -311,13 +124,7 @@
     }
 
 
-    methods = {
-      goFillInvoice() {
-        wx.navigateTo({
-          url: 'fillInvoice'
-        });
-      },
-    }
+    methods = {}
 
     events = {
 

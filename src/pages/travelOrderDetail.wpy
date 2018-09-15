@@ -380,6 +380,10 @@
         wx.navigateTo({
           url: 'travelPeople?' + 'id=' + 1,
         });
+        // wx.navigateTo({
+        //   url: 'travelPeople',
+        // });
+
       }
     }
 
