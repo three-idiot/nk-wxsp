@@ -89,25 +89,47 @@
     </view>
   </view>
 
-  <view class="info-card" @tap="goDetail">
-    <view class="top">
-      <text>2018-07-08  08:08:08</text>
-      <text>待支付</text>
-    </view>
-    <view class="medium">
-      <view class="m-left">
-        <text>朝鲜平壤、开成、板门店、元山、金刚山、开成、平壤5日游 7月收客中</text>
-        <text>7月18日丹东出发</text>
+  <repeat for="{{ orderList }}" key="index" index="index" item="item">
+    <view class="info-card" @tap="goDetail">
+      <view class="top">
+        <text>2018-07-08  08:08:08</text>
+        <text>待支付</text>
       </view>
-      <view class="m-right">
-        <text>￥10000</text>
+      <view class="medium">
+        <view class="m-left">
+          <text>朝鲜平壤、开成、板门店、元山、金刚山、开成、平壤5日游 7月收客中</text>
+          <text>7月18日丹东出发</text>
+        </view>
+        <view class="m-right">
+          <text>￥10000</text>
+        </view>
+      </view>
+      <view class="bottom">
+        <text>行人数  2</text>
+        <text @tap="goRefund">取消订单</text>
       </view>
     </view>
-    <view class="bottom">
-      <text>行人数  2</text>
-      <text @tap="goRefund">取消订单</text>
-    </view>
-  </view>
+  </repeat>
+
+  <!--<view class="info-card" @tap="goDetail">-->
+    <!--<view class="top">-->
+      <!--<text>2018-07-08  08:08:08</text>-->
+      <!--<text>待支付</text>-->
+    <!--</view>-->
+    <!--<view class="medium">-->
+      <!--<view class="m-left">-->
+        <!--<text>朝鲜平壤、开成、板门店、元山、金刚山、开成、平壤5日游 7月收客中</text>-->
+        <!--<text>7月18日丹东出发</text>-->
+      <!--</view>-->
+      <!--<view class="m-right">-->
+        <!--<text>￥10000</text>-->
+      <!--</view>-->
+    <!--</view>-->
+    <!--<view class="bottom">-->
+      <!--<text>行人数  2</text>-->
+      <!--<text @tap="goRefund">取消订单</text>-->
+    <!--</view>-->
+  <!--</view>-->
 </template>
 
 <script>
@@ -129,8 +151,8 @@
         1: false,
         2: false,
         3: false
-      }
-
+      },
+      orderList: []
     }
 
     computed = {
@@ -162,6 +184,8 @@
     getList() {
       util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
         console.log( res );
+        this.orderList = res.data.data;
+        this.$apply();
       }).catch((msg) => {
         console.log( msg );
         // if (msg == 'reAuth') {
