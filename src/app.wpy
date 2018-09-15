@@ -26,7 +26,6 @@ export default class extends wepy.app {
             'pages/travelOrders',
             'pages/travelOrderDetail',
             'pages/fillInvoice',
-            'pages/refundApply',
             'pages/clause',
         ],
         window: {
