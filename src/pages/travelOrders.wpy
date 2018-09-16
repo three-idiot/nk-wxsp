@@ -9,6 +9,8 @@
     .travel-bar {
       display: flex;
       justify-content: space-around;
+      font-size: 28rpx;
+      color: #B2B2B2;
       text {
         padding-bottom: 10rpx;
       }
@@ -90,10 +92,10 @@
   </view>
 
   <repeat for="{{ orderList }}" key="index" index="index" item="item">
-    <view class="info-card" @tap="goDetail">
+    <view class="info-card" @tap="goDetail({{item.travelOrder.id}})">
       <view class="top">
         <text>{{ item.travelOrder.createTime }}</text>
-        <text>待支付</text>
+        <text>{{ status[item.travelOrder.status].title }}</text>
       </view>
       <view class="medium">
         <view class="m-left">
@@ -106,8 +108,8 @@
       </view>
       <view class="bottom">
         <text>行人数  {{ item.travelOrder.buyNum }}</text>
-        <text @tap="goRefund">申请退款</text>
-        <!--<text @tap="goRefund">取消订单</text>-->
+        <text @tap="goRefund" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
+        <text @tap.stop="cancelOrder({{item.travelOrder.id}})" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
       </view>
     </view>
   </repeat>
@@ -134,6 +136,7 @@
         3: false
       },
       orderList: [],
+      listAll: [],
       status: {
         1: {
           title: '待支付',
@@ -177,18 +180,49 @@
 
     }
 
-
-
     methods = {
+      cancelOrder(id) {
+        console.log( id );
+        util.requestApi(
+          api.apiCancelOrder, {
+            orderId: id
+          },
+          wx.getStorageSync('userToken'), 'GET'
+        )
+          .then(res => {
+            console.log('哈哈哈',res);
+            if( res.code == 200 ) {
+              // window.location.reload();
+              this.getList();
+            }
+          })
+          .catch(msg => {
+            if (msg == 'reAuth') {
+              self.goAuth();
+            }
+          });
+      },
       changeTab( index ) {
         for ( let p in this.choosing ) {
           this.choosing[p] = false;
         }
         this.choosing[index] = true;
+        if ( index == 0 ) {
+          this.orderList = this.listAll;
+        } else {
+          let arr = [];
+          for( let i=0;i<this.listAll.length;i++ ) {
+            let item = this.listAll[i];
+            if( item.travelOrder.status == index ) {
+              arr.push(item);
+            }
+          };
+          this.orderList = arr;
+        }
       },
-      goDetail() {
+      goDetail(id) {
         wx.navigateTo({
-          url: 'travelOrderDetail'
+          url: 'travelOrderDetail?id=' + id
         });
       },
       goRefund() {
@@ -217,6 +251,7 @@
       return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
     }
     getList() {
+      console.log('我要重新请求了');
       util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
         console.log( res );
         this.orderList = res.data.data;
@@ -225,6 +260,7 @@
           item.travelGoods.leaveTime = this.calDate(item.travelGoods.leaveTime);
           item.travelOrder.createTime = this.calDate(item.travelOrder.createTime);
         }
+        this.listAll = this.orderList;
         this.$apply();
       }).catch((msg) => {
         console.log( msg );
@@ -232,31 +268,11 @@
         //   self.goAuth();
         // }
       });
-      // util.requestPostApi(api.apiAdd, {
-      //   travelGoodsId: 44,
-      //   buyNum: 1,
-      //   contactName: '你好呀',
-      //   contactPhone: '135',
-      //   travelUserInfos: [{
-      //     name: '1号晚间',
-      //     passport: '555',
-      //     cardId: '666',
-      //     travelUserType: 1,
-      //     phone: '3333'
-      //   }]
-      // }, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
-      //   console.log( res );
-      // }).catch((msg) => {
-      //   console.log( msg );
-      //   // if (msg == 'reAuth') {
-      //   //   self.goAuth();
-      //   // }
-      // });
       // util.requestApi(
       //   api.apiTravelOrderCreate, {
-      //     travelGoodsId: 26,
+      //     travelGoodsId: 24,
       //     buyNum: 1,
-      //     contactName: '你好呀',
+      //     contactName: '你好呀fdsfsfsf',
       //     contactPhone: '135',
       //     travelUserInfos: [{
       //       name: '1号晚间',
@@ -278,8 +294,6 @@
       //       self.goAuth();
       //     }
       //   });
-
-
     }
     onLoad() {
       let self = this;

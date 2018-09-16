@@ -56,6 +56,8 @@ export default {
   apiGetTravelOrdersDetail: host+ '/travelOrder/travelOrderDetail',
   // 出行人信息
   apiTravelUserInfos: host + '/travelOrder/travelUserInfos',
+  // 取消旅游订单
+  apiCancelOrder: host + '/travelOrder/cancelOrder',
   apiTravelGoodsList: host + '/travelGoods/list',
   apiTravelGoodsDetail: host + '/travelGoods/',
   apiTravelOrderCreate: host + '/travelOrder/create',
