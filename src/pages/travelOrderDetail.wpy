@@ -293,14 +293,71 @@
           {key:'支付时间', value:''},
         ]
       },
+      // status: {
+      //   1: '待支付',
+      //   2: '待确认',
+      //   3: '待出行',
+      //   4: '已出行',
+      //   5: '已取消',
+      //   6: '申请退款',
+      //   7: '已退款'
+      // },
       status: {
-        1: '待支付',
-        2: '待确认',
-        3: '待出行',
-        4: '已出行',
-        5: '已取消',
-        6: '申请退款',
-        7: '已退款'
+        1: {
+          title: '未付款',
+          des: '',
+          remainTimeFlag: true,
+          remainTime: 0,
+          refundExplainBar: true,
+          otherBar: true,
+          payBar: true,
+        },
+        3: {
+          title: '交易成功，待出行',
+          des: '实付金额',
+          price: true,
+          refundExplainBar: true,
+          otherBar: true,
+          reOrderBar: true,
+        },
+        4: {
+          title: '交易成功，已出行',
+          des: '实付金额',
+          price: true,
+          refundExplainBar: true,
+          otherBar: true,
+          reOrderBar: true,
+          invoice:true
+        },
+        5: {
+          title: '订单已取消，谢谢使用',
+          des: '取消时间 ',
+          refundExplainBar: true,
+          otherBar: true,
+          reOrderBar: true,
+        },
+        6: {
+          title: '申请退款',
+          des: '退款金额',
+          price: true,
+          refundExplain: true,
+          refundExplainBar: false,
+          refundInfo: true
+          // otherBar: true,
+          // reOrderBar: true,
+          // invoice:true
+        },
+        7: {
+          title: '退款成功',
+          des: '退款金额',
+          price: true,
+          refundExplain: true,
+          refundExplainBar: false,
+          refundInfo: true
+          // otherBar: true,
+          // reOrderBar: true,
+          // invoice:true
+        }
       }
     }
     calDate(date) {
