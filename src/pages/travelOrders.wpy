@@ -98,14 +98,14 @@
       <view class="medium">
         <view class="m-left">
           <text>{{ item.travelGoods.name }}</text>
-          <text>{{ this.calDate(item.travelGoods.leaveTime) }}丹东出发</text>
+          <text>{{ this.calDate(item.travelGoods.leaveTime) }}{{ item.travelGoods.leaveAddress }}出发</text>
         </view>
         <view class="m-right">
-          <text>￥10000</text>
+          <text>￥{{ item.travelOrder.orderPrice }}</text>
         </view>
       </view>
       <view class="bottom">
-        <text>行人数  2</text>
+        <text>行人数  {{ item.travelOrder.buyNum }}</text>
         <text @tap="goRefund">取消订单</text>
       </view>
     </view>
