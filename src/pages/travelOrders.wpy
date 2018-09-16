@@ -270,9 +270,9 @@
       });
       // util.requestApi(
       //   api.apiTravelOrderCreate, {
-      //     travelGoodsId: 26,
+      //     travelGoodsId: 24,
       //     buyNum: 1,
-      //     contactName: '你好呀',
+      //     contactName: '你好呀fdsfsfsf',
       //     contactPhone: '135',
       //     travelUserInfos: [{
       //       name: '1号晚间',
