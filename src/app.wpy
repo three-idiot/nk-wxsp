@@ -8,13 +8,14 @@ export default class extends wepy.app {
             'pages/index',
             'pages/my',
             'pages/orderList',
-            'pages/newsList',
             'pages/signSecond',
             'pages/orderDetail',
             'pages/signDetail',
+            'pages/newsList',
             'pages/newsDetail',
             'pages/refundApply',
             'pages/refundApplyTip',
+            'pages/refundApplyDesc',
             'pages/signProcess',
             'pages/commonQuestion',
             'pages/signFirst',
@@ -27,6 +28,7 @@ export default class extends wepy.app {
             'pages/travelOrderDetail',
             'pages/fillInvoice',
             'pages/clause',
+            'pages/travelPeople'
         ],
         window: {
             backgroundTextStyle: "light",

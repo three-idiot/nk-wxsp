@@ -1,0 +1,139 @@
+<style lang="less">
+  page {
+    background: #f4f4f4;
+    .item-card:nth-child(1) {
+      margin-top: 0;
+    }
+  }
+
+</style>
+<template>
+  <view class="travel-people">
+    <repeat for="{{peopleList}}" key="index" index="index" item="item">
+      <infoCard1 :infoList.sync="item" class="item-card" />
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import InfoCard from '../components/infoCard';
+  import Arrow from '../components/arrow';
+  import util from '../plugins/util';
+  import api from '../plugins/api';
+
+
+
+  export default class TravelPeople extends wepy.page {
+    config = {
+      navigationBarTitleText: '出行人信息'
+    }
+    components = {
+      infoCard1: InfoCard,
+      infoCard2: InfoCard,
+      infoCard3: InfoCard,
+      arrow: Arrow
+    }
+
+    data = {
+      peopleList: [],
+      infoList:{
+        title: '',
+        infos: [],
+      },
+      contactInfo:{
+        title: '联系人信息',
+        infos: [
+          {key:'联系人', value:''},
+          {key:'手机号码', value:''},
+        ]
+      },
+      otherInfo:{
+        title: '其他',
+        infos: [
+          {key:'订单号', value:''},
+          {key:'下单时间', value:''},
+          {key:'支付单号', value:''},
+          {key:'支付时间', value:''},
+        ]
+      }
+    }
+    calDate(date) {
+      date = new Date();
+      let o = {
+        "y+": date.getFullYear(),
+        "M+" : date.getMonth()+1, //月份
+        "d+" : date.getDate(), //日
+        "h+" : date.getHours()%12 == 0 ? 12 : date.getHours()%12, //小时
+        "H+" : date.getHours(), //小时
+        "m+" : date.getMinutes(), //分
+        "s+" : date.getSeconds(), //秒
+        "q+" : Math.floor((date.getMonth()+3)/3), //季度
+        "S" : date.getMilliseconds() //毫秒
+      };
+      return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
+    }
+
+    fetchData() {
+      util.requestApi(api.apiGetTravelOrdersDetail, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+        // self.loading = true;
+        console.log( res );
+        this.invoice = res.data.invoice;
+        this.travelChildOrders = res.data.travelChildOrders;
+        this.travelGoods = res.data.travelGoods;
+        this.user = res.data.user;
+        this.travelOrder = res.data.travelOrder;
+        this.leaveTime =  new Date(this.travelGoods.leaveTime).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime).getDate() + '日';
+        //  联系人和联系号码
+        this.contactInfo.infos[0].value = this.travelOrder.contactName;
+        this.contactInfo.infos[1].value = this.travelOrder.contactPhone ?  this.travelOrder.contactPhone : '/';
+        // 其他信息
+        this.otherInfo.infos[0].value = this.travelOrder.orderNo;
+        this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
+        this.otherInfo.infos[2].value = this.travelOrder.payId;
+        this.otherInfo.infos[3].value = this.calDate(this.travelOrder.payTime);
+        this.$apply();
+      });
+    }
+
+    fetchUserInfos(id) {
+      util.requestApi(api.apiTravelUserInfos, {orderId: id}, wx.getStorageSync('userToken')).then((res) => {
+        // self.loading = true;
+        console.log( res );
+        let data = res.data;
+        this.totalNum = data.length;
+        for( let i = 0;i<data.length;i++ ) {
+          let item = data[i];
+          let singleInfo = {
+            title: '出行人' + (i+1),
+            infos: [
+              {key:'中文姓名', value: item.name},
+              {key:'身份证', value: item.cardId},
+              {key:'手机号码', value: item.phone},
+            ]
+          }
+          this.peopleList.push( singleInfo )
+        };
+        this.$apply();
+      });
+
+    }
+
+    computed = {
+
+    }
+
+
+    methods = {}
+
+    events = {
+
+    }
+
+    onLoad(option) {
+      let self = this;
+      console.log('111', option)
+      this.fetchUserInfos(option.id);
+    }
+  }
+</script>

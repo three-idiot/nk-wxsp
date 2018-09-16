@@ -70,7 +70,7 @@
       <view class="choose-invoice">
         <text>发票抬头</text>
         <radio-group class="radio-group" bindchange="radioChange">
-          <label class="radio" wx:for="{{type}}">
+          <label class="radio" wx:for="{{type}}" wx:key="{{item.value}}">
             <radio  value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
           </label>
         </radio-group>
@@ -81,7 +81,7 @@
         <input type="text" placeholder="请填写发票抬头">
       </view>
 
-      <view class="tax-num">
+      <view class="tax-num" wx:if="{{ formData.type == 1 }}">
         <text>纳税人识别号</text>
         <input type="text"  placeholder="税务登记证上编号，至少15位">
       </view>
@@ -121,17 +121,19 @@
 
     data = {
       type: [
-        {name:'个人', value:'1'},
+        {name:'个人', value:'1', checked:true},
         {name:'公司', value:'2'}
       ],
       array: ['服务费', '什么费', '巴西', '日本'],
       contentIndex :0,
       formData:{
-        invoice: null,
-        taitou:null,
-        taxNum: null,
-        invoiceContent: null,
-        mail:null
+        type: 1,
+        title:null,
+        content: null,
+        email:null,
+        taxNo: null,
+        phone: null,
+        address: null
       }
     }
 
@@ -146,6 +148,7 @@
       },
       radioChange(event) {
         console.log( event );
+        this.formData.type = event.detail.value;
       },
       invoiceSubmit() {
         console.log( this.formData );
@@ -157,9 +160,9 @@
 
     }
 
-    onLoad() {
-      let self = this
-
+    onLoad(option) {
+      let self = this;
+      console.log( option.id )
     }
   }
 </script>
