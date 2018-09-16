@@ -92,13 +92,13 @@
   <repeat for="{{ orderList }}" key="index" index="index" item="item">
     <view class="info-card" @tap="goDetail">
       <view class="top">
-        <text>2018-07-08  08:08:08</text>
+        <text>{{ item.travelOrder.createTime }}</text>
         <text>待支付</text>
       </view>
       <view class="medium">
         <view class="m-left">
           <text>{{ item.travelGoods.name }}</text>
-          <text>{{ this.calDate(item.travelGoods.leaveTime) }}{{ item.travelGoods.leaveAddress }}出发</text>
+          <text>{{ item.travelGoods.leaveTime }}{{ item.travelGoods.leaveAddress }}出发</text>
         </view>
         <view class="m-right">
           <text>￥{{ item.travelOrder.orderPrice }}</text>
@@ -106,7 +106,8 @@
       </view>
       <view class="bottom">
         <text>行人数  {{ item.travelOrder.buyNum }}</text>
-        <text @tap="goRefund">取消订单</text>
+        <text @tap="goRefund">申请退款</text>
+        <!--<text @tap="goRefund">取消订单</text>-->
       </view>
     </view>
   </repeat>
@@ -132,28 +133,51 @@
         2: false,
         3: false
       },
-      orderList: []
+      orderList: [],
+      status: {
+        1: {
+          title: '待支付',
+          cancelBtn: true,
+          refundBtn: false
+        },
+        2: {
+          title: '待确认',
+          cancelBtn: false,
+          refundBtn: true
+        },
+        3: {
+          title: '待出行',
+          cancelBtn: false,
+          refundBtn: true
+        },
+        4: {
+          title: '已出行',
+          cancelBtn: false,
+          refundBtn: true
+        },
+        5: {
+          title: '已取消',
+          cancelBtn: false,
+          refundBtn: true
+        },
+        6: {
+          title: '申请退款',
+          cancelBtn: false,
+          refundBtn: true
+        },
+        7: {
+          title: '已退款',
+          cancelBtn: false,
+          refundBtn: true
+        }
+      }
     }
 
     computed = {
 
     }
 
-    calDate(date) {
-      date = new Date();
-      let o = {
-        "y+": date.getFullYear(),
-        "M+" : date.getMonth()+1, //月份
-        "d+" : date.getDate(), //日
-        "h+" : date.getHours()%12 == 0 ? 12 : date.getHours()%12, //小时
-        "H+" : date.getHours(), //小时
-        "m+" : date.getMinutes(), //分
-        "s+" : date.getSeconds(), //秒
-        "q+" : Math.floor((date.getMonth()+3)/3), //季度
-        "S" : date.getMilliseconds() //毫秒
-      };
-      return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
-    }
+
 
     methods = {
       changeTab( index ) {
@@ -177,10 +201,30 @@
     events = {
 
     }
+    calDate(date) {
+      date = new Date();
+      let o = {
+        "y+": date.getFullYear(),
+        "M+" : date.getMonth()+1, //月份
+        "d+" : date.getDate(), //日
+        "h+" : date.getHours()%12 == 0 ? 12 : date.getHours()%12, //小时
+        "H+" : date.getHours(), //小时
+        "m+" : date.getMinutes(), //分
+        "s+" : date.getSeconds(), //秒
+        "q+" : Math.floor((date.getMonth()+3)/3), //季度
+        "S" : date.getMilliseconds() //毫秒
+      };
+      return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
+    }
     getList() {
       util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
         console.log( res );
         this.orderList = res.data.data;
+        for ( let i=0;i<this.orderList.length;i++ ) {
+          let item = this.orderList[i];
+          item.travelGoods.leaveTime = this.calDate(item.travelGoods.leaveTime);
+          item.travelOrder.createTime = this.calDate(item.travelOrder.createTime);
+        }
         this.$apply();
       }).catch((msg) => {
         console.log( msg );

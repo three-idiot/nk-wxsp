@@ -2,10 +2,10 @@
 <view class="travel-list">
     <repeat for="{{syncLists}}" item="item" key="index" index="index">
         <view class="travel" @tap="handleClickSingleSign({{item}}, {{index}})">
-            <image src="https://image.le-99.xyz/images/71211536237568638.jpg?Expires=1852454149&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=kVYqApmbSW4Bn5wDFN3woU5CHms%3D" />
+            <image src="{{item.images[0].goodPath}}" />
             <view class="list-travel">
-                <text class="name">神秘朝鲜冰雪6日之旅</text>
-                <text class="money">￥<text class="red">1000</text><text class="abandon">￥1600</text></text>
+                <text class="name">{{item.name}}</text>
+                <text class="money">￥<text class="red">{{item.realPrice}}</text><text class="abandon">￥{{item.salePrice}}</text></text>
             </view>
         </view>
     </repeat>
@@ -41,7 +41,7 @@ export default class TravelList extends wepy.component {
         handleClickSingleSign(item, index) {
             let self = this;
             wx.navigateTo({
-                url: 'signDetail?id=' + item.id + '&imgUrl=' + encodeURIComponent(self.imgUrl)
+                url: 'travelDetail?id=' + item.id
             });
         }
     }
@@ -56,31 +56,37 @@ export default class TravelList extends wepy.component {
 .travel-list {
     .travel {
         padding: 30rpx 20rpx 0;
+
         image {
             width: 710rpx;
             height: 400rpx;
             border-radius: 10rpx;
         }
+
         .list-travel {
             width: 100%;
             padding-top: 6rpx;
             display: flex;
             justify-content: space-between;
+
             .name {
                 font-size: 31rpx;
                 color: #353535;
-                text-align: center;
+                text-align: left;
             }
+
             .money {
                 font-size: 24rpx;
                 color: #353535;
                 text-align: center;
+
                 .red {
                     font-size: 32rpx;
                     color: red;
                     text-align: center;
                     line-height: 33rpx;
                 }
+
                 .abandon {
                     font-size: 22rpx;
                     color: #B2B2B2;
