@@ -27,9 +27,9 @@
             </view>
         </view>
         <view class="three-ad">
-            <image src="../images/index/ad1.png" />
-            <image src="../images/index/ad2.png" />
-            <image src="../images/index/ad3.png" />
+            <image src="{{threeImages[0]}}" />
+            <image src="{{threeImages[1]}}" />
+            <image src="{{threeImages[2]}}" />
         </view>
         <view class="list-title">
             <text class="travel">旅游推荐</text>
@@ -68,6 +68,11 @@ export default class Index extends wepy.page {
         step: '',
         pageIndex: 1,
         pageSize: 10,
+        threeImages: [
+            'https://image.le-99.xyz/images/85181537107836678.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=KzQKUmMdkZ4Tv89UUvFeOVFFC0Q%3D',
+            'https://image.le-99.xyz/images/25941537107836715.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=6io1mSm7pID50uQ2JpPeuPwoaIs%3D',
+            'https://image.le-99.xyz/images/27591537107836878.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=ZrGywUUTUG0fueeqSihYWo3eV64%3D'
+        ]
     }
 
     computed = {
