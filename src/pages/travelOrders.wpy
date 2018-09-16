@@ -93,7 +93,7 @@
     <view class="info-card" @tap="goDetail">
       <view class="top">
         <text>{{ item.travelOrder.createTime }}</text>
-        <text>待支付</text>
+        <text>{{ status[item.travelOrder.status].title }}</text>
       </view>
       <view class="medium">
         <view class="m-left">
@@ -106,8 +106,8 @@
       </view>
       <view class="bottom">
         <text>行人数  {{ item.travelOrder.buyNum }}</text>
-        <text @tap="goRefund">申请退款</text>
-        <!--<text @tap="goRefund">取消订单</text>-->
+        <text @tap="goRefund" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
+        <text @tap="goRefund" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
       </view>
     </view>
   </repeat>

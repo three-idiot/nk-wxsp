@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b378aa-fec0-450a-976b-2f1f6b0faac4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,8 +20,8 @@
       <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="102" column="30" lean-forward="true" selection-start-line="102" selection-start-column="30" selection-end-line="102" selection-end-column="30" />
+            <state relative-caret-position="349">
+              <caret line="105" column="13" lean-forward="true" selection-start-line="105" selection-start-column="13" selection-end-line="105" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -55,11 +56,8 @@
       <file leaf-file-name="fillOrder.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/fillOrder.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7106">
-              <caret line="328" column="25" selection-start-line="328" selection-start-column="8" selection-end-line="328" selection-end-column="25" />
-              <folding>
-                <element signature="e#7127#7151#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="7634">
+              <caret line="352" column="25" selection-start-line="352" selection-start-column="25" selection-end-line="352" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -287,12 +285,12 @@
       <workItem from="1536998955542" duration="27102000" />
       <workItem from="1537032791544" duration="1949000" />
       <workItem from="1537069995500" duration="1336000" />
-      <workItem from="1537098449643" duration="1991000" />
+      <workItem from="1537098449643" duration="2275000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118609000" />
+    <option name="totallyTimeSpent" value="118893000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -621,11 +619,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fillOrder.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7106">
-          <caret line="328" column="25" selection-start-line="328" selection-start-column="8" selection-end-line="328" selection-end-column="25" />
-          <folding>
-            <element signature="e#7127#7151#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="7634">
+          <caret line="352" column="25" selection-start-line="352" selection-start-column="25" selection-end-line="352" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -645,8 +640,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="102" column="30" lean-forward="true" selection-start-line="102" selection-start-column="30" selection-end-line="102" selection-end-column="30" />
+        <state relative-caret-position="349">
+          <caret line="105" column="13" lean-forward="true" selection-start-line="105" selection-start-column="13" selection-end-line="105" selection-end-column="13" />
         </state>
       </provider>
     </entry>
