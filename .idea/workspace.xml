@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b378aa-fec0-450a-976b-2f1f6b0faac4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/infoCard.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/infoCard.wpy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,8 +21,8 @@
       <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4431">
-              <caret line="273" column="23" lean-forward="true" selection-start-line="273" selection-start-column="23" selection-end-line="273" selection-end-column="23" />
+            <state relative-caret-position="2187">
+              <caret line="222" column="20" lean-forward="true" selection-start-line="222" selection-start-column="20" selection-end-line="222" selection-end-column="20" />
               <folding>
                 <element signature="e#2698#2722#0" expanded="true" />
               </folding>
@@ -31,8 +33,17 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="301" column="21" lean-forward="true" selection-start-line="301" selection-start-column="21" selection-end-line="301" selection-end-column="21" />
+            <state relative-caret-position="207">
+              <caret line="218" column="54" lean-forward="true" selection-start-line="218" selection-start-column="54" selection-end-line="218" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="infoCard.wpy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/infoCard.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="719">
+              <caret line="86" column="38" selection-start-line="86" selection-start-column="38" selection-end-line="86" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -41,9 +52,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SmallTravelList</find>
-      <find>Banner</find>
-      <find>ContractModal</find>
       <find>WxParse</find>
       <find>Payment</find>
       <find>picModal</find>
@@ -71,6 +79,9 @@
       <find>orderList</find>
       <find>changeTab</find>
       <find>cancelOrder</find>
+      <find>fetchData</find>
+      <find>goDetail</find>
+      <find>jumpToRefundDesc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -109,7 +120,6 @@
         <option value="$PROJECT_DIR$/src/pages/my.wpy" />
         <option value="$PROJECT_DIR$/src/pages/order.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travel.wpy" />
-        <option value="$PROJECT_DIR$/src/components/infoCard.wpy" />
         <option value="$PROJECT_DIR$/src/components/arrow.wpy" />
         <option value="$PROJECT_DIR$/src/pages/refundApply.wpy" />
         <option value="$PROJECT_DIR$/src/app.wpy" />
@@ -119,6 +129,7 @@
         <option value="$PROJECT_DIR$/src/pages/fillInvoice.wpy" />
         <option value="$PROJECT_DIR$/src/plugins/api.js" />
         <option value="$PROJECT_DIR$/src/pages/travelOrders.wpy" />
+        <option value="$PROJECT_DIR$/src/components/infoCard.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" />
       </list>
     </option>
@@ -162,6 +173,12 @@
               <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
               <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
@@ -242,12 +259,12 @@
       <workItem from="1536998955542" duration="27102000" />
       <workItem from="1537032791544" duration="1949000" />
       <workItem from="1537069995500" duration="1336000" />
-      <workItem from="1537098449643" duration="6906000" />
+      <workItem from="1537098449643" duration="7756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123524000" />
+    <option name="totallyTimeSpent" value="124374000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -382,13 +399,6 @@
     <entry file="file://$PROJECT_DIR$/src/components/formItem.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-119" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/infoCard.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1531">
-          <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/contractModal.wpy">
@@ -587,16 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4431">
-          <caret line="273" column="23" lean-forward="true" selection-start-line="273" selection-start-column="23" selection-end-line="273" selection-end-column="23" />
-          <folding>
-            <element signature="e#2698#2722#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelPeople.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -604,10 +604,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/infoCard.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="719">
+          <caret line="86" column="38" selection-start-line="86" selection-start-column="38" selection-end-line="86" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2187">
+          <caret line="222" column="20" lean-forward="true" selection-start-line="222" selection-start-column="20" selection-end-line="222" selection-end-column="20" />
+          <folding>
+            <element signature="e#2698#2722#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="301" column="21" lean-forward="true" selection-start-line="301" selection-start-column="21" selection-end-line="301" selection-end-column="21" />
+        <state relative-caret-position="207">
+          <caret line="218" column="54" lean-forward="true" selection-start-line="218" selection-start-column="54" selection-end-line="218" selection-end-column="54" />
         </state>
       </provider>
     </entry>

@@ -179,7 +179,7 @@
   <view class="travel-orders">
     <view class="order-header">
       <view class="status">
-        未付款
+        {{ status[item.travelOrder.status].title }}
       </view>
       <view class="status-text">
         <view>
@@ -261,6 +261,7 @@
     }
 
     data = {
+      item: null,
       infoList:{
         title: '',
         infos: [],
@@ -376,10 +377,11 @@
       return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
     }
 
-    fetchData() {
-      util.requestApi(api.apiGetTravelOrdersDetail, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+    fetchData(id) {
+      util.requestApi(api.apiGetTravelOrdersDetail, {orderId: id}, wx.getStorageSync('userToken')).then((res) => {
         // self.loading = true;
         console.log( res );
+        this.item = res.data;
         this.invoice = res.data.invoice;
         this.travelChildOrders = res.data.travelChildOrders;
         this.travelGoods = res.data.travelGoods;
@@ -398,8 +400,8 @@
       });
     }
 
-    fetchUserInfos() {
-      util.requestApi(api.apiTravelUserInfos, {orderId: 1}, wx.getStorageSync('userToken')).then((res) => {
+    fetchUserInfos(id) {
+      util.requestApi(api.apiTravelUserInfos, {orderId: id}, wx.getStorageSync('userToken')).then((res) => {
         // self.loading = true;
         console.log( res );
         let data = res.data;
@@ -453,10 +455,10 @@
 
     }
 
-    onLoad() {
-      let self = this;
-      this.fetchData();
-      this.fetchUserInfos();
+    onLoad(option) {
+      console.log( option.id );
+      this.fetchData(option.id);
+      this.fetchUserInfos(option.id);
     }
   }
 </script>

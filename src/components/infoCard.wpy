@@ -84,8 +84,7 @@
 
     onLoad() {
       let self = this;
-      console.log( this.infoList );
-
+      // console.log( this.infoList );
     }
   }
 </script>
