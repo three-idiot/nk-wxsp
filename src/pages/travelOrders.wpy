@@ -9,6 +9,8 @@
     .travel-bar {
       display: flex;
       justify-content: space-around;
+      font-size: 28rpx;
+      color: #B2B2B2;
       text {
         padding-bottom: 10rpx;
       }
