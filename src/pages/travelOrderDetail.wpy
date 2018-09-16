@@ -237,6 +237,10 @@
     <view  class="re-book">
       重新预订
     </view>
+
+    <!--<view  class="re-book">-->
+      <!--申请退款-->
+    <!--</view>-->
   </view>
 </template>
 
@@ -311,7 +315,15 @@
           remainTime: 0,
           refundExplainBar: true,
           otherBar: true,
-          payBar: true,
+          payBtn: true,
+        },
+        2: {
+          title: '交易成功，订单待确认',
+          des: '实付金额',
+          price: true,
+          refundExplainBar: true,
+          otherBar: true,
+          refundBtn: true,
         },
         3: {
           title: '交易成功，待出行',
@@ -319,7 +331,7 @@
           price: true,
           refundExplainBar: true,
           otherBar: true,
-          reOrderBar: true,
+          refundBtn: true,
         },
         4: {
           title: '交易成功，已出行',
@@ -327,7 +339,6 @@
           price: true,
           refundExplainBar: true,
           otherBar: true,
-          reOrderBar: true,
           invoice:true
         },
         5: {
@@ -335,18 +346,15 @@
           des: '取消时间 ',
           refundExplainBar: true,
           otherBar: true,
-          reOrderBar: true,
+          reOrderBtn: true,
         },
         6: {
-          title: '申请退款',
+          title: '退款处理中',
           des: '退款金额',
           price: true,
           refundExplain: true,
           refundExplainBar: false,
           refundInfo: true
-          // otherBar: true,
-          // reOrderBar: true,
-          // invoice:true
         },
         7: {
           title: '退款成功',
@@ -355,9 +363,6 @@
           refundExplain: true,
           refundExplainBar: false,
           refundInfo: true
-          // otherBar: true,
-          // reOrderBar: true,
-          // invoice:true
         }
       }
     }
