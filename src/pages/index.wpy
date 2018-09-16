@@ -1,40 +1,42 @@
 <template>
 <view class="container">
-    <!-- <view class="refresh-btn" @tap="handleTapRefresh">刷新</view> -->
-    <banner :syncImgUrl.sync="bannerImgUrl" />
-    <view class="three-tab">
-        <view @tap="goVisa">
-            <image src="../images/index/visa.png" />
-            <text>签证</text>
-        </view>
-        <view @tap="goTravel">
-            <image src="../images/index/travel.png" />
-            <text>旅游</text>
-        </view>
-        <view @tap="goTravel">
-            <image src="../images/index/business.png" />
-            <text>商务</text>
-        </view>
-    </view>
-    <view class="news-container" @tap="jumpToNewslist">
-        <view class="news">
-            <image src="../images/index/news.png" />
-            <view class="txt">
-                <text>1111111111111111111111111111111111111111111111111111111</text>
-                <text>2222222222222222222222222222222222222222222222222222222</text>
+    <scroll-view scroll-y style="height: 100%;" bindscrolltolower="lower">
+        <!-- <view class="refresh-btn" @tap="handleTapRefresh">刷新</view> -->
+        <banner :syncImgUrl.sync="bannerImgUrl" />
+        <view class="three-tab">
+            <view @tap="goVisa">
+                <image src="../images/index/visa.png" />
+                <text>签证</text>
+            </view>
+            <view @tap="goTravel">
+                <image src="../images/index/travel.png" />
+                <text>旅游</text>
+            </view>
+            <view @tap="goTravel">
+                <image src="../images/index/business.png" />
+                <text>商务</text>
             </view>
         </view>
-    </view>
-    <view class="three-ad">
-        <image src="../images/index/ad1.png" />
-        <image src="../images/index/ad2.png" />
-        <image src="../images/index/ad3.png" />
-    </view>
-    <view class="list-title">
-        <text class="travel">旅游推荐</text>
-        <text class="more"  @tap="goTravel">查看更多></text>
-    </view>
-    <travelList :syncLists.sync="lists" :imgUrl.sync="bannerImgUrl" />
+        <view class="news-container" @tap="jumpToNewslist">
+            <view class="news">
+                <image src="../images/index/news.png" />
+                <view class="txt fade-enter-active {{step}}">
+                    <text>{{newslist[newsIndex].title}}</text>
+                    <text>{{newslist[newsIndex+1].title}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="three-ad">
+            <image src="../images/index/ad1.png" />
+            <image src="../images/index/ad2.png" />
+            <image src="../images/index/ad3.png" />
+        </view>
+        <view class="list-title">
+            <text class="travel">旅游推荐</text>
+            <text class="more"  @tap="goTravel">查看更多></text>
+        </view>
+        <travelList :syncLists.sync="lists" />
+    </scroll-view>
 </view>
 </template>
 
@@ -58,9 +60,14 @@ export default class Index extends wepy.page {
     data = {
         lists: [],
         indexData: [],
+        newslist: [],
+        newsIndex: 0,
         bannerImgUrl: '',
         userInfo: null,
-        userInfoRes: null
+        userInfoRes: null,
+        step: '',
+        pageIndex: 1,
+        pageSize: 10,
     }
 
     computed = {
@@ -81,7 +88,7 @@ export default class Index extends wepy.page {
             wx.switchTab({
                 url: 'travel'
             });
-        }
+        },
     }
 
     // watch = {
@@ -124,12 +131,68 @@ export default class Index extends wepy.page {
 
         // 商品列表接口
         self.requestGetGoods();
+        ++this.pageIndex;
+        self.requestGetNewslist();
+        self.loop();
     }
 
-    onShow() {
-        // 商品列表接口
+    /**
+     * 获取资讯列表
+     */
+    requestGetNewslist() {
+        let self = this;
+        util.requestPostApi(api.apiNewslist, {
+            pageIndex: 1,
+            pageSize: 20
+        }, wx.getStorageSync('userToken'), {
+            'content-type': 'application/json'
+        }).then((res1) => {
+            if (res1.code == 200) {
+                self.newslist = res1.data.data;
+                self.$apply();
+            }
+        });
+    }
+
+    loop() {
+        setInterval(() => {
+            this.step = 'fade-enter';
+            setTimeout(() => {
+                if (this.newsIndex < this.newslist.length - 2 && this.newsIndex < 20) {
+                    this.newsIndex += 2;
+                } else {
+                    this.newsIndex = 0;
+                }
+                this.step = '';
+                this.$apply();
+            }, 500);
+            this.$apply();
+        }, 5000)
+    }
+
+    requestGetGoods() {
+        let self = this;
+        util.requestApi(api.apiTravelGoodsList, {
+            pageIndex: self.data.pageIndex,
+            pageSize: self.data.pageSize
+        }, wx.getStorageSync('userToken'), 'POST').then((res) => {
+            if (res.data && res.code == 200) {
+                self.lists = self.lists.concat(res.data.data);
+                self.$apply();
+            }
+        }).catch((msg) => {
+            if (msg == 'reAuth') {
+                self.goAuth();
+            }
+        });
+    }
+
+    lower() {
+        ++this.pageIndex;
         this.requestGetGoods();
     }
+
+    onShow() {}
 
     goAuth() {
         // console.log('授权');
@@ -160,22 +223,22 @@ export default class Index extends wepy.page {
         });
     }
 
-    requestGetGoods() {
-        let self = this;
-        util.requestApi(api.apiGoodsList, {
-            size: 10000
-        }, wx.getStorageSync('userToken')).then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('商品列表返回：', res.data);
-                self.lists = res.data;
-                self.$apply();
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
-    }
+    // requestGetGoods() {
+    //     let self = this;
+    //     util.requestApi(api.apiGoodsList, {
+    //         size: 10000
+    //     }, wx.getStorageSync('userToken')).then((res) => {
+    //         if (res.data && res.code == 200) {
+    //             console.log('商品列表返回：', res.data);
+    //             self.lists = res.data;
+    //             self.$apply();
+    //         }
+    //     }).catch((msg) => {
+    //         if (msg == 'reAuth') {
+    //             self.goAuth();
+    //         }
+    //     });
+    // }
 
     requestSaveUserInfo(obj) {
         let self = this;
@@ -240,10 +303,12 @@ export default class Index extends wepy.page {
         image {
             width: 70rpx;
             height: 60rpx;
+            position: absolute;
         }
 
         .txt {
-            margin-left: 20rpx;
+            margin-left: 97rpx;
+            margin-top: -12rpx;
             display: inline-block;
             width: 568rpx;
             height: 74rpx;
@@ -294,5 +359,23 @@ export default class Index extends wepy.page {
         text-align: center;
         line-height: 34rpx;
     }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+    {
+    opacity: 0;
+}
+</style>
+<style lang="less">
+page {
+    height: 100%;
 }
 </style>

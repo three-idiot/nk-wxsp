@@ -27,7 +27,7 @@
             <text class="red">{{params.childPrice}}</text>
             <text class="unit">元／人</text>
             <image wx:if="{{form.child>0}}" src="../images/travel/img_minus.png" @tap="childminus" />
-            <image wx:if="{{form.child<=0}}" src="../images/travel/img_minus_unclick.png"/>
+            <image wx:if="{{form.child<=0}}" src="../images/travel/img_minus_unclick.png" />
             <input class=""
               type="number"
               placeholder-style="color: #B2B2B2"
@@ -57,6 +57,12 @@
               value="{{item.name}}"
               placeholder="请填写出行人姓名"/>
             </view>
+                <view class="id-input line" @tap="openTypeWindow({{index}},{{item.travelUserType}})">
+                    <text class="lable">身份类型</text>
+                    <text wx:if="{{item.travelUserType==1}}" class="id">成人</text>
+                    <text wx:if="{{item.travelUserType==2}}" class="id">儿童</text>
+                    <image class="open" src="../images/travel/icon_arrow_more copy.png" />
+                </view>
                 <view class="id-input line" @tap="openWindow({{index}},{{item.type}})">
                     <text class="lable">证件类型</text>
                     <text wx:if="{{item.type==0}}" class="id">身份证</text>
@@ -139,7 +145,7 @@
                     </view>
 
                 </view>
-                <view wx:if="{{showWindow}}" class="backdrop">
+                <view wx:if="{{showWindow||showTypeWindow}}" class="backdrop">
 
                 </view>
                 <view wx:if="{{showWindow}}" class="window">
@@ -154,6 +160,20 @@
                     <view class="row noborder {{idOrPassport==1?'select':''}}" @tap="selectType(1)">
                         <text>护照</text>
                         <text wx:if="{{idOrPassport==1}}" class="select-img">√</text>
+                    </view>
+                </view>
+                <view wx:if="{{showTypeWindow}}" class="window">
+                    <view class="row title">
+                        <text>身份类型</text>
+                        <text @tap="closeTypeWindow" class="close">×</text>
+                    </view>
+                    <view class="row {{isAdaultOrChild==1?'select':''}}" @tap="selectHumanType(1)">
+                        <text>成人</text>
+                        <text wx:if="{{isAdaultOrChild==1}}" class="select-img">√</text>
+                    </view>
+                    <view class="row noborder {{isAdaultOrChild==2?'select':''}}" @tap="selectHumanType(2)">
+                        <text>儿童</text>
+                        <text wx:if="{{isAdaultOrChild==2}}" class="select-img">√</text>
                     </view>
                 </view>
             </view>
@@ -189,6 +209,9 @@ export default class Index extends wepy.page {
         showWindow: false,
         selectIndex: 0,
         idOrPassport: 0,
+        showTypeWindow: false,
+        typeSelectIndex: 0,
+        isAdaultOrChild: 1,
         form: {
             adult: 1,
             child: 0,
@@ -196,7 +219,8 @@ export default class Index extends wepy.page {
                 name: '',
                 type: 0,
                 number: '',
-                phone: ''
+                phone: '',
+                travelUserType: 1
             }],
             contactPhone: '',
             contactName: '',
@@ -216,7 +240,7 @@ export default class Index extends wepy.page {
                     passport: element.type == 1 ? element.number : '',
                     cardId: element.type == 0 ? element.number : '',
                     phone: element.phone,
-                    // travelUserType:1
+                    travelUserType: element.travelUserType,
                 })
             });
             let params = {
@@ -339,19 +363,30 @@ export default class Index extends wepy.page {
             }
         },
         openWindow(index, type) {
-            console.log(index, type);
             this.selectIndex = index;
             this.idOrPassport = type;
             this.showWindow = true;
         },
-
+        openTypeWindow(index, type) {
+            this.typeSelectIndex = index;
+            this.isAdaultOrChild = type;
+            this.showTypeWindow = true;
+        },
         closeWindow() {
             this.showWindow = false;
+        },
+        closeTypeWindow(){
+            this.showTypeWindow = false;
         },
 
         selectType(type) {
             this.form.passenger[this.selectIndex].type = type;
             this.showWindow = false;
+        },
+        selectHumanType(type) {
+            console.log(this.typeSelectIndex)
+            this.form.passenger[this.typeSelectIndex].travelUserType = type;
+            this.showTypeWindow = false;
         },
 
         addPassenger() {
@@ -792,7 +827,7 @@ export default class Index extends wepy.page {
     .close {
         float: right;
         line-height: 111rpx;
-        font-size:60rpx;
+        font-size: 60rpx;
         color: #B2B2B2;
 
     }

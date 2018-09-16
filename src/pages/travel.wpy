@@ -59,9 +59,9 @@ export default class Index extends wepy.page {
         let self = this;
         // banner接口
         self.requestGetBanner();
-
         // 商品列表接口
         self.requestGetGoods();
+        ++this.pageIndex;
     }
 
     onShow() {}
