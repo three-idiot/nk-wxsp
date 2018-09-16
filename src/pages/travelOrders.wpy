@@ -109,7 +109,7 @@
       <view class="bottom">
         <text>行人数  {{ item.travelOrder.buyNum }}</text>
         <text @tap="goRefund" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
-        <text @tap="goRefund" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
+        <text @tap.stop="cancelOrder({{item.travelOrder.id}})" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
       </view>
     </view>
   </repeat>
@@ -180,9 +180,27 @@
 
     }
 
-
-
     methods = {
+      cancelOrder(id) {
+        console.log( id );
+        util.requestApi(
+          api.apiCancelOrder, {
+            orderId: id
+          },
+          wx.getStorageSync('userToken'), 'GET'
+        )
+          .then(res => {
+            console.log('哈哈哈',res);
+            if( res.code == 200 ) {
+              window.location.reload();
+            }
+          })
+          .catch(msg => {
+            if (msg == 'reAuth') {
+              self.goAuth();
+            }
+          });
+      },
       changeTab( index ) {
         for ( let p in this.choosing ) {
           this.choosing[p] = false;
@@ -248,26 +266,6 @@
         //   self.goAuth();
         // }
       });
-      // util.requestPostApi(api.apiAdd, {
-      //   travelGoodsId: 44,
-      //   buyNum: 1,
-      //   contactName: '你好呀',
-      //   contactPhone: '135',
-      //   travelUserInfos: [{
-      //     name: '1号晚间',
-      //     passport: '555',
-      //     cardId: '666',
-      //     travelUserType: 1,
-      //     phone: '3333'
-      //   }]
-      // }, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
-      //   console.log( res );
-      // }).catch((msg) => {
-      //   console.log( msg );
-      //   // if (msg == 'reAuth') {
-      //   //   self.goAuth();
-      //   // }
-      // });
       // util.requestApi(
       //   api.apiTravelOrderCreate, {
       //     travelGoodsId: 26,
@@ -294,8 +292,6 @@
       //       self.goAuth();
       //     }
       //   });
-
-
     }
     onLoad() {
       let self = this;
