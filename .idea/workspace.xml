@@ -19,8 +19,8 @@
       <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="111" column="36" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="36" />
+            <state relative-caret-position="302">
+              <caret line="231" column="7" lean-forward="true" selection-start-line="227" selection-start-column="6" selection-end-line="231" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -28,8 +28,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="507" column="23" lean-forward="true" selection-start-line="507" selection-start-column="23" selection-end-line="507" selection-end-column="23" />
+            <state relative-caret-position="138">
+              <caret line="272" column="16" selection-start-line="272" selection-start-column="16" selection-end-line="272" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -47,8 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Steps</find>
-      <find>FormItem</find>
       <find>tra</find>
       <find>getHours</find>
       <find>apiTravelOrderCreate</find>
@@ -77,6 +75,8 @@
       <find>payPrice</find>
       <find>travelOrder</find>
       <find>cancelOrder</find>
+      <find>goRefund</find>
+      <find>infoCard3</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -258,12 +258,12 @@
       <workItem from="1537032791544" duration="1949000" />
       <workItem from="1537069995500" duration="1336000" />
       <workItem from="1537098449643" duration="7756000" />
-      <workItem from="1537108713376" duration="4581000" />
+      <workItem from="1537108713376" duration="5311000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128955000" />
+    <option name="totallyTimeSpent" value="129685000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -612,15 +612,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="111" column="36" selection-start-line="111" selection-start-column="25" selection-end-line="111" selection-end-column="36" />
+        <state relative-caret-position="302">
+          <caret line="231" column="7" lean-forward="true" selection-start-line="227" selection-start-column="6" selection-end-line="231" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="507" column="23" lean-forward="true" selection-start-line="507" selection-start-column="23" selection-end-line="507" selection-end-column="23" />
+        <state relative-caret-position="138">
+          <caret line="272" column="16" selection-start-line="272" selection-start-column="16" selection-end-line="272" selection-end-column="16" />
         </state>
       </provider>
     </entry>
