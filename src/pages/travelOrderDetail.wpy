@@ -179,16 +179,16 @@
   <view class="travel-orders">
     <view class="order-header">
       <view class="status">
-        {{ status[item.travelOrder.status].title }}
+        {{ status[statusCode].title }}
       </view>
       <view class="status-text">
         <view>
           剩余0天22小时56分钟自动关闭
         </view>
-        <view class="price">
+        <view class="price" wx:if="{{ status[statusCode].price }}">
           <text>￥</text>10000
         </view>
-        <view class="explain">
+        <view class="explain" wx:if="{{ status[statusCode].refundExplain }}">
           退款说明
         </view>
       </view>
@@ -214,16 +214,16 @@
       <infoCard2 :infoList.sync="contactInfo" class="traveler-detail" />
     </view>
 
-    <view class="refund-explain">
+    <view class="refund-explain" wx:if="{{ status[statusCode].refundExplainBar }}">
       <text>退款说明</text>
       <arrow class="arrow" @tap="jumpToRefundDesc"  />
     </view>
 
-    <view class="others">
+    <view class="others" wx:if="{{ status[statusCode].otherBar }}">
       <infoCard3 :infoList.sync="otherInfo" class="traveler-detail" />
     </view>
 
-    <view class="invoice" @tap="goFillInvoice">
+    <view class="invoice" @tap="goFillInvoice" wx:if="{{ status[statusCode].invoice }}">
       <view class="left-container">
         <view>开具发票</view>
         <view>该发票在行程结束后30天内索取有效</view>
@@ -266,6 +266,7 @@
 
     data = {
       item: null,
+      statusCode: null,
       infoList:{
         title: '',
         infos: [],
@@ -387,6 +388,7 @@
         // self.loading = true;
         console.log( res );
         this.item = res.data;
+        this.statusCode = res.data.travelOrder.status;
         this.invoice = res.data.invoice;
         this.travelChildOrders = res.data.travelChildOrders;
         this.travelGoods = res.data.travelGoods;
@@ -399,7 +401,7 @@
         // 其他信息
         this.otherInfo.infos[0].value = this.travelOrder.orderNo;
         this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
-        this.otherInfo.infos[2].value = this.travelOrder.payId;
+        this.otherInfo.infos[2].value = this.travelOrder.payId ? this.travelOrder.payId : '/';
         this.otherInfo.infos[3].value = this.calDate(this.travelOrder.payTime);
         this.$apply();
       });

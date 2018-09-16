@@ -28,8 +28,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="294" column="32" lean-forward="true" selection-start-line="294" selection-start-column="32" selection-end-line="294" selection-end-column="32" />
+            <state relative-caret-position="380">
+              <caret line="393" column="48" lean-forward="true" selection-start-line="393" selection-start-column="48" selection-end-line="393" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -47,8 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Payment</find>
-      <find>picModal</find>
       <find>OrderInfo</find>
       <find>ContractorInfo</find>
       <find>payment</find>
@@ -77,6 +75,8 @@
       <find>goDetail</find>
       <find>jumpToRefundDesc</find>
       <find>payBar</find>
+      <find>statusCode</find>
+      <find>refundInfo</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -258,12 +258,12 @@
       <workItem from="1537032791544" duration="1949000" />
       <workItem from="1537069995500" duration="1336000" />
       <workItem from="1537098449643" duration="7756000" />
-      <workItem from="1537108713376" duration="674000" />
+      <workItem from="1537108713376" duration="1893000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125048000" />
+    <option name="totallyTimeSpent" value="126267000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -613,8 +613,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="294" column="32" lean-forward="true" selection-start-line="294" selection-start-column="32" selection-end-line="294" selection-end-column="32" />
+        <state relative-caret-position="380">
+          <caret line="393" column="48" lean-forward="true" selection-start-line="393" selection-start-column="48" selection-end-line="393" selection-end-column="48" />
         </state>
       </provider>
     </entry>
