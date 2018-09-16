@@ -173,6 +173,52 @@
     left:0;
     bottom: 0;
   }
+  .goPay {
+    /*background: #387DFF;*/
+    width: 100%;
+    height: 98rpx;
+    line-height: 98rpx;
+    position: fixed;
+    left:0;
+    bottom: 0;
+    /*background: red;*/
+    display: flex;
+    border-top:1rpx solid #f4f4f4;
+    .payPrice {
+      width: 335rpx;
+      background: #fff;
+      text:nth-child(1) {
+        font-size: 24rpx;
+        color: #B2B2B2;
+        margin-left: 30rpx;
+      }
+      text:nth-child(2) {
+        font-size: 24rpx;
+        color: #353535;
+        margin-left: 20rpx;
+      }
+      text:nth-child(3) {
+        font-size: 38rpx;
+        color: #ff3941;
+      }
+    }
+    .cancel {
+      flex: 1;
+      background: #888888;
+      font-size: 34rpx;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      text-align: center;
+    }
+    .go {
+      background: #387DFF;
+      width: 217rpx;
+      font-size: 34rpx;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      text-align: center;
+    }
+  }
 
 </style>
 <template>
@@ -234,13 +280,23 @@
       </view>
     </view>
 
-    <view  class="re-book">
+    <view  class="re-book" wx:if="{{ status[statusCode].reOrderBtn }}">
       重新预订
     </view>
 
-    <!--<view  class="re-book">-->
-      <!--申请退款-->
-    <!--</view>-->
+    <view  class="re-book" wx:if="{{ status[statusCode].refundBtn }}">
+      申请退款
+    </view>
+
+    <view  class="goPay" wx:if="{{ status[statusCode].payBtn }}">
+      <view class="payPrice">
+        <text>金额</text>
+        <text>￥</text>
+        <text>1000.00</text>
+      </view>
+      <view class="cancel">取消订单</view>
+      <view class="go">去支付</view>
+    </view>
   </view>
 </template>
 
@@ -388,6 +444,7 @@
         // self.loading = true;
         console.log( res );
         this.item = res.data;
+        this.totalNum = res.data.travelOrder.buyNum;
         this.statusCode = res.data.travelOrder.status;
         this.invoice = res.data.invoice;
         this.travelChildOrders = res.data.travelChildOrders;
@@ -412,7 +469,7 @@
         // self.loading = true;
         console.log( res );
         let data = res.data;
-        this.totalNum = data.length;
+        // this.totalNum = data.length;
         for( let i = 0;i<data.length;i++ ) {
           let item = data[i];
           if( item.travelUserType == 1 ) {
