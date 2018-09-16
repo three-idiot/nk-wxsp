@@ -134,6 +134,7 @@
         3: false
       },
       orderList: [],
+      listAll: [],
       status: {
         1: {
           title: '待支付',
@@ -185,6 +186,18 @@
           this.choosing[p] = false;
         }
         this.choosing[index] = true;
+        if ( index == 0 ) {
+          this.orderList = this.listAll;
+        } else {
+          let arr = [];
+          for( let i=0;i<this.listAll.length;i++ ) {
+            let item = this.listAll[i];
+            if( item.travelOrder.status == index ) {
+              arr.push(item);
+            }
+          };
+          this.orderList = arr;
+        }
       },
       goDetail() {
         wx.navigateTo({
@@ -225,6 +238,7 @@
           item.travelGoods.leaveTime = this.calDate(item.travelGoods.leaveTime);
           item.travelOrder.createTime = this.calDate(item.travelOrder.createTime);
         }
+        this.listAll = this.orderList;
         this.$apply();
       }).catch((msg) => {
         console.log( msg );
