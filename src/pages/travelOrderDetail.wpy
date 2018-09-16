@@ -294,7 +294,7 @@
         <text>￥</text>
         <text>1000.00</text>
       </view>
-      <view class="cancel">取消订单</view>
+      <view class="cancel" @tap="cancelOrder({{item.travelOrder.id}})">取消订单</view>
       <view class="go">去支付</view>
     </view>
   </view>
@@ -493,6 +493,28 @@
 
 
     methods = {
+      cancelOrder(id) {
+        console.log( id );
+        util.requestApi(
+          api.apiCancelOrder, {
+            orderId: id
+          },
+          wx.getStorageSync('userToken'), 'GET'
+        )
+          .then(res => {
+            console.log('哈哈哈',res);
+            if( res.code == 200 ) {
+              // window.location.reload();
+              // 重新请求状态
+              this.fetchData(id);
+            }
+          })
+          .catch(msg => {
+            if (msg == 'reAuth') {
+              self.goAuth();
+            }
+          });
+      },
       goFillInvoice() {
         wx.navigateTo({
           url: 'fillInvoice?' + 'id=' + 1,
