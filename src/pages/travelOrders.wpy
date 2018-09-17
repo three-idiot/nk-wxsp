@@ -342,9 +342,9 @@
       });
       // util.requestApi(
       //   api.apiTravelOrderCreate, {
-      //     travelGoodsId: 5,
+      //     travelGoodsId: 22,
       //     buyNum: 2,
-      //     contactName: '所哈工大',
+      //     contactName: '所2大',
       //     contactPhone: '135',
       //     travelUserInfos: [{
       //       name: '1号晚间',
