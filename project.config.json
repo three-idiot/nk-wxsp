@@ -10,6 +10,6 @@
 	"compileType": "miniprogram",
 	"appid": "wx9b2c90e1c914962a",
 	"projectname": "test1",
-	"miniprogramRoot": "./dist",
+	"miniprogramRoot": "dist/",
 	"condition": {}
 }

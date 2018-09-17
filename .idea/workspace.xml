@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b378aa-fec0-450a-976b-2f1f6b0faac4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,8 +28,11 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="608" column="33" lean-forward="true" selection-start-line="608" selection-start-column="33" selection-end-line="608" selection-end-column="33" />
+            <state relative-caret-position="123">
+              <caret line="426" column="8" selection-start-line="426" selection-start-column="8" selection-end-line="426" selection-end-column="8" />
+              <folding>
+                <element signature="e#8642#8665#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,8 +121,8 @@
         <option value="$PROJECT_DIR$/src/pages/fillInvoice.wpy" />
         <option value="$PROJECT_DIR$/src/plugins/api.js" />
         <option value="$PROJECT_DIR$/src/components/infoCard.wpy" />
-        <option value="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelOrders.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" />
       </list>
     </option>
   </component>
@@ -250,12 +253,12 @@
       <workItem from="1537069995500" duration="1336000" />
       <workItem from="1537098449643" duration="7756000" />
       <workItem from="1537108713376" duration="5311000" />
-      <workItem from="1537198369947" duration="804000" />
+      <workItem from="1537198369947" duration="870000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138166000" />
+    <option name="totallyTimeSpent" value="138232000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -270,7 +273,7 @@
     <frame x="-6" y="-6" width="1933" height="1057" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24934107" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24934107" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" weight="0.56568944" />
@@ -602,8 +605,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="608" column="33" lean-forward="true" selection-start-line="608" selection-start-column="33" selection-end-line="608" selection-end-column="33" />
+        <state relative-caret-position="123">
+          <caret line="426" column="8" selection-start-line="426" selection-start-column="8" selection-end-line="426" selection-end-column="8" />
+          <folding>
+            <element signature="e#8642#8665#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
