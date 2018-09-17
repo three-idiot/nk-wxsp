@@ -77,7 +77,58 @@
         text-align: center;
       }
     }
+  }
+  .cancel-window-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+    .cancel-window {
+      position: absolute;
+      width: 500rpx;
+      height: 300rpx;
+      background: #fff;
+      border-radius: 10rpx;
+      left: 0;
+      right:  0;
+      bottom: 0;
+      top: 0;
+      margin:  auto;
+      text-align: center;
+      .title {
+        margin-top: 50rpx;
+        font-size: 34rpx;
+      }
+      .content {
+        margin-top: 10rpx;
+        font-size: 30rpx;
+      }
+      .btn-container {
+        position: absolute;
+        font-size: 34rpx;
+        color: #387DFF;
+        display: flex;
+        width: 100%;
+        height: 98rpx;
+        line-height: 98rpx;
+        left:0;
+        bottom: 0;
+        display: flex;
+        border-top: 1rpx solid #f4f4f4;
+        view {
+          flex:1;
+          text-align: center;
+        }
+        view:nth-child(1) {
+          border-right: 1rpx solid #f4f4f4;
+        }
+        view:nth-child(2) {
 
+        }
+      }
+    }
   }
 
 </style>
@@ -109,10 +160,21 @@
       <view class="bottom">
         <text>行人数  {{ item.travelOrder.buyNum }}</text>
         <text @tap="goRefund" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
-        <text @tap.stop="cancelOrder({{item.travelOrder.id}})" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
+        <text @tap.stop="cancelShow({{item.travelOrder.id}})" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
       </view>
     </view>
   </repeat>
+
+  <view class="cancel-window-mask" wx:if="{{cancelWindowShow}}">
+    <view class="cancel-window">
+      <view class="title">提示</view>
+      <view class="content">确定取消订单?</view>
+      <view class="btn-container">
+        <view @tap="cancelClose">返回</view>
+        <view @tap.stop="cancelOrder">确定</view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
@@ -137,6 +199,8 @@
       },
       orderList: [],
       listAll: [],
+      cancelWindowShow: false,
+      cancelId: null,
       status: {
         1: {
           title: '待支付',
@@ -181,11 +245,18 @@
     }
 
     methods = {
-      cancelOrder(id) {
-        console.log( id );
+      cancelClose() {
+        this.cancelWindowShow = false;
+      },
+      cancelShow(id) {
+        this.cancelId = id;
+        this.cancelWindowShow = true;
+      },
+      cancelOrder() {
+        // console.log( id );
         util.requestApi(
           api.apiCancelOrder, {
-            orderId: id
+            orderId: this.cancelId
           },
           wx.getStorageSync('userToken'), 'GET'
         )
@@ -193,6 +264,7 @@
             console.log('哈哈哈',res);
             if( res.code == 200 ) {
               // window.location.reload();
+              this.cancelWindowShow = false;
               this.getList();
             }
           })
@@ -270,9 +342,9 @@
       });
       // util.requestApi(
       //   api.apiTravelOrderCreate, {
-      //     travelGoodsId: 24,
-      //     buyNum: 1,
-      //     contactName: '你好呀fdsfsfsf',
+      //     travelGoodsId: 20,
+      //     buyNum: 2,
+      //     contactName: '你sfsf',
       //     contactPhone: '135',
       //     travelUserInfos: [{
       //       name: '1号晚间',
@@ -280,7 +352,14 @@
       //       cardId: '666',
       //       travelUserType: 1,
       //       phone: '3333'
-      //     }]
+      //     },
+      //       {
+      //         name: '2号晚间',
+      //         passport: '555',
+      //         cardId: '666',
+      //         travelUserType: 2,
+      //         phone: '3333'
+      //       }]
       //   },
       //   wx.getStorageSync('userToken'), 'POST'
       // )
