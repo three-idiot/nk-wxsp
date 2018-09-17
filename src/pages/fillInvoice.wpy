@@ -78,17 +78,17 @@
 
       <view class="invoice-detail">
         <text>发票抬头</text>
-        <input type="text" placeholder="请填写发票抬头">
+        <input type="text" placeholder="请填写发票抬头" bindinput="titleChange">
       </view>
 
       <view class="tax-num" wx:if="{{ formData.type == 1 }}">
         <text>纳税人识别号</text>
-        <input type="text"  placeholder="税务登记证上编号，至少15位">
+        <input type="text"  placeholder="税务登记证上编号，至少15位" bindinput="taxNumChange">
       </view>
 
       <view class="invoice-content">
         <text>发票内容</text>
-        <picker bindchange="bindPickerChange" value="{{contentIndex}}" range="{{array}}" wx:model="contentIndex" class="picker-container">
+        <picker bindchange="bindPickerChange" value="{{contentIndex}}" range="{{array}}"  class="picker-container">
           <view class="picker">
             {{array[contentIndex]}}
           </view>
@@ -97,7 +97,7 @@
 
       <view class="mail">
         <text>电子邮箱</text>
-        <input type="text"  placeholder="请填写接收邮箱">
+        <input type="text"  placeholder="请填写接收邮箱" bindinput="emailChange">
       </view>
 
       <view class="btn" @tap="invoiceSubmit">
@@ -124,7 +124,7 @@
         {name:'个人', value:'1', checked:true},
         {name:'公司', value:'2'}
       ],
-      array: ['服务费', '什么费', '巴西', '日本'],
+      array: ['服务费', '旅游服务费', '旅游费', '团费'],
       contentIndex :0,
       formData:{
         type: 1,
@@ -143,17 +143,27 @@
 
     methods = {
       bindPickerChange(res) {
-        console.log( res );
-        this.contentIndex = res.detail.value;
+        // console.log( res );
+        this.formData.content = this.array[res.detail.value];
       },
       radioChange(event) {
         console.log( event );
         this.formData.type = event.detail.value;
       },
+      titleChange(e) {
+        this.formData.title = e.detail.value;
+      },
       invoiceSubmit() {
         console.log( this.formData );
+      },
+      taxNumChange(e) {
+        // console.log(e);
+        this.formData.taxNo = e.detail.value;
+      },
+      emailChange(e) {
+        // console.log(e);
+        this.formData.email = e.detail.value;
       }
-
     }
 
     events = {
