@@ -3,6 +3,7 @@
 // const host = 'https://s.qqtlhnc.com';
 // const host = 'http://192.168.89.13:8090';
 const host = 'https://www.sanrenzaixing.com';
+// const host = 'https://admin.lovewh.com.cn';
 
 
 export default {

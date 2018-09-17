@@ -159,7 +159,7 @@
       </view>
       <view class="bottom">
         <text>行人数  {{ item.travelOrder.buyNum }}</text>
-        <text @tap="goRefund" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
+        <text @tap="goRefund({{item}})" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
         <text @tap.stop="cancelShow({{item.travelOrder.id}})" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
       </view>
     </view>
@@ -297,9 +297,11 @@
           url: 'travelOrderDetail?id=' + id
         });
       },
-      goRefund() {
+      goRefund(item) {
+        let _childOrders = JSON.stringify(item.travelChildOrders),
+          _orderId = item.travelOrder.id;
         wx.navigateTo({
-          url: 'refundApply'
+          url: 'refundApply?travelChildOrders='+_childOrders+'&orderId='+_orderId,
         });
       }
     }

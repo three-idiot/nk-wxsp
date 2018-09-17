@@ -198,6 +198,7 @@
       travelChildOrders: [
         {
           id: '1',
+          orderId: '33',
           status: 3,
           userType: 1,
           unitPrice: 10000,
@@ -210,6 +211,7 @@
         },
         {
           id: '2',
+          orderId: '33',
           status: 3,
           userType: 1,
           unitPrice: 12000,
@@ -296,6 +298,7 @@
       } else {
         console.error('参数缺失，订单ID未传递');
       }
+      console.log(self.travelChildOrders, self.orderId);
     }
   }
 </script>
