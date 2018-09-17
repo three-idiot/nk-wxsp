@@ -628,7 +628,6 @@
     }
 
     onLoad(option) {
-      console.log( option.id );
       this.fetchData(option.id);
       this.fetchUserInfos(option.id);
     }
