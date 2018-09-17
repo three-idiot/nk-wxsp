@@ -28,8 +28,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="597" column="11" lean-forward="true" selection-start-line="597" selection-start-column="11" selection-end-line="597" selection-end-column="11" />
+            <state relative-caret-position="500">
+              <caret line="604" column="23" lean-forward="true" selection-start-line="604" selection-start-column="23" selection-end-line="604" selection-end-column="23" />
               <folding>
                 <element signature="e#8642#8665#0" expanded="true" />
               </folding>
@@ -52,7 +52,6 @@
     <findStrings>
       <find>navigateTo</find>
       <find>peopleList</find>
-      <find>goTravelPeople</find>
       <find>re</find>
       <find>bindinput</find>
       <find>radioChange</find>
@@ -80,6 +79,7 @@
       <find>cancelShow</find>
       <find>cancelWindowShow</find>
       <find>goFillInvoice</find>
+      <find>goTravelPeople</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -262,12 +262,12 @@
       <workItem from="1537069995500" duration="1336000" />
       <workItem from="1537098449643" duration="7756000" />
       <workItem from="1537108713376" duration="5311000" />
-      <workItem from="1537198369947" duration="2007000" />
+      <workItem from="1537198369947" duration="2302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139369000" />
+    <option name="totallyTimeSpent" value="139664000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -282,7 +282,7 @@
     <frame x="-6" y="-6" width="1933" height="1057" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24934107" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24934107" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" weight="0.56568944" />
@@ -614,8 +614,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="597" column="11" lean-forward="true" selection-start-line="597" selection-start-column="11" selection-end-line="597" selection-end-column="11" />
+        <state relative-caret-position="500">
+          <caret line="604" column="23" lean-forward="true" selection-start-line="604" selection-start-column="23" selection-end-line="604" selection-end-column="23" />
           <folding>
             <element signature="e#8642#8665#0" expanded="true" />
           </folding>

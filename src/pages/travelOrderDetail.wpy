@@ -302,7 +302,7 @@
         出行人数  {{ totalNum }}
       </view>
     </view>
-    <view class="traveler-info" @tap="goTravelPeople">
+    <view class="traveler-info" @tap="goTravelPeople({{item.travelOrder.id}})">
       <view class="traveler"><text>出行人信息</text><text>{{manNum}}成人，{{ childNum }}儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
       <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
     </view>
@@ -592,9 +592,9 @@
           url: 'fillInvoice?' + 'id=' + id,
         });
       },
-      goTravelPeople() {
+      goTravelPeople(id) {
         wx.navigateTo({
-          url: 'travelPeople?' + 'id=' + 1,
+          url: 'travelPeople?' + 'id=' + id,
         });
         // wx.navigateTo({
         //   url: 'travelPeople',
