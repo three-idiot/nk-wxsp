@@ -302,7 +302,7 @@
         出行人数  {{ totalNum }}
       </view>
     </view>
-    <view class="traveler-info" @tap="goTravelPeople">
+    <view class="traveler-info" @tap="goTravelPeople({{item.travelOrder.id}})">
       <view class="traveler"><text>出行人信息</text><text>{{manNum}}成人，{{ childNum }}儿童</text><view class="lookMore">查看更多<view class="arrow"></view></view></view>
       <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
     </view>
@@ -325,7 +325,7 @@
       <!--<infoCard4 :infoList.sync="otherInfo" class="traveler-detail" />-->
     </view>
 
-    <view class="invoice" @tap="goFillInvoice" wx:if="{{ status[statusCode].invoice }}">
+    <view class="invoice" @tap="goFillInvoice({{item.travelOrder.id}})" wx:if="{{ status[statusCode].invoice }}">
       <view class="left-container">
         <view>开具发票</view>
         <view>该发票在行程结束后30天内索取有效</view>
@@ -425,15 +425,6 @@
           {key:'支付时间', value:''},
         ]
       },
-      // status: {
-      //   1: '待支付',
-      //   2: '待确认',
-      //   3: '待出行',
-      //   4: '已出行',
-      //   5: '已取消',
-      //   6: '申请退款',
-      //   7: '已退款'
-      // },
       status: {
         1: {
           title: '未付款',
@@ -464,7 +455,7 @@
           title: '交易成功，已出行',
           des: '实付金额',
           price: true,
-          refundExplainBar: true,
+          // refundExplainBar: true,
           otherBar: true,
           invoice:true
         },
@@ -596,14 +587,14 @@
             }
           });
       },
-      goFillInvoice() {
+      goFillInvoice(id) {
         wx.navigateTo({
-          url: 'fillInvoice?' + 'id=' + 1,
+          url: 'fillInvoice?' + 'id=' + id,
         });
       },
-      goTravelPeople() {
+      goTravelPeople(id) {
         wx.navigateTo({
-          url: 'travelPeople?' + 'id=' + 1,
+          url: 'travelPeople?' + 'id=' + id,
         });
         // wx.navigateTo({
         //   url: 'travelPeople',
