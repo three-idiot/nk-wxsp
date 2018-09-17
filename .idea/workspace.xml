@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b378aa-fec0-450a-976b-2f1f6b0faac4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -17,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
+      <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="582" column="35" lean-forward="true" selection-start-line="582" selection-start-column="35" selection-end-line="582" selection-end-column="35" />
+            <state relative-caret-position="1680">
+              <caret line="591" column="12" lean-forward="true" selection-start-line="591" selection-start-column="12" selection-end-line="591" selection-end-column="12" />
               <folding>
                 <element signature="e#4617#5644#0" />
                 <element signature="e#4752#5640#0" />
@@ -31,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
+      <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
-              <caret line="162" column="35" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="35" />
+              <caret line="338" column="33" lean-forward="true" selection-start-line="338" selection-start-column="33" selection-end-line="338" selection-end-column="33" />
               <folding>
                 <element signature="e#1608#1618#0" />
                 <element signature="e#1743#1757#0" />
@@ -128,8 +127,8 @@
         <option value="$PROJECT_DIR$/src/pages/fillInvoice.wpy" />
         <option value="$PROJECT_DIR$/src/plugins/api.js" />
         <option value="$PROJECT_DIR$/src/components/infoCard.wpy" />
-        <option value="$PROJECT_DIR$/src/pages/travelOrders.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/travelOrders.wpy" />
       </list>
     </option>
   </component>
@@ -150,10 +149,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1910" />
-    <option name="y" value="-10" />
-    <option name="width" value="1940" />
-    <option name="height" value="1050" />
+    <option name="x" value="2218" />
+    <option name="y" value="226" />
+    <option name="width" value="1920" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -252,7 +251,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135940000" />
+    <option name="totallyTimeSpent" value="137359000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -267,7 +266,7 @@
     <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" sideWeight="0.5006605" side_tool="true" weight="0.32952926" />
@@ -611,25 +610,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="162" column="35" selection-start-line="162" selection-start-column="25" selection-end-line="162" selection-end-column="35" />
-          <folding>
-            <element signature="e#1608#1618#0" />
-            <element signature="e#1743#1757#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="582" column="35" lean-forward="true" selection-start-line="582" selection-start-column="35" selection-end-line="582" selection-end-column="35" />
+        <state relative-caret-position="1680">
+          <caret line="591" column="12" lean-forward="true" selection-start-line="591" selection-start-column="12" selection-end-line="591" selection-end-column="12" />
           <folding>
             <element signature="e#4617#5644#0" />
             <element signature="e#4752#5640#0" />
             <element signature="e#7234#7257#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="338" column="33" lean-forward="true" selection-start-line="338" selection-start-column="33" selection-end-line="338" selection-end-column="33" />
+          <folding>
+            <element signature="e#1608#1618#0" />
+            <element signature="e#1743#1757#0" />
           </folding>
         </state>
       </provider>
