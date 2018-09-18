@@ -1,14 +1,14 @@
 {
 	"description": "A WePY project",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": false,
 		"postcss": false,
 		"minified": false,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"appid": "wx9b2c90e1c914962a",
+	"appid": "wx108e5b27e63d1e45",
 	"projectname": "nk-wxsp",
 	"miniprogramRoot": "dist/",
 	"condition": {}
