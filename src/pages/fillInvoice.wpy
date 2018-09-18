@@ -159,7 +159,9 @@
               icon: 'none',
               duration: 2000
             });
-            wx.navigateBack();
+            setTimeout(()=>{
+              wx.navigateBack();
+            },1000);
           }
         })
         .catch(msg => {
