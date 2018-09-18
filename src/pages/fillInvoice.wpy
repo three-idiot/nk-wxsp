@@ -145,7 +145,7 @@
 
     methods = {
       titleCheck() {
-        if( this.title == '' ) {
+        if( this.formData.title == '' ) {
           wx.showToast({
             title: '发票抬头不能为空~',
             icon: 'none',
@@ -154,25 +154,6 @@
         }
       },
       taxNoCheck() {
-
-      },
-      bindPickerChange(res) {
-        // console.log( res );
-        this.formData.content = this.array[res.detail.value];
-      },
-      radioChange(event) {
-        console.log( event );
-        this.formData.type = event.detail.value;
-      },
-      titleChange(e) {
-        this.formData.title = e.detail.value;
-      },
-      invoiceSubmit() {
-        console.log( this.formData );
-      },
-      taxNumChange(e) {
-        // console.log(e);
-        this.formData.taxNo = e.detail.value;
         if( this.formData.taxNo == '') {
           wx.showToast({
             title: '纳税人识别码不能为空~',
@@ -187,9 +168,7 @@
           })
         }
       },
-      emailChange(e) {
-        // console.log(e);
-        this.formData.email = e.detail.value;
+      emailCheck() {
         if( this.formData.email == '' ) {
           wx.showToast({
             title: '邮箱不能为空~',
@@ -203,6 +182,28 @@
             duration: 2000
           })
         }
+      },
+      bindPickerChange(res) {
+        // console.log( res );
+        this.formData.content = this.array[res.detail.value];
+      },
+      radioChange(event) {
+        console.log( event );
+        this.formData.type = event.detail.value;
+      },
+      titleChange(e) {
+        this.formData.title = e.detail.value;
+      },
+      invoiceSubmit() {
+        console.log( this.formData )
+      },
+      taxNumChange(e) {
+        // console.log(e);
+        this.formData.taxNo = e.detail.value;
+      },
+      emailChange(e) {
+        // console.log(e);
+        this.formData.email = e.detail.value;
       }
     }
 
