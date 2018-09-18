@@ -127,6 +127,7 @@
       array: ['服务费', '旅游服务费', '旅游费', '团费'],
       contentIndex :0,
       emailReg: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/,
+      taxNoReg: /^[0-9A-Z]{18}$/,
       formData:{
         type: 1,
         title:null,
