@@ -78,12 +78,12 @@
 
       <view class="invoice-detail">
         <text>发票抬头</text>
-        <input type="text" placeholder="请填写发票抬头" bindinput="titleChange">
+        <input type="text" placeholder="请填写发票抬头" bindinput="titleChange" bindblur="titleCheck">
       </view>
 
       <view class="tax-num" wx:if="{{ formData.type == 1 }}">
         <text>纳税人识别号</text>
-        <input type="text"  placeholder="税务登记证上编号，至少15位" bindinput="taxNumChange">
+        <input type="text"  placeholder="税务登记证上编号，至少15位" bindinput="taxNumChange" bindblur="taxNoCheck">
       </view>
 
       <view class="invoice-content">
@@ -97,7 +97,7 @@
 
       <view class="mail">
         <text>电子邮箱</text>
-        <input type="text"  placeholder="请填写接收邮箱" bindinput="emailChange">
+        <input type="text"  placeholder="请填写接收邮箱" bindinput="emailChange" bindblur="emailCheck">
       </view>
 
       <view class="btn" @tap="invoiceSubmit">
@@ -126,6 +126,7 @@
       ],
       array: ['服务费', '旅游服务费', '旅游费', '团费'],
       contentIndex :0,
+      emailReg: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/,
       formData:{
         type: 1,
         title:null,
@@ -142,6 +143,18 @@
     }
 
     methods = {
+      titleCheck() {
+        if( this.title == '' ) {
+          wx.showToast({
+            title: '发票抬头不能为空~',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      taxNoCheck() {
+
+      },
       bindPickerChange(res) {
         // console.log( res );
         this.formData.content = this.array[res.detail.value];
@@ -162,6 +175,19 @@
       },
       emailChange(e) {
         // console.log(e);
+        if( this.formData.email == '' ) {
+          wx.showToast({
+            title: '邮箱不能为空~',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if (!this.emailReg.test(this.formData.email)) {
+          wx.showToast({
+            title: '邮箱不合法~',
+            icon: 'none',
+            duration: 2000
+          })
+        }
         this.formData.email = e.detail.value;
       }
     }
