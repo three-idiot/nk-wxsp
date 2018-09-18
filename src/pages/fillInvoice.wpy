@@ -100,7 +100,7 @@
         <input type="text"  placeholder="请填写接收邮箱" bindinput="emailChange">
       </view>
 
-      <view class="btn" @tap="invoiceSubmit">
+      <view class="btn" @tap="invoiceSubmitCheck">
         提交
       </view>
 
@@ -110,6 +110,8 @@
 
 <script>
   import wepy from 'wepy'
+  import util from '../plugins/util';
+  import api from '../plugins/api';
 
   export default class SignDetail extends wepy.page {
     config = {
@@ -120,6 +122,7 @@
     }
 
     data = {
+      id: null,
       type: [
         {name:'个人', value:'1', checked:true},
         {name:'公司', value:'2'}
@@ -141,6 +144,23 @@
 
     computed = {
 
+    }
+    submit() {
+      this.formData.orderId = this.id;
+      util.requestApi(
+        api.apiCreateInvoice, this.formData,
+        wx.getStorageSync('userToken'), 'POST'
+      )
+        .then(res => {
+          if (res.code == 200) {
+            console.log('pppppppppppp', res.data);
+          }
+        })
+        .catch(msg => {
+          if (msg == 'reAuth') {
+            self.goAuth();
+          }
+        });
     }
 
     methods = {
@@ -195,7 +215,7 @@
       titleChange(e) {
         this.formData.title = e.detail.value;
       },
-      invoiceSubmit() {
+      invoiceSubmitCheck() {
         console.log( this.formData )
         if( !this.formData.title ) {
           wx.showToast({
@@ -230,10 +250,12 @@
                 duration: 2000
               })
             } else {
-              console.log('成功了');
+             console.log( '成功了' );
+             this.submit();
             }
           } else {
             console.log( '成功了' );
+            this.submit();
           }
         }
       },
@@ -253,7 +275,8 @@
 
     onLoad(option) {
       let self = this;
-      console.log( option.id )
+      console.log( option.id );
+      this.id = option.id;
     }
   }
 </script>
