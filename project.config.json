@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"appid": "wx9b2c90e1c914962a",
-	"projectname": "test1",
+	"projectname": "nk-wxsp",
 	"miniprogramRoot": "dist/",
 	"condition": {}
 }
