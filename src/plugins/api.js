@@ -53,8 +53,10 @@ export default {
   apiRefund: host + '/travelOrder/userApplyRefund',
   // 旅游订单列表
   apiTravelOrderList: host + '/travelOrder/list',
+  // 旅游订单付款
+  apiTravelOrderPay: host + '/pay/unifiedTravelOrder',
   // 旅游订单详情
-  apiGetTravelOrdersDetail: host+ '/travelOrder/travelOrderDetail',
+  apiGetTravelOrdersDetail: host + '/travelOrder/travelOrderDetail',
   // 出行人信息
   apiTravelUserInfos: host + '/travelOrder/travelUserInfos',
   // 取消旅游订单

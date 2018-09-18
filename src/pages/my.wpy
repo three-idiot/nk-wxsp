@@ -2,7 +2,7 @@
   <view class="my-container">
     <view class="role-info">
       <view class="role-bg">
-        <image class="bg-img" src="../images/wode_bg.png"></image>
+        <image class="bg-img" src="https://image.le-99.xyz/images/39731537290544447.png?Expires=1852650574&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=ZiMZVoMXb3QeiOsrreD35yEg7%2Bg%3D"></image>
         <view class="role-avater">
           <image src="{{avater}}"></image>
         </view>

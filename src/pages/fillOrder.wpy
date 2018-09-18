@@ -224,7 +224,7 @@ export default class Index extends wepy.page {
             }],
             contactPhone: '',
             contactName: '',
-            contactEmail: '',
+            contactEmail: ''
         }
     };
 
@@ -240,8 +240,8 @@ export default class Index extends wepy.page {
                     passport: element.type == 1 ? element.number : '',
                     cardId: element.type == 0 ? element.number : '',
                     phone: element.phone,
-                    travelUserType: element.travelUserType,
-                })
+                    travelUserType: element.travelUserType
+                });
             });
             let params = {
                 travelGoodsId: this.id,
@@ -375,7 +375,7 @@ export default class Index extends wepy.page {
         closeWindow() {
             this.showWindow = false;
         },
-        closeTypeWindow(){
+        closeTypeWindow() {
             this.showTypeWindow = false;
         },
 
@@ -384,7 +384,7 @@ export default class Index extends wepy.page {
             this.showWindow = false;
         },
         selectHumanType(type) {
-            console.log(this.typeSelectIndex)
+            console.log(this.typeSelectIndex);
             this.form.passenger[this.typeSelectIndex].travelUserType = type;
             this.showTypeWindow = false;
         },
@@ -392,7 +392,7 @@ export default class Index extends wepy.page {
         addPassenger() {
             this.form.passenger.push({
                 type: 0
-            })
+            });
         },
         removePassenger(index) {
             this.form.passenger.splice(index, 1);
@@ -406,8 +406,8 @@ export default class Index extends wepy.page {
             wx.showModal({
                 title: '若有问题请电话联系客服',
                 content: '400-1234-567',
-                showCancel: false,
-            })
+                showCancel: false
+            });
         }
     };
 
@@ -460,13 +460,50 @@ export default class Index extends wepy.page {
             showCancel: true,
             success: function (res) {
                 if (res.confirm) {
-                    util.requestApi(
-                            api.apiTravelOrderCreate, this.payParams,
-                            wx.getStorageSync('userToken'), 'POST'
+                    util
+                        .requestApi(
+                            api.apiTravelOrderCreate,
+                            this.payParams,
+                            wx.getStorageSync('userToken'),
+                            'POST'
                         )
                         .then(res => {
                             if (res.code == 200) {
-                                console.log('pppppppppppp', res.data);
+                                var orderId = res.data;
+                                util.requestPostApi(
+                                        api.apiTravelOrderPay, {
+                                            orderId
+                                        },
+                                        wx.getStorageSync('userToken')
+                                    )
+                                    .then(res => {
+                                        if (res.code == 200) {
+                                            wx.requestPayment(Object.assign({
+                                                'package': 'prepay_id=' + res.data.prepayId,
+                                                'signType': 'MD5',
+                                                'success': function (res) {
+                                                    console.log(res);
+                                                    wx.showModal({
+                                                        title: '提示',
+                                                        content: '支付成功',
+                                                        showCancel: false,
+                                                        success: function (res) {
+                                                            wx.navigateTo({
+                                                                url: 'travelOrderDetail?id=' + orderId
+                                                            });
+                                                        }.bind(this)
+                                                    });
+                                                },
+                                                'fail': function (res) {},
+                                                'complete': function (res) {}
+                                            }, res.data))
+                                        }
+                                    })
+                                    .catch(msg => {
+                                        if (msg == 'reAuth') {
+                                            self.goAuth();
+                                        }
+                                    });
                             }
                         })
                         .catch(msg => {
@@ -476,9 +513,8 @@ export default class Index extends wepy.page {
                         });
                 }
             }.bind(this)
-        })
+        });
     }
-
 }
 </script>
 
@@ -828,8 +864,7 @@ export default class Index extends wepy.page {
         float: right;
         line-height: 111rpx;
         font-size: 60rpx;
-        color: #B2B2B2;
-
+        color: #b2b2b2;
     }
 
     .select {
