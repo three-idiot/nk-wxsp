@@ -290,7 +290,7 @@
         </view>
       </view>
     </view>
-    <view class="general-info">
+    <view class="general-info" @tap="goTravelDetail({{item.travelGoods.id}})">
       <view class="top">
         <text>{{ travelGoods.name }}</text>
         <view></view>
@@ -564,6 +564,11 @@
 
 
     methods = {
+      goTravelDetail(id) {
+        wx.navigateTo({
+          url: 'travelDetail?' + 'id=' + id,
+        });
+      },
       cancelClose() {
         this.cancelWindowShow = false;
       },
