@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cadd8663-84d9-4792-94a2-870892a2d597" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/fillInvoice.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/fillInvoice.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,8 +20,8 @@
       <file leaf-file-name="fillInvoice.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/fillInvoice.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="173" column="26" lean-forward="true" selection-start-line="173" selection-start-column="26" selection-end-line="173" selection-end-column="26" />
+            <state relative-caret-position="339">
+              <caret line="164" column="48" lean-forward="true" selection-start-line="164" selection-start-column="48" selection-end-line="164" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -28,7 +29,7 @@
       <file leaf-file-name="signFirst.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/signFirst.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
+            <state relative-caret-position="2759">
               <caret line="153" column="10" lean-forward="true" selection-start-line="146" selection-start-column="8" selection-end-line="153" selection-end-column="10" />
               <folding>
                 <element signature="e#2732#2755#0" expanded="true" />
@@ -67,10 +68,10 @@
       <find>formData</find>
       <find>emailChange</find>
       <find>taxNumChange</find>
-      <find>bindPickerChange</find>
       <find>bindblur</find>
-      <find>handleEmailInputBlur</find>
       <find>emailReg</find>
+      <find>handleEmailInputBlur</find>
+      <find>bindPickerChange</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -246,7 +247,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146974000" />
+    <option name="totallyTimeSpent" value="149464000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -595,7 +596,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/signFirst.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
+        <state relative-caret-position="2759">
           <caret line="153" column="10" lean-forward="true" selection-start-line="146" selection-start-column="8" selection-end-line="153" selection-end-column="10" />
           <folding>
             <element signature="e#2732#2755#0" expanded="true" />
@@ -605,8 +606,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fillInvoice.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="173" column="26" lean-forward="true" selection-start-line="173" selection-start-column="26" selection-end-line="173" selection-end-column="26" />
+        <state relative-caret-position="339">
+          <caret line="164" column="48" lean-forward="true" selection-start-line="164" selection-start-column="48" selection-end-line="164" selection-end-column="48" />
         </state>
       </provider>
     </entry>

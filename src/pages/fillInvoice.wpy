@@ -131,7 +131,7 @@
       formData:{
         type: 1,
         title:null,
-        content: null,
+        content: '服务费',
         email:null,
         taxNo: null,
         phone: null,
@@ -173,9 +173,23 @@
       taxNumChange(e) {
         // console.log(e);
         this.formData.taxNo = e.detail.value;
+        if( this.formData.taxNo == '') {
+          wx.showToast({
+            title: '纳税人识别码不能为空~',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if ( !this.taxNoReg.test(this.formData.taxNo) ) {
+          wx.showToast({
+            title: '纳税人识别码不合法~',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       },
       emailChange(e) {
         // console.log(e);
+        this.formData.email = e.detail.value;
         if( this.formData.email == '' ) {
           wx.showToast({
             title: '邮箱不能为空~',
@@ -189,7 +203,6 @@
             duration: 2000
           })
         }
-        this.formData.email = e.detail.value;
       }
     }
 
