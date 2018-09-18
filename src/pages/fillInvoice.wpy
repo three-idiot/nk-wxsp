@@ -78,12 +78,12 @@
 
       <view class="invoice-detail">
         <text>发票抬头</text>
-        <input type="text" placeholder="请填写发票抬头" bindinput="titleChange" bindblur="titleCheck">
+        <input type="text" placeholder="请填写发票抬头" bindinput="titleChange" >
       </view>
 
       <view class="tax-num" wx:if="{{ formData.type == 1 }}">
         <text>纳税人识别号</text>
-        <input type="text"  placeholder="税务登记证上编号，至少15位" bindinput="taxNumChange" bindblur="taxNoCheck">
+        <input type="text"  placeholder="税务登记证上编号，至少15位" bindinput="taxNumChange">
       </view>
 
       <view class="invoice-content">
@@ -97,7 +97,7 @@
 
       <view class="mail">
         <text>电子邮箱</text>
-        <input type="text"  placeholder="请填写接收邮箱" bindinput="emailChange" bindblur="emailCheck">
+        <input type="text"  placeholder="请填写接收邮箱" bindinput="emailChange">
       </view>
 
       <view class="btn" @tap="invoiceSubmit">
@@ -186,6 +186,7 @@
       bindPickerChange(res) {
         // console.log( res );
         this.formData.content = this.array[res.detail.value];
+        this.formData.taxNo = null;
       },
       radioChange(event) {
         console.log( event );
@@ -196,6 +197,45 @@
       },
       invoiceSubmit() {
         console.log( this.formData )
+        if( !this.formData.title ) {
+          wx.showToast({
+            title: '发票抬头不能为空~',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if(!this.formData.email) {
+          wx.showToast({
+            title: '邮箱不能为空~',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if ( !this.emailReg.test(this.formData.email) ) {
+          wx.showToast({
+            title: '邮箱不合法~',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          if ( this.formData.type == 1 ) {
+           if ( !this.formData.taxNo ) {
+             wx.showToast({
+               title: '纳税人识别码不能为空~',
+               icon: 'none',
+               duration: 2000
+             })
+           } else if( !this.taxNoReg.test(this.formData.taxNo) ) {
+              wx.showToast({
+                title: '纳税人识别码不合法~',
+                icon: 'none',
+                duration: 2000
+              })
+            } else {
+              console.log('成功了');
+            }
+          } else {
+            console.log( '成功了' );
+          }
+        }
       },
       taxNumChange(e) {
         // console.log(e);
