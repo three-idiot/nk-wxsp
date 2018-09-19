@@ -311,9 +311,9 @@
       <infoCard2 :infoList.sync="contactInfo" class="traveler-detail" />
     </view>
 
-    <view class="refund-explain" wx:if="{{ status[statusCode].refundExplainBar }}">
+    <view class="refund-explain" wx:if="{{ status[statusCode].refundExplainBar }}" @tap="jumpToRefundDesc">
       <text>退款说明</text>
-      <arrow class="arrow" @tap="jumpToRefundDesc"  />
+      <arrow class="arrow" />
     </view>
 
     <view class="others" wx:if="{{ status[statusCode].otherBar }}">

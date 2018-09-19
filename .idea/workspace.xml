@@ -21,22 +21,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="207">
-              <caret line="292" column="78" lean-forward="true" selection-start-line="292" selection-start-column="78" selection-end-line="292" selection-end-column="78" />
-              <folding>
-                <element signature="e#8692#8715#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="travelDetail.wpy" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/travelDetail.wpy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="46" column="7" lean-forward="true" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
-              <folding>
-                <element signature="e#1981#2004#0" expanded="true" />
-              </folding>
+              <caret line="315" column="29" lean-forward="true" selection-start-line="315" selection-start-column="29" selection-end-line="315" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -45,9 +30,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>payBar</find>
-      <find>statusCode</find>
-      <find>refundInfo</find>
       <find>totalNum</find>
       <find>reOrderBtn</find>
       <find>refundBtn</find>
@@ -75,6 +57,9 @@
       <find>handleEmailInputBlur</find>
       <find>goTravelDetail</find>
       <find>goTravelPeople</find>
+      <find>travelO</find>
+      <find>退款说明</find>
+      <find>jumpToRefundDesc</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -119,13 +104,13 @@
         <option value="$PROJECT_DIR$/src/components/arrow.wpy" />
         <option value="$PROJECT_DIR$/src/pages/refundApply.wpy" />
         <option value="$PROJECT_DIR$/src/app.wpy" />
-        <option value="$PROJECT_DIR$/src/pages/travelDetail.wpy" />
         <option value="$PROJECT_DIR$/src/pages/demo.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelPeople.wpy" />
         <option value="$PROJECT_DIR$/src/components/infoCard.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelOrders.wpy" />
         <option value="$PROJECT_DIR$/src/plugins/api.js" />
         <option value="$PROJECT_DIR$/src/pages/fillInvoice.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/travelDetail.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" />
       </list>
     </option>
@@ -247,12 +232,12 @@
       <workItem from="1537108713376" duration="5311000" />
       <workItem from="1537198369947" duration="6940000" />
       <workItem from="1537257768949" duration="2389000" />
-      <workItem from="1537270219664" duration="1817000" />
+      <workItem from="1537270219664" duration="2827000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158128000" />
+    <option name="totallyTimeSpent" value="159138000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -593,10 +578,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="46" column="7" lean-forward="true" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
+        <state relative-caret-position="-242">
+          <caret line="40" column="54" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
           <folding>
-            <element signature="e#1981#2004#0" expanded="true" />
+            <element signature="e#1981#2005#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -604,10 +589,7 @@
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
-          <caret line="292" column="78" lean-forward="true" selection-start-line="292" selection-start-column="78" selection-end-line="292" selection-end-column="78" />
-          <folding>
-            <element signature="e#8692#8715#0" expanded="true" />
-          </folding>
+          <caret line="315" column="29" lean-forward="true" selection-start-line="315" selection-start-column="29" selection-end-line="315" selection-end-column="29" />
         </state>
       </provider>
     </entry>
