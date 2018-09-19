@@ -3,8 +3,8 @@
     <scroll-view scroll-y style="height: 100%;" bindscrolltolower="lower">
         <swiper indicator-dots autoplay interval="5000" duration="500">
             <block wx:for="{{imgUrls}}">
-                <swiper-item>
-                    <image src="{{item}}" class="slide-image" />
+                <swiper-item @tap="goDetail({{item.id}})">
+                    <image src="{{item.img}}" class="slide-image" />
                 </swiper-item>
             </block>
         </swiper>
@@ -34,10 +34,18 @@ export default class Index extends wepy.page {
     }
 
     data = {
-        imgUrls: [
-            '../images/index/travel-ad.png',
-            '../images/index/travel-ad.png',
-            '../images/index/travel-ad.png'
+        imgUrls: [{
+                id: null,
+                img: ''
+            },
+            {
+                id: null,
+                img: ''
+            },
+            {
+                id: null,
+                img: ''
+            }
         ],
         lists: [],
         pageIndex: 1,
@@ -49,16 +57,25 @@ export default class Index extends wepy.page {
     }
 
     methods = {
+        goDetail(id) {
+            if (id) {
+                wx.navigateTo({
+                    url: 'travelDetail?id=' + id
+                });
+            }
+        }
     }
     lower() {
-        ++this.pageIndex;
-        this.requestGetGoods();
+        if (this.pageIndex != 0) {
+            ++this.pageIndex;
+            this.requestGetGoods();
+        }
     }
 
     onLoad() {
         let self = this;
         // banner接口
-        self.requestGetBanner();
+        // self.requestGetBanner();
         // 商品列表接口
         self.requestGetGoods();
         ++this.pageIndex;
@@ -96,6 +113,20 @@ export default class Index extends wepy.page {
             pageSize: self.data.pageSize
         }, wx.getStorageSync('userToken'), 'POST').then((res) => {
             if (res.data && res.code == 200) {
+                if (res.data.current_page == 1) {
+                    for (var i = 0; i < 3; i++) {
+                        self.imgUrls[i].id = res.data.data[i].id;
+                        self.imgUrls[i].img = res.data.data[i].images[0].goodPath;
+                    }
+                }
+                if (res.data.data.length == 0) {
+                    self.pageIndex = 0;
+                    wx.showToast({
+                        title: '已经到底了~',
+                        icon: 'none',
+                        duration: 2000
+                    });
+                }
                 self.lists = self.lists.concat(res.data.data);
                 self.$apply();
             }
@@ -129,9 +160,7 @@ swiper {
     padding: 30rpx 0 0 30rpx;
     display: inline-block;
 }
-</style>
-
-<style lang="less">
+</style><style lang="less">
 page {
     height: 100%;
 }
