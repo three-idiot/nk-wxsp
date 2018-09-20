@@ -27,9 +27,9 @@
             </view>
         </view>
         <view class="three-ad">
-            <image src="{{threeImages[0]}}" />
-            <image src="{{threeImages[1]}}" />
-            <image src="{{threeImages[2]}}" />
+            <image @tap="adDetail(0)" src="{{threeImages[0].img}}" />
+            <image @tap="adDetail(1)" src="{{threeImages[1].img}}" />
+            <image @tap="adDetail(2)" src="{{threeImages[2].img}}" />
         </view>
         <view class="list-title">
             <text class="travel">旅游推荐</text>
@@ -68,10 +68,18 @@ export default class Index extends wepy.page {
         step: '',
         pageIndex: 1,
         pageSize: 10,
-        threeImages: [
-            'https://image.le-99.xyz/images/85181537107836678.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=KzQKUmMdkZ4Tv89UUvFeOVFFC0Q%3D',
-            'https://image.le-99.xyz/images/25941537107836715.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=6io1mSm7pID50uQ2JpPeuPwoaIs%3D',
-            'https://image.le-99.xyz/images/27591537107836878.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=ZrGywUUTUG0fueeqSihYWo3eV64%3D'
+        threeImages: [{
+                id: null,
+                img: 'https://image.le-99.xyz/images/85181537107836678.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=KzQKUmMdkZ4Tv89UUvFeOVFFC0Q%3D'
+            },
+            {
+                id: null,
+                img: 'https://image.le-99.xyz/images/25941537107836715.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=6io1mSm7pID50uQ2JpPeuPwoaIs%3D'
+            },
+            {
+                id: null,
+                img: 'https://image.le-99.xyz/images/27591537107836878.png?Expires=1852467933&OSSAccessKeyId=LTAI2psrlcnaSomu&Signature=ZrGywUUTUG0fueeqSihYWo3eV64%3D'
+            },
         ]
     }
 
@@ -94,6 +102,15 @@ export default class Index extends wepy.page {
                 url: 'travel'
             });
         },
+        adDetail(sort) {
+            var id = this.threeImages[sort].id;
+            var title = this.threeImages[sort].title;
+            if (id) {
+                wx.navigateTo({
+                    url: 'newsDetail?id=' + id + '&type=2' + '&title=' + title
+                });
+            }
+        }
     }
 
     // watch = {
@@ -133,9 +150,10 @@ export default class Index extends wepy.page {
         })
         // banner接口
         self.requestGetBanner();
-
         // 商品列表接口
         self.requestGetGoods();
+        // 广告列表接口
+        self.requestGetAds();
         ++this.pageIndex;
         self.requestGetNewslist();
         self.loop();
@@ -179,11 +197,43 @@ export default class Index extends wepy.page {
         let self = this;
         util.requestApi(api.apiTravelGoodsList, {
             pageIndex: self.data.pageIndex,
-            pageSize: self.data.pageSize
+            pageSize: self.data.pageSize,
+            recommend: 1
         }, wx.getStorageSync('userToken'), 'POST').then((res) => {
             if (res.data && res.code == 200) {
-                self.lists = self.lists.concat(res.data.data);
-                self.$apply();
+                if (res.data.data.length == 0) {
+                    this.pageIndex = 0;
+                    wx.showToast({
+                        title: '已经到底了～',
+                        icon: 'none',
+                    })
+                } else {
+                    self.lists = self.lists.concat(res.data.data);
+                    self.$apply();
+                }
+            }
+        }).catch((msg) => {
+            if (msg == 'reAuth') {
+                self.goAuth();
+            }
+        });
+    }
+
+    requestGetAds() {
+        let self = this;
+        util.requestApi(api.apiAdsList, {
+            pageIndex: 1,
+            pageSize: 100
+        }, wx.getStorageSync('userToken'), 'POST').then((res) => {
+            if (res.data && res.code == 200) {
+                res.data.data.forEach(item => {
+                    if (item.sort == 1 || item.sort == 2 || item.sort == 3) {
+                        console.log(item.images[0].goodPath);
+                        self.threeImages[item.sort - 1].id = item.id;
+                        self.threeImages[item.sort - 1].title = item.title;
+                        self.threeImages[item.sort - 1].img = item.images[0].goodPath;
+                    }
+                });
             }
         }).catch((msg) => {
             if (msg == 'reAuth') {
@@ -193,8 +243,10 @@ export default class Index extends wepy.page {
     }
 
     lower() {
-        ++this.pageIndex;
-        this.requestGetGoods();
+        if (this.pageIndex !== 0) {
+            ++this.pageIndex;
+            this.requestGetGoods();
+        }
     }
 
     onShow() {}

@@ -43,6 +43,8 @@ export default {
   apiNewslist: host + '/news/list',
   /** 资讯详情 */
   apiNewsDetail: host + '/news',
+  /** 广告列表 */
+  apiAdsList: host + '/adInfo/list',
   /** 广告详情 */
   apiAdsDetail: host + '/adInfo',
   /** 资讯广告列表 */
