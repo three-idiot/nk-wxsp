@@ -88,6 +88,8 @@ export default class SmallTravelList extends wepy.component {
                 bottom: 0;
                 width: 100%;
                 line-height: 24rpx;
+                display: flex;
+                justify-content: space-between;
                 .status {
                     background: #E67300;
                     border-radius: 2rpx;
