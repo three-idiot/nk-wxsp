@@ -282,6 +282,37 @@
       top: 0;
       margin: auto;
       background: #fff;
+      .close {
+        padding-right: 30rpx;
+        /*padding-top: 30rpx;*/
+        color: #888888;
+        font-size: 50rpx;
+        text-align: right;
+      }
+      .title {
+        text-align: center;
+        font-size: 36rpx;
+        color: #000000;
+        text-align: center;
+      }
+      .infos {
+        margin-top: 50rpx;
+        padding-left: 50rpx;
+        .info {
+          font-size: 28rpx;
+          color: #888888;
+          margin-top: 32rpx;
+          text:nth-child(1) {
+
+          }
+          text:nth-child(2) {
+            margin-left: 50rpx;
+          }
+        }
+        .info:nth-child(1) {
+          margin-top: 32rpx;
+        }
+      }
     }
   }
   .refund-info {
@@ -431,10 +462,10 @@
           退款信息
         </view>
         <view class="infos">
-          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
-          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
-          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
-          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>退款原因</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>退款金额</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>申请时间</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>退款编号</text><text>计划有变，没时间出行</text></view>
         </view>
       </view>
     </view>
