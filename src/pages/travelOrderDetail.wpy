@@ -457,7 +457,7 @@
 
     <view class="refund-dialog-mask" wx:if="{{refundDialog}}">
       <view class="refund-dialog">
-        <view class="close"><text>×</text></view>
+        <view class="close"><text @tap='closeRefundDialog'>×</text></view>
         <view class="title">
           退款信息
         </view>
@@ -675,6 +675,9 @@
 
 
     methods = {
+      closeRefundDialog() {
+        this.refundDialog = false;
+      },
       refundDialogShow() {
         this.refundDialog = true;
       },

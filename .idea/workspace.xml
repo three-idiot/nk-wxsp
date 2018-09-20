@@ -19,8 +19,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="678" column="33" lean-forward="true" selection-start-line="678" selection-start-column="33" selection-end-line="678" selection-end-column="33" />
+            <state relative-caret-position="295">
+              <caret line="684" column="23" lean-forward="true" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
               <folding>
                 <element signature="e#5658#5668#0" />
                 <element signature="e#8738#8761#0" expanded="true" />
@@ -256,12 +256,12 @@
       <workItem from="1537270219664" duration="2858000" />
       <workItem from="1537325060593" duration="16000" />
       <workItem from="1537327719345" duration="3341000" />
-      <workItem from="1537425286045" duration="8543000" />
+      <workItem from="1537425286045" duration="8645000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171069000" />
+    <option name="totallyTimeSpent" value="171171000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -609,8 +609,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="678" column="33" lean-forward="true" selection-start-line="678" selection-start-column="33" selection-end-line="678" selection-end-column="33" />
+        <state relative-caret-position="295">
+          <caret line="684" column="23" lean-forward="true" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
           <folding>
             <element signature="e#5658#5668#0" />
             <element signature="e#8738#8761#0" expanded="true" />
