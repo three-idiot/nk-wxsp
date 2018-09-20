@@ -348,11 +348,13 @@
 
     <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
       <view>出行人</view>
-      <view class="single-item">
-        <view>出行人1</view>
-        <view>张三<text>（成人 ￥10000／人）</text></view>
-        <view>退款中<arrow class="arrow" /></view>
-      </view>
+      <repeat for="{{ refundList }}" key="index" index="index" item="item">
+        <view class="single-item">
+          <view>出行人{{index+1}}</view>
+          <view>张三<text>（成人 ￥10000／人）</text></view>
+          <view>退款中<arrow class="arrow" /></view>
+        </view>
+      </repeat>
     </view>
 
     <view class="contact-info">
@@ -435,6 +437,7 @@
     data = {
       item: null,
       statusCode: null,
+      refundList: [],
       infoList:{
         title: '',
         infos: [],
@@ -554,7 +557,7 @@
     }
 
     fetchData(id) {
-      console.log("呀呀呀");
+      console.log("啊呀呀");
       util.requestApi(api.apiGetTravelOrdersDetail, {orderId: id}, wx.getStorageSync('userToken')).then((res) => {
         // self.loading = true;
         console.log( res );
@@ -575,6 +578,9 @@
         this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
         this.otherInfo.infos[2].value = this.travelOrder.payId ? this.travelOrder.payId : '/';
         this.otherInfo.infos[3].value = this.calDate(this.travelOrder.payTime);
+        // 退款信息
+        this.refundList = this.item.refundOrders;
+        console.log('测试', this.refundList);
         this.$apply();
       });
     }
