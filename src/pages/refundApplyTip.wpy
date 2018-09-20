@@ -34,8 +34,11 @@
     methods = {
       handleCheckOrder () {
         let self = this;
+        let _orderInfo = JSON.stringify({
+          id: self.orderId
+        });
         wx.navigateTo({
-          url: 'travelOrderDetail?id=' + self.orderId
+          url: 'travelOrderDetail?orderInfo=' + _orderInfo + '&id=' + self.orderId
         });
       }
     }
