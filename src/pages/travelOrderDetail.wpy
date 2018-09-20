@@ -455,7 +455,7 @@
       </view>
     </view>
 
-    <view class="refund-dialog-mask">
+    <view class="refund-dialog-mask" wx:if="{{refundDialog}}">
       <view class="refund-dialog">
         <view class="close"><text>×</text></view>
         <view class="title">
@@ -675,6 +675,9 @@
 
 
     methods = {
+      refundDialogShow() {
+        this.refundDialog = true;
+      },
       goTravelDetail(id) {
         wx.navigateTo({
           url: 'travelDetail?' + 'id=' + id,
