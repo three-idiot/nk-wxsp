@@ -219,7 +219,7 @@
       text-align: center;
     }
   }
-  .cancel-window-mask {
+  .cancel-window-mask,.refund-dialog-mask {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -269,6 +269,19 @@
 
         }
       }
+    }
+
+    .refund-dialog {
+      width: 620rpx;
+      height: 475rpx;
+      boder-radius:8rpx;
+      position: absolute;
+      left: 0;
+      right:  0;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+      background: #fff;
     }
   }
   .refund-info {
@@ -352,7 +365,7 @@
         <view class="single-item">
           <view>出行人{{index+1}}</view>
           <view>张三<text>（成人 ￥10000／人）</text></view>
-          <view>退款中<arrow class="arrow" /></view>
+          <view @tap="refundDialogShow">退款中<arrow class="arrow" /></view>
         </view>
       </repeat>
     </view>
@@ -410,6 +423,22 @@
         </view>
       </view>
     </view>
+
+    <view class="refund-dialog-mask">
+      <view class="refund-dialog">
+        <view class="close"><text>×</text></view>
+        <view class="title">
+          退款信息
+        </view>
+        <view class="infos">
+          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
+          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
+          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
+          <view><text>退款原因</text><text>计划有变，没时间出行</text></view>
+        </view>
+      </view>
+    </view>
+
   </view>
 </template>
 
@@ -435,6 +464,7 @@
     }
 
     data = {
+      refundDialog: false,
       item: null,
       statusCode: null,
       refundList: [],
