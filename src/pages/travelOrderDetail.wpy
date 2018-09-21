@@ -219,7 +219,7 @@
       text-align: center;
     }
   }
-  .cancel-window-mask {
+  .cancel-window-mask,.refund-dialog-mask {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -270,6 +270,89 @@
         }
       }
     }
+
+    .refund-dialog {
+      width: 620rpx;
+      height: 475rpx;
+      boder-radius:8rpx;
+      position: absolute;
+      left: 0;
+      right:  0;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+      background: #fff;
+      .close {
+        padding-right: 30rpx;
+        /*padding-top: 30rpx;*/
+        color: #888888;
+        font-size: 50rpx;
+        text-align: right;
+      }
+      .title {
+        text-align: center;
+        font-size: 36rpx;
+        color: #000000;
+        text-align: center;
+      }
+      .infos {
+        margin-top: 50rpx;
+        padding-left: 50rpx;
+        .info {
+          font-size: 28rpx;
+          color: #888888;
+          margin-top: 32rpx;
+          text:nth-child(1) {
+
+          }
+          text:nth-child(2) {
+            margin-left: 50rpx;
+          }
+        }
+        .info:nth-child(1) {
+          margin-top: 32rpx;
+        }
+      }
+    }
+  }
+  .refund-info {
+    padding: 30rpx;
+    background: #fff;
+    margin-top: 20rpx;
+    .single-item {
+      display: flex;
+      margin-top: 30rpx;
+      view:nth-child(1) {
+        font-size: 28rpx;
+        color: #353535;
+      }
+      view:nth-child(2) {
+        margin-left: 25rpx;
+        font-size: 28rpx;
+        color: #888888;
+        text {
+          font-size: 24rpx;
+          color: #888888;
+        }
+      }
+      view:nth-child(3) {
+        flex:1;
+        font-size: 28rpx;
+        color: #1DADFF;
+        text-align: right;
+        .arrow {
+          display: inline-block;
+          width: 15rpx;
+          height: 15rpx;
+          transform: rotate(45deg) translate(0,-15%);
+          /*border: 2rpx solid #B2B2B2;*/
+          border: 2rpx solid #888888;
+          border-left:transparent;
+          border-bottom:transparent;
+          vertical-align: center;
+        }
+      }
+    }
   }
 </style>
 <template>
@@ -307,6 +390,17 @@
       <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
     </view>
 
+    <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
+      <view>出行人</view>
+      <repeat for="{{ refundList }}" key="index" index="index" item="item">
+        <view class="single-item">
+          <view>出行人{{index+1}}</view>
+          <view>张三<text>（成人 ￥10000／人）</text></view>
+          <view @tap="refundDialogShow">退款中<arrow class="arrow" /></view>
+        </view>
+      </repeat>
+    </view>
+
     <view class="contact-info">
       <infoCard2 :infoList.sync="contactInfo" class="traveler-detail" />
     </view>
@@ -320,10 +414,6 @@
       <infoCard3 :infoList.sync="otherInfo" class="traveler-detail" />
     </view>
 
-    <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
-      你好呀这里是退款信息
-      <!--<infoCard4 :infoList.sync="otherInfo" class="traveler-detail" />-->
-    </view>
 
     <view class="invoice" @tap="goFillInvoice({{item.travelOrder.id}})" wx:if="{{ status[statusCode].invoice }}">
       <view class="left-container">
@@ -364,6 +454,22 @@
         </view>
       </view>
     </view>
+
+    <view class="refund-dialog-mask" wx:if="{{refundDialog}}">
+      <view class="refund-dialog">
+        <view class="close"><text @tap='closeRefundDialog'>×</text></view>
+        <view class="title">
+          退款信息
+        </view>
+        <view class="infos">
+          <view class="info"><text>退款原因</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>退款金额</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>申请时间</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>退款编号</text><text>计划有变，没时间出行</text></view>
+        </view>
+      </view>
+    </view>
+
   </view>
 </template>
 
@@ -389,8 +495,11 @@
     }
 
     data = {
+      orderId: '',
+      refundDialog: false,
       item: null,
       statusCode: null,
+      refundList: [],
       infoList:{
         title: '',
         infos: [],
@@ -510,7 +619,7 @@
     }
 
     fetchData(id) {
-      console.log("呀呀呀");
+      console.log("啊呀呀");
       util.requestApi(api.apiGetTravelOrdersDetail, {orderId: id}, wx.getStorageSync('userToken')).then((res) => {
         // self.loading = true;
         console.log( res );
@@ -531,6 +640,9 @@
         this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
         this.otherInfo.infos[2].value = this.travelOrder.payId ? this.travelOrder.payId : '/';
         this.otherInfo.infos[3].value = this.calDate(this.travelOrder.payTime);
+        // 退款信息
+        this.refundList = this.item.refundOrders;
+        console.log('测试', this.refundList);
         this.$apply();
       });
     }
@@ -564,6 +676,12 @@
 
 
     methods = {
+      closeRefundDialog() {
+        this.refundDialog = false;
+      },
+      refundDialogShow() {
+        this.refundDialog = true;
+      },
       goTravelDetail(id) {
         wx.navigateTo({
           url: 'travelDetail?' + 'id=' + id,
@@ -616,8 +734,10 @@
 
       },
       goRefund() {
+        let _childOrders = JSON.stringify(this.travelChildOrders),
+          _orderId = this.orderId;
         wx.navigateTo({
-          url: 'refundApply'
+          url: 'refundApply?travelChildOrders='+_childOrders+'&orderId='+_orderId,
         });
       },
       /** 跳转退款说明 */
@@ -633,6 +753,7 @@
     }
 
     onLoad(option) {
+      this.orderId = option.id;
       this.fetchData(option.id);
       this.fetchUserInfos(option.id);
     }

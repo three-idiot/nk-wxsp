@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cadd8663-84d9-4792-94a2-870892a2d597" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,8 +19,24 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="315" column="29" lean-forward="true" selection-start-line="315" selection-start-column="29" selection-end-line="315" selection-end-column="29" />
+            <state relative-caret-position="295">
+              <caret line="684" column="23" lean-forward="true" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
+              <folding>
+                <element signature="e#5658#5668#0" />
+                <element signature="e#8738#8761#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="22">
+              <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+              <folding>
+                <element signature="e#4393#4417#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -30,15 +45,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>totalNum</find>
-      <find>reOrderBtn</find>
-      <find>refundBtn</find>
-      <find>payPrice</find>
-      <find>travelOrder</find>
-      <find>goRefund</find>
-      <find>infoCard3</find>
-      <find>cancel-window-mask</find>
-      <find>btn-container</find>
       <find>cancelOrder</find>
       <find>cancelShow</find>
       <find>cancelWindowShow</find>
@@ -60,6 +66,15 @@
       <find>travelO</find>
       <find>退款说明</find>
       <find>jumpToRefundDesc</find>
+      <find>refund-info</find>
+      <find>arrow</find>
+      <find>traveler-info</find>
+      <find>repeat</find>
+      <find>refundList</find>
+      <find>退款</find>
+      <find>退款中</find>
+      <find>refund-dialog</find>
+      <find>refundDialogShow</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -132,10 +147,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1910" />
-    <option name="y" value="-10" />
-    <option name="width" value="1940" />
-    <option name="height" value="1050" />
+    <option name="x" value="2041" />
+    <option name="y" value="117" />
+    <option name="width" value="1920" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -154,6 +169,12 @@
               <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
               <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
@@ -232,12 +253,15 @@
       <workItem from="1537108713376" duration="5311000" />
       <workItem from="1537198369947" duration="6940000" />
       <workItem from="1537257768949" duration="2389000" />
-      <workItem from="1537270219664" duration="2827000" />
+      <workItem from="1537270219664" duration="2858000" />
+      <workItem from="1537325060593" duration="16000" />
+      <workItem from="1537327719345" duration="3341000" />
+      <workItem from="1537425286045" duration="8645000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159138000" />
+    <option name="totallyTimeSpent" value="171171000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -252,13 +276,13 @@
     <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24900925" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24900925" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" weight="0.56568944" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49920928" weight="0.32899022" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" sideWeight="0.5007133" side_tool="true" weight="0.24966975" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49920928" weight="0.5606277" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -280,7 +304,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -347,13 +371,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/payments.wpy">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/arrow.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/signList.wpy">
       <provider selected="true" editor-type-id="text-editor">
@@ -566,30 +583,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/travelDetail.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-242">
+          <caret line="40" column="54" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/arrow.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2376">
-          <caret line="111" column="22" lean-forward="true" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+        <state relative-caret-position="22">
+          <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
           <folding>
             <element signature="e#4393#4417#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/travelDetail.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-242">
-          <caret line="40" column="54" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
-          <folding>
-            <element signature="e#1981#2005#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="315" column="29" lean-forward="true" selection-start-line="315" selection-start-column="29" selection-end-line="315" selection-end-column="29" />
+        <state relative-caret-position="295">
+          <caret line="684" column="23" lean-forward="true" selection-start-line="684" selection-start-column="23" selection-end-line="684" selection-end-column="23" />
+          <folding>
+            <element signature="e#5658#5668#0" />
+            <element signature="e#8738#8761#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

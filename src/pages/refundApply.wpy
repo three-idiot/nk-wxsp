@@ -257,10 +257,11 @@
     }
     /** 请求退款金额 */
     requestGetRefundMoney (idsArr) {
+      console.log('-------', idsArr);
       let self = this;
       util.requestPostApi(api.apiRefundMoney, {
-        orderChildIds: idsArr
-      }, wx.getStorageSync('userToken')).then((res) => {
+        orderChildIds: idsArr.join(',')
+      }, wx.getStorageSync('userToken'), { 'content-type': 'application/json' }).then((res) => {
         if (res.code == 200) {
           console.log('获取退款金额成功：', res.data);
           self.refundMoney = res.data/100;
@@ -272,9 +273,9 @@
     handleRefund () {
       let self = this;
       util.requestPostApi(api.apiRefund, {
-        orderChildIds: idsArr,
+        orderChildIds: self.orderChildIds.join(','),
         userRefundReason: self.refundResons
-      }, wx.getStorageSync('userToken')).then((res) => {
+      }, wx.getStorageSync('userToken'), { 'content-type': 'application/json' }).then((res) => {
         if (res.code == 200) {
           console.log('退款成功，退款单号为：', res.data);
           self.refundOrderNumber = res.data;
