@@ -144,7 +144,6 @@ export default class Index extends wepy.page {
 swiper {
     width: 750rpx;
     height: 350rpx;
-    ;
 }
 
 .slide-image {
