@@ -495,6 +495,7 @@
     }
 
     data = {
+      orderId: '',
       refundDialog: false,
       item: null,
       statusCode: null,
@@ -733,8 +734,10 @@
 
       },
       goRefund() {
+        let _childOrders = JSON.stringify(this.travelChildOrders),
+          _orderId = this.orderId;
         wx.navigateTo({
-          url: 'refundApply'
+          url: 'refundApply?travelChildOrders='+_childOrders+'&orderId='+_orderId,
         });
       },
       /** 跳转退款说明 */
@@ -750,6 +753,7 @@
     }
 
     onLoad(option) {
+      this.orderId = option.id;
       this.fetchData(option.id);
       this.fetchUserInfos(option.id);
     }
