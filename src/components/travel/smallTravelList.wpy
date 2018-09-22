@@ -9,9 +9,9 @@
                     <text>{{item.name}}</text>
                 </view>
                 <view class="bottom">
-                    <text class="status">{{item.status}}</text>
+                    <text class="status">{{statusMap[item.groupOrderStatus]}}</text>
                     <text class="num">成团人数 {{item.peopleMaxNum}}/<text class="green">{{item.peopleMinNum}}</text></text>
-                    <text class="money">￥<text class="red">{{item.realPrice}}</text><text class="abandon">￥{{item.salePrice}}</text></text>
+                    <text class="money">￥<text class="red">{{item.realPrice/100}}</text><text class="abandon">￥{{item.salePrice/100}}</text></text>
                 </view>
             </view>
         </view>
@@ -35,7 +35,15 @@ export default class SmallTravelList extends wepy.component {
     }
 
     data = {
-        stars: [1, 2, 3, 4, 5]
+        statusMap: {
+            0: '报名中',
+            1: '报名中',
+            2: '组团失败',
+            3: '已成团',
+            4: '已结束',
+            5: '强制成团',
+            6: '退款',
+        }
     }
 
     // watch = {
@@ -48,7 +56,7 @@ export default class SmallTravelList extends wepy.component {
         handleClickSingleSign(item, index) {
             let self = this;
             wx.navigateTo({
-                url: 'travelDetail?id='+item.id
+                url: 'travelDetail?id=' + item.id
             });
         }
     }
@@ -66,23 +74,28 @@ export default class SmallTravelList extends wepy.component {
         padding: 30rpx 0;
         display: flex;
         border-bottom: 1px solid #ccc;
+
         image {
             width: 200rpx;
             height: 134rpx;
         }
+
         .list-travel {
             font-size: 28rpx;
             padding-left: 12rpx;
             height: 134rpx;
             width: 478rpx;
             position: relative;
+
             .title-name {
                 height: 80rpx;
                 overflow: hidden;
+
                 .red {
                     color: red;
                 }
             }
+
             .bottom {
                 position: absolute;
                 bottom: 0;
@@ -90,32 +103,41 @@ export default class SmallTravelList extends wepy.component {
                 line-height: 24rpx;
                 display: flex;
                 justify-content: space-between;
+
                 .status {
                     background: #E67300;
-                    border-radius: 2rpx;
+                    border-radius: 5rpx;
                     font-size: 20rpx;
                     color: #FFFFFF;
                     text-align: center;
+                    line-height: 28rpx;
+                    height: 28rpx;
+                    padding: 0 5rpx;
                 }
+
                 .num {
                     padding-left: 15rpx;
                     font-size: 22rpx;
                     color: #888888;
                     letter-spacing: 0;
+
                     .green {
                         color: #1A0000;
                     }
                 }
+
                 .money {
                     font-size: 24rpx;
                     color: #353535;
                     text-align: center;
+
                     .red {
                         font-size: 32rpx;
                         color: red;
                         text-align: center;
                         line-height: 33rpx;
                     }
+
                     .abandon {
                         font-size: 22rpx;
                         color: #B2B2B2;

@@ -9,7 +9,7 @@
         <text class="title">请选择出游人数</text>
         <view class="item">
             <text class="type">成人</text>
-            <text class="red">{{params.salePrice}}</text>
+            <text class="red">{{params.salePrice/100}}</text>
             <text class="unit">元／人</text>
             <image wx:if="{{form.adult>1}}" src="../images/travel/img_minus.png" @tap="adultminus" />
             <image wx:if="{{form.adult<=1}}" src="../images/travel/img_minus_unclick.png" />
@@ -24,7 +24,7 @@
         </view>
         <view class="item">
             <text class="type">儿童<text>2-12周岁(不含)</text></text>
-            <text class="red">{{params.childPrice}}</text>
+            <text class="red">{{params.childPrice/100}}</text>
             <text class="unit">元／人</text>
             <image wx:if="{{form.child>0}}" src="../images/travel/img_minus.png" @tap="childminus" />
             <image wx:if="{{form.child<=0}}" src="../images/travel/img_minus_unclick.png" />
@@ -50,7 +50,7 @@
             <view class="lable-input line">
                 <text>中文姓名</text>
                 <input class=""
-              type="string"
+              type="text"
               placeholder-style="color: #B2B2B2"
               bindinput="nameInput({{index}})"
               bindblur="nameBlur({{index}})"
@@ -72,7 +72,7 @@
                 <view class="lable-input line">
                     <text>证件号码</text>
                     <input class=""
-              type="string"
+              type="text"
               placeholder-style="color: #B2B2B2"
               bindinput="numberInput({{index}})"
               bindblur="numberBlur({{index}})"
@@ -104,7 +104,7 @@
         <view class="lable-input line">
             <text>联系人</text>
             <input class=""
-              type="number"
+              type="text"
               placeholder-style="color: #B2B2B2"
               bindinput="contactNameInput"
               bindblur="contactNameBlur"
@@ -124,7 +124,7 @@
                 <view class="lable-input line">
                     <text>电子邮箱</text>
                     <input class=""
-              type="number"
+              type="text"
               placeholder-style="color: #B2B2B2"
               bindinput="contactEmailInput"
               bindblur="contactEmailBlur"
@@ -134,7 +134,7 @@
                 </view>
                 <text @tap="clause" class="info-item">点击下一步表示您已阅读并了解 <text class="blue">预定须知</text> 和 <text class="blue">重要条款</text></text>
                 <view class="bottom-btn">
-                    <text class="price">￥<text class="red">1000.00</text></text>
+                    <text class="price">￥<text class="red">{{totalMoney}}</text></text>
                     <view class="consult" @tap="consult">
                         <image src="../images/cxptqz_icon_consult1.png" />
                         <text>咨询</text>
@@ -252,6 +252,9 @@ export default class Index extends wepy.page {
                 travelUserInfos: passenger
             };
             return params;
+        },
+        totalMoney() {
+            return this.form.adult * this.params.salePrice / 100 + this.form.child * this.params.childPrice / 100
         }
     };
 
@@ -266,7 +269,9 @@ export default class Index extends wepy.page {
                     icon: 'none',
                     duration: 2000
                 });
+                return false;
             }
+            return true
         },
         adultPlus() {
             this.form.adult++;
@@ -293,11 +298,13 @@ export default class Index extends wepy.page {
         nameBlur(index, e) {
             if (!this.form.passenger[index].name) {
                 wx.showToast({
-                    title: '请填写姓名',
+                    title: '请填写出行人姓名',
                     icon: 'none',
                     duration: 2000
                 });
+                return false;
             }
+            return true;
         },
         numberInput(index, e) {
             this.form.passenger[index].number = e.detail.value;
@@ -305,23 +312,27 @@ export default class Index extends wepy.page {
         numberBlur(index, e) {
             if (!this.form.passenger[index].number) {
                 wx.showToast({
-                    title: '请填写证件号码',
+                    title: '请填写出行人证件号码',
                     icon: 'none',
                     duration: 2000
                 });
+                return false;
             }
+            return true;
         },
         phoneInput(index, e) {
             this.form.passenger[index].phone = e.detail.value;
         },
         phoneBlur(index, e) {
-            // if (!this.form.passenger[index].phone) {
-            //     wx.showToast({
-            //         title: '请填写号码',
-            //         icon: 'none',
-            //         duration: 2000
-            //     });
-            // }
+            if (this.form.passenger[index].phone && !(/^1\d{10}$/.test(this.form.passenger[index].phone))) {
+                wx.showToast({
+                    title: '请正确填写出行人号码',
+                    icon: 'none',
+                    duration: 2000
+                });
+                return false;
+            }
+            return true;
         },
 
         contactNameInput(e) {
@@ -334,33 +345,39 @@ export default class Index extends wepy.page {
                     icon: 'none',
                     duration: 2000
                 });
+                return false;
             }
+            return true;
         },
 
         contactPhoneInput(e) {
             this.form.contactPhone = e.detail.value;
         },
         contactPhoneBlur(e) {
-            if (!this.form.contactPhone) {
+            if (!(/^1\d{10}$/.test(this.form.contactPhone))) {
                 wx.showToast({
-                    title: '请填写联系人手机号',
+                    title: '请正确填写联系人手机号',
                     icon: 'none',
                     duration: 2000
                 });
+                return false;
             }
+            return true;
         },
 
         contactEmailInput(e) {
             this.form.contactEmail = e.detail.value;
         },
         contactEmailBlur(e) {
-            if (!this.form.contactEmail) {
+            if (!this.form.contactEmail || this.form.contactEmail.indexOf('@') == -1) {
                 wx.showToast({
-                    title: '请填写联系人邮箱',
+                    title: '请正确填写联系人邮箱',
                     icon: 'none',
                     duration: 2000
                 });
+                return false;
             }
+            return true;
         },
         openWindow(index, type) {
             this.selectIndex = index;
@@ -391,7 +408,8 @@ export default class Index extends wepy.page {
 
         addPassenger() {
             this.form.passenger.push({
-                type: 0
+                type: 0,
+                travelUserType: 1
             });
         },
         removePassenger(index) {
@@ -454,6 +472,7 @@ export default class Index extends wepy.page {
             });
     }
     pay() {
+        if(!this.check()){return false;}
         wx.showModal({
             title: '提示',
             content: '确定提交订单去支付吗？',
@@ -515,12 +534,42 @@ export default class Index extends wepy.page {
             }.bind(this)
         });
     }
+    check() {
+        var realAdultNum = 0;
+        var realChildNum = 0;
+        this.form.passenger.forEach((item) => {
+            if (item.travelUserType == 1) {
+                realAdultNum++;
+            } else if (item.travelUserType == 2) {
+                realChildNum++;
+            }
+        })
+        if (realAdultNum != this.form.adult || realChildNum != this.form.child) {
+            wx.showToast({
+                title: '出游人数与出行人信息不一致，请核对成人或儿童的人数',
+                icon: 'none',
+                duration: 3000
+            });
+            return false;
+        }
+        if(!this.methods.adultBlur.call(this)){return false;}
+
+        if(!this.methods.contactNameBlur.call(this)){return false;}
+        if(!this.methods.contactPhoneBlur.call(this)){return false;}
+        if(!this.methods.contactEmailBlur.call(this)){return false;}
+        for (let i = 0; i < this.form.passenger.length; i++) {
+            if(!this.methods.nameBlur.call(this,i)){return false;}
+            if(!this.methods.numberBlur.call(this,i)){return false;}
+            if(!this.methods.phoneBlur.call(this,i)){return false;}
+        }
+        return true;
+    }
 }
 </script>
 
 <style lang="less" scoped>
 .container {
-    margin-bottom: 200rpx;
+    padding-bottom: 200rpx;
 }
 
 .title-container {
