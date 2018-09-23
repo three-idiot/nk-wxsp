@@ -493,7 +493,7 @@
       <view class="payPrice">
         <text>金额</text>
         <text>￥</text>
-        <text>1000.00</text>
+        <text>{{ travelGoods.salePrice }}</text>
       </view>
       <view class="cancel" @tap="cancelShow({{item.travelOrder.id}})">取消订单</view>
       <view class="go" @tap="pay({{item.travelOrder.id}})">去支付</view>
@@ -569,7 +569,11 @@
       refundList: [],
       infoList:{
         title: '',
-        infos: [],
+        infos: [
+          {key:'中文姓名', value:''},
+          {key:'身份证', value:''},
+          {key:'手机号码', value:''},
+        ],
       },
       cancelWindowShow: false,
       cancelId: null,
@@ -743,11 +747,16 @@
           } else {
             this.childNum += 1;
           }
-          this.infoList.infos.push({
-            key: item.name,
-            value: item.phone
-          })
+          // this.infoList.infos.push({
+          //   key: item.name,
+          //   value: item.phone
+          // })
         };
+        let curInfo = data[0];
+        console.log('test',curInfo);
+        this.infoList.infos[0].value = curInfo.name;
+        this.infoList.infos[1].value = curInfo.passport;
+        this.infoList.infos[2].value = curInfo.phone;
         this.$apply();
       });
 

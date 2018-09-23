@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cadd8663-84d9-4792-94a2-870892a2d597" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,8 +39,8 @@
       <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="344" selection-start-line="344" selection-end-line="376" selection-end-column="14" />
+            <state relative-caret-position="455">
+              <caret line="365" column="49" lean-forward="true" selection-start-line="365" selection-start-column="49" selection-end-line="365" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -58,8 +57,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="767" column="9" lean-forward="true" selection-start-line="767" selection-start-column="9" selection-end-line="767" selection-end-column="9" />
+            <state relative-caret-position="280">
+              <caret line="493" column="23" lean-forward="true" selection-start-line="493" selection-start-column="23" selection-end-line="493" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -68,7 +67,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>handleEmailInputBlur</find>
       <find>goTravelDetail</find>
       <find>goTravelPeople</find>
       <find>travelO</find>
@@ -94,10 +92,11 @@
       <find>traveler-info</find>
       <find>font-size: 28px</find>
       <find>其他</find>
-      <find>infoList</find>
       <find>payParams</find>
       <find>go</find>
       <find>pay</find>
+      <find>infoList</find>
+      <find>金</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -293,7 +292,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186477000" />
+    <option name="totallyTimeSpent" value="187196000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -308,7 +307,7 @@
     <frame x="-6" y="-6" width="1933" height="1057" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24934107" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24934107" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" weight="0.56568944" />
@@ -638,15 +637,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="344" selection-start-line="344" selection-end-line="376" selection-end-column="14" />
+        <state relative-caret-position="455">
+          <caret line="365" column="49" lean-forward="true" selection-start-line="365" selection-start-column="49" selection-end-line="365" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="767" column="9" lean-forward="true" selection-start-line="767" selection-start-column="9" selection-end-line="767" selection-end-column="9" />
+        <state relative-caret-position="280">
+          <caret line="493" column="23" lean-forward="true" selection-start-line="493" selection-start-column="23" selection-end-line="493" selection-end-column="23" />
         </state>
       </provider>
     </entry>
