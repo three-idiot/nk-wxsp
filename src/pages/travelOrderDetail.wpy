@@ -496,7 +496,7 @@
         <text>1000.00</text>
       </view>
       <view class="cancel" @tap="cancelShow({{item.travelOrder.id}})">取消订单</view>
-      <view class="go">去支付</view>
+      <view class="go" @tap="pay({{item.travelOrder.id}})">去支付</view>
     </view>
 
     <view class="cancel-window-mask" wx:if="{{cancelWindowShow}}">
@@ -759,6 +759,42 @@
 
 
     methods = {
+      pay(orderId) {
+        util.requestPostApi(
+          api.apiTravelOrderPay, {
+            orderId
+          },
+          wx.getStorageSync('userToken')
+        )
+          .then(res => {
+            if (res.code == 200) {
+              wx.requestPayment(Object.assign({
+                'package': 'prepay_id=' + res.data.prepayId,
+                'signType': 'MD5',
+                'success': function (res) {
+                  console.log(res);
+                  wx.showModal({
+                    title: '提示',
+                    content: '支付成功',
+                    showCancel: false,
+                    success: function (res) {
+                      wx.navigateTo({
+                        url: 'travelOrderDetail?id=' + orderId
+                      });
+                    }.bind(this)
+                  });
+                },
+                'fail': function (res) {},
+                'complete': function (res) {}
+              }, res.data))
+            }
+          })
+          .catch(msg => {
+            if (msg == 'reAuth') {
+              self.goAuth();
+            }
+          });
+      },
       closeRefundDialog() {
         this.refundDialog = false;
       },
