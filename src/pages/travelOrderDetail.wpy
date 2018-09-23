@@ -316,6 +316,10 @@
     }
   }
   .refund-info {
+    .title {
+      font-size: 28rpx;
+      color: #353535;
+    }
     padding: 30rpx;
     background: #fff;
     margin-top: 20rpx;
@@ -437,7 +441,7 @@
     </view>
 
     <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
-      <view>退款中出行人</view>
+      <view class="title">退款出行人</view>
       <repeat for="{{ refundList }}" key="index" index="index" item="item">
         <view class="single-item">
           <view class="left">

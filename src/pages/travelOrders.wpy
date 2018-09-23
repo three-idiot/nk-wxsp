@@ -225,7 +225,7 @@
         5: {
           title: '已取消',
           cancelBtn: false,
-          refundBtn: true
+          refundBtn: false
         },
         6: {
           title: '申请退款',
