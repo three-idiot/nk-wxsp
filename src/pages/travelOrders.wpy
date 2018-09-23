@@ -184,7 +184,7 @@
 
   export default class SignDetail extends wepy.page {
     config = {
-      navigationBarTitleText: '签证办理'
+      navigationBarTitleText: '旅游订单'
     }
     components = {
 
