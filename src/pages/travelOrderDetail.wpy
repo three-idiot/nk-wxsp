@@ -416,7 +416,7 @@
           剩余0天22小时56分钟自动关闭
         </view>
         <view class="price" wx:if="{{ status[statusCode].price }}">
-          <text>￥</text>10000
+          <text>￥</text>{{ travelGoods.salePrice }}
         </view>
         <view class="explain" wx:if="{{ status[statusCode].refundExplain }}">
           退款说明
