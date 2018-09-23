@@ -328,6 +328,7 @@
         flex:1;
         /*width: 500rpx;*/
         .people {
+          margin-top: 20rpx;
           display: flex;
           view:nth-child(1) {
             font-size: 28rpx;
@@ -342,6 +343,9 @@
               color: #888888;
             }
           }
+        }
+        .people:nth-child(1) {
+          margin-top: 0;
         }
       }
       .right {
@@ -439,11 +443,11 @@
           <view class="left">
             <repeat for="{{ item.travelUserInfos }}" key="index2" index="index" item="item2">
             <view class="people">
-              <view>出行人</view><view>{{ item2.name }}<text>（成人 ￥10000／人）</text></view>
+              <view>出行人</view><view>{{ item2.name }}<text>（{{ travelUserType[item2.travelUserType] }} ￥10000／人）</text></view>
             </view>
             </repeat>
           </view>
-          <view @tap="refundDialogShow" class="right"><view>退款中<arrow class="arrow" /></view></view>
+          <view @tap="refundDialogShow({{item}})" class="right"><view>退款中<arrow class="arrow" /></view></view>
         </view>
       </repeat>
     </view>
@@ -509,10 +513,10 @@
           退款信息
         </view>
         <view class="infos">
-          <view class="info"><text>退款原因</text><text>计划有变，没时间出行</text></view>
-          <view class="info"><text>退款金额</text><text>计划有变，没时间出行</text></view>
-          <view class="info"><text>申请时间</text><text>计划有变，没时间出行</text></view>
-          <view class="info"><text>退款编号</text><text>计划有变，没时间出行</text></view>
+          <view class="info"><text>退款原因</text><text>{{ refundDialogInfo.userRefundReason }}</text></view>
+          <view class="info"><text>退款金额</text><text>{{ refundDialogInfo.refundFee }}</text></view>
+          <view class="info"><text>申请时间</text><text>{{ refundDialogInfo.createTime }}</text></view>
+          <view class="info"><text>退款编号</text><text>{{ refundDialogInfo.refundNo }}</text></view>
         </view>
       </view>
     </view>
@@ -542,8 +546,12 @@
     }
 
     data = {
-
+      travelUserType :{
+        1: '成人',
+        2: '儿童'
+      },
       orderId: '',
+      refundDialogInfo:{},
       refundDialog: false,
       item: null,
       statusCode: null,
@@ -727,7 +735,9 @@
       closeRefundDialog() {
         this.refundDialog = false;
       },
-      refundDialogShow() {
+      refundDialogShow(item) {
+        item.createTime = this.calDate( item.createTime );
+        this.refundDialogInfo = item;
         this.refundDialog = true;
       },
       goTravelDetail(id) {
