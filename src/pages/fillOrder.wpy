@@ -9,7 +9,7 @@
         <text class="title">请选择出游人数</text>
         <view class="item">
             <text class="type">成人</text>
-            <text class="red">{{params.salePrice/100}}</text>
+            <text class="red">{{params.realPrice/100}}</text>
             <text class="unit">元／人</text>
             <image wx:if="{{form.adult>1}}" src="../images/travel/img_minus.png" @tap="adultminus" />
             <image wx:if="{{form.adult<=1}}" src="../images/travel/img_minus_unclick.png" />
@@ -254,7 +254,7 @@ export default class Index extends wepy.page {
             return params;
         },
         totalMoney() {
-            return this.form.adult * this.params.salePrice / 100 + this.form.child * this.params.childPrice / 100
+            return this.form.adult * this.params.realPrice / 100 + this.form.child * this.params.childPrice / 100
         }
     };
 

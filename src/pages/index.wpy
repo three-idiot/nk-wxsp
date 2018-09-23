@@ -12,7 +12,7 @@
                 <image src="../images/index/travel.png" />
                 <text>旅游</text>
             </view>
-            <view @tap="goTravel">
+            <view @tap="goTravel2">
                 <image src="../images/index/business.png" />
                 <text>商务</text>
             </view>
@@ -100,6 +100,11 @@ export default class Index extends wepy.page {
         goTravel() {
             wx.switchTab({
                 url: 'travel'
+            });
+        },
+        goTravel2() {
+            wx.switchTab({
+                url: 'travel2'
             });
         },
         adDetail(sort) {
