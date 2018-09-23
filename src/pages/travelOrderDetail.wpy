@@ -451,7 +451,7 @@
             </view>
             </repeat>
           </view>
-          <view @tap="refundDialogShow({{item}})" class="right"><view>退款中<arrow class="arrow" /></view></view>
+          <view @tap="refundDialogShow({{item}})" class="right"><view>{{ refundStatus[item.status] }}<arrow class="arrow" /></view></view>
         </view>
       </repeat>
     </view>
@@ -550,6 +550,13 @@
     }
 
     data = {
+      refundStatus: {
+        1: '待审核',
+        2: '退款中',
+        3: '审核失败',
+        4: '退款成功',
+        5: '退款失败'
+      },
       travelUserType :{
         1: '成人',
         2: '儿童'
