@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cadd8663-84d9-4792-94a2-870892a2d597" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -37,7 +36,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
+      <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="324">
@@ -49,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
+      <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-324">
-              <caret line="226" column="27" lean-forward="true" selection-start-line="226" selection-start-column="27" selection-end-line="226" selection-end-column="27" />
+            <state relative-caret-position="368">
+              <caret line="165" column="11" lean-forward="true" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -71,7 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>taxNumChange</find>
       <find>bindblur</find>
       <find>emailReg</find>
       <find>bindPickerChange</find>
@@ -101,6 +99,7 @@
       <find>calDate</find>
       <find>退款</find>
       <find>refund-info</find>
+      <find>申请退款</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -151,8 +150,8 @@
         <option value="$PROJECT_DIR$/src/plugins/api.js" />
         <option value="$PROJECT_DIR$/src/pages/fillInvoice.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelDetail.wpy" />
-        <option value="$PROJECT_DIR$/src/pages/travelOrders.wpy" />
         <option value="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/travelOrders.wpy" />
       </list>
     </option>
   </component>
@@ -294,7 +293,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184517000" />
+    <option name="totallyTimeSpent" value="184626000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -636,13 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-324">
-          <caret line="226" column="27" lean-forward="true" selection-start-line="226" selection-start-column="27" selection-end-line="226" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -650,6 +642,13 @@
           <folding>
             <element signature="e#12854#12877#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="165" column="11" lean-forward="true" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="11" />
         </state>
       </provider>
     </entry>
