@@ -325,9 +325,9 @@
       return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
     }
     getList() {
-      console.log('我要重新请求了');
+      // console.log('我要重新请求了');
       util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
-        console.log( res );
+        // console.log( res );
         this.orderList = res.data.data;
         for ( let i=0;i<this.orderList.length;i++ ) {
           let item = this.orderList[i];

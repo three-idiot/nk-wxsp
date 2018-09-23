@@ -322,24 +322,35 @@
     .single-item {
       display: flex;
       margin-top: 30rpx;
-      view:nth-child(1) {
-        font-size: 28rpx;
-        color: #353535;
-      }
-      view:nth-child(2) {
-        margin-left: 25rpx;
-        font-size: 28rpx;
-        color: #888888;
-        text {
-          font-size: 24rpx;
-          color: #888888;
+      /*border-bottom: 1rpx solid #888888;*/
+      .left {
+        flex:1;
+        /*width: 500rpx;*/
+        .people {
+          display: flex;
+          view:nth-child(1) {
+            font-size: 28rpx;
+            color: #353535;
+          }
+          view:nth-child(2) {
+            margin-left: 25rpx;
+            font-size: 28rpx;
+            color: #888888;
+            text {
+              font-size: 24rpx;
+              color: #888888;
+            }
+          }
         }
       }
-      view:nth-child(3) {
-        flex:1;
+      .right {
         font-size: 28rpx;
         color: #1DADFF;
         text-align: right;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .arrow {
           display: inline-block;
           width: 15rpx;
@@ -352,6 +363,36 @@
           vertical-align: center;
         }
       }
+      /*view:nth-child(1) {*/
+        /*font-size: 28rpx;*/
+        /*color: #353535;*/
+      /*}*/
+      /*view:nth-child(2) {*/
+        /*margin-left: 25rpx;*/
+        /*font-size: 28rpx;*/
+        /*color: #888888;*/
+        /*text {*/
+          /*font-size: 24rpx;*/
+          /*color: #888888;*/
+        /*}*/
+      /*}*/
+      /*view:nth-child(3) {*/
+        /*flex:1;*/
+        /*font-size: 28rpx;*/
+        /*color: #1DADFF;*/
+        /*text-align: right;*/
+        /*.arrow {*/
+          /*display: inline-block;*/
+          /*width: 15rpx;*/
+          /*height: 15rpx;*/
+          /*transform: rotate(45deg) translate(0,-15%);*/
+          /*!*border: 2rpx solid #B2B2B2;*!*/
+          /*border: 2rpx solid #888888;*/
+          /*border-left:transparent;*/
+          /*border-bottom:transparent;*/
+          /*vertical-align: center;*/
+        /*}*/
+      /*}*/
     }
   }
 </style>
@@ -392,13 +433,19 @@
 
     <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
       <view>出行人</view>
-      <repeat for="{{ refundList }}" key="index" index="index" item="item">
+      <!--<repeat for="{{ refundList }}" key="index" index="index" item="item">-->
         <view class="single-item">
-          <view>出行人{{index+1}}</view>
-          <view>张三<text>（成人 ￥10000／人）</text></view>
-          <view @tap="refundDialogShow">退款中<arrow class="arrow" /></view>
+          <view class="left">
+            <view class="people">
+              <view>出行人{{index+1}}</view><view>张三<text>（成人 ￥10000／人）</text></view>
+            </view>
+            <view class="people">
+              <view>出行人{{index+1}}</view><view>张三<text>（成人 ￥10000／人）</text></view>
+            </view>
+          </view>
+          <view @tap="refundDialogShow" class="right"><view>退款中<arrow class="arrow" /></view></view>
         </view>
-      </repeat>
+      <!--</repeat>-->
     </view>
 
     <view class="contact-info">
