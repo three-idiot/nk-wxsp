@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cadd8663-84d9-4792-94a2-870892a2d597" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.wepycache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,12 +24,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="wpy" value="231" />
+          <entry key="wpy" value="291" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Vue.js" value="231" />
+          <entry key="Vue.js" value="291" />
         </counts>
       </usages-collector>
     </session>
@@ -42,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="438" column="33" lean-forward="true" selection-start-line="438" selection-start-column="33" selection-end-line="438" selection-end-column="33" />
+            <state relative-caret-position="358">
+              <caret line="441" column="59" selection-start-line="441" selection-start-column="59" selection-end-line="441" selection-end-column="59" />
               <folding>
                 <element signature="e#11435#11458#0" expanded="true" />
               </folding>
@@ -55,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1428">
-              <caret line="328" column="39" lean-forward="true" selection-start-line="328" selection-start-column="39" selection-end-line="328" selection-end-column="39" />
+              <caret line="328" column="39" selection-start-line="328" selection-start-column="39" selection-end-line="328" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -64,7 +61,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>invoice</find>
       <find>goFillInvoice</find>
       <find>contactPhoneInput</find>
       <find>content</find>
@@ -93,6 +89,7 @@
       <find>goRefund</find>
       <find>refund-info</find>
       <find>view</find>
+      <find>left</find>
       <find>single-item</find>
     </findStrings>
     <replaceStrings>
@@ -276,12 +273,12 @@
       <workItem from="1537325060593" duration="16000" />
       <workItem from="1537327719345" duration="3341000" />
       <workItem from="1537425286045" duration="8645000" />
-      <workItem from="1537701776061" duration="2358000" />
+      <workItem from="1537701776061" duration="3793000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173529000" />
+    <option name="totallyTimeSpent" value="174964000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -308,7 +305,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49920928" weight="0.5606277" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49920928" weight="0.56049824" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49920928" weight="0.32899022" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" weight="0.56568944" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -615,14 +612,14 @@
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1428">
-          <caret line="328" column="39" lean-forward="true" selection-start-line="328" selection-start-column="39" selection-end-line="328" selection-end-column="39" />
+          <caret line="328" column="39" selection-start-line="328" selection-start-column="39" selection-end-line="328" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="438" column="33" lean-forward="true" selection-start-line="438" selection-start-column="33" selection-end-line="438" selection-end-column="33" />
+        <state relative-caret-position="358">
+          <caret line="441" column="59" selection-start-line="441" selection-start-column="59" selection-end-line="441" selection-end-column="59" />
           <folding>
             <element signature="e#11435#11458#0" expanded="true" />
           </folding>

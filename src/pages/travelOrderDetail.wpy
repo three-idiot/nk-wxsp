@@ -322,7 +322,8 @@
     .single-item {
       display: flex;
       margin-top: 30rpx;
-      /*border-bottom: 1rpx solid #888888;*/
+      padding-bottom: 30rpx;
+      border-bottom: 1rpx solid #888888;
       .left {
         flex:1;
         /*width: 500rpx;*/
@@ -433,19 +434,18 @@
 
     <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
       <view>出行人</view>
-      <!--<repeat for="{{ refundList }}" key="index" index="index" item="item">-->
+      <repeat for="{{ refundList }}" key="index" index="index" item="item">
         <view class="single-item">
           <view class="left">
+            <repeat for="{{ item.travelUserInfos }}" key="index" index="index" item="item">
             <view class="people">
-              <view>出行人{{index+1}}</view><view>张三<text>（成人 ￥10000／人）</text></view>
+              <view>出行人{{index+1}}</view><view>{{ item.name }}<text>（成人 ￥10000／人）</text></view>
             </view>
-            <view class="people">
-              <view>出行人{{index+1}}</view><view>张三<text>（成人 ￥10000／人）</text></view>
-            </view>
+            </repeat>
           </view>
           <view @tap="refundDialogShow" class="right"><view>退款中<arrow class="arrow" /></view></view>
         </view>
-      <!--</repeat>-->
+      </repeat>
     </view>
 
     <view class="contact-info">
@@ -542,6 +542,7 @@
     }
 
     data = {
+
       orderId: '',
       refundDialog: false,
       item: null,
