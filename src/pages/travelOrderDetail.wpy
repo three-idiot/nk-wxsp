@@ -698,6 +698,22 @@
         this.otherInfo.infos[3].value = this.calDate(this.travelOrder.payTime);
         // 退款信息
         this.refundList = this.item.refundOrders;
+        // let travelChildOrders = this.item.travelChildOrders;
+        // if( this.refundList.length ) {
+        //   for( let i =0 ;i<this.refundList.length;i++ ) {
+        //     let item = this.refundList[i];
+        //     for ( let j=0;j<item.travelUserInfos[j];j++ ) {
+        //       let item2 = item.travelUserInfos[j];
+        //       for ( let k =0;k<travelChildOrders.length;k++ ) {
+        //         let item3 = travelChildOrders[k];
+        //         if( item3.id == item2.id ) {
+        //           item2 = Object.assign({},item3);
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+        // console.log('强烈测试',  this.refundList);
         console.log('测试', this.refundList);
         this.$apply();
       });
