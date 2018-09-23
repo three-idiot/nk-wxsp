@@ -433,7 +433,7 @@
     </view>
 
     <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
-      <view>出行人</view>
+      <view>退款中出行人</view>
       <repeat for="{{ refundList }}" key="index" index="index" item="item">
         <view class="single-item">
           <view class="left">
