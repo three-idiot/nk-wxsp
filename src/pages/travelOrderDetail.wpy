@@ -417,7 +417,7 @@
           <view class="left">
             <repeat for="{{ item.travelUserInfos }}" key="index2" index="index" item="item2">
             <view class="people">
-              <view>出行人</view><view>{{ item2.name }}<text>（{{ travelUserType[item2.travelUserType] }} ￥10000／人）</text></view>
+              <view>出行人</view><view>{{ item2.name }}<text>（{{ travelUserType[item2.travelUserType] }} ￥{{ item2.unitPrice }}／人）</text></view>
             </view>
             </repeat>
           </view>
@@ -660,7 +660,6 @@
     }
 
     fetchData(id) {
-      console.log("啊呀呀");
       util.requestApi(api.apiGetTravelOrdersDetail, {orderId: id}, wx.getStorageSync('userToken')).then((res) => {
         // self.loading = true;
         console.log( res );
@@ -683,23 +682,29 @@
         this.otherInfo.infos[3].value = this.calDate(this.travelOrder.payTime);
         // 退款信息
         this.refundList = this.item.refundOrders;
-        // let travelChildOrders = this.item.travelChildOrders;
-        // if( this.refundList.length ) {
-        //   for( let i =0 ;i<this.refundList.length;i++ ) {
-        //     let item = this.refundList[i];
-        //     for ( let j=0;j<item.travelUserInfos[j];j++ ) {
-        //       let item2 = item.travelUserInfos[j];
-        //       for ( let k =0;k<travelChildOrders.length;k++ ) {
-        //         let item3 = travelChildOrders[k];
-        //         if( item3.id == item2.id ) {
-        //           item2 = Object.assign({},item3);
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
+        let travelChildOrders = this.item.travelChildOrders;
+        // console.log('哈哈', travelChildOrders);
+        if( this.refundList.length ) {
+          console.log('捡来了');
+          for( let i =0 ;i<this.refundList.length;i++ ) {
+            let item = this.refundList[i];
+            // console.log( '第一次', item.travelUserInfos );
+            for ( let j=0;j<item.travelUserInfos.length;j++ ) {
+              let item2 = item.travelUserInfos[j];
+              // console.log('第二次', item2);
+              for ( let k =0;k<travelChildOrders.length;k++ ) {
+                let item3 = travelChildOrders[k];
+                // console.log('哈哈哈', item3);
+                if( item3.id == item2.id ) {
+                  // console.log('冰柜');
+                  // item2 = Object.assign({},item3);
+                  item2.unitPrice = item3.unitPrice;
+                }
+              }
+            }
+          }
+        }
         // console.log('强烈测试',  this.refundList);
-        console.log('测试', this.refundList);
         this.$apply();
       });
     }
@@ -723,7 +728,7 @@
           // })
         };
         let curInfo = data[0];
-        console.log('test',curInfo);
+        // console.log('test',curInfo);
         this.infoList.infos[0].value = curInfo.name;
         this.infoList.infos[1].value = curInfo.passport;
         this.infoList.infos[2].value = curInfo.phone;
