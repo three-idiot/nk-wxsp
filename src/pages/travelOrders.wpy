@@ -376,8 +376,11 @@
       //     }
       //   });
     }
-    onLoad() {
-      let self = this;
+    // onLoad() {
+    //   this.getList();
+    // }
+
+    onShow() {
       this.getList();
     }
   }
