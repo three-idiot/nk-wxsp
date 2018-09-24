@@ -383,7 +383,10 @@
       </view>
       <view class="status-text">
         <view>
-          剩余0天22小时56分钟自动关闭
+          <text>
+            剩余{{ status[statusCode].remainTime }}
+            <!--剩余0天22小时56分钟自动关闭-->
+          </text>
         </view>
         <view class="price" wx:if="{{ status[statusCode].price }}">
           <text>￥</text>{{ travelGoods.salePrice }}
@@ -666,11 +669,30 @@
         this.item = res.data;
         this.totalNum = res.data.travelOrder.buyNum;
         this.statusCode = res.data.travelOrder.status;
+
         this.invoice = res.data.invoice;
         this.travelChildOrders = res.data.travelChildOrders;
         this.travelGoods = res.data.travelGoods;
         this.user = res.data.user;
         this.travelOrder = res.data.travelOrder;
+        // 处理各个状态的局部数据
+        if ( this.statusCode == 1 ) {
+
+          // this.status[1].remainTime = new Date().getTime() - new Date(this.travelOrder.createTime).getTime();
+          let passTime = new Date().getTime() - new Date(this.travelOrder.createTime).getTime();
+          // 2小时
+          let totalTime = 60*1000*60*2;
+          let remainTime = totalTime - passTime;
+          let hours = remainTime / (60*1000*60);
+          let minutes = remainTime % (60*1000*60) / (60*1000);
+          let seconds = remainTime % (60*1000*60) % (60*1000) / 1000;
+          hours = parseInt(hours);
+          minutes = parseInt(minutes);
+          seconds = parseInt(seconds);
+          this.status[1].remainTime = hours + '小时' + minutes + '分钟' + seconds + '秒';
+          // console.log( '时间',this.status[1].remainTime );
+          // console.log( '时间',hours + '小时' + minutes + '分钟' + seconds + '秒' );
+        }
         this.leaveTime =  new Date(this.travelGoods.leaveTime).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime).getDate() + '日';
         //  联系人和联系号码
         this.contactInfo.infos[0].value = this.travelOrder.contactName;
