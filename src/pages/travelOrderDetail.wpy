@@ -14,7 +14,7 @@
       .status-text {
         position: relative;
         line-height: 28rpx;
-        view:nth-child(1) {
+        .des {
           display: inline-block;
           font-size: 28rpx;
           line-height: 28rpx;
@@ -382,10 +382,13 @@
         {{ status[statusCode].title }}
       </view>
       <view class="status-text">
-        <view>
-          <text>
+        <view class="des">
+          {{ status[statusCode].des }}
+          <text wx:if="{{ status[statusCode].remainTimeFlag }}">
             剩余{{ status[statusCode].remainTime }}
-            <!--剩余0天22小时56分钟自动关闭-->
+          </text>
+          <text wx:if="{{ status[statusCode].cancelTimeFlag }}">
+            {{ status[statusCode].cancelTime }}
           </text>
         </view>
         <view class="price" wx:if="{{ status[statusCode].price }}">
@@ -624,6 +627,8 @@
         5: {
           title: '订单已取消，谢谢使用',
           des: '取消时间 ',
+          cancelTimeFlag: true,
+          cancelTime: '',
           refundExplainBar: true,
           otherBar: true,
           reOrderBtn: true,
@@ -692,6 +697,9 @@
           this.status[1].remainTime = hours + '小时' + minutes + '分钟' + seconds + '秒';
           // console.log( '时间',this.status[1].remainTime );
           // console.log( '时间',hours + '小时' + minutes + '分钟' + seconds + '秒' );
+        } else if (this.statusCode == 5) {
+          this.status[5].cancelTime = this.calDate(this.travelOrder.updateTime);
+          console.log('取消时间', this.status[5].cancelTime);
         }
         this.leaveTime =  new Date(this.travelGoods.leaveTime).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime).getDate() + '日';
         //  联系人和联系号码
