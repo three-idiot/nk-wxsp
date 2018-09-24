@@ -9,7 +9,7 @@
     </view>
     <view class="news-content">
       <!-- {{newsInfo.detail}} -->
-      <import src="../wxParse/wxParse.wxml"/>
+      <import src="../plugins/wxParse/wxParse.wxml"/>
       <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
     </view>
     <view class="related-news" wx:if="{{ newsInfo.keyNews }}">
@@ -34,7 +34,7 @@
   import util from '../plugins/util'
   import api from '../plugins/api'
   /** 下面是将html嵌入小程序的插件 */
-  import WxParse from '../wxParse/wxParse.js';
+  import WxParse from '../plugins/wxParse/wxParse.js';
   /**
   * WxParse.wxParse(bindName , type, data, target,imagePadding)
   * 1.bindName绑定的数据名(必填)
@@ -117,7 +117,7 @@
   }
 </script>
 <style lang="less">
-  @import "../wxParse/wxParse.wxss";
+  @import "../plugins/wxParse/wxParse.wxss";
   .newsdetal {
     width: 100vw;
     height: auto;

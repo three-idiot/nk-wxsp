@@ -11,18 +11,19 @@
         <view class="title-money">
             <text class="title">{{params.name}}</text>
             <text class="money">
-                <text class="line">￥<text class="red">{{params.realPrice}}</text></text>
-            <text class="abandon line">￥{{params.salePrice}}</text>
+                <text class="line">￥<text class="red">{{params.realPrice/100}}</text></text>
+            <text class="abandon line">￥{{params.salePrice/100}}</text>
             </text>
         </view>
         <view class="infos">
             <text class="go">{{leaveTime+params.leaveAddress}}出发</text>
             <text class="num">成团人数 {{params.peopleMaxNum}}/<text class="green">{{params.peopleMinNum}}</text></text>
-            <text class="time">倒计时 <text class="red">
+            <text wx:if="{{statusMap[params.groupOrderStatus]!='报名中'}}" class="dis-btn">{{statusMap[params.groupOrderStatus]}}</text>
+            <text wx:if="{{statusMap[params.groupOrderStatus]=='报名中'}}" class="time">倒计时 <text class="red">
                     <text wx:if="{{duration.day}}">{{duration.day+'天'}}</text>
-                    <text wx:if="{{duration.hour}}">{{duration.hour+'小时'}}</text>
-                    <text wx:if="{{duration.mini}}">{{duration.mini+'分钟'}}</text>
-                </text>
+            <text wx:if="{{duration.hour}}">{{duration.hour+'小时'}}</text>
+            <text wx:if="{{duration.mini}}">{{duration.mini+'分钟'}}</text>
+            </text>
             </text>
         </view>
     </view>
@@ -76,10 +77,19 @@ export default class Index extends wepy.page {
             'tripDescribe',
             'costDescribe'
         ],
-        duration:{
-            day:null,
-            hour:null,
-            mini:null,
+        duration: {
+            day: null,
+            hour: null,
+            mini: null,
+        },
+        statusMap: {
+            0: '报名中',
+            1: '报名中',
+            2: '组团失败',
+            3: '已成团',
+            4: '已结束',
+            5: '强制成团',
+            6: '退款',
         }
     }
 
@@ -134,10 +144,10 @@ export default class Index extends wepy.page {
         util.requestApi(api.apiTravelGoodsDetail + this.id, {}, wx.getStorageSync('userToken')).then((res) => {
             if (res.data && res.code == 200) {
                 self.params = res.data;
-                var duration=new Date(res.data.closeDate) - new Date();
-                self.duration.day = Math.floor(duration/1000/3600/24);
-                self.duration.hour = Math.floor((duration/1000/3600)%24);
-                self.duration.mini = Math.floor(duration/1000/60%60);
+                var duration = new Date(res.data.closeDate.slice(0, 19)) - new Date();
+                self.duration.day = Math.floor(duration / 1000 / 3600 / 24);
+                self.duration.hour = Math.floor((duration / 1000 / 3600) % 24);
+                self.duration.mini = Math.floor(duration / 1000 / 60 % 60);
                 WxParse.wxParse('lineDescribe', 'html', res.data.lineDescribe, self, 5);
                 WxParse.wxParse('tripDescribe', 'html', res.data.tripDescribe, self, 5);
                 WxParse.wxParse('costDescribe', 'html', res.data.costDescribe, self, 5);
@@ -154,7 +164,7 @@ export default class Index extends wepy.page {
 </script>
 
 <style lang="less" scoped>
-@import "../plugins//wxParse/wxParse.wxss";
+@import "../plugins/wxParse/wxParse.wxss";
 
 swiper {
     width: 750rpx;
@@ -223,6 +233,17 @@ swiper {
 
         .red {
             color: red;
+        }
+
+        .dis-btn {
+            background: #F2F2F2;
+            border-radius: 8rpx;
+            width: 215rpx;
+            line-height: 59rpx;
+            font-size: 24rpx;
+            color: #888888;
+            letter-spacing: 0;
+            text-align: center;
         }
     }
 }

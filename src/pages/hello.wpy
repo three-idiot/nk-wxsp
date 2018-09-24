@@ -34,8 +34,8 @@
                 // 检查是不是授权了地理信息
                 self.getLocationAuth(setting);
                 // 获取用户是不是已经绑定了账户，如果绑定了直接进首页，没有绑定进绑定
-                let isBind = true;
-                if (isBind) {
+                let userBind = wx.getStorageSync('userBind');
+                if (userBind) {
                   wx.switchTab({
                     url: 'index'
                   });
@@ -103,6 +103,7 @@
     /** 获取地理位置成功回调 */
     handleGetLocationSuccess (data) {
       console.log('获取地理位置成功', data);
+      wx.setStorageSync('userLocation', data);
     }
     /** 获取地理位置失败回调 */
     handleGetLocationFail (err) {

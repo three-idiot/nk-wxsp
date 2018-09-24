@@ -4,11 +4,11 @@ import wepy from 'wepy'
 export default class extends wepy.app {
     config = {
         pages: [
-            'pages/bindPhone',
             'pages/hello',
             'pages/index',
             'pages/my',
             'pages/orderList',
+            'pages/bindPhone',
             'pages/signSecond',
             'pages/orderDetail',
             'pages/signDetail',
@@ -23,6 +23,7 @@ export default class extends wepy.app {
             'pages/outPage',
             'pages/visa',
             'pages/travel',
+            'pages/travel2',
             'pages/travelDetail',
             'pages/fillOrder',
             'pages/travelOrders',
@@ -59,6 +60,12 @@ export default class extends wepy.app {
                     "selectedIconPath": "images/tab/travel-active.png"
                 },
                 {
+                    "pagePath": "pages/travel2",
+                    "text": "商务",
+                    "iconPath": "images/tab/travel2.png",
+                    "selectedIconPath": "images/tab/travel2-active.png"
+                },
+                {
                     "pagePath": "pages/my",
                     "text": "我的",
                     "iconPath": "images/tab/mine.png",
@@ -80,12 +87,12 @@ export default class extends wepy.app {
         this.use('promisify')
     }
 
-    onLoad () {
+    onLoad() {
         /**
          * 返回指定format的string
          * format eg:'yyyy-MM-dd hh:mm:ss'
          **/
-        Date.prototype.format = function(format) {
+        Date.prototype.format = function (format) {
             var o = {
                 "M+": this.getMonth() + 1,
                 "d+": this.getDate(),

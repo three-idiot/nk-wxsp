@@ -111,6 +111,7 @@
       },
       formSubmit () {
         console.log('绑定');
+        let self = this;
         let isValid = true;
         /** 手机号 */
         if (this.phone == '') {
@@ -119,6 +120,7 @@
             icon: 'none',
           })
           isValid = false;
+          return;
         } else {
           if (!this.telReg.test(this.phone)) {
             wx.showToast({
@@ -126,6 +128,7 @@
               icon: 'none',
             })
             isValid = false;
+            return;
           }
         }
         /** 验证码 */
@@ -135,35 +138,24 @@
             icon: 'none',
           })
           isValid = false;
+        } else {
+          isValid = true;
         }
         if (!isValid) {
           return;
         } else {
-          this.requestSubmit();
+          self.requestSubmit();
         }
-      },
-      requestSubmit () {
-        let self = this;
-        util.requestPostApi(api.apiSaveUserInfo, {
-          phone: self.phone,
-          code: self.authCode,
-          code1: self.referee
-        }, wx.getStorageSync('userToken'), 'POST').then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('绑定userInfo返回：', res.data);
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
       },
       formReset () {},
       handleScan () {
+        let self = this;
         wx.scanCode({
           onlyFromCamera: false,
           success (res) {
             console.log('扫码结果', res);
+            self.referee = res.result;
+            self.$apply();
             wx.showToast({
               title: res.result,
               icon: 'success',
@@ -179,8 +171,34 @@
       }
     }
 
-    events = {
-
+    requestSubmit () {
+      let self = this;
+      let userInfo = wx.getStorageSync('userInfo');
+      let userLocation = wx.getStorageSync('userLocation');
+      util.requestPostApi(api.apiSaveUserInfo, {
+        nickName: userInfo.nickName,
+        gender: userInfo.gender,
+        province: 1 || userInfo.province,
+        city: 1 || userInfo.city,
+        country: 1 || userInfo.country,
+        phone: self.phone,
+        authCode: self.authCode,
+        referee: self.referee,
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude
+      }, wx.getStorageSync('userToken')).then((res) => {
+          if (res.code == 200) {
+            console.log('绑定userInfo返回：', res.data);
+            wx.setStorageSync('userBind', 'success');
+            wx.switchTab({
+              url: 'index'
+            });
+          }
+      }).catch((msg) => {
+        if (msg == 'reAuth') {
+          self.goAuth();
+        }
+      });
     }
 
     onLoad() {
