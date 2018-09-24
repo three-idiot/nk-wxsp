@@ -39,8 +39,8 @@
       <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="365" column="49" lean-forward="true" selection-start-line="365" selection-start-column="49" selection-end-line="365" selection-end-column="49" />
+            <state relative-caret-position="3748">
+              <caret line="355" column="28" lean-forward="true" selection-start-line="355" selection-start-column="28" selection-end-line="355" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -57,8 +57,11 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1568">
-              <caret line="662" selection-start-line="662" selection-end-line="662" />
+            <state relative-caret-position="440">
+              <caret line="658" column="100" lean-forward="true" selection-start-line="658" selection-start-column="100" selection-end-line="658" selection-end-column="100" />
+              <folding>
+                <element signature="e#13222#13245#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,7 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>goTravelDetail</find>
       <find>goTravelPeople</find>
       <find>travelO</find>
       <find>退款说明</find>
@@ -97,6 +99,7 @@
       <find>pay</find>
       <find>infoList</find>
       <find>金</find>
+      <find>test</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -292,7 +295,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188894000" />
+    <option name="totallyTimeSpent" value="191060000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -637,15 +640,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="365" column="49" lean-forward="true" selection-start-line="365" selection-start-column="49" selection-end-line="365" selection-end-column="49" />
+        <state relative-caret-position="3748">
+          <caret line="355" column="28" lean-forward="true" selection-start-line="355" selection-start-column="28" selection-end-line="355" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1568">
-          <caret line="662" selection-start-line="662" selection-end-line="662" />
+        <state relative-caret-position="440">
+          <caret line="658" column="100" lean-forward="true" selection-start-line="658" selection-start-column="100" selection-end-line="658" selection-end-column="100" />
+          <folding>
+            <element signature="e#13222#13245#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

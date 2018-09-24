@@ -644,7 +644,7 @@
       }
     }
     calDate(date) {
-      date = new Date();
+      date = new Date(date);
       let o = {
         "y+": date.getFullYear(),
         "M+" : date.getMonth()+1, //月份
@@ -679,7 +679,8 @@
         this.otherInfo.infos[0].value = this.travelOrder.orderNo;
         this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
         this.otherInfo.infos[2].value = this.travelOrder.payId ? this.travelOrder.payId : '/';
-        this.otherInfo.infos[3].value = this.calDate(this.travelOrder.payTime);
+        this.otherInfo.infos[3].value = this.travelOrder.payTime ? this.calDate(new Date()) : '/';
+        console.log('haha',this.otherInfo);
         // 退款信息
         this.refundList = this.item.refundOrders;
         let travelChildOrders = this.item.travelChildOrders;
