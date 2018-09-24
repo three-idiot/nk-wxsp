@@ -175,6 +175,7 @@
       let self = this;
       let userInfo = wx.getStorageSync('userInfo');
       let userLocation = wx.getStorageSync('userLocation');
+      // console.log(userInfo.nickName, userInfo.gender);
       util.requestPostApi(api.apiSaveUserInfo, {
         nickName: userInfo.nickName,
         gender: userInfo.gender,

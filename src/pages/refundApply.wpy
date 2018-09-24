@@ -127,7 +127,8 @@
       </view>
       <view class="choose-people">
         <checkbox-group bindchange="peopleChange">
-          <label class="checkbox" wx:key="{{index}}" wx:for="{{travelChildOrders}}">
+          <!-- 这里只有状态为1的才是可退款状态 -->
+          <label class="checkbox" wx:key="{{index}}" wx:if="{{item.status == '1'}}" wx:for="{{travelChildOrders}}">
             <checkbox value="{{item.id}}" />出行人{{index+1}}
             <text class="traveller-info">{{item.travelUserInfo.name}}  (成人 ￥{{item.unitPrice/100}}/人)</text>
           </label>
