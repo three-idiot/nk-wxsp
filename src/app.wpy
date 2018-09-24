@@ -4,6 +4,7 @@ import wepy from 'wepy'
 export default class extends wepy.app {
     config = {
         pages: [
+            'pages/bindPhone',
             'pages/hello',
             'pages/index',
             'pages/my',
@@ -28,7 +29,8 @@ export default class extends wepy.app {
             'pages/travelOrderDetail',
             'pages/fillInvoice',
             'pages/clause',
-            'pages/travelPeople'
+            'pages/travelPeople',
+            'pages/locateFail',
         ],
         window: {
             backgroundTextStyle: "light",

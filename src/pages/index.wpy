@@ -137,7 +137,7 @@ export default class Index extends wepy.page {
                             self.userInfoRes = res;
                             wx.setStorageSync('userInfo', res.userInfo);
                             self.requestSaveUserInfo({
-                                nickName: res.userInfo.nickName,
+                                nickName: encodeURIComponent(res.userInfo.nickName),
                                 gender: res.userInfo.gender,
                                 city: res.userInfo.city,
                                 province: res.userInfo.province,

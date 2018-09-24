@@ -11,28 +11,55 @@
   import util from '../plugins/util'
   import api from '../plugins/api'
 
+  // var nii = ' 六月';
+  // var nini = {"nickName":" 六月","gender":2,"language":"zh_CN","city":"","province":"Beijing","country":"China","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJqRuAzPnW2xe3ibYewccH7W4icsR08yn5t1GIzicic63JcPGXgm3iboj8LcSM6ryBU9hphJfr5ibPhJCzw/132"}
+
   export default class Hello extends wepy.page {
     config = {
       navigationBarTitleText: '朝鲜通'
     }
 
     onLoad() {
-      let self = this
-      let userToken = wx.getStorageSync('userToken');
-      let userInfo = wx.getStorageSync('userInfo');
-      if (userInfo) {
-        wx.switchTab({
-          url: 'index'
-        });
-        return;
-      }
+      let self = this;
+      wx.getSetting({
+        success (setting) {
+          // 是否授权用户信息
+          if (setting.authSetting['scope.userInfo']) {
+            // 授权过了用户信息，直接请求用户信息并保存
+            wx.getUserInfo({
+              withCredentials: true,
+              success: function(res) {
+                console.log('hello 页面 getUserInfo成功：', res)
+                wx.setStorageSync('userInfo', res.userInfo);
+                // 检查是不是授权了地理信息
+                self.getLocationAuth(setting);
+                // 获取用户是不是已经绑定了账户，如果绑定了直接进首页，没有绑定进绑定
+                let isBind = true;
+                if (isBind) {
+                  wx.switchTab({
+                    url: 'index'
+                  });
+                } else {
+                  wx.navigateTo({
+                    url: 'bindPhone'
+                  });
+                }
+              }
+            })
+          } else {
+            // 获取地理位置
+            self.getLocationAuth(setting);
+          }
+        }
+      });
+      
       wx.login({
         success (res) {
           if (res.code) {
             util.requestApi(api.apiLogin, {
               code: res.code
             }).then((res1) => {
-              // console.log(res1.data);
+              // console.log('登陆成功', res1.data);
               wx.setStorageSync('userToken', res1.data);
             });
           } else {
@@ -40,27 +67,53 @@
           }
         }
       });
-
-      wx.getSetting({
-        success: function(res1){
-          if (res1.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-            wx.getUserInfo({
-              withCredentials: true,
-              success: function(res) {
-                console.log('hello 页面 getUserInfo成功：', res)
-              }
-            })
+    }
+    /** 获取地理位置授权 */
+    getLocationAuth (setting) {
+      let self = this;
+      if (setting.authSetting['scope.userLocation']) {
+        self.getLocation();
+      } else {
+        wx.authorize({
+          scope: 'scope.userLocation',
+          success (res) {
+            self.getLocation();
+          },
+          fail (err) {
+            console.log('授权位置失败：', err);
+            wx.navigateTo({
+              url: 'locateFail'
+            });
           }
+        });
+      }
+    }
+    /** 获取地理位置 */
+    getLocation () {
+      let self = this;
+      wx.getLocation({
+        success (res) {
+          self.handleGetLocationSuccess(res);
+        },
+        fail (err) {
+          self.handleGetLocationFail(err);
         }
-      })
+      });
+    }
+    /** 获取地理位置成功回调 */
+    handleGetLocationSuccess (data) {
+      console.log('获取地理位置成功', data);
+    }
+    /** 获取地理位置失败回调 */
+    handleGetLocationFail (err) {
+      console.log('获取地理信息失败', err);
     }
 
     bindGetUserInfo (e) {
-      // console.log('bindGetUserInfo: ', e.detail.userInfo)
+      console.log('bindGetUserInfo: ', e.detail.userInfo)
       if (e.detail.userInfo) {
-        wx.switchTab({
-          url: 'index'
+        wx.navigateTo({
+          url: 'bindPhone'
         });
       }
     }
