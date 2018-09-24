@@ -384,12 +384,8 @@
       <view class="status-text">
         <view class="des">
           {{ status[statusCode].des }}
-          <text wx:if="{{ status[statusCode].remainTimeFlag }}">
-            剩余{{ status[statusCode].remainTime }}
-          </text>
-          <text wx:if="{{ status[statusCode].cancelTimeFlag }}">
-            {{ status[statusCode].cancelTime }}
-          </text>
+          {{ status[statusCode].remainTimeFlag? '剩余' + status[statusCode].remainTime : '' }}
+          {{ status[statusCode].cancelTimeFlag? status[statusCode].cancelTime : '' }}
         </view>
         <view class="price" wx:if="{{ status[statusCode].price }}">
           <text>￥</text>{{ travelGoods.salePrice }}

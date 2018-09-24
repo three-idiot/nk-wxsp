@@ -48,8 +48,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="385" column="10" lean-forward="true" selection-start-line="385" selection-start-column="10" selection-end-line="385" selection-end-column="10" />
+            <state relative-caret-position="264">
+              <caret line="387" column="85" selection-start-line="387" selection-start-column="85" selection-end-line="387" selection-end-column="85" />
               <folding>
                 <element signature="e#13222#13245#0" expanded="true" />
               </folding>
@@ -286,7 +286,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="196009000" />
+    <option name="totallyTimeSpent" value="196224000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -638,8 +638,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="385" column="10" lean-forward="true" selection-start-line="385" selection-start-column="10" selection-end-line="385" selection-end-column="10" />
+        <state relative-caret-position="264">
+          <caret line="387" column="85" selection-start-line="387" selection-start-column="85" selection-end-line="387" selection-end-column="85" />
           <folding>
             <element signature="e#13222#13245#0" expanded="true" />
           </folding>
