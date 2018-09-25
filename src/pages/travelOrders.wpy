@@ -154,7 +154,7 @@
           <text>{{ item.travelGoods.leaveTime }}{{ item.travelGoods.leaveAddress }}出发</text>
         </view>
         <view class="m-right">
-          <text>￥{{ item.travelOrder.orderPrice }}</text>
+          <text>￥{{ item.travelOrder.orderPrice/100 }}</text>
         </view>
       </view>
       <view class="bottom">
@@ -230,12 +230,12 @@
         6: {
           title: '申请退款',
           cancelBtn: false,
-          refundBtn: true
+          refundBtn: false
         },
         7: {
           title: '已退款',
           cancelBtn: false,
-          refundBtn: true
+          refundBtn: false
         }
       }
     }
