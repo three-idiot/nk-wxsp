@@ -388,7 +388,7 @@
           {{ status[statusCode].cancelTimeFlag? status[statusCode].cancelTime : '' }}
         </view>
         <view class="price" wx:if="{{ status[statusCode].price }}">
-          <text>￥</text>{{ travelGoods.salePrice/100 }}
+          <text>￥</text>{{ travelOrder.orderPrice/100 }}
         </view>
         <view class="explain" wx:if="{{ status[statusCode].refundExplain }}">
           退款说明
@@ -419,7 +419,7 @@
           <view class="left">
             <repeat for="{{ item.travelUserInfos }}" key="index2" index="index" item="item2">
             <view class="people">
-              <view>出行人</view><view>{{ item2.name }}<text>（{{ travelUserType[item2.travelUserType] }} ￥{{ item2.unitPrice }}／人）</text></view>
+              <view>出行人</view><view>{{ item2.name }}<text>（{{ travelUserType[item2.travelUserType] }} ￥{{ item2.unitPrice/100 }}／人）</text></view>
             </view>
             </repeat>
           </view>
@@ -465,7 +465,7 @@
       <view class="payPrice">
         <text>金额</text>
         <text>￥</text>
-        <text>{{ travelGoods.salePrice/100 }}</text>
+        <text>{{ travelOrder.orderPrice/100 }}</text>
       </view>
       <view class="cancel" @tap="cancelShow({{item.travelOrder.id}})">取消订单</view>
       <view class="go" @tap="pay({{item.travelOrder.id}})">去支付</view>
