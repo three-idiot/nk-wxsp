@@ -108,7 +108,7 @@
             title: '出行人' + (i+1),
             infos: [
               {key:'中文姓名', value: item.name},
-              {key:'身份证', value: item.cardId},
+              {key:item.cardId?'身份证' : '护照', value: item.cardId? item.cardId : item.passport},
               {key:'手机号码', value: item.phone},
             ]
           }
