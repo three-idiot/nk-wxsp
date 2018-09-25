@@ -230,12 +230,12 @@
         6: {
           title: '申请退款',
           cancelBtn: false,
-          refundBtn: true
+          refundBtn: false
         },
         7: {
           title: '已退款',
           cancelBtn: false,
-          refundBtn: true
+          refundBtn: false
         }
       }
     }
