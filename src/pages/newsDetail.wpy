@@ -12,6 +12,8 @@
       <import src="../plugins/wxParse/wxParse.wxml"/>
       <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
     </view>
+    <!-- 运营人员 -->
+    <view class="pubname">运营人员  {{ newsInfo.publisherName }}</view>
     <view class="related-news" wx:if="{{ newsInfo.keyNews }}">
       <view class="related-title">类似推荐</view>
       <view class="related-news-info">
@@ -53,30 +55,30 @@
 
     data = {
       newsInfo: {
-        "id": 1,
-        "newsNo": "BN8980800980809809",
-        "title": "第一次去朝鲜旅游的注意事项注意事项",
-        "newsKey": "ailisi",
-        "detail": "zixun",
-        "top": 1,
-        "type": null,
-        "status": 1,
-        "publisher": '桦桦',
-        "createTime": new Date('2018-09-09 16:12:00'),
-        "images": [
-          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-        ],
-        "keyNews": {
-          newsNo: 'HB78798789797979',
-          title: '我是推荐资讯',
-          newsKey: 'tuijian',
-          publisher: '唐先森',
-          createTime: new Date('2018-09-12 16:12:00'),
-          status: 2,
-          detail: '呵呵'
-        }
+        // "id": 1,
+        // "newsNo": "BN8980800980809809",
+        // "title": "第一次去朝鲜旅游的注意事项注意事项",
+        // "newsKey": "ailisi",
+        // "detail": "zixun",
+        // "top": 1,
+        // "type": null,
+        // "status": 1,
+        // "publisher": '桦桦',
+        // "createTime": new Date('2018-09-09 16:12:00'),
+        // "images": [
+        //   { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+        //   { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+        //   { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+        // ],
+        // "keyNews": {
+        //   newsNo: 'HB78798789797979',
+        //   title: '我是推荐资讯',
+        //   newsKey: 'tuijian',
+        //   publisher: '唐先森',
+        //   createTime: new Date('2018-09-12 16:12:00'),
+        //   status: 2,
+        //   detail: '呵呵'
+        // }
       }
     }
 
@@ -138,6 +140,11 @@
     }
     .news-content {
       padding-bottom: 30rpx;
+    }
+    .pubname {
+      color: #888;
+      font-size: 40rpx;
+      line-height: 70rpx;
     }
     .related-news {
       position: absolute;

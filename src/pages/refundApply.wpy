@@ -197,32 +197,32 @@
       refundOrderNumber: '',
       /** 子订单列表，这个是从上一个页面通过参数传递过来的 */
       travelChildOrders: [
-        {
-          id: '1',
-          orderId: '33',
-          status: 3,
-          userType: 1,
-          unitPrice: 10000,
-          travelUserInfo: {
-            name: '小明',
-            cardType: 1,
-            cardId: '1',
-            phone: '13621189888'
-          }
-        },
-        {
-          id: '2',
-          orderId: '33',
-          status: 3,
-          userType: 1,
-          unitPrice: 12000,
-          travelUserInfo: {
-            name: '小明爸爸',
-            cardType: 1,
-            cardId: '1',
-            phone: '13621189888'
-          }
-        }
+        // {
+        //   id: '1',
+        //   orderId: '33',
+        //   status: 3,
+        //   userType: 1,
+        //   unitPrice: 10000,
+        //   travelUserInfo: {
+        //     name: '小明',
+        //     cardType: 1,
+        //     cardId: '1',
+        //     phone: '13621189888'
+        //   }
+        // },
+        // {
+        //   id: '2',
+        //   orderId: '33',
+        //   status: 3,
+        //   userType: 1,
+        //   unitPrice: 12000,
+        //   travelUserInfo: {
+        //     name: '小明爸爸',
+        //     cardType: 1,
+        //     cardId: '1',
+        //     phone: '13621189888'
+        //   }
+        // }
       ],
       /** 退款原因 */
       resons: [
@@ -273,6 +273,13 @@
     /** 请求退款 */
     handleRefund () {
       let self = this;
+      if (self.refundResons == '') {
+        wx.showToast({
+          title: '请至少选择一条退款原因',
+          icon: 'none',
+        })
+        return;
+      }
       util.requestPostApi(api.apiRefund, {
         orderChildIds: self.orderChildIds.join(','),
         userRefundReason: self.refundResons
