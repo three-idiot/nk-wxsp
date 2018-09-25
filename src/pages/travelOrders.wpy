@@ -159,7 +159,7 @@
       </view>
       <view class="bottom">
         <text>行人数  {{ item.travelOrder.buyNum }}</text>
-        <text @tap="goRefund({{item}})" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
+        <text @tap.stop="goRefund({{item}})" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
         <text @tap.stop="cancelShow({{item.travelOrder.id}})" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
       </view>
     </view>
@@ -184,7 +184,7 @@
 
   export default class SignDetail extends wepy.page {
     config = {
-      navigationBarTitleText: '签证办理'
+      navigationBarTitleText: '旅游订单'
     }
     components = {
 
@@ -225,7 +225,7 @@
         5: {
           title: '已取消',
           cancelBtn: false,
-          refundBtn: true
+          refundBtn: false
         },
         6: {
           title: '申请退款',
@@ -310,7 +310,7 @@
 
     }
     calDate(date) {
-      date = new Date();
+      date = new Date(date);
       let o = {
         "y+": date.getFullYear(),
         "M+" : date.getMonth()+1, //月份
@@ -325,9 +325,9 @@
       return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
     }
     getList() {
-      console.log('我要重新请求了');
+      // console.log('我要重新请求了');
       util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
-        console.log( res );
+        // console.log( res );
         this.orderList = res.data.data;
         for ( let i=0;i<this.orderList.length;i++ ) {
           let item = this.orderList[i];
@@ -376,8 +376,11 @@
       //     }
       //   });
     }
-    onLoad() {
-      let self = this;
+    // onLoad() {
+    //   this.getList();
+    // }
+
+    onShow() {
       this.getList();
     }
   }
