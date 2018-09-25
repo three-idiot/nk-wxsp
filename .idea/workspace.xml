@@ -48,20 +48,11 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="891" column="31" lean-forward="true" selection-start-line="891" selection-start-column="31" selection-end-line="891" selection-end-column="31" />
+            <state relative-caret-position="544">
+              <caret line="763" column="38" selection-start-line="763" selection-start-column="38" selection-end-line="763" selection-end-column="38" />
               <folding>
                 <element signature="e#12639#12662#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2165">
-              <caret line="157" column="15" lean-forward="true" selection-start-line="157" selection-start-column="15" selection-end-line="157" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -81,7 +72,6 @@
       <find>payParams</find>
       <find>go</find>
       <find>pay</find>
-      <find>infoList</find>
       <find>test</find>
       <find>金</find>
       <find>leaveTime</find>
@@ -100,6 +90,7 @@
       <find>navigateTo</find>
       <find>pri</find>
       <find>price</find>
+      <find>infoList</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -285,7 +276,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="204579000" />
+    <option name="totallyTimeSpent" value="205773000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -631,15 +622,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2165">
+        <state relative-caret-position="-1043">
           <caret line="157" column="15" lean-forward="true" selection-start-line="157" selection-start-column="15" selection-end-line="157" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="891" column="31" lean-forward="true" selection-start-line="891" selection-start-column="31" selection-end-line="891" selection-end-column="31" />
+        <state relative-caret-position="544">
+          <caret line="763" column="38" selection-start-line="763" selection-start-column="38" selection-end-line="763" selection-end-column="38" />
           <folding>
             <element signature="e#12639#12662#0" expanded="true" />
           </folding>
