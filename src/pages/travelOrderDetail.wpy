@@ -453,7 +453,7 @@
       </view>
     </view>
 
-    <view  class="re-book" wx:if="{{ status[statusCode].reOrderBtn }}">
+    <view  class="re-book" wx:if="{{ status[statusCode].reOrderBtn }}" @tap="reBook">
       重新预订
     </view>
 
@@ -863,7 +863,12 @@
         // wx.navigateTo({
         //   url: 'travelPeople',
         // });
-
+      },
+      reBook() {
+        console.log('你好呀');
+        wx.navigateTo({
+          url: 'travel',
+        });
       },
       goRefund() {
         let _childOrders = JSON.stringify(this.travelChildOrders),
