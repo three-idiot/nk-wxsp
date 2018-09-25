@@ -758,10 +758,10 @@
         // console.log('test',curInfo);
         this.infoList.infos[0].value = curInfo.name;
         if ( curInfo.cardId ) {
-          infoList.infos[1].key = '身份证';
-          infoList.infos[1].value = curInfo.cardId
+          this.infoList.infos[1].key = '身份证';
+          this.infoList.infos[1].value = curInfo.cardId
         } else {
-          infoList.infos[1].key = '护照';
+          this.infoList.infos[1].key = '护照';
           this.infoList.infos[1].value = curInfo.passport;
         }
         this.infoList.infos[2].value = curInfo.phone;
