@@ -317,7 +317,33 @@ export default class Index extends wepy.page {
                     duration: 2000
                 });
                 return false;
+            } else if (this.form.passenger[index].type == 0) {
+                if (!(/^\d{6}(19|20)*[0-9]{2}(0[1-9]{1}|10|11|12)(0[1-9]{1}|1[0-9]|2[0-9]|30|31)(\w*)$/.test(this.form.passenger[index].number))) {
+                    wx.showToast({
+                        title: '请正确填写身份证号码',
+                        icon: 'none',
+                        duration: 2000
+                    });
+                    return false;
+                }
+            } else if (this.form.passenger[index].type == 1) {
+                if (!(/^[a-zA-Z0-9]{5,17}$/.test(this.form.passenger[index].number))) {
+                    wx.showToast({
+                        title: '请正确填写护照号码',
+                        icon: 'none',
+                        duration: 2000
+                    });
+                    return false;
+                }
+            } else {
+                wx.showToast({
+                    title: '请选择证件类型',
+                    icon: 'none',
+                    duration: 2000
+                });
+                return false;
             }
+
             return true;
         },
         phoneInput(index, e) {
@@ -472,7 +498,9 @@ export default class Index extends wepy.page {
             });
     }
     pay() {
-        if(!this.check()){return false;}
+        if (!this.check()) {
+            return false;
+        }
         wx.showModal({
             title: '提示',
             content: '确定提交订单去支付吗？',
@@ -552,15 +580,29 @@ export default class Index extends wepy.page {
             });
             return false;
         }
-        if(!this.methods.adultBlur.call(this)){return false;}
+        if (!this.methods.adultBlur.call(this)) {
+            return false;
+        }
 
-        if(!this.methods.contactNameBlur.call(this)){return false;}
-        if(!this.methods.contactPhoneBlur.call(this)){return false;}
-        if(!this.methods.contactEmailBlur.call(this)){return false;}
+        if (!this.methods.contactNameBlur.call(this)) {
+            return false;
+        }
+        if (!this.methods.contactPhoneBlur.call(this)) {
+            return false;
+        }
+        if (!this.methods.contactEmailBlur.call(this)) {
+            return false;
+        }
         for (let i = 0; i < this.form.passenger.length; i++) {
-            if(!this.methods.nameBlur.call(this,i)){return false;}
-            if(!this.methods.numberBlur.call(this,i)){return false;}
-            if(!this.methods.phoneBlur.call(this,i)){return false;}
+            if (!this.methods.nameBlur.call(this, i)) {
+                return false;
+            }
+            if (!this.methods.numberBlur.call(this, i)) {
+                return false;
+            }
+            if (!this.methods.phoneBlur.call(this, i)) {
+                return false;
+            }
         }
         return true;
     }
