@@ -865,9 +865,8 @@
         // });
       },
       reBook() {
-        console.log('你好呀');
-        wx.navigateTo({
-          url: 'travel',
+        wx.switchTab({
+          url: 'travel'
         });
       },
       goRefund() {
