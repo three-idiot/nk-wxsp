@@ -890,8 +890,12 @@
 
     onLoad(option) {
       this.orderId = option.id;
-      this.fetchData(option.id);
-      this.fetchUserInfos(option.id);
+      // this.fetchData(option.id);
+      // this.fetchUserInfos(option.id);
+    }
+    onShow(option) {
+      this.fetchData(this.orderId);
+      this.fetchUserInfos(this.orderId);
     }
 
   }
