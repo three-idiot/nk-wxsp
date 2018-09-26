@@ -328,7 +328,6 @@
       o['m+'] < 10? o['m+'] = '0' +o['m+'] : o['m+'];
       o['s+'] < 10? o['s+'] = '0' +o['s+'] : o['s+'];
       let result = o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
-      console.log( result );
       return result;
     }
     getList() {
