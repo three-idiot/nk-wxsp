@@ -30,7 +30,10 @@
               withCredentials: true,
               success: function(res) {
                 console.log('hello 页面 getUserInfo成功：', res)
-                wx.setStorageSync('userInfo', res.userInfo);
+                wx.setStorage({
+                  key: 'userInfo',
+                  data: res.userInfo
+                });
                 // 检查是不是授权了地理信息
                 self.getLocationAuth(setting);
                 // 获取用户是不是已经绑定了账户，如果绑定了直接进首页，没有绑定进绑定
@@ -111,11 +114,17 @@
     }
 
     bindGetUserInfo (e) {
-      console.log('bindGetUserInfo: ', e.detail.userInfo)
-      if (e.detail.userInfo) {
-        wx.navigateTo({
-          url: 'bindPhone'
+      wx.setStorage({
+          key: 'userInfo',
+          data: e.detail.userInfo
         });
+      console.log('userInfo-------', e.detail.userInfo);
+      if (e.detail.userInfo) {
+        setTimeout(() => {
+          wx.navigateTo({
+            url: 'bindPhone'
+          });
+        }, 1000);
       }
     }
   }
