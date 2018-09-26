@@ -571,10 +571,10 @@
       otherInfo:{
         title: '其他',
         infos: [
-          {key:'订单号', value:''},
-          {key:'下单时间', value:''},
-          {key:'支付单号', value:''},
-          {key:'支付时间', value:''},
+          // {key:'订单号', value:''},
+          // {key:'下单时间', value:''},
+          // {key:'支付单号', value:''},
+          // {key:'支付时间', value:''},
         ]
       },
       refundInfo: {
@@ -702,10 +702,23 @@
         this.contactInfo.infos[0].value = this.travelOrder.contactName;
         this.contactInfo.infos[1].value = this.travelOrder.contactPhone ?  this.travelOrder.contactPhone : '/';
         // 其他信息
-        this.otherInfo.infos[0].value = this.travelOrder.orderNo;
-        this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
-        this.otherInfo.infos[2].value = this.travelOrder.payId ? this.travelOrder.payId : '/';
-        this.otherInfo.infos[3].value = this.travelOrder.payTime ? this.calDate(new Date()) : '/';
+        if( this.travelOrder.payTime ) {
+          this.otherInfo.infos = [
+            {key:'订单号', value: this.travelOrder.orderNo},
+            {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
+            {key:'支付单号', value: this.travelOrder.payId},
+            {key:'支付时间', value: this.travelOrder.payTime},
+          ]
+        } else {
+          this.otherInfo.infos = [
+            {key:'订单号', value: this.travelOrder.orderNo},
+            {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
+          ]
+        }
+        // this.otherInfo.infos[0].value = this.travelOrder.orderNo;
+        // this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
+        // this.otherInfo.infos[2].value = this.travelOrder.payId ? this.travelOrder.payId : '/';
+        // this.otherInfo.infos[3].value = this.travelOrder.payTime ? this.calDate(new Date()) : '/';
         console.log('haha',this.otherInfo);
         // 退款信息
         this.refundList = this.item.refundOrders;
