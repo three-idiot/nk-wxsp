@@ -5,7 +5,7 @@
             <image src="{{item.images[0].goodPath}}" />
             <view class="list-travel">
                 <text class="name">{{item.name}}</text>
-                <text class="money">￥<text class="red">{{item.realPrice}}</text><text class="abandon">￥{{item.salePrice}}</text></text>
+                <text class="money">￥<text class="red">{{item.salePrice}}</text><text class="abandon">￥{{item.realPrice}}</text></text>
             </view>
         </view>
     </repeat>

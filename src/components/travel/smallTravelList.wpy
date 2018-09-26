@@ -11,7 +11,7 @@
                 <view class="bottom">
                     <text class="status">{{statusMap[item.groupOrderStatus]}}</text>
                     <text class="num">成团人数 {{item.peopleMaxNum}}/<text class="green">{{item.saleNum}}</text></text>
-                    <text class="money">￥<text class="red">{{item.realPrice/100}}</text><text class="abandon">￥{{item.salePrice/100}}</text></text>
+                    <text class="money">￥<text class="red">{{item.salePrice/100}}</text><text class="abandon">￥{{item.realPrice/100}}</text></text>
                 </view>
             </view>
         </view>

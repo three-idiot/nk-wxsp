@@ -11,8 +11,8 @@
         <view class="title-money">
             <text class="title">{{params.name}}</text>
             <text class="money">
-                <text class="line">￥<text class="red">{{params.realPrice/100}}</text></text>
-            <text class="abandon line">￥{{params.salePrice/100}}</text>
+                <text class="line">￥<text class="red">{{params.salePrice/100}}</text></text>
+            <text class="abandon line">￥{{params.realPrice/100}}</text>
             </text>
         </view>
         <view class="infos">
