@@ -154,7 +154,7 @@
           <text>{{ item.travelGoods.leaveTime }}{{ item.travelGoods.leaveAddress }}出发</text>
         </view>
         <view class="m-right">
-          <text>￥{{ item.travelOrder.orderPrice }}</text>
+          <text>￥{{ item.travelOrder.orderPrice/100 }}</text>
         </view>
       </view>
       <view class="bottom">

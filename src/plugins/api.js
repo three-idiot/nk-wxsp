@@ -12,8 +12,10 @@ export default {
   apiBannerList: host + '/banner/getbannerlist',
 
   apiGoodsList: host + '/goods/getgoodspagelist',
-
+  /** 保存用户信息 */
   apiSaveUserInfo: host + '/wxauto/insertuser',
+  /** 发送验证码 */
+  apiSendVerifyCode: host + '/message/registerCode',
 
   apiGetGoodById: host + '/goods/getgoodbyid',
 

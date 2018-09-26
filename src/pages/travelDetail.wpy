@@ -164,7 +164,7 @@ export default class Index extends wepy.page {
 </script>
 
 <style lang="less" scoped>
-@import "../plugins//wxParse/wxParse.wxss";
+@import "../plugins/wxParse/wxParse.wxss";
 
 swiper {
     width: 750rpx;

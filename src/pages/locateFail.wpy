@@ -1,0 +1,102 @@
+<template>
+  <view class="fail-locate">
+    <image class="korea-icon" src="../images/logo-icon.png"></image>
+    <view class="fail-text1">定位失败，请开启定位</view>
+    <view>
+      <button open-type="openSetting" bindopensetting="bindopensetting">去设置</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  
+  import util from '../plugins/util'
+  import api from '../plugins/api'
+
+  export default class LocateFail extends wepy.page {
+    config = {
+      navigationBarTitleText: '朝鲜通'
+    }
+
+    onLoad() {
+      let self = this;
+      self.getLocation();
+    }
+    /** 获取地理位置授权 */
+    getLocationAuth (setting) {
+      let self = this;
+      if (setting.authSetting['scope.userLocation']) {
+        self.getLocation();
+      } else {
+        wx.authorize({
+          scope: 'scope.userLocation',
+          success (res) {
+            self.getLocation();
+          },
+          fail (err) {
+            console.log('授权位置失败：', err);
+          }
+        });
+      }
+    }
+    /** 获取地理位置 */
+    getLocation () {
+      let self = this;
+      wx.getLocation({
+        success (res) {
+          self.handleGetLocationSuccess(res);
+        },
+        fail (err) {
+          self.handleGetLocationFail(err);
+        }
+      });
+    }
+    /** 获取地理位置成功回调 */
+    handleGetLocationSuccess (data) {
+      console.log('获取地理位置成功', data);
+    }
+    /** 获取地理位置失败回调 */
+    handleGetLocationFail (err) {
+      console.log('获取地理信息失败', err);
+    }
+
+    bindopensetting (e) {
+      console.log('bindopensetting: ', e.detail.userInfo)
+      wx.navigateTo({
+        url: 'hello'
+      });
+    }
+  }
+</script>
+<style lang="less">
+  .fail-locate {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    position: relative;
+    text-align: center;
+    .korea-icon {
+      margin-top: 100rpx;
+      width: 330rpx;
+      height: 110rpx;
+    }
+    .fail-text1 {
+      font-size: 34rpx;
+      color: #333;
+      text-align: center;
+      width: 100%;
+      margin: 90rpx 0;
+    }
+    button {
+      display: block;
+      width: 610rpx;
+      height: 98rpx;
+      background: #387DFF;
+      font-size: 34rpx;
+      line-height: 98rpx;
+      text-align: center;
+      color: #fff;
+    }
+  }
+</style>

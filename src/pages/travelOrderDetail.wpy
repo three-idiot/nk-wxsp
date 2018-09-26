@@ -388,7 +388,7 @@
           {{ status[statusCode].cancelTimeFlag? status[statusCode].cancelTime : '' }}
         </view>
         <view class="price" wx:if="{{ status[statusCode].price }}">
-          <text>￥</text>{{ travelGoods.realPrice }}
+          <text>￥</text>{{ travelOrder.orderPrice/100 }}
         </view>
         <view class="explain" wx:if="{{ status[statusCode].refundExplain }}">
           退款说明
@@ -419,7 +419,7 @@
           <view class="left">
             <repeat for="{{ item.travelUserInfos }}" key="index2" index="index" item="item2">
             <view class="people">
-              <view>出行人</view><view>{{ item2.name }}<text>（{{ travelUserType[item2.travelUserType] }} ￥{{ item2.unitPrice }}／人）</text></view>
+              <view>出行人</view><view>{{ item2.name }}<text>（{{ travelUserType[item2.travelUserType] }} ￥{{ item2.unitPrice/100 }}／人）</text></view>
             </view>
             </repeat>
           </view>
@@ -465,7 +465,7 @@
       <view class="payPrice">
         <text>金额</text>
         <text>￥</text>
-        <text>{{ travelGoods.realPrice }}</text>
+        <text>{{ travelOrder.orderPrice/100 }}</text>
       </view>
       <view class="cancel" @tap="cancelShow({{item.travelOrder.id}})">取消订单</view>
       <view class="go" @tap="pay({{item.travelOrder.id}})">去支付</view>
@@ -490,7 +490,7 @@
         </view>
         <view class="infos">
           <view class="info"><text>退款原因</text><text>{{ refundDialogInfo.userRefundReason }}</text></view>
-          <view class="info"><text>退款金额</text><text>{{ refundDialogInfo.refundFee }}</text></view>
+          <view class="info"><text>退款金额</text><text>{{ refundDialogInfo.refundFee/100 }}</text></view>
           <view class="info"><text>申请时间</text><text>{{ refundDialogInfo.createTime }}</text></view>
           <view class="info"><text>退款编号</text><text>{{ refundDialogInfo.refundNo }}</text></view>
         </view>
@@ -757,7 +757,13 @@
         let curInfo = data[0];
         // console.log('test',curInfo);
         this.infoList.infos[0].value = curInfo.name;
-        this.infoList.infos[1].value = curInfo.passport;
+        if ( curInfo.cardId ) {
+          this.infoList.infos[1].key = '身份证';
+          this.infoList.infos[1].value = curInfo.cardId
+        } else {
+          this.infoList.infos[1].key = '护照';
+          this.infoList.infos[1].value = curInfo.passport;
+        }
         this.infoList.infos[2].value = curInfo.phone;
         this.$apply();
       });
@@ -865,9 +871,8 @@
         // });
       },
       reBook() {
-        console.log('你好呀');
-        wx.navigateTo({
-          url: 'travel',
+        wx.switchTab({
+          url: 'travel'
         });
       },
       goRefund() {
@@ -891,8 +896,12 @@
 
     onLoad(option) {
       this.orderId = option.id;
-      this.fetchData(option.id);
-      this.fetchUserInfos(option.id);
+      // this.fetchData(option.id);
+      // this.fetchUserInfos(option.id);
+    }
+    onShow(option) {
+      this.fetchData(this.orderId);
+      this.fetchUserInfos(this.orderId);
     }
 
   }
