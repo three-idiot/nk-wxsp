@@ -203,7 +203,8 @@ export default class Index extends wepy.page {
         util.requestApi(api.apiTravelGoodsList, {
             pageIndex: self.data.pageIndex,
             pageSize: self.data.pageSize,
-            recommend: 1
+            recommend: 1,
+            type:1
         }, wx.getStorageSync('userToken'), 'POST').then((res) => {
             if (res.data && res.code == 200) {
                 if (res.data.data.length == 0) {
