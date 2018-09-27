@@ -124,7 +124,7 @@
           wx.navigateTo({
             url: 'bindPhone'
           });
-        }, 1000);
+        }, 500);
       }
     }
   }

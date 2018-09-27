@@ -79,6 +79,14 @@
       /** 发送验证码 */
       sendVerifyCode () {
         let self = this;
+        if (!self.phone || !self.telReg.test(this.phone)) {
+          wx.showToast({
+            title: '手机号不合法~',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
         if (!self.countEnd) {
           return;
         } else {
@@ -270,6 +278,7 @@
           display: block;
           font-size: 32rpx;
           height: 100%;
+          width: 340rpx;
           line-height: 98rpx;
         }
         .code-btn {
