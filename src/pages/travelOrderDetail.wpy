@@ -761,6 +761,8 @@
         console.log( res );
         let data = res.data;
         // this.totalNum = data.length;
+        this.manNum = 0;
+        this.childNum = 0;
         for( let i = 0;i<data.length;i++ ) {
           let item = data[i];
           if( item.travelUserType == 1 ) {
