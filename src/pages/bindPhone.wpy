@@ -278,6 +278,7 @@
           display: block;
           font-size: 32rpx;
           height: 100%;
+          width: 340rpx;
           line-height: 98rpx;
         }
         .code-btn {
