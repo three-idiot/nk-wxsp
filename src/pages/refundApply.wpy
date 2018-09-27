@@ -1,124 +1,3 @@
-<style lang="less">
-  page {
-    background: #f4f4f4;
-  }
-  .refund-apply {
-    width: 100%;
-    height: auto;
-    /*background: #fff;*/
-  }
-  .refund-content {
-    background: #fff;
-    .choose-tit {
-      padding: 30rpx;
-      font-size: 28rpx;
-      color: #353535;
-    }
-  }
-
-  .refund-num {
-    background: #fff;
-    padding: 30rpx;
-    margin-top: 30rpx;
-    display: flex;
-    .left {
-      width: 476rpx;
-      .left-top {
-        .refund-text {
-          font-size: 28rpx;
-          color: #353535;
-        }
-        .num-container {
-          margin-left: 24rpx;
-          font-size: 32rpx;
-          color: #ff3941;
-          text {
-            font-size: 24rpx;
-            color: #353535;
-          }
-        }
-      }
-      .left-bottom {
-        font-size: 24rpx;
-        color: #888888;
-        margin-top: 10rpx;
-      }
-    }
-    .right {
-      flex:1;
-      font-size: 28rpx;
-      color: #1DADFF;
-      text-align: right;
-      position: relative;
-      text {
-        position: absolute;
-        top:50%;
-        transform: translate(0,-50%);
-        right: 0;
-      }
-    }
-  }
-  .choose-people,.choose-reason {
-    padding: 30rpx;
-    padding-top: 0;
-    label {
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      font-size: 28rpx;
-      color: #353535;
-      height: 40rpx;
-      line-height: 40rpx;
-      margin-top: 40rpx;
-      checkbox {
-        zoom: 50%;
-        margin-right: 30rpx;
-      }
-    }
-    label:nth-child(1) {
-      margin-top: 0;
-    }
-    .traveller-info {
-      margin-left: 67rpx;
-      color: #888;
-      font-size: 28rpx;
-      line-height: 40rpx;
-    }
-  }
-
-  .refund-reason {
-    background: #fff;
-    margin-top: 30rpx;
-    .reason-tit {
-      padding: 30rpx;
-      view:nth-child(1) {
-        font-size: 28rpx;
-        color: #353535;
-      }
-      view:nth-child(2) {
-        font-size: 24rpx;
-        color: #888888;
-        margin-top: 10rpx;
-      }
-    }
-  }
-
-  .refund-btn {
-    position: fixed;
-    left:0;
-    bottom: 0;
-    width: 100%;
-    height: 98rpx;
-    line-height: 98rpx;
-    font-size: 34rpx;
-    color: #FFFFFF;
-    letter-spacing: 0;
-    text-align: center;
-    background: #387DFF;
-  }
-
-
-</style>
 <template>
   <view class="refund-apply">
     <view class="refund-content">
@@ -311,3 +190,124 @@
     }
   }
 </script>
+<style lang="less">
+  page {
+    background: #f4f4f4;
+  }
+  .refund-apply {
+    width: 100%;
+    height: auto;
+    /*background: #fff;*/
+  }
+  .refund-content {
+    background: #fff;
+    .choose-tit {
+      padding: 30rpx;
+      font-size: 28rpx;
+      color: #353535;
+    }
+  }
+
+  .refund-num {
+    background: #fff;
+    padding: 30rpx;
+    margin-top: 30rpx;
+    display: flex;
+    .left {
+      width: 476rpx;
+      .left-top {
+        .refund-text {
+          font-size: 28rpx;
+          color: #353535;
+        }
+        .num-container {
+          margin-left: 24rpx;
+          font-size: 32rpx;
+          color: #ff3941;
+          text {
+            font-size: 24rpx;
+            color: #353535;
+          }
+        }
+      }
+      .left-bottom {
+        font-size: 24rpx;
+        color: #888888;
+        margin-top: 10rpx;
+      }
+    }
+    .right {
+      flex:1;
+      font-size: 28rpx;
+      color: #1DADFF;
+      text-align: right;
+      position: relative;
+      text {
+        position: absolute;
+        top:50%;
+        transform: translate(0,-50%);
+        right: 0;
+      }
+    }
+  }
+  .choose-people,.choose-reason {
+    padding: 30rpx;
+    padding-top: 0;
+    label {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      font-size: 28rpx;
+      color: #353535;
+      height: 40rpx;
+      line-height: 40rpx;
+      margin-top: 40rpx;
+      checkbox {
+        zoom: 50%;
+        margin-right: 30rpx;
+      }
+    }
+    label:nth-child(1) {
+      margin-top: 0;
+    }
+    .traveller-info {
+      margin-left: 67rpx;
+      color: #888;
+      font-size: 28rpx;
+      line-height: 40rpx;
+    }
+  }
+
+  .refund-reason {
+    background: #fff;
+    margin-top: 30rpx;
+    .reason-tit {
+      padding: 30rpx;
+      view:nth-child(1) {
+        font-size: 28rpx;
+        color: #353535;
+      }
+      view:nth-child(2) {
+        font-size: 24rpx;
+        color: #888888;
+        margin-top: 10rpx;
+      }
+    }
+  }
+
+  .refund-btn {
+    position: fixed;
+    left:0;
+    bottom: 0;
+    width: 100%;
+    height: 98rpx;
+    line-height: 98rpx;
+    font-size: 34rpx;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-align: center;
+    background: #387DFF;
+  }
+
+
+</style>

@@ -7,16 +7,16 @@
     <form class="form-container" bindsubmit="formSubmit" bindreset="formReset">
       <view class="form-item">
         <image class="icon" src="../images/bangding_icon_phone.png"></image>
-        <input class="input" value="{{phone}}" bindinput="handlePhoneInput" bindblur="handlePhoneBlur" placeholder="请输入手机号" /> 
+        <input class="input" type="number" placeholder-style="font-size: 30rpx;" value="{{phone}}" bindinput="handlePhoneInput" bindblur="handlePhoneBlur" placeholder="请输入手机号" /> 
       </view>
       <view class="form-item">
         <image class="icon" src="../images/bangding_icon_verify.png"></image>
-        <input class="input" value="{{authCode}}" bindinput="handleVerifyCodeInput" placeholder="请输入验证码" />
+        <input class="input" type="number" value="{{authCode}}" bindinput="handleVerifyCodeInput" placeholder="请输入验证码" />
         <view class="code-btn {{countEnd ? '' : 'disabled'}}" @tap="sendVerifyCode">{{sendBtnName}}</view>
       </view>
       <view class="form-item">
         <image class="icon" src="../images/scan-1.png"></image>
-        <input class="input" value="{{referee}}" bindinput="handlerefereeInput" placeholder="请输入邀请码" />
+        <input class="input" type="text" value="{{referee}}" bindinput="handlerefereeInput" placeholder="请输入邀请码" />
         <image class="scan-btn" @tap="handleScan" src="../images/scan.png"></image>
       </view>
     </form>
@@ -251,24 +251,31 @@
         padding-left: 34rpx;
         height: 98rpx;
         line-height: 98rpx;
-        overflow: hidden;
+        position: relative;
         &:not(:last-child) {
           margin-bottom: 20rpx;
         }
         .icon {
-          float: left;
+          position: absolute;
+          left: 20rpx;
+          top: 0;
           width: 24rpx;
           height: 30rpx;
           margin: 34rpx 24rpx 0 0;
         }
         .input {
-          float: left;
+          position: absolute;
+          left: 64rpx;
+          top: 0;
+          display: block;
           font-size: 32rpx;
           height: 100%;
           line-height: 98rpx;
         }
         .code-btn {
-          float: right;
+          position: absolute;
+          top: 0;
+          right: 0;
           width: 153rpx;
           height: 100%;
           line-height: 98rpx;
