@@ -121,7 +121,7 @@
               value="{{contactPhone}}"
               placeholder="必填，用于接收短信"/>
         </view>
-                <view class="lable-input line">
+                <!-- <view class="lable-input line">
                     <text>电子邮箱</text>
                     <input class=""
               type="text"
@@ -130,7 +130,7 @@
               bindblur="contactEmailBlur"
               value="{{contactEmail}}"
               placeholder="必填，用于接收订单信息"/>
-        </view>
+        </view> -->
                 </view>
                 <text @tap="clause" class="info-item">点击下一步表示您已阅读并了解 <text class="blue">预定须知</text> 和 <text class="blue">重要条款</text></text>
                 <view class="bottom-btn">
@@ -224,7 +224,7 @@ export default class Index extends wepy.page {
             }],
             contactPhone: '',
             contactName: '',
-            contactEmail: ''
+            // contactEmail: ''
         }
     };
 
@@ -248,7 +248,7 @@ export default class Index extends wepy.page {
                 buyNum: this.form.adult + this.form.child,
                 contactName: this.form.contactName,
                 contactPhone: this.form.contactPhone,
-                contactEmail: this.form.contactEmail,
+                // contactEmail: this.form.contactEmail,
                 travelUserInfos: passenger
             };
             return params;
@@ -391,20 +391,20 @@ export default class Index extends wepy.page {
             return true;
         },
 
-        contactEmailInput(e) {
-            this.form.contactEmail = e.detail.value;
-        },
-        contactEmailBlur(e) {
-            if (!this.form.contactEmail || this.form.contactEmail.indexOf('@') == -1) {
-                wx.showToast({
-                    title: '请正确填写联系人邮箱',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            }
-            return true;
-        },
+        // contactEmailInput(e) {
+        //     this.form.contactEmail = e.detail.value;
+        // },
+        // contactEmailBlur(e) {
+        //     if (!this.form.contactEmail || this.form.contactEmail.indexOf('@') == -1) {
+        //         wx.showToast({
+        //             title: '请正确填写联系人邮箱',
+        //             icon: 'none',
+        //             duration: 2000
+        //         });
+        //         return false;
+        //     }
+        //     return true;
+        // },
         openWindow(index, type) {
             this.selectIndex = index;
             this.idOrPassport = type;
@@ -590,9 +590,9 @@ export default class Index extends wepy.page {
         if (!this.methods.contactPhoneBlur.call(this)) {
             return false;
         }
-        if (!this.methods.contactEmailBlur.call(this)) {
-            return false;
-        }
+        // if (!this.methods.contactEmailBlur.call(this)) {
+        //     return false;
+        // }
         for (let i = 0; i < this.form.passenger.length; i++) {
             if (!this.methods.nameBlur.call(this, i)) {
                 return false;

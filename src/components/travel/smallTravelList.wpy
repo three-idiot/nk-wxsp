@@ -9,7 +9,7 @@
                     <text>{{item.name}}</text>
                 </view>
                 <view class="bottom">
-                    <text class="status">{{statusMap[item.groupOrderStatus]}}</text>
+                    <text class="status {{statusMap[item.groupOrderStatus]!='报名中'?'disable':''}}">{{statusMap[item.groupOrderStatus]}}</text>
                     <text class="num">成团人数 {{item.peopleMaxNum}}/<text class="green">{{item.groupUserNum}}</text></text>
                     <text class="money">￥<text class="red">{{item.salePrice/100}}</text><text class="abandon">￥{{item.realPrice/100}}</text></text>
                 </view>
@@ -113,6 +113,9 @@ export default class SmallTravelList extends wepy.component {
                     line-height: 28rpx;
                     height: 28rpx;
                     padding: 0 5rpx;
+                }
+                .disable {
+                    background: #B2B2B2;
                 }
 
                 .num {
