@@ -17,7 +17,7 @@
         </view>
         <view class="infos">
             <text class="go">{{leaveTime+params.leaveAddress}}出发</text>
-            <text class="num">成团人数 {{params.peopleMaxNum}}/<text class="green">{{params.peopleMinNum}}</text></text>
+            <text class="num">成团人数 {{params.peopleMaxNum}}/<text class="green">{{params.groupUserNum}}</text></text>
             <text wx:if="{{statusMap[params.groupOrderStatus]!='报名中'}}" class="dis-btn">{{statusMap[params.groupOrderStatus]}}</text>
             <text wx:if="{{statusMap[params.groupOrderStatus]=='报名中'}}" class="time">倒计时 <text class="red">
                     <text wx:if="{{duration.day}}">{{duration.day+'天'}}</text>

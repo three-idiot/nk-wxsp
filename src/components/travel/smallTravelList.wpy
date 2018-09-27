@@ -10,7 +10,7 @@
                 </view>
                 <view class="bottom">
                     <text class="status">{{statusMap[item.groupOrderStatus]}}</text>
-                    <text class="num">成团人数 {{item.peopleMaxNum}}/<text class="green">{{item.saleNum}}</text></text>
+                    <text class="num">成团人数 {{item.peopleMaxNum}}/<text class="green">{{item.groupUserNum}}</text></text>
                     <text class="money">￥<text class="red">{{item.salePrice/100}}</text><text class="abandon">￥{{item.realPrice/100}}</text></text>
                 </view>
             </view>
