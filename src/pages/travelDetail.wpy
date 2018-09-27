@@ -16,10 +16,10 @@
             </text>
         </view>
         <view class="infos">
-            <text class="go">{{leaveTime+params.leaveAddress}}出发</text>
-            <text class="num">成团人数 {{params.peopleMaxNum}}/<text class="green">{{params.groupUserNum}}</text></text>
+            <text class="go item">{{leaveTime+params.leaveAddress}}出发</text>
+            <text class="num item">成团人数 {{params.peopleMaxNum}}/<text class="green">{{params.groupUserNum}}</text></text>
             <text wx:if="{{statusMap[params.groupOrderStatus]!='报名中'}}" class="dis-btn">{{statusMap[params.groupOrderStatus]}}</text>
-            <text wx:if="{{statusMap[params.groupOrderStatus]=='报名中'}}" class="time">倒计时 <text class="red">
+            <text wx:if="{{statusMap[params.groupOrderStatus]=='报名中'}}" class="time item">倒计时 <text class="red">
                     <text wx:if="{{duration.day}}">{{duration.day+'天'}}</text>
             <text wx:if="{{duration.hour}}">{{duration.hour+'小时'}}</text>
             <text wx:if="{{duration.mini}}">{{duration.mini+'分钟'}}</text>
@@ -242,10 +242,36 @@ swiper {
             color: red;
         }
 
+        .item {
+            line-height: 59rpx;
+        }
+
+        .go {
+            // max-width: 450rpx;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            flex-shrink:1;
+            text-align: left;
+        }
+
+        .num {
+            width: 160rpx;
+            flex-shrink:0;
+            text-align: center;
+        }
+
+        .time {
+            width: 265rpx;
+            flex-shrink:0;
+            text-align: right;
+        }
+
         .dis-btn {
             background: #F2F2F2;
             border-radius: 8rpx;
-            width: 215rpx;
+            padding-left: 30rpx;
+            padding-right: 30rpx;
             line-height: 59rpx;
             font-size: 24rpx;
             color: #888888;

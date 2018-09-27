@@ -349,7 +349,7 @@ export default class Index extends wepy.page {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: block;
-                margin-top: 8rpx;
+                margin-top: 6rpx;
             }
         }
     }
