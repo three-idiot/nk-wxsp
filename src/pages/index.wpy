@@ -137,6 +137,10 @@ export default class Index extends wepy.page {
         self.loop();
     }
 
+    onShow() {
+        this.requestGetAds();
+    }
+
     /**
      * 获取资讯列表
      */
@@ -228,8 +232,6 @@ export default class Index extends wepy.page {
         }
     }
 
-    onShow() {}
-
     jumpToNewslist() {
         wx.navigateTo({
             url: 'newsList'
@@ -251,37 +253,6 @@ export default class Index extends wepy.page {
             }
         });
     }
-
-    // requestGetGoods() {
-    //     let self = this;
-    //     util.requestApi(api.apiGoodsList, {
-    //         size: 10000
-    //     }, wx.getStorageSync('userToken')).then((res) => {
-    //         if (res.data && res.code == 200) {
-    //             console.log('商品列表返回：', res.data);
-    //             self.lists = res.data;
-    //             self.$apply();
-    //         }
-    //     }).catch((msg) => {
-    //         if (msg == 'reAuth') {
-    //             self.goAuth();
-    //         }
-    //     });
-    // }
-
-    requestSaveUserInfo(obj) {
-        let self = this;
-        util.requestPostApi(api.apiSaveUserInfo, obj, wx.getStorageSync('userToken'), 'POST').then((res) => {
-            if (res.data && res.code == 200) {
-                console.log('保存userInfo返回：', res.data);
-            }
-        }).catch((msg) => {
-            if (msg == 'reAuth') {
-                self.goAuth();
-            }
-        });
-    }
-
 }
 </script>
 

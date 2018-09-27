@@ -50,33 +50,6 @@
 
     onLoad() {
       let self = this;
-      // 获取userInfo
-      wx.getSetting({
-        success: function(res1){
-          if (res1.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-            if (wx.getStorageSync('userInfo')) {
-              return;
-            }
-            wx.getUserInfo({
-              withCredentials: true,
-              success: function(res) {
-                console.log('index页面获取userInfo成功：', res)
-                self.$parent.globalData.userInfo = res.userInfo;
-                self.userInfoRes = res;
-                wx.setStorageSync('userInfo', res.userInfo);
-                self.requestSaveUserInfo({
-                  nickName: res.userInfo.nickName,
-                  gender: res.userInfo.gender,
-                  city: res.userInfo.city,
-                  province: res.userInfo.province,
-                  country: res.userInfo.country
-                });
-              }
-            })
-          }
-        }
-      })
       // banner接口
       self.requestGetBanner();
 
@@ -126,20 +99,6 @@
         }
       });
     }
-
-    requestSaveUserInfo (obj) {
-      let self = this;
-      util.requestPostApi(api.apiSaveUserInfo, obj, wx.getStorageSync('userToken'), 'POST').then((res) => {
-        if (res.data && res.code == 200) {
-          console.log('保存userInfo返回：', res.data);
-        }
-      }).catch((msg) => {
-        if (msg == 'reAuth') {
-          self.goAuth();
-        }
-      });
-    }
-
   }
 </script>
 <style lang="less">
