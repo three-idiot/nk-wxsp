@@ -12,7 +12,7 @@
       <view class="form-item">
         <image class="icon" src="../images/bangding_icon_verify.png"></image>
         <input class="input" value="{{authCode}}" bindinput="handleVerifyCodeInput" placeholder="请输入验证码" />
-        <button class="code-btn {{countEnd ? '' : 'disabled'}}" @tap="sendVerifyCode">{{sendBtnName}}</button>
+        <view class="code-btn {{countEnd ? '' : 'disabled'}}" @tap="sendVerifyCode">{{sendBtnName}}</view>
       </view>
       <view class="form-item">
         <image class="icon" src="../images/scan-1.png"></image>
@@ -39,6 +39,7 @@
     }
 
     data = {
+      userInfo: null,
       sendBtnName: '发送验证码',
       timer: null,
       count: 59,
@@ -173,15 +174,14 @@
 
     requestSubmit () {
       let self = this;
-      let userInfo = wx.getStorageSync('userInfo');
       let userLocation = wx.getStorageSync('userLocation');
-      // console.log(userInfo.nickName, userInfo.gender);
+      console.log('userInfo-------from bindPhone:', self.userInfo);
       util.requestPostApi(api.apiSaveUserInfo, {
-        nickName: userInfo.nickName,
-        gender: userInfo.gender,
-        province: 1 || userInfo.province,
-        city: 1 || userInfo.city,
-        country: 1 || userInfo.country,
+        nickName: self.userInfo.nickName,
+        gender: self.userInfo.gender,
+        province: 1 || self.userInfo.province,
+        city: 1 || self.userInfo.city,
+        country: 1 || self.userInfo.country,
         phone: self.phone,
         authCode: self.authCode,
         referee: self.referee,
@@ -204,7 +204,13 @@
 
     onLoad() {
       let self = this;
-      
+      wx.getStorage({
+        key: 'userInfo',
+        success: function  (res) {
+          self.userInfo = res.data;
+          self.$apply();
+        }
+      });
     }
   }
 </script>

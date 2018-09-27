@@ -322,7 +322,13 @@
         "q+" : Math.floor((date.getMonth()+3)/3), //季度
         "S" : date.getMilliseconds() //毫秒
       };
-      return o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
+      o['M+'] < 10? o['M+'] = '0' + o['M+'] : o['M+'];
+      o['d+'] < 10?  o['d+'] = '0' +  o['d+'] : o['d+'];
+      o['h+'] < 10?  o['h+'] = '0' +  o['h+'] :  o['h+'];
+      o['m+'] < 10? o['m+'] = '0' +o['m+'] : o['m+'];
+      o['s+'] < 10? o['s+'] = '0' +o['s+'] : o['s+'];
+      let result = o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
+      return result;
     }
     getList() {
       // console.log('我要重新请求了');

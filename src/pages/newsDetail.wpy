@@ -14,7 +14,7 @@
     </view>
     <!-- 运营人员 -->
     <view class="pubname">运营人员  {{ newsInfo.publisherName }}</view>
-    <view class="related-news" wx:if="{{ newsInfo.keyNews }}">
+    <view class="related-news" @tap="handleTapRelatedNews" wx:if="{{ newsInfo.keyNews }}">
       <view class="related-title">类似推荐</view>
       <view class="related-news-info">
         <view class="left">
@@ -97,7 +97,14 @@
         })
       }
     }
-
+    /** 点击推荐资讯 */
+    handleTapRelatedNews () {
+      let self = this;
+      let _relatedNews = self.newsInfo.keyNews;
+      wx.navigateTo({
+        url: 'newsDetail?id=' + _relatedNews.id + '&title=' + _relatedNews.title + '&type=' + _relatedNews.type,
+      });
+    }
     /**
      * 获取资讯详情
      */
