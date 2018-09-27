@@ -412,7 +412,7 @@
       <infoCard1 :infoList.sync="infoList" class="traveler-detail" />
     </view>
 
-    <view class="refund-info" wx:if="{{ status[statusCode].refundInfo }}">
+    <view class="refund-info" wx:if="{{ status[statusCode].refundInfo && refundList.length }}">
       <view class="title">退款出行人</view>
       <repeat for="{{ refundList }}" key="index" index="index" item="item">
         <view class="single-item">
@@ -603,6 +603,7 @@
           refundExplainBar: true,
           otherBar: true,
           refundBtn: true,
+          refundInfo: true
         },
         3: {
           title: '交易成功，待出行',
@@ -611,6 +612,7 @@
           refundExplainBar: true,
           otherBar: true,
           refundBtn: true,
+          refundInfo: true
         },
         4: {
           title: '交易成功，已出行',
@@ -662,10 +664,10 @@
       };
       o['M+'] < 10? o['M+'] = '0' + o['M+'] : o['M+'];
       o['d+'] < 10?  o['d+'] = '0' +  o['d+'] : o['d+'];
-      o['h+'] < 10?  o['h+'] = '0' +  o['h+'] :  o['h+'];
+      o['H+'] < 10?  o['H+'] = '0' +  o['H+'] :  o['H+'];
       o['m+'] < 10? o['m+'] = '0' +o['m+'] : o['m+'];
       o['s+'] < 10? o['s+'] = '0' +o['s+'] : o['s+'];
-      let result = o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['h+'] + ':' + o['m+'] + ':' + o['s+'];
+      let result = o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['H+'] + ':' + o['m+'] + ':' + o['s+'];
       return result;
     }
 
@@ -721,10 +723,6 @@
             {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
           ]
         }
-        // this.otherInfo.infos[0].value = this.travelOrder.orderNo;
-        // this.otherInfo.infos[1].value = this.calDate(this.travelOrder.createTime);
-        // this.otherInfo.infos[2].value = this.travelOrder.payId ? this.travelOrder.payId : '/';
-        // this.otherInfo.infos[3].value = this.travelOrder.payTime ? this.calDate(new Date()) : '/';
         console.log('haha',this.otherInfo);
         // 退款信息
         this.refundList = this.item.refundOrders;
@@ -761,6 +759,8 @@
         console.log( res );
         let data = res.data;
         // this.totalNum = data.length;
+        this.manNum = 0;
+        this.childNum = 0;
         for( let i = 0;i<data.length;i++ ) {
           let item = data[i];
           if( item.travelUserType == 1 ) {
