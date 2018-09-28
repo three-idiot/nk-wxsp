@@ -310,7 +310,10 @@
 
     }
     calDate(date) {
-      date = new Date(date);
+      // date = new Date(date);
+      console.log( date );
+      console.log( date.slice(0,-5 ));
+      date = new Date(date.slice(0,-5));
       let o = {
         "y+": date.getFullYear(),
         "M+" : date.getMonth()+1, //月份
