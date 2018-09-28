@@ -715,7 +715,7 @@
             {key:'订单号', value: this.travelOrder.orderNo},
             {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
             {key:'支付单号', value: this.travelOrder.payId},
-            {key:'支付时间', value: this.travelOrder.payTime},
+            {key:'支付时间', value: this.calDate(this.travelOrder.payTime)},
           ]
         } else {
           this.otherInfo.infos = [
