@@ -136,16 +136,16 @@
 
     computed = {
       create_time () {
-        return this.orderInfo && this.orderInfo.ctime ? util.formatDate(new Date(this.orderInfo.ctime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''
+        return this.orderInfo && this.orderInfo.ctime ? util.formatDate(this.orderInfo.ctime) : ''
       },
       pay_time () {
-        return this.orderInfo && this.orderInfo.payTime ? util.formatDate(new Date(this.orderInfo.payTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''
+        return this.orderInfo && this.orderInfo.payTime ? util.formatDate(this.orderInfo.payTime) : ''
       },
       send_sign_time () {
-        return this.orderInfo && this.orderInfo.sendTime ? util.formatDate(new Date(this.orderInfo.sendTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''        
+        return this.orderInfo && this.orderInfo.sendTime ? util.formatDate(this.orderInfo.sendTime) : ''        
       },
       sign_time () {
-        return this.orderInfo && this.orderInfo. signTime ? util.formatDate(new Date(this.orderInfo.signTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''                
+        return this.orderInfo && this.orderInfo. signTime ? util.formatDate(this.orderInfo.signTime) : ''                
       },
       valid_time () {
         let _date = '';
@@ -157,7 +157,7 @@
         return _date;
       },
       cancel_time () {
-        return this.orderInfo && this.orderInfo. offTime ? util.formatDate(new Date(this.orderInfo.offTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''                                
+        return this.orderInfo && this.orderInfo. offTime ? util.formatDate(this.orderInfo.offTime) : ''                                
       },
       totalFee () {
         return this.orderInfo ? Number(this.orderInfo.lowHelpPrice) + Number(this.orderInfo.lowVisaPrice) : '';

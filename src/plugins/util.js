@@ -98,19 +98,26 @@ const buLing = (str) => {
   return String(str).length == 1 ? '0' + String(str) : String(str);
 }
 
-const formatDate = (dateObj) => {
-  let fmt = "";
+const formatDate = (datestr) => {
+  let date = new Date(datestr.slice(0,-5));
   let o = {
-      "M+": dateObj.getMonth() + 1, // 月份
-      "d+": dateObj.getDate(), // 日
-      "h+": dateObj.getHours(), // 小时
-      "m+": dateObj.getMinutes(), // 分
-      "s+": dateObj.getSeconds(), // 秒
-      "q+": Math.floor((dateObj.getMonth() + 3) / 3), // 季度
-      "S": dateObj.getMilliseconds() // 毫秒
+    "y+": date.getFullYear(),
+    "M+" : date.getMonth()+1, //月份
+    "d+" : date.getDate(), //日
+    "h+" : date.getHours()%12 == 0 ? 12 : date.getHours()%12, //小时
+    "H+" : date.getHours(), //小时
+    "m+" : date.getMinutes(), //分
+    "s+" : date.getSeconds(), //秒
+    "q+" : Math.floor((date.getMonth()+3)/3), //季度
+    "S" : date.getMilliseconds() //毫秒
   };
-  fmt = dateObj.getFullYear() + '/' + buLing(o['M+'])+ '/' + buLing(o['d+']) + ' ' + buLing(o['h+']) + ':' + buLing(o['m+']) + ':' + buLing(o['s+'])
-  return new Date(new Date(fmt).getTime() + 8*3600*1000).toLocaleString();
+  o['M+'] < 10? o['M+'] = '0' + o['M+'] : o['M+'];
+  o['d+'] < 10?  o['d+'] = '0' +  o['d+'] : o['d+'];
+  o['H+'] < 10?  o['H+'] = '0' +  o['H+'] :  o['H+'];
+  o['m+'] < 10? o['m+'] = '0' +o['m+'] : o['m+'];
+  o['s+'] < 10? o['s+'] = '0' +o['s+'] : o['s+'];
+  let result = o['y+']+ '-' + o['M+'] + '-' + o['d+'] + ' ' + o['H+'] + ':' + o['m+'] + ':' + o['s+'];
+  return result;
 }
 /** 注意：这里不能乱用，因为之前后端技术不行，时间计算有8小时的误差，所以这里面有加上8小时的逻辑兼容后端 */
 const getYYMMDD = (date) => {
