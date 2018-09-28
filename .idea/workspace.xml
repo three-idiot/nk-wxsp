@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cadd8663-84d9-4792-94a2-870892a2d597" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/travelOrders.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrders.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,8 +39,8 @@
       <file leaf-file-name="travelOrderDetail.wpy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="653" selection-start-line="653" selection-end-line="653" />
+            <state relative-caret-position="339">
+              <caret line="713" column="34" lean-forward="true" selection-start-line="713" selection-start-column="34" selection-end-line="713" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -105,7 +103,6 @@
       <find>pay</find>
       <find>test</find>
       <find>金</find>
-      <find>leaveTime</find>
       <find>statusCode</find>
       <find>canceltimeFlag</find>
       <find>canceltime</find>
@@ -126,6 +123,7 @@
       <find>出发日</find>
       <find>calDate</find>
       <find>支付时间</find>
+      <find>leaveTime</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -308,12 +306,12 @@
       <workItem from="1537859137535" duration="4893000" />
       <workItem from="1537878977169" duration="1376000" />
       <workItem from="1538017198203" duration="3438000" />
-      <workItem from="1538107225580" duration="3198000" />
+      <workItem from="1538107225580" duration="3359000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219401000" />
+    <option name="totallyTimeSpent" value="219562000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -328,7 +326,7 @@
     <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22258916" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22258916" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" weight="0.56568944" />
@@ -655,8 +653,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="653" selection-start-line="653" selection-end-line="653" />
+        <state relative-caret-position="339">
+          <caret line="713" column="34" lean-forward="true" selection-start-line="713" selection-start-column="34" selection-end-line="713" selection-end-column="34" />
         </state>
       </provider>
     </entry>

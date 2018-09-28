@@ -705,7 +705,7 @@
           this.status[5].cancelTime = this.calDate(this.travelOrder.updateTime);
           console.log('取消时间', this.status[5].cancelTime);
         }
-        this.leaveTime =  new Date(this.travelGoods.leaveTime).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime).getDate() + '日';
+        this.leaveTime =  new Date(this.travelGoods.leaveTime.slice(0,-5)).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime.slice(0,-5)).getDate() + '日';
         //  联系人和联系号码
         this.contactInfo.infos[0].value = this.travelOrder.contactName;
         this.contactInfo.infos[1].value = this.travelOrder.contactPhone ?  this.travelOrder.contactPhone : '/';
