@@ -390,7 +390,7 @@
         <view class="price" wx:if="{{ status[statusCode].price }}">
           <text>￥</text>{{ travelOrder.orderPrice/100 }}
         </view>
-        <view class="explain" wx:if="{{ status[statusCode].refundExplain }}">
+        <view class="explain" wx:if="{{ status[statusCode].refundExplain }}" @tap="jumpToRefundDesc">
           退款说明
         </view>
       </view>
