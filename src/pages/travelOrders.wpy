@@ -228,7 +228,7 @@
           refundBtn: false
         },
         6: {
-          title: '申请退款',
+          title: '退款处理',
           cancelBtn: false,
           refundBtn: false
         },
