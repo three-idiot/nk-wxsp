@@ -45,6 +45,11 @@ export default class Index extends wepy.page {
         ]
     }
 
+    onLoad(option) {
+        this.tab = option.id;
+    }
+
+
     computed = {}
 
     methods = {

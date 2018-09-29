@@ -132,7 +132,7 @@
               placeholder="必填，用于接收订单信息"/>
         </view> -->
                 </view>
-                <text @tap="clause" class="info-item">点击下一步表示您已阅读并了解 <text class="blue">预定须知</text> 和 <text class="blue">重要条款</text></text>
+                <view class="info-item">点击下一步表示您已阅读并了解 <text @tap="clause({{0}})" class="blue">预定须知</text> 和 <text @tap="clause({{1}})" class="blue">重要条款</text></view>
                 <view class="bottom-btn">
                     <text class="price">￥<text class="red">{{totalMoney}}</text></text>
                     <view class="consult" @tap="consult">
@@ -296,9 +296,9 @@ export default class Index extends wepy.page {
             this.form.passenger[index].name = e.detail.value;
         },
         nameBlur(index, e) {
-            if (!this.form.passenger[index].name) {
+            if (!this.form.passenger[index].name||!/[\u4e00-\u9fa5]/g.test(this.form.passenger[index].name)) {
                 wx.showToast({
-                    title: '请填写出行人姓名',
+                    title: '请正确填写出行人姓名',
                     icon: 'none',
                     duration: 2000
                 });
@@ -441,9 +441,9 @@ export default class Index extends wepy.page {
         removePassenger(index) {
             this.form.passenger.splice(index, 1);
         },
-        clause() {
+        clause(id) {
             wx.navigateTo({
-                url: 'clause'
+                url: 'clause?id='+id
             });
         },
         consult() {
