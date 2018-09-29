@@ -689,7 +689,8 @@
         if ( this.statusCode == 1 ) {
 
           // this.status[1].remainTime = new Date().getTime() - new Date(this.travelOrder.createTime).getTime();
-          let passTime = new Date().getTime() - new Date(this.travelOrder.createTime).getTime();
+          // console.log('调试', this.travelOrder.createTime.replace(/\-/g,'/') );
+          let passTime = new Date().getTime() - new Date(this.travelOrder.createTime.replace(/\-/g,'/')).getTime();
           // 2小时
           let totalTime = 60*1000*60*2;
           let remainTime = totalTime - passTime;

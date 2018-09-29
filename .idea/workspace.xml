@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cadd8663-84d9-4792-94a2-870892a2d597" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.wpy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/travelOrderDetail.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,46 +42,7 @@
         <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="36">
-              <caret line="411" column="69" selection-start-line="411" selection-start-column="69" selection-end-line="411" selection-end-column="69" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/plugins/api.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1254">
-              <caret line="60" column="2" selection-start-line="60" selection-start-column="2" selection-end-line="60" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="travelOrders.wpy" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7502">
-              <caret line="343" column="85" selection-start-line="343" selection-start-column="85" selection-end-line="343" selection-end-column="85" />
-              <folding>
-                <element signature="e#4402#4426#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fillOrder.wpy" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/fillOrder.wpy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11308">
-              <caret line="519" column="31" selection-start-line="519" selection-start-column="31" selection-end-line="519" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="travelDetail.wpy" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/travelDetail.wpy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2574">
-              <caret line="123" column="34" selection-start-line="123" selection-start-column="34" selection-end-line="123" selection-end-column="34" />
+              <caret line="692" column="82" lean-forward="true" selection-start-line="692" selection-start-column="82" selection-end-line="692" selection-end-column="82" />
             </state>
           </provider>
         </entry>
@@ -97,7 +60,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>其他</find>
       <find>payParams</find>
       <find>go</find>
       <find>pay</find>
@@ -127,6 +89,7 @@
       <find>calDate</find>
       <find>退款说明</find>
       <find>jumpToRefundDesc</find>
+      <find>remainTime</find>
     </findStrings>
     <replaceStrings>
       <replace>payBtn</replace>
@@ -225,6 +188,12 @@
               <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="nk-wxsp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nk-wxsp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -307,12 +276,12 @@
       <workItem from="1538191908199" duration="129000" />
       <workItem from="1538210057691" duration="144000" />
       <workItem from="1538228403821" duration="3053000" />
-      <workItem from="1538235975922" duration="460000" />
+      <workItem from="1538235975922" duration="4143000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223823000" />
+    <option name="totallyTimeSpent" value="227506000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -327,7 +296,7 @@
     <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15587847" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15587847" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4993395" weight="0.32952926" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007907" side_tool="true" weight="0.56568944" />
@@ -619,21 +588,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2574">
+        <state relative-caret-position="1399">
           <caret line="123" column="34" selection-start-line="123" selection-start-column="34" selection-end-line="123" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/fillOrder.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11308">
+        <state relative-caret-position="22">
           <caret line="519" column="31" selection-start-line="519" selection-start-column="31" selection-end-line="519" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrders.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7502">
+        <state relative-caret-position="207">
           <caret line="343" column="85" selection-start-line="343" selection-start-column="85" selection-end-line="343" selection-end-column="85" />
           <folding>
             <element signature="e#4402#4426#0" expanded="true" />
@@ -643,7 +612,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/plugins/api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1254">
+        <state relative-caret-position="607">
           <caret line="60" column="2" selection-start-line="60" selection-start-column="2" selection-end-line="60" selection-end-column="2" />
         </state>
       </provider>
@@ -651,7 +620,7 @@
     <entry file="file://$PROJECT_DIR$/src/pages/travelOrderDetail.wpy">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
-          <caret line="411" column="69" selection-start-line="411" selection-start-column="69" selection-end-line="411" selection-end-column="69" />
+          <caret line="692" column="82" lean-forward="true" selection-start-line="692" selection-start-column="82" selection-end-line="692" selection-end-column="82" />
         </state>
       </provider>
     </entry>
