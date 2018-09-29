@@ -155,11 +155,11 @@
                     </view>
                     <view class="row {{idOrPassport==0?'select':''}}" @tap="selectType(0)">
                         <text>身份证</text>
-                        <text wx:if="{{idOrPassport==0}}" class="select-img">√</text>
+                        <text wx:if="{{idOrPassport==0}}" class="select-img">✓</text>
                     </view>
                     <view class="row noborder {{idOrPassport==1?'select':''}}" @tap="selectType(1)">
                         <text>护照</text>
-                        <text wx:if="{{idOrPassport==1}}" class="select-img">√</text>
+                        <text wx:if="{{idOrPassport==1}}" class="select-img">✓</text>
                     </view>
                 </view>
                 <view wx:if="{{showTypeWindow}}" class="window">
@@ -169,11 +169,11 @@
                     </view>
                     <view class="row {{isAdaultOrChild==1?'select':''}}" @tap="selectHumanType(1)">
                         <text>成人</text>
-                        <text wx:if="{{isAdaultOrChild==1}}" class="select-img">√</text>
+                        <text wx:if="{{isAdaultOrChild==1}}" class="select-img">✓</text>
                     </view>
                     <view class="row noborder {{isAdaultOrChild==2?'select':''}}" @tap="selectHumanType(2)">
                         <text>儿童</text>
-                        <text wx:if="{{isAdaultOrChild==2}}" class="select-img">√</text>
+                        <text wx:if="{{isAdaultOrChild==2}}" class="select-img">✓</text>
                     </view>
                 </view>
             </view>
