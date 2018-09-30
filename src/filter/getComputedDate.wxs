@@ -1,5 +1,6 @@
 /* 获取 刚刚，1小时前，2小时前，具体时间的方法，这东西比较坑，要看小程序的官方api，自己搞了套恶心的js */
 function getComputedDate(time) {
+  time = time.split("-").join("/");
   var res = '';
   if (!time) {
     return res;

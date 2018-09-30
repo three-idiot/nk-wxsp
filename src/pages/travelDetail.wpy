@@ -173,6 +173,10 @@ export default class Index extends wepy.page {
 <style lang="less" scoped>
 @import "../plugins/wxParse/wxParse.wxss";
 
+.container {
+    padding-bottom: 200rpx;
+}
+
 swiper {
     width: 750rpx;
     height: 350rpx;
