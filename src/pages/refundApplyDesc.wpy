@@ -1,7 +1,7 @@
 <template>
   <view class="refundapplydesc">
     <view class="refundapplydesc-title">退款说明</view>
-    <view class="refundapplydesc-content">说明一下哈，想退款，qnmlgb的吧。说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧说明一下哈，想退款，qnmlgb的吧</view>
+    <view class="refundapplydesc-content">旅游者违约：旅游者在行程开始前7日以内提出解除合同或者按照本合同第十二条第2款约定由旅行社在行程开始前解除合同的，按照下列标准扣除费用：行程开始前6日至4日，按旅游费用总额的40%；行程开始前3日至1日，按旅游费用总额的80%；行程开始当日，按旅游费用总额的100%。旅行社违约：旅行社在行程开始前7日以内提出解除合同的，或者旅游者在行程开始前7日以内收到旅行社不能成团通知，不同意转团、延期出行和改签线路解除合同的，旅行社向旅游者退还已收取的全部旅游费用。</view>
   </view>
 </template>
 
