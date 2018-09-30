@@ -118,12 +118,19 @@ const getYYMMDD = (date) => {
   _temp = new Date( new Date(_temp).getTime() + 8*3600*1000 );
   console.log('getYYMMDD: ', _temp);
   return _temp.getFullYear() + '/' + buLing((_temp.getMonth() + 1)) + '/' + buLing(_temp.getDate());
-}
+};
+
+/** 注意：这里不能乱用，因为后端技术不行，时间格式得由-变为/ */
+const newGetYMD = (date) => {
+  let _temp = new Date(date.split('-').join('/'));
+  return _temp.getFullYear() + '/' + buLing((_temp.getMonth() + 1)) + '/' + buLing(_temp.getDate());
+};
 
 export default {
   requestApi,
   requestPostApi,
   buLing,
   formatDate,
-  getYYMMDD
+  getYYMMDD,
+  newGetYMD
 }

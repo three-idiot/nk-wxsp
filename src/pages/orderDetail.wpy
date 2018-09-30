@@ -136,28 +136,28 @@
 
     computed = {
       create_time () {
-        return this.orderInfo && this.orderInfo.ctime ? util.formatDate(new Date(this.orderInfo.ctime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''
+        return this.orderInfo && this.orderInfo.ctime ? util.formatDate(new Date(this.orderInfo.ctime.split('-').join('/').replace(/-/g, '/'))) : ''
       },
       pay_time () {
-        return this.orderInfo && this.orderInfo.payTime ? util.formatDate(new Date(this.orderInfo.payTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''
+        return this.orderInfo && this.orderInfo.payTime ? util.formatDate(new Date(this.orderInfo.payTime.split('-').join('/').replace(/-/g, '/'))) : ''
       },
       send_sign_time () {
-        return this.orderInfo && this.orderInfo.sendTime ? util.formatDate(new Date(this.orderInfo.sendTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''        
+        return this.orderInfo && this.orderInfo.sendTime ? util.formatDate(new Date(this.orderInfo.sendTime.split('-').join('/').replace(/-/g, '/'))) : ''
       },
       sign_time () {
-        return this.orderInfo && this.orderInfo. signTime ? util.formatDate(new Date(this.orderInfo.signTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''                
+        return this.orderInfo && this.orderInfo. signTime ? util.formatDate(new Date(this.orderInfo.signTime.split('-').join('/').replace(/-/g, '/'))) : ''
       },
       valid_time () {
         let _date = '';
         if (this.orderInfo && this.orderInfo. startTime && this.orderInfo. endTime) {
-          let _start = util.getYYMMDD(this.orderInfo.startTime),
-            _end = util.getYYMMDD(this.orderInfo.endTime);
+          let _start = util.newGetYMD(this.orderInfo.startTime),
+            _end = util.newGetYMD(this.orderInfo.endTime);
           _date = _start + '~' + _end;
         }
         return _date;
       },
       cancel_time () {
-        return this.orderInfo && this.orderInfo. offTime ? util.formatDate(new Date(this.orderInfo.offTime.split('.')[0].replace(/T/, ' ').replace(/-/g, '/'))) : ''                                
+        return this.orderInfo && this.orderInfo. offTime ? util.formatDate(new Date(this.orderInfo.offTime.split('-').join('/').replace(/-/g, '/'))) : ''
       },
       totalFee () {
         return this.orderInfo ? Number(this.orderInfo.lowHelpPrice) + Number(this.orderInfo.lowVisaPrice) : '';
@@ -198,7 +198,7 @@
           success: function(res) {
             if (res.confirm) {
               console.log('用户点击确定')
-              
+
               util.requestPostApi(api.apiRegister, {
                 orderId: self.orderId,
                 enterTime: e.detail.value
@@ -262,7 +262,7 @@
           self.resumePath = res1.data.resumePath;
           self.orderInfo = Object.assign({}, self.orderInfo, res1.data, {id: self.orderId});
           self.orderInfo.status = self.status;
-          self.entryDate = self.orderInfo.enterTime ? util.getYYMMDD(self.orderInfo.enterTime) : '';
+          self.entryDate = self.orderInfo.enterTime ? util.newGetYMD(self.orderInfo.enterTime) : '';
           console.log('订单详情after assign: ', self.orderInfo);
           self.$apply();
         }
