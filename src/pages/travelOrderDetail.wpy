@@ -390,7 +390,7 @@
         <view class="price" wx:if="{{ status[statusCode].price }}">
           <text>￥</text>{{ travelOrder.orderPrice/100 }}
         </view>
-        <view class="explain" wx:if="{{ status[statusCode].refundExplain }}">
+        <view class="explain" wx:if="{{ status[statusCode].refundExplain }}" @tap="jumpToRefundDesc">
           退款说明
         </view>
       </view>
@@ -650,7 +650,8 @@
       }
     }
     calDate(date) {
-      date = new Date(date.slice(0,-5));
+      date = new Date(date);
+      // date = new Date(date.slice(0,-5));
       let o = {
         "y+": date.getFullYear(),
         "M+" : date.getMonth()+1, //月份
@@ -688,7 +689,8 @@
         if ( this.statusCode == 1 ) {
 
           // this.status[1].remainTime = new Date().getTime() - new Date(this.travelOrder.createTime).getTime();
-          let passTime = new Date().getTime() - new Date(this.travelOrder.createTime).getTime();
+          // console.log('调试', this.travelOrder.createTime.replace(/\-/g,'/') );
+          let passTime = new Date().getTime() - new Date(this.travelOrder.createTime.replace(/\-/g,'/')).getTime();
           // 2小时
           let totalTime = 60*1000*60*2;
           let remainTime = totalTime - passTime;
@@ -699,13 +701,13 @@
           minutes = parseInt(minutes);
           seconds = parseInt(seconds);
           this.status[1].remainTime = hours + '小时' + minutes + '分钟' + seconds + '秒';
-          // console.log( '时间',this.status[1].remainTime );
-          // console.log( '时间',hours + '小时' + minutes + '分钟' + seconds + '秒' );
         } else if (this.statusCode == 5) {
-          this.status[5].cancelTime = this.calDate(this.travelOrder.updateTime);
-          console.log('取消时间', this.status[5].cancelTime);
+          // this.status[5].cancelTime = this.calDate(this.travelOrder.updateTime);
+          this.status[5].cancelTime = this.travelOrder.updateTime;
+          // console.log('取消时间', this.status[5].cancelTime);
         }
-        this.leaveTime =  new Date(this.travelGoods.leaveTime.slice(0,-5)).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime.slice(0,-5)).getDate() + '日';
+        // this.leaveTime =  new Date(this.travelGoods.leaveTime.slice(0,-5)).getMonth() + 1 + '月' + new Date(this.travelGoods.leaveTime.slice(0,-5)).getDate() + '日';
+        this.leaveTime =  this.travelGoods.leaveTime;
         //  联系人和联系号码
         this.contactInfo.infos[0].value = this.travelOrder.contactName;
         this.contactInfo.infos[1].value = this.travelOrder.contactPhone ?  this.travelOrder.contactPhone : '/';
@@ -713,14 +715,17 @@
         if( this.travelOrder.payTime ) {
           this.otherInfo.infos = [
             {key:'订单号', value: this.travelOrder.orderNo},
-            {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
+            // {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
+            {key:'下单时间', value: this.travelOrder.createTime},
             {key:'支付单号', value: this.travelOrder.payId},
-            {key:'支付时间', value: this.calDate(this.travelOrder.payTime)},
+            // {key:'支付时间', value: this.calDate(this.travelOrder.payTime)},
+            {key:'支付时间', value: this.travelOrder.payTime},
           ]
         } else {
           this.otherInfo.infos = [
             {key:'订单号', value: this.travelOrder.orderNo},
-            {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
+            // {key:'下单时间', value: this.calDate(this.travelOrder.createTime)},
+            {key:'下单时间', value: this.travelOrder.createTime},
           ]
         }
         console.log('haha',this.otherInfo);
@@ -835,7 +840,7 @@
         this.refundDialog = false;
       },
       refundDialogShow(item) {
-        item.createTime = this.calDate( item.createTime );
+        // item.createTime = this.calDate( item.createTime );
         this.refundDialogInfo = item;
         this.refundDialog = true;
       },

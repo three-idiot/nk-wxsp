@@ -106,8 +106,13 @@
         util.requestApi(api.apiSendVerifyCode, {
           phone: self.phone
         }, wx.getStorageSync('userToken')).then((res) => {
-            if (res.data && res.code == 200) {
+            console.log('------------', res);
+            if (res.code == 200) {
               console.log('验证码发送成功：', res.data);
+              wx.showToast({
+                title: '验证码已发送',
+                icon: 'success',
+              })
             } else {
               wx.showToast({
                 title: res.msg,

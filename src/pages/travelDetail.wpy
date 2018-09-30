@@ -18,7 +18,7 @@
         <view class="infos">
             <text class="go item">{{leaveTime+params.leaveAddress}}出发</text>
             <text class="num item">成团人数 {{params.peopleMaxNum}}/<text class="green">{{params.groupUserNum}}</text></text>
-            <text wx:if="{{statusMap[params.groupOrderStatus]!='报名中'}}" class="dis-btn">{{statusMap[params.groupOrderStatus]}}</text>
+            <text wx:if="{{statusMap[params.groupOrderStatus]!='报名中'}}" class="dis-btn">已结束</text>
             <text wx:if="{{statusMap[params.groupOrderStatus]=='报名中'}}" class="time item">倒计时 <text class="red">
                     <text wx:if="{{duration.day}}">{{duration.day+'天'}}</text>
             <text wx:if="{{duration.hour}}">{{duration.hour+'小时'}}</text>
@@ -147,7 +147,7 @@ export default class Index extends wepy.page {
         util.requestApi(api.apiTravelGoodsDetail + this.id, {}, wx.getStorageSync('userToken')).then((res) => {
             if (res.data && res.code == 200) {
                 self.params = res.data;
-                var duration = new Date(res.data.closeDate.slice(0, 19)) - new Date();
+                var duration = new Date(res.data.closeDate.replace(/-/g,'/')) - new Date();
                 if (duration < 0) {
                     self.duration.mini = '0';
                 } else {
@@ -172,6 +172,10 @@ export default class Index extends wepy.page {
 
 <style lang="less" scoped>
 @import "../plugins/wxParse/wxParse.wxss";
+
+.container {
+    padding-bottom: 200rpx;
+}
 
 swiper {
     width: 750rpx;
@@ -256,13 +260,13 @@ swiper {
         }
 
         .num {
-            width: 160rpx;
+            width: 170rpx;
             flex-shrink:0;
             text-align: center;
         }
 
         .time {
-            width: 265rpx;
+            width: 300rpx;
             flex-shrink:0;
             text-align: right;
         }

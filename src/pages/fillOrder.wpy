@@ -132,7 +132,7 @@
               placeholder="必填，用于接收订单信息"/>
         </view> -->
                 </view>
-                <text @tap="clause" class="info-item">点击下一步表示您已阅读并了解 <text class="blue">预定须知</text> 和 <text class="blue">重要条款</text></text>
+                <view class="info-item">点击下一步表示您已阅读并了解 <text @tap="clause({{0}})" class="blue">预定须知</text> 和 <text @tap="clause({{1}})" class="blue">重要条款</text></view>
                 <view class="bottom-btn">
                     <text class="price">￥<text class="red">{{totalMoney}}</text></text>
                     <view class="consult" @tap="consult">
@@ -155,11 +155,11 @@
                     </view>
                     <view class="row {{idOrPassport==0?'select':''}}" @tap="selectType(0)">
                         <text>身份证</text>
-                        <text wx:if="{{idOrPassport==0}}" class="select-img">√</text>
+                        <text wx:if="{{idOrPassport==0}}" class="select-img">✓</text>
                     </view>
                     <view class="row noborder {{idOrPassport==1?'select':''}}" @tap="selectType(1)">
                         <text>护照</text>
-                        <text wx:if="{{idOrPassport==1}}" class="select-img">√</text>
+                        <text wx:if="{{idOrPassport==1}}" class="select-img">✓</text>
                     </view>
                 </view>
                 <view wx:if="{{showTypeWindow}}" class="window">
@@ -169,11 +169,11 @@
                     </view>
                     <view class="row {{isAdaultOrChild==1?'select':''}}" @tap="selectHumanType(1)">
                         <text>成人</text>
-                        <text wx:if="{{isAdaultOrChild==1}}" class="select-img">√</text>
+                        <text wx:if="{{isAdaultOrChild==1}}" class="select-img">✓</text>
                     </view>
                     <view class="row noborder {{isAdaultOrChild==2?'select':''}}" @tap="selectHumanType(2)">
                         <text>儿童</text>
-                        <text wx:if="{{isAdaultOrChild==2}}" class="select-img">√</text>
+                        <text wx:if="{{isAdaultOrChild==2}}" class="select-img">✓</text>
                     </view>
                 </view>
             </view>
@@ -296,9 +296,9 @@ export default class Index extends wepy.page {
             this.form.passenger[index].name = e.detail.value;
         },
         nameBlur(index, e) {
-            if (!this.form.passenger[index].name) {
+            if (!this.form.passenger[index].name||!/[\u4e00-\u9fa5]/g.test(this.form.passenger[index].name)) {
                 wx.showToast({
-                    title: '请填写出行人姓名',
+                    title: '请正确填写出行人姓名',
                     icon: 'none',
                     duration: 2000
                 });
@@ -441,9 +441,9 @@ export default class Index extends wepy.page {
         removePassenger(index) {
             this.form.passenger.splice(index, 1);
         },
-        clause() {
+        clause(id) {
             wx.navigateTo({
-                url: 'clause'
+                url: 'clause?id='+id
             });
         },
         consult() {
