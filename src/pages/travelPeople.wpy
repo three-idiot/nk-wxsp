@@ -109,7 +109,7 @@
             infos: [
               {key:'中文姓名', value: item.name},
               {key:item.cardId?'身份证' : '护照', value: item.cardId? item.cardId : item.passport},
-              {key:'手机号码', value: item.phone},
+              {key:'手机号码', value: item.phone? item.phone : ''},
             ]
           }
           this.peopleList.push( singleInfo )
