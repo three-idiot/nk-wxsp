@@ -71,7 +71,7 @@ export default class SmallTravelList extends wepy.component {
 .travel-list {
     .travel {
         margin: 0 30rpx;
-        padding: 30rpx 0;
+        padding: 20rpx 0;
         display: flex;
         border-bottom: 1px solid #ccc;
 

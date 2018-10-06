@@ -318,7 +318,7 @@ export default class Index extends wepy.page {
                 });
                 return false;
             } else if (this.form.passenger[index].type == 0) {
-                if (!(/^\d{6}(19|20)*[0-9]{2}(0[1-9]{1}|10|11|12)(0[1-9]{1}|1[0-9]|2[0-9]|30|31)(\w*)$/.test(this.form.passenger[index].number))) {
+                if (!(/^\d{6}(19|20)*[0-9]{2}(0[1-9]{1}|10|11|12)(0[1-9]{1}|1[0-9]|2[0-9]|30|31)(\w{4})$/.test(this.form.passenger[index].number))) {
                     wx.showToast({
                         title: '请正确填写身份证号码',
                         icon: 'none',
@@ -855,6 +855,8 @@ export default class Index extends wepy.page {
         background: #fff;
         line-height: 98rpx;
         font-size: 24rpx;
+        text-align: left;
+        padding-left: 30rpx;
 
         .red {
             font-size: 38rpx;

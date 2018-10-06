@@ -351,6 +351,7 @@ export default class Index extends wepy.page {
         color: #387DFF;
         text-align: center;
         line-height: 34rpx;
+        font-weight: bold;
     }
 
     .more {
