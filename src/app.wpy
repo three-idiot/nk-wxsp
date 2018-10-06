@@ -4,8 +4,8 @@ import wepy from 'wepy'
 export default class extends wepy.app {
     config = {
         pages: [
-          'pages/hello',
           'pages/index',
+          'pages/hello',
             'pages/my',
             'pages/orderList',
             'pages/bindPhone',

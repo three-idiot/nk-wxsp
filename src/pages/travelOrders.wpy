@@ -158,7 +158,7 @@
         </view>
       </view>
       <view class="bottom">
-        <text>行人数  {{ item.travelOrder.buyNum }}</text>
+        <text>出行人数  {{ item.travelOrder.buyNum }}</text>
         <text @tap.stop="goRefund({{item}})" wx:if="{{ status[item.travelOrder.status].refundBtn }}">申请退款</text>
         <text @tap.stop="cancelShow({{item.travelOrder.id}})" wx:if="{{ status[item.travelOrder.status].cancelBtn }}">取消订单</text>
       </view>
