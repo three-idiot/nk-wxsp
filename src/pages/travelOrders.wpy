@@ -131,6 +131,14 @@
     }
   }
 
+  .noData {
+    text-align: center;
+    font-size: 30rpx;
+    /*color: darkgray;*/
+    color: #A3A3A3;
+    margin-top: 25rpx;
+  }
+
 </style>
 <template>
   <view class="travel-orders">
@@ -165,6 +173,8 @@
     </view>
   </repeat>
 
+  <view class="noData" wx:if="{{ orderList.length == 0 && !loading}}">没有数据~</view>
+
   <view class="cancel-window-mask" wx:if="{{cancelWindowShow}}">
     <view class="cancel-window">
       <view class="title">提示</view>
@@ -191,6 +201,7 @@
     }
 
     data = {
+      loading: true,
       choosing: {
         0: true,
         1: false,
@@ -336,6 +347,7 @@
     getList() {
       // console.log('我要重新请求了');
       util.requestPostApi(api.apiTravelOrderList, {}, wx.getStorageSync('userToken'),{'content-type': 'application/json'}).then((res) => {
+        this.loading = false;
         // console.log( res );
         this.orderList = res.data.data;
         for ( let i=0;i<this.orderList.length;i++ ) {
