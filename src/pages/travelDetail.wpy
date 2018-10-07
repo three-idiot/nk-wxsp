@@ -95,7 +95,7 @@ export default class Index extends wepy.page {
 
     computed = {
         leaveTime() {
-            return this.params.leaveTime ? this.params.leaveTime.slice(0, 10) : '';
+            return this.params.leaveTime ? this.params.leaveTime.slice(5, 10) : '';
         }
     }
 
