@@ -28,7 +28,7 @@
           placeholder-style="color: #B2B2B2"
           slot="form-item-content" />
       </formItem3>
-      <view class="panel passport-inner-page">
+      <view class="panel passport-inner-page add-bottom">
         <view class="title">护照内页</view>
         <view class="passport-inner-page-upload-container">
           <view class="img-container">
@@ -46,7 +46,7 @@
             @tap="handleUpload('passport')"></image>
         </view>
       </view>
-      <view class="panel passport-inner-page">
+      <view class="panel passport-inner-page add-bottom">
         <view class="title">上传简历</view>
         <view class="passport-inner-page-upload-container">
           <view class="img-container">
@@ -388,6 +388,9 @@
     position: relative;
     padding-bottom: 190rpx;
     .sign-second-form {
+      .add-bottom {
+        padding-bottom: 20rpx!important;
+      }
       .panel {
         width: 100%;
         box-sizing: border-box;
@@ -555,4 +558,5 @@
       }
     }
   }
+
 </style>
