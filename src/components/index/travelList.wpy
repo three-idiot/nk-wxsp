@@ -91,6 +91,7 @@ export default class TravelList extends wepy.component {
                     font-size: 22rpx;
                     color: #B2B2B2;
                     text-decoration: line-through;
+                    margin-left: 10rpx;
                 }
             }
         }
