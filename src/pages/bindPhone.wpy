@@ -7,11 +7,11 @@
     <form class="form-container" bindsubmit="formSubmit" bindreset="formReset">
       <view class="form-item">
         <image class="icon" src="../images/bangding_icon_phone.png"></image>
-        <input class="input" type="number" placeholder-style="font-size: 30rpx;" value="{{phone}}" bindinput="handlePhoneInput" bindblur="handlePhoneBlur" placeholder="请输入手机号" /> 
+        <input class="input" type="number" placeholder-style="font-size: 30rpx;" value="{{phone}}" bindinput="handlePhoneInput" bindblur="handlePhoneBlur" placeholder="请输入手机号" />
       </view>
       <view class="form-item">
         <image class="icon" src="../images/bangding_icon_verify.png"></image>
-        <input class="input" type="number" value="{{authCode}}" bindinput="handleVerifyCodeInput" placeholder="请输入验证码" />
+        <input class="input" type="number" value="{{authCode}}" bindinput="handleVerifyCodeInput" placeholder="请输入验证码（非必填）" />
         <view class="code-btn {{countEnd ? '' : 'disabled'}}" @tap="sendVerifyCode">{{sendBtnName}}</view>
       </view>
       <view class="form-item">
@@ -35,7 +35,7 @@
       navigationBarTitleText: '朝鲜通'
     }
     components = {
-      
+
     }
 
     data = {
@@ -65,7 +65,7 @@
             icon: 'none',
             duration: 2000
           })
-        } 
+        }
       },
       handleVerifyCodeInput (e) {
         this.authCode = e.detail.value;
