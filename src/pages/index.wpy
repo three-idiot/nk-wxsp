@@ -290,7 +290,6 @@ export default class Index extends wepy.page {
     height: 150rpx;
     background: #f4f4f4;
     position: relative;
-
     .news {
         position: absolute;
         top: 20rpx;
@@ -299,6 +298,7 @@ export default class Index extends wepy.page {
         height: 110rpx;
         background: white;
         padding: 25rpx 15rpx;
+        border-radius: 8rpx;
 
         image {
             width: 70rpx;
