@@ -188,791 +188,819 @@ import util from '../plugins/util';
 import api from '../plugins/api';
 
 export default class Index extends wepy.page {
-    config = {
-        navigationBarTitleText: '朝鲜通'
-    };
-    components = {
-        banner: Banner,
-        smallTravelList: SmallTravelList
-    };
+  config = {
+    navigationBarTitleText: '朝鲜通'
+  };
+  components = {
+    banner: Banner,
+    smallTravelList: SmallTravelList
+  };
 
-    data = {
-        id: null,
-        params: {},
-        imgUrls: [
-            '../images/index/travel-ad.png',
-            '../images/index/travel-ad.png',
-            '../images/index/travel-ad.png'
-        ],
-        lists: [],
-        bannerImgUrl: '',
-        showWindow: false,
-        selectIndex: 0,
-        idOrPassport: 0,
-        showTypeWindow: false,
-        typeSelectIndex: 0,
-        isAdaultOrChild: 1,
-        form: {
-            adult: 1,
-            child: 0,
-            passenger: [{
-                name: '',
-                type: 0,
-                number: '',
-                phone: '',
-                travelUserType: 1
-            }],
-            contactPhone: '',
-            contactName: '',
-            // contactEmail: ''
+  data = {
+    id: null,
+    params: {},
+    imgUrls: [
+      '../images/index/travel-ad.png',
+      '../images/index/travel-ad.png',
+      '../images/index/travel-ad.png'
+    ],
+    lists: [],
+    bannerImgUrl: '',
+    showWindow: false,
+    selectIndex: 0,
+    idOrPassport: 0,
+    showTypeWindow: false,
+    typeSelectIndex: 0,
+    isAdaultOrChild: 1,
+    form: {
+      adult: 1,
+      child: 0,
+      passenger: [
+        {
+          name: '',
+          type: 0,
+          number: '',
+          phone: '',
+          travelUserType: 1
         }
-    };
-
-    computed = {
-        leaveTime() {
-            return this.params.leaveTime ? this.params.leaveTime.slice(0, 10) : '';
-        },
-        payParams() {
-            let passenger = [];
-            this.form.passenger.forEach(element => {
-                passenger.push({
-                    name: element.name,
-                    passport: element.type == 1 ? element.number : '',
-                    cardId: element.type == 0 ? element.number : '',
-                    phone: element.phone,
-                    travelUserType: element.travelUserType
-                });
-            });
-            let params = {
-                travelGoodsId: this.id,
-                buyNum: this.form.adult + this.form.child,
-                contactName: this.form.contactName,
-                contactPhone: this.form.contactPhone,
-                // contactEmail: this.form.contactEmail,
-                travelUserInfos: passenger
-            };
-            return params;
-        },
-        totalMoney() {
-            return this.form.adult * this.params.salePrice / 100 + this.form.child * this.params.childPrice / 100
-        }
-    };
-
-    methods = {
-        adultInput(e) {
-            this.form.adult = e.detail.value;
-        },
-        adultBlur() {
-            if (!this.form.adult || this.form.adult == 0) {
-                wx.showToast({
-                    title: '成年人数必须大于1',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            }
-            return true
-        },
-        adultPlus() {
-            this.form.adult++;
-        },
-        adultminus() {
-            if (this.form.adult > 1) {
-                this.form.adult--;
-            }
-        },
-        childInput(e) {
-            this.form.child = e.detail.value;
-        },
-        childPlus() {
-            this.form.child++;
-        },
-        childminus() {
-            if (this.form.child > 0) {
-                this.form.child--;
-            }
-        },
-        nameInput(index, e) {
-            this.form.passenger[index].name = e.detail.value;
-        },
-        nameBlur(index, e) {
-            if (!this.form.passenger[index].name||!/[\u4e00-\u9fa5]/g.test(this.form.passenger[index].name)) {
-                wx.showToast({
-                    title: '请正确填写出行人姓名',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            }
-            return true;
-        },
-        numberInput(index, e) {
-            this.form.passenger[index].number = e.detail.value;
-        },
-        numberBlur(index, e) {
-            if (!this.form.passenger[index].number) {
-                wx.showToast({
-                    title: '请填写出行人证件号码',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            } else if (this.form.passenger[index].type == 0) {
-                if (!(/^\d{6}(19|20)*[0-9]{2}(0[1-9]{1}|10|11|12)(0[1-9]{1}|1[0-9]|2[0-9]|30|31)(\w{4})$/.test(this.form.passenger[index].number))) {
-                    wx.showToast({
-                        title: '请正确填写身份证号码',
-                        icon: 'none',
-                        duration: 2000
-                    });
-                    return false;
-                }
-            } else if (this.form.passenger[index].type == 1) {
-                if (!(/^[a-zA-Z0-9]{5,17}$/.test(this.form.passenger[index].number))) {
-                    wx.showToast({
-                        title: '请正确填写护照号码',
-                        icon: 'none',
-                        duration: 2000
-                    });
-                    return false;
-                }
-            } else {
-                wx.showToast({
-                    title: '请选择证件类型',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            }
-
-            return true;
-        },
-        phoneInput(index, e) {
-            this.form.passenger[index].phone = e.detail.value;
-        },
-        phoneBlur(index, e) {
-            if (this.form.passenger[index].phone && !(/^1\d{10}$/.test(this.form.passenger[index].phone))) {
-                wx.showToast({
-                    title: '请正确填写出行人号码',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            }
-            return true;
-        },
-
-        contactNameInput(e) {
-            this.form.contactName = e.detail.value;
-        },
-        contactNameBlur(e) {
-            if (!this.form.contactName) {
-                wx.showToast({
-                    title: '请填写联系人姓名',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            }
-            return true;
-        },
-
-        contactPhoneInput(e) {
-            this.form.contactPhone = e.detail.value;
-        },
-        contactPhoneBlur(e) {
-            if (!(/^1\d{10}$/.test(this.form.contactPhone))) {
-                wx.showToast({
-                    title: '请正确填写联系人手机号',
-                    icon: 'none',
-                    duration: 2000
-                });
-                return false;
-            }
-            return true;
-        },
-
-        // contactEmailInput(e) {
-        //     this.form.contactEmail = e.detail.value;
-        // },
-        // contactEmailBlur(e) {
-        //     if (!this.form.contactEmail || this.form.contactEmail.indexOf('@') == -1) {
-        //         wx.showToast({
-        //             title: '请正确填写联系人邮箱',
-        //             icon: 'none',
-        //             duration: 2000
-        //         });
-        //         return false;
-        //     }
-        //     return true;
-        // },
-        openWindow(index, type) {
-            this.selectIndex = index;
-            this.idOrPassport = type;
-            this.showWindow = true;
-        },
-        openTypeWindow(index, type) {
-            this.typeSelectIndex = index;
-            this.isAdaultOrChild = type;
-            this.showTypeWindow = true;
-        },
-        closeWindow() {
-            this.showWindow = false;
-        },
-        closeTypeWindow() {
-            this.showTypeWindow = false;
-        },
-
-        selectType(type) {
-            this.form.passenger[this.selectIndex].type = type;
-            this.showWindow = false;
-        },
-        selectHumanType(type) {
-            console.log(this.typeSelectIndex);
-            this.form.passenger[this.typeSelectIndex].travelUserType = type;
-            this.showTypeWindow = false;
-        },
-
-        addPassenger() {
-            this.form.passenger.push({
-                type: 0,
-                travelUserType: 1
-            });
-        },
-        removePassenger(index) {
-            this.form.passenger.splice(index, 1);
-        },
-        clause(id) {
-            wx.navigateTo({
-                url: 'clause?id='+id
-            });
-        },
-        consult() {
-            wx.showModal({
-                title: '若有问题请电话联系客服',
-                content: '400-1234-567',
-                showCancel: false
-            });
-        }
-    };
-
-    // watch = {
-    //   indexData (newVal, old) {
-    //     console.log('监听到新数组：', newVal);
-    //   }
-    // }
-
-    onLoad(option) {
-        this.id = option.id;
-
-        // 商品列表接口
-        this.requestGetGoodsDetail();
+      ],
+      contactPhone: '',
+      contactName: ''
+      // contactEmail: ''
     }
+  };
 
-    onShow() {}
-
-    goAuth() {
-        // console.log('授权');
-        // wx.redirectTo({
-        //   url: 'hello'
-        // });
+  computed = {
+    leaveTime() {
+      return this.params.leaveTime ? this.params.leaveTime.slice(0, 10) : '';
+    },
+    payParams() {
+      let passenger = [];
+      this.form.passenger.forEach(element => {
+        passenger.push({
+          name: element.name,
+          passport: element.type == 1 ? element.number : '',
+          cardId: element.type == 0 ? element.number : '',
+          phone: element.phone,
+          travelUserType: element.travelUserType
+        });
+      });
+      let params = {
+        travelGoodsId: this.id,
+        buyNum: this.form.adult + this.form.child,
+        contactName: this.form.contactName,
+        contactPhone: this.form.contactPhone,
+        // contactEmail: this.form.contactEmail,
+        travelUserInfos: passenger
+      };
+      return params;
+    },
+    totalMoney() {
+      return (
+        (this.form.adult * this.params.salePrice) / 100 +
+        (this.form.child * this.params.childPrice) / 100
+      );
     }
+  };
 
-    requestGetGoodsDetail() {
-        let self = this;
-        util
+  methods = {
+    adultInput(e) {
+      this.form.adult = e.detail.value;
+    },
+    adultBlur() {
+      if (!this.form.adult || this.form.adult == 0) {
+        wx.showToast({
+          title: '成年人数必须大于1',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
+      return true;
+    },
+    adultPlus() {
+      this.form.adult++;
+    },
+    adultminus() {
+      if (this.form.adult > 1) {
+        this.form.adult--;
+      }
+    },
+    childInput(e) {
+      this.form.child = e.detail.value;
+    },
+    childPlus() {
+      this.form.child++;
+    },
+    childminus() {
+      if (this.form.child > 0) {
+        this.form.child--;
+      }
+    },
+    nameInput(index, e) {
+      this.form.passenger[index].name = e.detail.value;
+    },
+    nameBlur(index, e) {
+      if (
+        !this.form.passenger[index].name ||
+        !/[\u4e00-\u9fa5]/g.test(this.form.passenger[index].name)
+      ) {
+        wx.showToast({
+          title: '请正确填写出行人姓名',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
+      return true;
+    },
+    numberInput(index, e) {
+      this.form.passenger[index].number = e.detail.value;
+    },
+    numberBlur(index, e) {
+      if (!this.form.passenger[index].number) {
+        wx.showToast({
+          title: '请填写出行人证件号码',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      } else if (this.form.passenger[index].type == 0) {
+        if (
+          !/^\d{6}(19|20)*[0-9]{2}(0[1-9]{1}|10|11|12)(0[1-9]{1}|1[0-9]|2[0-9]|30|31)(\w{4})$/.test(
+            this.form.passenger[index].number
+          )
+        ) {
+          wx.showToast({
+            title: '请正确填写身份证号码',
+            icon: 'none',
+            duration: 2000
+          });
+          return false;
+        }
+      } else if (this.form.passenger[index].type == 1) {
+        if (!/^[a-zA-Z0-9]{5,17}$/.test(this.form.passenger[index].number)) {
+          wx.showToast({
+            title: '请正确填写护照号码',
+            icon: 'none',
+            duration: 2000
+          });
+          return false;
+        }
+      } else {
+        wx.showToast({
+          title: '请选择证件类型',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
+
+      return true;
+    },
+    phoneInput(index, e) {
+      this.form.passenger[index].phone = e.detail.value;
+    },
+    phoneBlur(index, e) {
+      if (
+        this.form.passenger[index].phone &&
+        !/^1\d{10}$/.test(this.form.passenger[index].phone)
+      ) {
+        wx.showToast({
+          title: '请正确填写出行人号码',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
+      return true;
+    },
+
+    contactNameInput(e) {
+      this.form.contactName = e.detail.value;
+    },
+    contactNameBlur(e) {
+      if (!this.form.contactName) {
+        wx.showToast({
+          title: '请填写联系人姓名',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
+      return true;
+    },
+
+    contactPhoneInput(e) {
+      this.form.contactPhone = e.detail.value;
+    },
+    contactPhoneBlur(e) {
+      if (!/^1\d{10}$/.test(this.form.contactPhone)) {
+        wx.showToast({
+          title: '请正确填写联系人手机号',
+          icon: 'none',
+          duration: 2000
+        });
+        return false;
+      }
+      return true;
+    },
+
+    // contactEmailInput(e) {
+    //     this.form.contactEmail = e.detail.value;
+    // },
+    // contactEmailBlur(e) {
+    //     if (!this.form.contactEmail || this.form.contactEmail.indexOf('@') == -1) {
+    //         wx.showToast({
+    //             title: '请正确填写联系人邮箱',
+    //             icon: 'none',
+    //             duration: 2000
+    //         });
+    //         return false;
+    //     }
+    //     return true;
+    // },
+    openWindow(index, type) {
+      this.selectIndex = index;
+      this.idOrPassport = type;
+      this.showWindow = true;
+    },
+    openTypeWindow(index, type) {
+      this.typeSelectIndex = index;
+      this.isAdaultOrChild = type;
+      this.showTypeWindow = true;
+    },
+    closeWindow() {
+      this.showWindow = false;
+    },
+    closeTypeWindow() {
+      this.showTypeWindow = false;
+    },
+
+    selectType(type) {
+      this.form.passenger[this.selectIndex].type = type;
+      this.showWindow = false;
+    },
+    selectHumanType(type) {
+      console.log(this.typeSelectIndex);
+      this.form.passenger[this.typeSelectIndex].travelUserType = type;
+      this.showTypeWindow = false;
+    },
+
+    addPassenger() {
+      this.form.passenger.push({
+        type: 0,
+        travelUserType: 1
+      });
+    },
+    removePassenger(index) {
+      this.form.passenger.splice(index, 1);
+    },
+    clause(id) {
+      wx.navigateTo({
+        url: 'clause?id=' + id
+      });
+    },
+    consult() {
+      wx.showModal({
+        title: '若有问题请电话联系客服',
+        content: '400-1234-567',
+        showCancel: false
+      });
+    }
+  };
+
+  // watch = {
+  //   indexData (newVal, old) {
+  //     console.log('监听到新数组：', newVal);
+  //   }
+  // }
+
+  onLoad(option) {
+    this.id = option.id;
+
+    // 商品列表接口
+    this.requestGetGoodsDetail();
+  }
+
+  onShow() {}
+
+  goAuth() {
+    // console.log('授权');
+    // wx.redirectTo({
+    //   url: 'hello'
+    // });
+  }
+
+  requestGetGoodsDetail() {
+    let self = this;
+    util
+      .requestApi(
+        api.apiTravelGoodsDetail + this.id,
+        {},
+        wx.getStorageSync('userToken')
+      )
+      .then(res => {
+        if (res.data && res.code == 200) {
+          self.params = res.data;
+          console.log('aaaaaaaaaaaaa', res.data);
+          self.$apply();
+        }
+      })
+      .catch(msg => {
+        if (msg == 'reAuth') {
+          self.goAuth();
+        }
+      });
+  }
+  pay() {
+    if (!this.check()) {
+      return false;
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定提交订单去支付吗？',
+      showCancel: true,
+      success: function(res) {
+        if (res.confirm) {
+          util
             .requestApi(
-                api.apiTravelGoodsDetail + this.id, {},
-                wx.getStorageSync('userToken')
+              api.apiTravelOrderCreate,
+              this.payParams,
+              wx.getStorageSync('userToken'),
+              'POST'
             )
             .then(res => {
-                if (res.data && res.code == 200) {
-                    self.params = res.data;
-                    console.log('aaaaaaaaaaaaa', res.data);
-                    self.$apply();
-                }
+              if (res.code == 200) {
+                var orderId = res.data;
+                util
+                  .requestPostApi(
+                    api.apiTravelOrderPay,
+                    {
+                      orderId
+                    },
+                    wx.getStorageSync('userToken')
+                  )
+                  .then(res => {
+                    if (res.code == 200) {
+                      wx.requestPayment(
+                        Object.assign(
+                          {
+                            package: 'prepay_id=' + res.data.prepayId,
+                            signType: 'MD5',
+                            success: function(res) {
+                              console.log(res);
+                              wx.showModal({
+                                title: '提示',
+                                content: '支付成功',
+                                showCancel: true,
+                                cancelText: '返回首页',
+                                confirmText: '查看订单',
+                                success: function(res) {
+                                  if (res.confirm) {
+                                    wx.navigateTo({
+                                      url: 'travelOrderDetail?id=' + orderId
+                                    });
+                                  } else if (res.cancel) {
+                                    wx.switchTab({
+                                      url: 'index'
+                                    });
+                                  }
+                                }.bind(this)
+                              });
+                            },
+                            fail: function(res) {},
+                            complete: function(res) {}
+                          },
+                          res.data
+                        )
+                      );
+                    }
+                  })
+                  .catch(msg => {
+                    if (msg == 'reAuth') {
+                      self.goAuth();
+                    }
+                  });
+              }
             })
             .catch(msg => {
-                if (msg == 'reAuth') {
-                    self.goAuth();
-                }
+              if (msg == 'reAuth') {
+                self.goAuth();
+              }
             });
+        }
+      }.bind(this)
+    });
+  }
+  check() {
+    var realAdultNum = 0;
+    var realChildNum = 0;
+    this.form.passenger.forEach(item => {
+      if (item.travelUserType == 1) {
+        realAdultNum++;
+      } else if (item.travelUserType == 2) {
+        realChildNum++;
+      }
+    });
+    if (realAdultNum != this.form.adult || realChildNum != this.form.child) {
+      wx.showToast({
+        title: '出游人数与出行人信息不一致，请核对成人或儿童的人数',
+        icon: 'none',
+        duration: 3000
+      });
+      return false;
     }
-    pay() {
-        if (!this.check()) {
-            return false;
-        }
-        wx.showModal({
-            title: '提示',
-            content: '确定提交订单去支付吗？',
-            showCancel: true,
-            success: function (res) {
-                if (res.confirm) {
-                    util
-                        .requestApi(
-                            api.apiTravelOrderCreate,
-                            this.payParams,
-                            wx.getStorageSync('userToken'),
-                            'POST'
-                        )
-                        .then(res => {
-                            if (res.code == 200) {
-                                var orderId = res.data;
-                                util.requestPostApi(
-                                        api.apiTravelOrderPay, {
-                                            orderId
-                                        },
-                                        wx.getStorageSync('userToken')
-                                    )
-                                    .then(res => {
-                                        if (res.code == 200) {
-                                            wx.requestPayment(Object.assign({
-                                                'package': 'prepay_id=' + res.data.prepayId,
-                                                'signType': 'MD5',
-                                                'success': function (res) {
-                                                    console.log(res);
-                                                    wx.showModal({
-                                                        title: '提示',
-                                                        content: '支付成功',
-                                                        showCancel: false,
-                                                        success: function (res) {
-                                                            // wx.navigateTo({
-                                                            //     url: 'travelOrderDetail?id=' + orderId
-                                                            // });
-                                                            wx.navigateTo({
-                                                                url: 'travelOrders'
-                                                            });
-                                                        }.bind(this)
-                                                    });
-                                                },
-                                                'fail': function (res) {},
-                                                'complete': function (res) {}
-                                            }, res.data))
-                                        }
-                                    })
-                                    .catch(msg => {
-                                        if (msg == 'reAuth') {
-                                            self.goAuth();
-                                        }
-                                    });
-                            }
-                        })
-                        .catch(msg => {
-                            if (msg == 'reAuth') {
-                                self.goAuth();
-                            }
-                        });
-                }
-            }.bind(this)
-        });
+    if (!this.methods.adultBlur.call(this)) {
+      return false;
     }
-    check() {
-        var realAdultNum = 0;
-        var realChildNum = 0;
-        this.form.passenger.forEach((item) => {
-            if (item.travelUserType == 1) {
-                realAdultNum++;
-            } else if (item.travelUserType == 2) {
-                realChildNum++;
-            }
-        })
-        if (realAdultNum != this.form.adult || realChildNum != this.form.child) {
-            wx.showToast({
-                title: '出游人数与出行人信息不一致，请核对成人或儿童的人数',
-                icon: 'none',
-                duration: 3000
-            });
-            return false;
-        }
-        if (!this.methods.adultBlur.call(this)) {
-            return false;
-        }
 
-        if (!this.methods.contactNameBlur.call(this)) {
-            return false;
-        }
-        if (!this.methods.contactPhoneBlur.call(this)) {
-            return false;
-        }
-        // if (!this.methods.contactEmailBlur.call(this)) {
-        //     return false;
-        // }
-        for (let i = 0; i < this.form.passenger.length; i++) {
-            if (!this.methods.nameBlur.call(this, i)) {
-                return false;
-            }
-            if (!this.methods.numberBlur.call(this, i)) {
-                return false;
-            }
-            if (!this.methods.phoneBlur.call(this, i)) {
-                return false;
-            }
-        }
-        return true;
+    if (!this.methods.contactNameBlur.call(this)) {
+      return false;
     }
+    if (!this.methods.contactPhoneBlur.call(this)) {
+      return false;
+    }
+    // if (!this.methods.contactEmailBlur.call(this)) {
+    //     return false;
+    // }
+    for (let i = 0; i < this.form.passenger.length; i++) {
+      if (!this.methods.nameBlur.call(this, i)) {
+        return false;
+      }
+      if (!this.methods.numberBlur.call(this, i)) {
+        return false;
+      }
+      if (!this.methods.phoneBlur.call(this, i)) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 </script>
 
 <style lang="less" scoped>
 .container {
-    padding-bottom: 200rpx;
+  padding-bottom: 200rpx;
 }
 
 .title-container {
-    padding: 30rpx;
+  padding: 30rpx;
 
-    .title {
-        height: 80rpx;
-        overflow: hidden;
-        font-size: 28rpx;
-        color: #353535;
-    }
+  .title {
+    height: 80rpx;
+    overflow: hidden;
+    font-size: 28rpx;
+    color: #353535;
+  }
 
-    .time {
-        display: block;
-        font-size: 24rpx;
-        color: #888888;
-    }
+  .time {
+    display: block;
+    font-size: 24rpx;
+    color: #888888;
+  }
 }
 
 .num {
-    padding: 30rpx 30rpx 30rpx;
+  padding: 30rpx 30rpx 30rpx;
 
-    .title {
-        font-size: 28rpx;
-        color: #888888;
-        padding-bottom: 15rpx;
+  .title {
+    font-size: 28rpx;
+    color: #888888;
+    padding-bottom: 15rpx;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    line-height: 70rpx;
+
+    .type {
+      width: 225rpx;
+      font-size: 28rpx;
+      color: #888888;
+
+      text {
+        font-size: 22rpx;
+      }
     }
 
-    .item {
-        display: flex;
-        justify-content: space-between;
-        line-height: 70rpx;
-
-        .type {
-            width: 225rpx;
-            font-size: 28rpx;
-            color: #888888;
-
-            text {
-                font-size: 22rpx;
-            }
-        }
-
-        .red {
-            color: red;
-            font-size: 32rpx;
-            width: 118rpx;
-            text-align: right;
-        }
-
-        .unit {
-            font-size: 32rpx;
-            color: #353535;
-            text-align: right;
-        }
-
-        image {
-            width: 50rpx;
-            height: 50rpx;
-        }
-
-        input {
-            width: 111rpx;
-            height: 50rpx;
-            text-align: center;
-            border: solid 1px #ddd;
-        }
+    .red {
+      color: red;
+      font-size: 32rpx;
+      width: 118rpx;
+      text-align: right;
     }
+
+    .unit {
+      font-size: 32rpx;
+      color: #353535;
+      text-align: right;
+    }
+
+    image {
+      width: 50rpx;
+      height: 50rpx;
+    }
+
+    input {
+      width: 111rpx;
+      height: 50rpx;
+      text-align: center;
+      border: solid 1px #ddd;
+    }
+  }
 }
 
 .people {
-    padding-top: 30rpx;
+  padding-top: 30rpx;
 
-    .title {
-        margin-left: 30rpx;
-        font-size: 28rpx;
-        color: #888888;
-        padding-bottom: 15rpx;
+  .title {
+    margin-left: 30rpx;
+    font-size: 28rpx;
+    color: #888888;
+    padding-bottom: 15rpx;
+  }
+
+  .sub-title {
+    line-height: 90rpx;
+    margin: 0 30rpx;
+
+    .id {
+      width: 38rpx;
+      height: 24rpx;
+      padding-right: 15rpx;
     }
 
-    .sub-title {
-        line-height: 90rpx;
-        margin: 0 30rpx;
-
-        .id {
-            width: 38rpx;
-            height: 24rpx;
-            padding-right: 15rpx;
-        }
-
-        text {
-            font-size: 28rpx;
-            color: #353535;
-        }
-
-        .close {
-            width: 40rpx;
-            height: 40rpx;
-            float: right;
-            margin-top: 27rpx;
-        }
-    }
-
-    .lable-input {
-        line-height: 98rpx;
-        margin: 0 30rpx;
-        display: flex;
-        justify-content: space-between;
-
-        text {
-            font-size: 28rpx;
-            color: #888888;
-        }
-
-        input {
-            width: 500rpx;
-            font-size: 32rpx;
-            margin-top: 27rpx;
-        }
-    }
-
-    .id-input {
-        line-height: 98rpx;
-        margin: 0 30rpx;
-        display: flex;
-        justify-content: space-between;
-
-        .lable {
-            font-size: 28rpx;
-            color: #888888;
-        }
-
-        .id {
-            width: 400rpx;
-            font-size: 32rpx;
-        }
-
-        .open {
-            margin-top: 40rpx;
-            width: 24rpx;
-            height: 15rpx;
-        }
-    }
-
-    .line {
-        border-bottom: solid 1px #ddd;
-    }
-
-    .info-btn {
-        padding: 30rpx;
-
-        .info {
-            font-size: 24rpx;
-            color: #888888;
-        }
-
-        .add {
-            text-align: center;
-            padding: 40rpx;
-
-            image {
-                width: 30rpx;
-                height: 30rpx;
-                vertical-align: middle;
-            }
-
-            text {
-                font-size: 30rpx;
-                color: #387dff;
-                vertical-align: middle;
-            }
-        }
-    }
-}
-
-.contact {
-    padding-top: 30rpx;
-
-    .title {
-        margin-left: 30rpx;
-        font-size: 28rpx;
-        color: #888888;
-        padding-bottom: 15rpx;
-    }
-
-    .lable-input {
-        line-height: 98rpx;
-        margin: 0 30rpx;
-        display: flex;
-        justify-content: space-between;
-
-        text {
-            font-size: 28rpx;
-            color: #888888;
-        }
-
-        input {
-            width: 500rpx;
-            font-size: 32rpx;
-            margin-top: 27rpx;
-        }
-    }
-
-    .line {
-        border-bottom: solid 1px #ddd;
-    }
-}
-
-.interval {
-    height: 20rpx;
-    background: #eee;
-}
-
-.info-item {
-    width: 100%;
-    display: block;
-    line-height: 80rpx;
-    text-align: center;
-    font-size: 24rpx;
-    position: fixed;
-    bottom: 98rpx;
-    z-index: 9;
-    color: #fafafa;
-    background: rgba(0, 0, 0, 0.5);
-
-    .blue {
-        color: #1dadff;
-    }
-}
-
-.bottom-btn {
-    height: 98rpx;
-    display: flex;
-    text-align: center;
-    position: fixed;
-    justify-content: space-between;
-    bottom: 0;
-    border-top: #ccc 1px solid;
-    z-index: 9;
-
-    .price {
-        width: 240rpx;
-        background: #fff;
-        line-height: 98rpx;
-        font-size: 24rpx;
-        text-align: left;
-        padding-left: 30rpx;
-
-        .red {
-            font-size: 38rpx;
-            color: red;
-        }
-    }
-
-    .consult {
-        width: 140rpx;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        justify-content: center;
-        background: #fff;
-
-        image {
-            margin-left: auto;
-            margin-right: auto;
-            width: 50rpx;
-            height: 50rpx;
-        }
-
-        text {
-            width: 100%;
-            font-size: 24rpx;
-            color: #888888;
-            letter-spacing: 0.36rpx;
-        }
-    }
-
-    .order {
-        line-height: 98rpx;
-        width: 376rpx;
-        color: #ffffff;
-        letter-spacing: 0;
-        text-align: center;
-        background: #387dff;
-        padding-top: 24rpx;
-
-        text {
-            display: block;
-            width: 100%;
-        }
-
-        .next {
-            line-height: 34rpx;
-            font-size: 34rpx;
-        }
-
-        .pay {
-            line-height: 24rpx;
-            font-size: 24rpx;
-        }
-    }
-}
-
-.backdrop {
-    opacity: 0.3;
-    background: #000000;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 10;
-}
-
-.window {
-    position: fixed;
-    width: 560rpx;
-    height: 333rpx;
-    top: 400rpx;
-    left: 95rpx;
-    background: #fff;
-    border-radius: 10rpx;
-    opacity: 1;
-    z-index: 11;
-
-    .row {
-        height: 111rpx;
-        line-height: 111rpx;
-        font-size: 36rpx;
-        color: #b2b2b2;
-        text-align: center;
-        border-bottom: solid 1px #ddd;
-        padding: 0 30rpx;
-    }
-
-    .noborder {
-        border-bottom: #fff;
-    }
-
-    .title {
-        color: #000;
+    text {
+      font-size: 28rpx;
+      color: #353535;
     }
 
     .close {
-        float: right;
-        line-height: 111rpx;
-        font-size: 60rpx;
-        color: #b2b2b2;
+      width: 40rpx;
+      height: 40rpx;
+      float: right;
+      margin-top: 27rpx;
+    }
+  }
+
+  .lable-input {
+    line-height: 98rpx;
+    margin: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+
+    text {
+      font-size: 28rpx;
+      color: #888888;
     }
 
-    .select {
-        color: #1dadff;
-
-        .select-img {
-            width: 30rpx;
-            height: 20rpx;
-            margin-left: 20rpx;
-        }
+    input {
+      width: 500rpx;
+      font-size: 32rpx;
+      margin-top: 27rpx;
     }
+  }
+
+  .id-input {
+    line-height: 98rpx;
+    margin: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+
+    .lable {
+      font-size: 28rpx;
+      color: #888888;
+    }
+
+    .id {
+      width: 400rpx;
+      font-size: 32rpx;
+    }
+
+    .open {
+      margin-top: 40rpx;
+      width: 24rpx;
+      height: 15rpx;
+    }
+  }
+
+  .line {
+    border-bottom: solid 1px #ddd;
+  }
+
+  .info-btn {
+    padding: 30rpx;
+
+    .info {
+      font-size: 24rpx;
+      color: #888888;
+    }
+
+    .add {
+      text-align: center;
+      padding: 40rpx;
+
+      image {
+        width: 30rpx;
+        height: 30rpx;
+        vertical-align: middle;
+      }
+
+      text {
+        font-size: 30rpx;
+        color: #387dff;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.contact {
+  padding-top: 30rpx;
+
+  .title {
+    margin-left: 30rpx;
+    font-size: 28rpx;
+    color: #888888;
+    padding-bottom: 15rpx;
+  }
+
+  .lable-input {
+    line-height: 98rpx;
+    margin: 0 30rpx;
+    display: flex;
+    justify-content: space-between;
+
+    text {
+      font-size: 28rpx;
+      color: #888888;
+    }
+
+    input {
+      width: 500rpx;
+      font-size: 32rpx;
+      margin-top: 27rpx;
+    }
+  }
+
+  .line {
+    border-bottom: solid 1px #ddd;
+  }
+}
+
+.interval {
+  height: 20rpx;
+  background: #eee;
+}
+
+.info-item {
+  width: 100%;
+  display: block;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 24rpx;
+  position: fixed;
+  bottom: 98rpx;
+  z-index: 9;
+  color: #fafafa;
+  background: rgba(0, 0, 0, 0.5);
+
+  .blue {
+    color: #1dadff;
+  }
+}
+
+.bottom-btn {
+  height: 98rpx;
+  display: flex;
+  text-align: center;
+  position: fixed;
+  justify-content: space-between;
+  bottom: 0;
+  border-top: #ccc 1px solid;
+  z-index: 9;
+
+  .price {
+    width: 240rpx;
+    background: #fff;
+    line-height: 98rpx;
+    font-size: 24rpx;
+    text-align: left;
+    padding-left: 30rpx;
+
+    .red {
+      font-size: 38rpx;
+      color: red;
+    }
+  }
+
+  .consult {
+    width: 140rpx;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    background: #fff;
+
+    image {
+      margin-left: auto;
+      margin-right: auto;
+      width: 50rpx;
+      height: 50rpx;
+    }
+
+    text {
+      width: 100%;
+      font-size: 24rpx;
+      color: #888888;
+      letter-spacing: 0.36rpx;
+    }
+  }
+
+  .order {
+    line-height: 98rpx;
+    width: 376rpx;
+    color: #ffffff;
+    letter-spacing: 0;
+    text-align: center;
+    background: #387dff;
+    padding-top: 24rpx;
+
+    text {
+      display: block;
+      width: 100%;
+    }
+
+    .next {
+      line-height: 34rpx;
+      font-size: 34rpx;
+    }
+
+    .pay {
+      line-height: 24rpx;
+      font-size: 24rpx;
+    }
+  }
+}
+
+.backdrop {
+  opacity: 0.3;
+  background: #000000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.window {
+  position: fixed;
+  width: 560rpx;
+  height: 333rpx;
+  top: 400rpx;
+  left: 95rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  opacity: 1;
+  z-index: 11;
+
+  .row {
+    height: 111rpx;
+    line-height: 111rpx;
+    font-size: 36rpx;
+    color: #b2b2b2;
+    text-align: center;
+    border-bottom: solid 1px #ddd;
+    padding: 0 30rpx;
+  }
+
+  .noborder {
+    border-bottom: #fff;
+  }
+
+  .title {
+    color: #000;
+  }
+
+  .close {
+    float: right;
+    line-height: 111rpx;
+    font-size: 60rpx;
+    color: #b2b2b2;
+  }
+
+  .select {
+    color: #1dadff;
+
+    .select-img {
+      width: 30rpx;
+      height: 20rpx;
+      margin-left: 20rpx;
+    }
+  }
 }
 </style>

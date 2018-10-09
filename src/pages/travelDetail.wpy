@@ -60,7 +60,7 @@ import api from '../plugins/api'
 
 export default class Index extends wepy.page {
     config = {
-        navigationBarTitleText: '朝鲜通',
+        navigationBarTitleText: '旅游详情',
     }
     components = {
         banner: Banner,
@@ -286,7 +286,7 @@ swiper {
 }
 
 .tab {
-    margin-top: 70rpx;
+    margin-top: 0rpx;
     font-size: 28rpx;
     color: #888888;
     display: flex;
