@@ -368,6 +368,7 @@
         this.orderList = res.data.data;
         for ( let i=0;i<this.orderList.length;i++ ) {
           let item = this.orderList[i];
+          item.travelGoods.leaveTime = item.travelGoods.leaveTime.slice(0,-9);
           // item.travelGoods.leaveTime = this.calDate(item.travelGoods.leaveTime);
           // item.travelOrder.createTime = this.calDate(item.travelOrder.createTime);
         }
