@@ -751,8 +751,8 @@ export default class Index extends wepy.page {
 
         .open {
             margin-top: 40rpx;
-            width: 35rpx;
-            height: 20rpx;
+            width: 24rpx;
+            height: 15rpx;
         }
     }
 
@@ -775,11 +775,13 @@ export default class Index extends wepy.page {
             image {
                 width: 30rpx;
                 height: 30rpx;
+                vertical-align: middle;
             }
 
             text {
                 font-size: 30rpx;
                 color: #387dff;
+                vertical-align: middle;
             }
         }
     }
