@@ -18,13 +18,13 @@
                   <button wx:if="{{(item1.status != 60) || (item1.status == 60 && item1.renewStatus == 0)}}" @tap.stop="handleTapBtn({{item2.action}}, {{item1}})">
                     {{item2.name}}
                     <label wx:if="{{item2.action == 'register'}}"
-                          class="date-label" for="{{'date-picker-'+index1}}" 
+                          class="date-label" for="{{'date-picker-'+index1}}"
                           @tap="handleTapPickerLabel({{item1}})"></label>
                     <picker wx:if="{{item2.action == 'register'}}"
-                            mode="date" 
+                            mode="date"
                             value="{{registerDate}}"
-                            start="{{startDate}}" 
-                            end="{{item1._endData}}" 
+                            start="{{startDate}}"
+                            end="{{item1._endData}}"
                             bindchange="bindDateChange({{item1}})">
                       <button class="picker" id="{{'date-picker-'+index1}}">
                         当前选择: {{date}}
@@ -236,6 +236,9 @@
   }
 </script>
 <style lang="less">
+  button {
+    background: #fff!important;
+  }
   .order-list {
     width: 100vw;
     height: 100vh;

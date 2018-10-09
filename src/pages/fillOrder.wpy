@@ -535,8 +535,11 @@ export default class Index extends wepy.page {
                                                         content: '支付成功',
                                                         showCancel: false,
                                                         success: function (res) {
+                                                            // wx.navigateTo({
+                                                            //     url: 'travelOrderDetail?id=' + orderId
+                                                            // });
                                                             wx.navigateTo({
-                                                                url: 'travelOrderDetail?id=' + orderId
+                                                                url: 'travelOrders'
                                                             });
                                                         }.bind(this)
                                                     });

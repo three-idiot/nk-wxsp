@@ -4,7 +4,7 @@
       {{newsInfo.title}}
     </view>
     <wxs src="../filter/getComputedDate.wxs" module="filter" />
-    <view class="news-pubtime">
+    <view class="news-pubtime" wx:if="{{newsInfo.createTime}}">
       发布时间 {{filter.getComputedDate(newsInfo.createTime)}}
     </view>
     <view class="news-content">
@@ -20,7 +20,7 @@
         <view class="left">
           <view class="title">{{newsInfo.keyNews.title}}</view>
           <wxs src="../filter/getComputedDate.wxs" module="filter" />
-          <view class="time">{{filter.getComputedDate(newsInfo.keyNews.createTime)}}</view>
+          <view class="time" wx:if="{{newsInfo.keyNews.createTime}}">{{filter.getComputedDate(newsInfo.keyNews.createTime)}}</view>
         </view>
         <view class="right">
           <image class="related-news-img" src="{{newsInfo.keyNews.images && newsInfo.keyNews.images[0] && newsInfo.keyNews.images[0].goodPath}}"></image>
@@ -55,30 +55,30 @@
 
     data = {
       newsInfo: {
-        // "id": 1,
-        // "newsNo": "BN8980800980809809",
-        // "title": "第一次去朝鲜旅游的注意事项注意事项",
-        // "newsKey": "ailisi",
-        // "detail": "zixun",
-        // "top": 1,
-        // "type": null,
-        // "status": 1,
-        // "publisher": '桦桦',
-        // "createTime": new Date('2018-09-09 16:12:00'),
-        // "images": [
-        //   { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-        //   { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-        //   { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
-        // ],
-        // "keyNews": {
-        //   newsNo: 'HB78798789797979',
-        //   title: '我是推荐资讯',
-        //   newsKey: 'tuijian',
-        //   publisher: '唐先森',
-        //   createTime: new Date('2018-09-12 16:12:00'),
-        //   status: 2,
-        //   detail: '呵呵'
-        // }
+        "id": 1,
+        "newsNo": "BN8980800980809809",
+        "title": "第一次去朝鲜旅游的注意事项注意事项",
+        "newsKey": "ailisi",
+        "detail": "zixun",
+        "top": 1,
+        "type": null,
+        "status": 1,
+        "publisher": '桦桦',
+        "createTime": '2018-09-09 16:12:00',
+        "images": [
+          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+          { "id": 58, "goodId": 1, "goodPath": "http://www.fsdpp.cn/d/file/guanggao/2017-12-01/9450d97f64fdfa2b0649676190b7ed07.jpeg", "sort": 1, "type": 4, "status": 1 },
+        ],
+        "keyNews": {
+          newsNo: 'HB78798789797979',
+          title: '我是推荐资讯',
+          newsKey: 'tuijian',
+          publisher: '唐先森',
+          createTime: '2018-09-12 16:12:00',
+          status: 2,
+          detail: '呵呵'
+        }
       }
     }
 
@@ -198,8 +198,7 @@
           .related-news-img {
             width: 224rpx;
             height: 150rpx;
-            display: inline-block;
-            vertical-align: middle;
+            margin-top: 30rpx;
           }
         }
       }

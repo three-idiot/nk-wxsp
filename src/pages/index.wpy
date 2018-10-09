@@ -260,7 +260,8 @@ export default class Index extends wepy.page {
 .three-tab {
     display: flex;
     width: 100%;
-    height: 200rpx;
+    /*height: 200rpx;*/
+    padding: 31rpx 0 11rpx 0;
     justify-content: space-around;
     align-items: center;
 
@@ -290,7 +291,6 @@ export default class Index extends wepy.page {
     height: 150rpx;
     background: #f4f4f4;
     position: relative;
-
     .news {
         position: absolute;
         top: 20rpx;
@@ -299,6 +299,7 @@ export default class Index extends wepy.page {
         height: 110rpx;
         background: white;
         padding: 25rpx 15rpx;
+        border-radius: 8rpx;
 
         image {
             width: 70rpx;
@@ -331,6 +332,7 @@ export default class Index extends wepy.page {
     width: 100%;
     height: 140rpx;
     justify-content: space-between;
+    background: #f4f4f4;
 
     image {
         display: inline-block;

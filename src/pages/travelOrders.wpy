@@ -7,6 +7,7 @@
     height: auto;
     background: #fff;
     .travel-bar {
+      padding-top: 31rpx;
       display: flex;
       justify-content: space-around;
       font-size: 28rpx;
@@ -136,7 +137,17 @@
     font-size: 30rpx;
     /*color: darkgray;*/
     color: #A3A3A3;
-    margin-top: 25rpx;
+    margin-top: 108rpx;
+    .tip-img {
+      width: 263rpx;
+      height: 204rpx;
+    }
+    .tip-text {
+      font-size: 32rpx;
+      color: #353535;
+      text-align: center;
+      margin-top: 50rpx;
+    }
   }
 
 </style>
@@ -173,7 +184,12 @@
     </view>
   </repeat>
 
-  <view class="noData" wx:if="{{ orderList.length == 0 && !loading}}">没有数据~</view>
+  <view class="noData" wx:if="{{ orderList.length == 0 && !loading}}">
+    <image class="tip-img" src="../images/ymyc_img_ymyc.png"></image>
+    <view class="tip-text">
+      没有数据~
+    </view>
+  </view>
 
   <view class="cancel-window-mask" wx:if="{{cancelWindowShow}}">
     <view class="cancel-window">

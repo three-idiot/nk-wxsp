@@ -22,7 +22,7 @@
 
 <script>
   import wepy from 'wepy'
-  
+
   import util from '../plugins/util'
   import api from '../plugins/api'
 
@@ -53,7 +53,7 @@
     onLoad() {
       this.requestGetNewslist();
     }
-    
+
     lower (e) {
       this.pageIndex += 1;
       this.$apply();
@@ -102,7 +102,8 @@
       padding: 30rpx 0;
       overflow: hidden;
       &:not(:last-child) {
-        border-bottom: 1rpx solid #f5f5f5;
+        /*border-bottom: 1rpx solid #f5f5f5;*/
+        border-bottom: 1rpx solid #DDDDDD;
       }
       .title {
         float: left;

@@ -1,25 +1,29 @@
 /* 获取 刚刚，1小时前，2小时前，具体时间的方法，这东西比较坑，要看小程序的官方api，自己搞了套恶心的js */
 function getComputedDate(time) {
-  time = time.split("-").join("/");
   var res = '';
   if (!time) {
-    return res;
-  }
-  var _currentTime = getDate();
-  var _originTime = getDate(time);
-  var _currentTimeStamp = _currentTime.getTime();
-  var _originTimeStamp = _originTime.getTime();
-  var _dvalue = _currentTimeStamp - _originTimeStamp;
-  if (_dvalue > 0) {
-    var _dHour = _dvalue/1000/3600;
-    if (_dHour <= 1) {
-      res = '刚刚';
-    } else if (_dHour > 1 && _dHour <= 2) {
-      res = '1小时前';
-    } else if (_dHour > 2 && _dHour <= 3) {
-      res = '2小时前';
-    } else {
-      res = _originTime.getFullYear() + '-' + (buLing(_originTime.getMonth() + 1)) + '-' + buLing(_originTime.getDate()) + ' ' + buLing(_originTime.getHours()) + ':' + buLing(_originTime.getMinutes()) + ':' + buLing(_originTime.getSeconds());
+    res = '';
+  } else {
+    time = time.split("-").join("/");
+    if (!time) {
+      return res;
+    }
+    var _currentTime = getDate();
+    var _originTime = getDate(time);
+    var _currentTimeStamp = _currentTime.getTime();
+    var _originTimeStamp = _originTime.getTime();
+    var _dvalue = _currentTimeStamp - _originTimeStamp;
+    if (_dvalue > 0) {
+      var _dHour = _dvalue/1000/3600;
+      if (_dHour <= 1) {
+        res = '刚刚';
+      } else if (_dHour > 1 && _dHour <= 2) {
+        res = '1小时前';
+      } else if (_dHour > 2 && _dHour <= 3) {
+        res = '2小时前';
+      } else {
+        res = _originTime.getFullYear() + '-' + (buLing(_originTime.getMonth() + 1)) + '-' + buLing(_originTime.getDate()) + ' ' + buLing(_originTime.getHours()) + ':' + buLing(_originTime.getMinutes()) + ':' + buLing(_originTime.getSeconds());
+      }
     }
   }
   return res;

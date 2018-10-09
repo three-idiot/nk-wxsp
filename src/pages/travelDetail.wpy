@@ -34,7 +34,7 @@
         <text class="{{tabs[tab]=='costDescribe'?'tab-select':''}}" @tap="tabChange(2)">费用须知</text>
     </view>
     <import src="../plugins/wxParse/wxParse.wxml" />
-    <view>
+    <view style="padding: 0 30rpx 0 30rpx;">
         <template wx:if="{{tabs[tab]=='lineDescribe'}}" is="wxParse" data="{{wxParseData:lineDescribe.nodes}}" />
         <template wx:if="{{tabs[tab]=='tripDescribe'}}" is="wxParse" data="{{wxParseData:tripDescribe.nodes}}" />
         <template wx:if="{{tabs[tab]=='costDescribe'}}" is="wxParse" data="{{wxParseData:costDescribe.nodes}}" />

@@ -2,65 +2,65 @@
   <view class="sign-second">
     <form class="sign-second-form" bindsubmit="formSubmit" bindreset="formReset">
       <formItem1 title="真实姓名">
-        <input class="form-item-input" 
-          bindinput="handleSignNameInput" 
-          bindblur="handleNameInputBlur" 
-          value="{{signName}}" 
-          placeholder="请输入您的真实姓名" 
+        <input class="form-item-input"
+          bindinput="handleSignNameInput"
+          bindblur="handleNameInputBlur"
+          value="{{signName}}"
+          placeholder="请输入您的真实姓名"
           placeholder-style="color: #B2B2B2"
           slot="form-item-content" />
       </formItem1>
       <formItem2 title="护照号">
-        <input class="form-item-input" 
-          bindinput="handleSignPassPortNumberInput" 
-          bindblur="handlePassportInputBlur" 
-          value="{{signPassPortNumber}}" 
-          placeholder="请输入您的护照号" 
+        <input class="form-item-input"
+          bindinput="handleSignPassPortNumberInput"
+          bindblur="handlePassportInputBlur"
+          value="{{signPassPortNumber}}"
+          placeholder="请输入您的护照号"
           placeholder-style="color: #B2B2B2"
           slot="form-item-content" />
       </formItem2>
       <formItem3 title="手机号码">
-        <input class="form-item-input" 
-          bindinput="handleSignPhoneInput" 
-          bindblur="handlePhoneInputBlur" 
-          value="{{signPhone}}" 
-          placeholder="请输入您的手机号" 
+        <input class="form-item-input"
+          bindinput="handleSignPhoneInput"
+          bindblur="handlePhoneInputBlur"
+          value="{{signPhone}}"
+          placeholder="请输入您的手机号"
           placeholder-style="color: #B2B2B2"
           slot="form-item-content" />
       </formItem3>
-      <view class="panel passport-inner-page">
+      <view class="panel passport-inner-page add-bottom">
         <view class="title">护照内页</view>
         <view class="passport-inner-page-upload-container">
           <view class="img-container">
-            <image @tap="handleTapDelBtn('passport')" 
-              wx:if="{{passportInnerPageUrl}}" 
-              class="del-btn" 
+            <image @tap="handleTapDelBtn('passport')"
+              wx:if="{{passportInnerPageUrl}}"
+              class="del-btn"
               src="../images/del-btn.png"></image>
-            <image class="passport-inner-page-img" 
-              wx:if="{{passportInnerPageUrl}}" 
+            <image class="passport-inner-page-img"
+              wx:if="{{passportInnerPageUrl}}"
               src="{{passportInnerPageUrl}}"></image>
           </view>
-          <image class="upload-container" 
+          <image class="upload-container"
             wx:if="{{!passportInnerPageUrl}}"
-            src="../images/qzrxx_img_visa_upload.png" 
+            src="../images/qzrxx_img_visa_upload.png"
             @tap="handleUpload('passport')"></image>
         </view>
       </view>
-      <view class="panel passport-inner-page">
+      <view class="panel passport-inner-page add-bottom">
         <view class="title">上传简历</view>
         <view class="passport-inner-page-upload-container">
           <view class="img-container">
-            <image @tap="handleTapDelBtn('jianli')" 
-              wx:if="{{jianliImageUrl}}" 
-              class="del-btn" 
+            <image @tap="handleTapDelBtn('jianli')"
+              wx:if="{{jianliImageUrl}}"
+              class="del-btn"
               src="../images/del-btn.png"></image>
-            <image class="passport-inner-page-img" 
-              wx:if="{{jianliImageUrl}}" 
+            <image class="passport-inner-page-img"
+              wx:if="{{jianliImageUrl}}"
               src="{{jianliImageUrl}}"></image>
           </view>
-          <image class="upload-container" 
+          <image class="upload-container"
             wx:if="{{!jianliImageUrl}}"
-            src="../images/qzrxx_img_visa_upload.png" 
+            src="../images/qzrxx_img_visa_upload.png"
             @tap="handleUpload('jianli')"></image>
           <view class="jianli-tip">请先把简历打印出来后再拍照上传！</view>
           <view class="check-jianli" @tap="handleCheckJianliTemplate">
@@ -78,10 +78,10 @@
       <view class="panel passport-inner-page">
         <view class="title">留言</view>
         <view class="message-box">
-          <textarea placeholder="若有其他需求请给我们留言" 
+          <textarea placeholder="若有其他需求请给我们留言"
             wx:if="{{showTextarea}}"
             placeholder-style="color: #B2B2B2"
-            bindinput="handleMessageInput" 
+            bindinput="handleMessageInput"
             value="{{message}}"></textarea>
         </view>
       </view>
@@ -145,7 +145,7 @@
     }
 
     computed = {
-      
+
     }
 
     methods = {
@@ -271,7 +271,7 @@
                   } else if (flag == 'jianli') {
                     self.jianliImageUrl = _tempUrl[0];
                     self.jianliHttpUrl = JSON.parse(res1.data).data;
-                  } 
+                  }
                 }
                 self.$apply();
               },
@@ -324,7 +324,7 @@
                   console.log('下订单成功：', res1.data);
                   self.$invoke('payment', 'requestPayParam', {
                     type: '0',
-                    orderId: res1.data.id, 
+                    orderId: res1.data.id,
                     price: self.totalFee,
                   });
                 }
@@ -388,6 +388,9 @@
     position: relative;
     padding-bottom: 190rpx;
     .sign-second-form {
+      .add-bottom {
+        padding-bottom: 20rpx!important;
+      }
       .panel {
         width: 100%;
         box-sizing: border-box;
@@ -471,7 +474,7 @@
         transform: translate3d(0, -50%, 0);
         // .wx-switch-input{width:40px !important;height:20px !important;}
         // .wx-switch-input::before{width:41px !important;height: 20px !important;}
-        // .wx-switch-input::after{width: 18px !important;height: 18px !important;}//中间小圆球 
+        // .wx-switch-input::after{width: 18px !important;height: 18px !important;}//中间小圆球
       }
       .message-box {
         width: 570rpx;
@@ -555,4 +558,5 @@
       }
     }
   }
+
 </style>
