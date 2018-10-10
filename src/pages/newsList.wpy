@@ -44,6 +44,12 @@
 
     methods = {
       handleGoDetail (item) {
+        if (item.newsType == 2 && item.adUrl) { // 如果是广告类型，并且有广告url，那么应该跳转到这个url
+          wx.navigateTo({
+            url: 'outPage?url=' + item.adUrl,
+          });
+          return;
+        }
         wx.navigateTo({
           url: 'newsDetail?id=' + item.newsId + '&title=' + item.title + '&type=' + item.newsType,
         });

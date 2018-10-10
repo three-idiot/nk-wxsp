@@ -28,6 +28,7 @@
     onLoad(option) {
       let self = this
       self.src = option.url;
+      this.$apply();
     }
   }
 </script>
