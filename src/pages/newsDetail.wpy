@@ -13,7 +13,7 @@
       <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
     </view>
     <!-- 运营人员 -->
-    <view class="pubname">运营人员  {{ newsInfo.publisherName }}</view>
+    <view class="pubname" wx:if="{{newsInfo.publisherName}}">运营人员  {{ newsInfo.publisherName }}</view>
     <view class="related-news" @tap="handleTapRelatedNews" wx:if="{{ newsInfo.keyNews }}">
       <view class="related-title">相关资讯</view>
       <view class="related-news-info">
