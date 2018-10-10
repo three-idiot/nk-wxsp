@@ -15,7 +15,7 @@
     <!-- 运营人员 -->
     <view class="pubname">运营人员  {{ newsInfo.publisherName }}</view>
     <view class="related-news" @tap="handleTapRelatedNews" wx:if="{{ newsInfo.keyNews }}">
-      <view class="related-title">类似推荐</view>
+      <view class="related-title">相关资讯</view>
       <view class="related-news-info">
         <view class="left">
           <view class="title">{{newsInfo.keyNews.title}}</view>
