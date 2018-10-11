@@ -7,7 +7,7 @@
     <view class="interval"></view>
     <view class="num">
         <text class="title">请选择出游人数</text>
-        <view class="item">
+        <view class="item item1">
             <text class="type">成人</text>
             <text class="red">{{params.salePrice/100}}</text>
             <text class="unit">元／人</text>
@@ -675,7 +675,9 @@ export default class Index extends wepy.page {
     display: flex;
     justify-content: space-between;
     line-height: 70rpx;
-
+    &.item1 {
+      margin-bottom: 30rpx;
+    }
     .type {
       width: 225rpx;
       font-size: 28rpx;
@@ -789,6 +791,9 @@ export default class Index extends wepy.page {
 
   .line {
     border-bottom: solid 1px #ddd;
+    width: 720rpx;
+    box-sizing: border-box;
+    padding-right: 30rpx;
   }
 
   .info-btn {
@@ -848,6 +853,9 @@ export default class Index extends wepy.page {
 
   .line {
     border-bottom: solid 1px #ddd;
+    width: 720rpx;
+    box-sizing: border-box;
+    padding-right: 30rpx;
   }
 }
 

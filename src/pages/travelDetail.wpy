@@ -34,7 +34,7 @@
         <text class="{{tabs[tab]=='costDescribe'?'tab-select':''}}" @tap="tabChange(2)">费用须知</text>
     </view>
     <import src="../plugins/wxParse/wxParse.wxml" />
-    <view style="padding: 0 30rpx 0 30rpx;">
+    <view style="padding: 0 30rpx 0 30rpx;background: #fff;">
         <template wx:if="{{tabs[tab]=='lineDescribe'}}" is="wxParse" data="{{wxParseData:lineDescribe.nodes}}" />
         <template wx:if="{{tabs[tab]=='tripDescribe'}}" is="wxParse" data="{{wxParseData:tripDescribe.nodes}}" />
         <template wx:if="{{tabs[tab]=='costDescribe'}}" is="wxParse" data="{{wxParseData:costDescribe.nodes}}" />
@@ -175,6 +175,7 @@ export default class Index extends wepy.page {
 
 .container {
     padding-bottom: 200rpx;
+    background: #f4f4f4;
 }
 
 swiper {
@@ -189,7 +190,9 @@ swiper {
 }
 
 .head {
+    margin-bottom: 20rpx;
     padding: 30rpx 30rpx 0;
+    background: #fff;
 
     .title-money {
         display: flex;
@@ -286,12 +289,14 @@ swiper {
 }
 
 .tab {
+    background: #fff;
     margin-top: 0rpx;
     font-size: 28rpx;
     color: #888888;
     display: flex;
     justify-content: space-around;
     border-bottom: #ccc solid 1px;
+    padding-top: 20rpx;
 
     text {
         padding-bottom: 10rpx;
