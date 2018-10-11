@@ -7,7 +7,7 @@
         <image src="{{imgUrl}}"></image>
         <view class="sign-detail-info-main-inner">
           <view class="sign-detail-info-title">{{goodInfo.title}}</view>
-          <view class="sign-detail-info-price">￥<text>{{goodInfo.lowHelpPrice/100}}</text></view>
+          <view class="sign-detail-info-price">￥<text>{{totalFee}}</text></view>
           <view class="sign-detail-info-time">办理时长 {{goodInfo.disposeDay}}个工作日</view>
         </view>
       </view>
@@ -92,7 +92,19 @@
     }
 
     computed = {
-      
+      totalFee () {
+        let res = 0;
+        if (this.goodInfo) {
+          if (this.goodInfo.lowHelpPrice && this.goodInfo.lowVisaPrice) {
+            res = this.goodInfo.lowHelpPrice + this.goodInfo.lowVisaPrice;
+          } else if (this.goodInfo.lowHelpPrice) {
+            res = this.goodInfo.lowHelpPrice
+          } else if (this.goodInfo.lowVisaPrice) {
+            res = this.goodInfo.lowVisaPrice;
+          }
+        }
+        return res/100;
+      }
     }
 
     methods = {

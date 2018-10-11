@@ -104,7 +104,15 @@
 
     computed = {
       totalFee () {
-        return this.signFee && this.serviceFee ? this.signFee + this.serviceFee : 0
+        let res = 0;
+        if (this.signFee && this.serviceFee) {
+          res = this.signFee + this.serviceFee;
+        } else if (this.signFee) {
+          res = this.signFee
+        } else if (this.serviceFee) {
+          res = this.serviceFee;
+        }
+        return res;
       }
     }
 
