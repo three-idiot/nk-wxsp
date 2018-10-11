@@ -2,11 +2,12 @@
 <view class="travel-list">
     <repeat for="{{syncLists}}" item="item" key="index" index="index">
         <view class="travel" @tap="handleClickSingleSign({{item}}, {{index}})">
+            <view class="line"></view>
             <image src="{{item.images[0].goodPath}}" />
             <view class="list-travel">
                 <view class="title-name">
                     <text class="red">【{{item.leaveAddress}}出发】</text>
-                    <text>{{item.name}}</text>
+                    <text class="title-desc">{{item.name}}</text>
                 </view>
                 <view class="bottom">
                     <view>
@@ -75,8 +76,16 @@ export default class SmallTravelList extends wepy.component {
         margin: 0 30rpx;
         padding: 30rpx 0;
         display: flex;
-        border-bottom: 1px solid #ccc;
-
+        position: relative;
+        // border-bottom: 1px solid #ddd;
+        .line {
+            width: 720rpx;
+            height: 1rpx;
+            background: #ddd;
+            position: absolute;
+            left: 0;
+            bottom: 1rpx;
+        }
         image {
             width: 200rpx;
             height: 134rpx;
@@ -92,9 +101,15 @@ export default class SmallTravelList extends wepy.component {
             .title-name {
                 height: 80rpx;
                 overflow: hidden;
-
+                text-overflow:ellipsis;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:2;
                 .red {
                     color: red;
+                }
+                .title-desc {
+                    
                 }
             }
 

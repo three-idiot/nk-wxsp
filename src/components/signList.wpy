@@ -89,6 +89,11 @@
     font-size: 32rpx;
     color: #353535;
     font-family: 'PingFangSC-Medium';
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
   }
   .clock-and-time {
     overflow: hidden;

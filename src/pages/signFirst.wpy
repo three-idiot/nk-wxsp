@@ -219,7 +219,7 @@
     width: 100%;
     height: auto;
     min-height: 100vh;
-    background:  #ededed;
+    background:  #f4f4f4;
     position: relative;
     .top-img {
       width: 100%;

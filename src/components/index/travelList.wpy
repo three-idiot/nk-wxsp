@@ -73,6 +73,11 @@ export default class TravelList extends wepy.component {
                 font-size: 31rpx;
                 color: #353535;
                 text-align: left;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:1;
             }
 
             .money {
